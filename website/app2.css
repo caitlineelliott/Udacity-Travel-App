@@ -1,7 +1,54 @@
+body,
+header {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
 h1 {
     font-family: 'lobster', serif;
     color: #a594f9;
     font-size: 15vw;
     margin: 10px;
     transform: rotate(-10deg);
+}
+
+.banner-overlay {
+    position: fixed;
+    display: block;
+    height: 30vh;
+    top: 10vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cdc1ff;
+    opacity: 0.6;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.banner {
+    background-image: url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1266&q=80");
+    background-size: 100%;
+    filter: grayscale(100%);
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 30vh;
+    position: absolute;
+    top: 10vh;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-text {
+    font-family: 'montserrat';
+    color: white;
+    font-size: 3vh;
+    z-index: 1;
 }
