@@ -1,4 +1,11 @@
-body,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    background: url("/website/imgs/topo-bg.png");
+    background-size: 100%;
+}
+
 header {
     margin: 0;
     padding: 0;
