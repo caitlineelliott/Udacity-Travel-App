@@ -23,6 +23,14 @@ h1 {
     transform: rotate(-10deg);
 }
 
+h2 {
+    font-family: 'lobster', serif;
+    color: #a594f9;
+    font-size: 8vw;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
 .banner-overlay {
     position: fixed;
     display: block;
@@ -66,3 +74,37 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+
+.container {
+    background: white;
+    height: 62vh;
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-label {
+    font-family: 'montserrat';
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #a594f9;
+}
+
+input,
+button {
+    margin: 5px 0 20px 0;
+    font-family: 'montserrat';
+    /* color: white; */
+    border: none;
+    background: #f5efff;
+    padding: 15px;
+    width: 80vw;
+    box-sizing: border-box;
+}
+
+button:hover {
+    transform: translateY(-10px);
+}
+
