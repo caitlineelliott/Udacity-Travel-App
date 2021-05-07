@@ -86,7 +86,7 @@ h2 {
 }
 
 .container {
-    background: white;
+    background: #edddd4;
     height: 62vh;
     padding: 0 50px;
     display: flex;
@@ -106,9 +106,10 @@ input,
 button {
     margin: 5px 0 20px 0;
     font-family: 'montserrat';
-    /* color: white; */
+    color: white;
     border: none;
-    background: #edddd4;
+    background: #197278;
+    opacity: 0.5;
     padding: 15px;
     width: 80vw;
     box-sizing: border-box;
