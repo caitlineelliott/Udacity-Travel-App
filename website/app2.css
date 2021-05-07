@@ -8,6 +8,9 @@ body {
 header {
     margin: 0;
     padding: 0;
+    height: 40vh;
+    top: 0;
+    left: 0;
 }
 
 .topo {
@@ -39,7 +42,7 @@ h2 {
 }
 
 .banner-overlay {
-    position: fixed;
+    position: absolute;
     display: block;
     height: 30vh;
     top: 10vh;
@@ -54,7 +57,7 @@ h2 {
 
 .banner {
     background-image: url("https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1586&q=80");
-    background-size: 100%;
+    background-size: cover;
     filter: grayscale(100%);
     margin: 0;
     padding: 0;
@@ -69,7 +72,6 @@ h2 {
 }
 
 .banner-text {
-    height: 26vh;
     font-family: 'montserrat';
     color: #283d3b;
     font-size: 6vh;
@@ -83,13 +85,13 @@ h2 {
 }
 
 .container {
-    background: #edddd4;
-    height: 62vh;
+    height: 57vh;
     padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: -1;
 }
 
 .form-label {
