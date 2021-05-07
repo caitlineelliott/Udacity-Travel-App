@@ -3,6 +3,7 @@ body {
     padding: 0;
     width: 100vw;
     background: #edddd4;
+    font-family: 'montserrat';
 }
 
 header {
@@ -39,6 +40,13 @@ h2 {
     font-size: 8vw;
     margin: 0 0 20px 0;
     text-align: center;
+}
+
+h3 {
+    font-family: 'lobster', serif;
+    color: #197278;
+    font-size: 6vw;
+    margin: 0 0 20px 0;
 }
 
 .banner-overlay {
@@ -84,7 +92,7 @@ h2 {
     justify-content: center;
 }
 
-.container {
+.container, .output {
     height: 57vh;
     padding: 0 50px;
     display: flex;
