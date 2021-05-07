@@ -92,6 +92,16 @@ h3 {
     justify-content: center;
 }
 
+nav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-btn {
+    width: 30%;
+    font-size: 3vw;
+}
+
 .container, .output {
     height: 57vh;
     padding: 0 50px;
