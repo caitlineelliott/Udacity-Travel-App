@@ -2,16 +2,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    background-size: 100%;
+    background: #edddd4;
 }
 
 header {
     margin: 0;
     padding: 0;
-    width: 100vw;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 
 .topo {
@@ -28,8 +24,9 @@ header {
 h1 {
     font-family: 'lobster', serif;
     color: #772e25;
-    font-size: 15vw;
-    margin: 10px;
+    font-size: 20vw;
+    text-align: center;
+    margin: 20px 10px;
     transform: rotate(-10deg);
 }
 
@@ -113,6 +110,10 @@ button {
     padding: 15px;
     width: 80vw;
     box-sizing: border-box;
+}
+
+input::placeholder {
+    color: white;
 }
 
 button:hover {
