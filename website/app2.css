@@ -9,7 +9,7 @@ body {
 header {
     margin: 0;
     padding: 0;
-    height: 30vh;
+    height: 38vh;
     top: 0;
     left: 0;
 }
@@ -127,7 +127,7 @@ nav {
 }
 
 .container, .output {
-    height: 57vh;
+    height: 62vh;
     padding: 0 50px;
     display: flex;
     align-items: center;
