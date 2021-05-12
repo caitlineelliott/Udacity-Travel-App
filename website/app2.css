@@ -27,7 +27,7 @@ header {
 
 h1 {
     font-family: 'lobster', serif;
-    color: white;
+    color: #c44536;
     font-size: 20vw;
     text-align: center;
     margin: 20px 10px;
@@ -187,4 +187,84 @@ button:hover {
 
 .forecast-slash {
     width: 5%;
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1024px) {
+    header {
+        height: 70vh;
+    }
+
+    .topo {
+        height: 15vh;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .nav-btn {
+        width: 10%;
+        font-size: 1vw;
+        opacity: 1;
+        padding: 0;
+        margin: 10px 20px;
+    }
+
+    h1 {
+        font-size: 15vw;
+        margin: 40px 0 0 0;
+    }
+
+    h2 {
+        font-size: 4vw;
+        margin: 70px 0 0 0;
+
+    }
+
+    .banner,
+    .banner-text {
+        height: 55vh;
+    }
+
+    .container {
+        height: 25vh;
+    }
+
+    h3 {
+        font-size: 3vw;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    input,
+    button {
+    margin: 5px 0 20px 0;
+    font-family: 'montserrat';
+    color: white;
+    border: none;
+    background: #197278;
+    opacity: 0.5;
+    padding: 15px;
+    width: 30vw;
+    box-sizing: border-box;
+}
+
+button {
+    width: 91.25vw;
+}
+
+    .form-label {
+        display: block;
+    }
+
+    input[type="text"] {
+        height: 7.25vh;
+    }
+
 }
