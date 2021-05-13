@@ -11,9 +11,10 @@ header {
         display: flex;
         justify-content: space-evenly;
         background: url("../media/topo-bg.png");
-        background-size: 100%;
+        background-size: 10%;
         background-position-y: bottom;
         height: 8vh;
+        opacity: 0.8;
 
         .nav-btn {
             width: 30%;
