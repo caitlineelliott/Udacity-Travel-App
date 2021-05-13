@@ -7,3 +7,6 @@ import { colorChange } from './js/app'
 import { iconColor } from './js/app'
 
 import './styles/base.scss'
+import './styles/header.scss'
+import './styles/trip-form-output.scss'
+import './styles/trip-form.scss'

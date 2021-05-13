@@ -1,0 +1,32 @@
+@import 'base.scss';
+
+.container {
+    height: 62vh;
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: -1;
+
+    .form-label {
+        font-family: $plain-font;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $h1-color;
+    }
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1024px) {
+    form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .form-label {
+        display: block;
+    }
+}
