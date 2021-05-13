@@ -21,19 +21,22 @@ body {
 h1 {
     font-family: $fancy-font;
     color: $h1-color;
-    font-size: 20vh;
+    font-size: 20vw;
     text-align: center;
-    margin: 20px 10px;
+    margin: 0;
     transform: rotate(-10deg);
+    // border: 1px solid red;
 }
 
 h2 {
     font-family: $plain-font;
     color: $h2-color;
-    font-size: 8vw;
-    margin: 0 0 20px 0;
+    font-size: 6vw;
+    margin: 0;
     text-align: center;
     transform: rotate(-10deg);
+    // border: 1px solid red;
+    margin-top: -10px;
 }
 
 h3 {
@@ -47,7 +50,7 @@ h3 {
 input,
 button {
     margin: 5px 0 20px 0;
-    font-family: $fancy-font;
+    font-family: $plain-font;
     color: $h2-color;
     border: none;
     background: $h3-color;
