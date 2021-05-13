@@ -16,7 +16,7 @@ const makeDateAndTime = () => {
 };
 
 // Event listener to add function to existing HTML DOM element
-document.querySelector('#generate').addEventListener('click', generate);
+// document.querySelector('#generate').addEventListener('click', generate);
 
 /* Function called by event listener */
 async function generate(event) {
@@ -154,14 +154,14 @@ const getData = async (url) => {
 // EXTRA NON RUBRIC JS
 
 // back btn actions: remove previous entries + back btn + display prompt
-document.querySelector('#back').addEventListener('click', function () {
-    window.location.reload();
-});
+// document.querySelector('#back').addEventListener('click', function () {
+// window.location.reload();
+// });
 
-export {
-    makeDateAndTime,
-    generate,
-    postData,
-    getData,
-    getWeather
-}
+// export {
+//     makeDateAndTime,
+//     generate,
+//     postData,
+//     getData,
+//     getWeather
+// }
