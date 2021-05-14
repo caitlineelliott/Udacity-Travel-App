@@ -24,11 +24,12 @@ document.querySelector('.submit-btn').addEventListener('click', generate);
 async function generate(event) {
     event.preventDefault();
 
-    // Get user trip dates
+    // Get user trip dates + city
+    const tripCity = document.querySelector('.trip-city').value
     const departDate = document.querySelector('.depart-date').value;
     const returnDate = document.querySelector('.return-date').value;
 
-    console.log(departDate, returnDate)
+    console.log(departDate, returnDate, tripCity);
 
     // // Create Date Data
     // const departDate = 
