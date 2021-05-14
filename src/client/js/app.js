@@ -31,36 +31,11 @@ async function generate(event) {
 
     console.log(departDate, returnDate, tripCity);
 
-    // // Create Date Data
-    // const departDate = 
-
-    // console.log(makeDateAndTime())
-
-    // // GET Weather data from ZIP + API
-    // const userZip = document.querySelector('#zip').value;
-    // const weather = await getWeather(userZip, APIKey);
-    // const weathIcon = weather.weather[0].icon;
-    // const userTemp = `${Math.trunc((weather.main.temp - 273.15) * 9 / 5 + 32)}\u00B0`;
-
-
-
-    // // GET USER data labels
-    // const moodName = document.querySelector('input:checked').labels[0].id;
-    // const weathName = `${weather.weather[0].description}`;
-    // const highLow = `${Math.trunc((weather.main.temp_max - 273.15) * 9 / 5 + 32)}\u00B0 / ${Math.trunc((weather.main.temp_min - 273.15) * 9 / 5 + 32)}\u00B0`;
-
-    // console.log(`CAPTURED DATA! ${makeDateAndTime()}`);
-
-    // await postData('/add', {
-    //     date: userDate,
-    //     mood: userMood,
-    //     moodLabel: moodName,
-    //     weather: weathIcon,
-    //     weatherName: weathName,
-    //     temp: userTemp,
-    //     highLow: highLow,
-    //     entry: userEntry
-    // });
+    await postData('/add', {
+        city: tripCity,
+        departure: departDate,
+        arrival: returnDate
+    });
 
     // await getData('/all');
 }

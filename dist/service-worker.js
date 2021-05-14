@@ -108,7 +108,7 @@ define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use s
 
   workbox.precacheAndRoute([{
     "url": "./index.html",
-    "revision": "cc4d6e5cf7a7d5d02c53c60355fbc3ef"
+    "revision": "be0d2c6eefc5f086b115f12ff3a5b611"
   }, {
     "url": "imgs/topo-bg.585981.png",
     "revision": null
@@ -117,7 +117,7 @@ define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use s
     "revision": "8db6a00bca196a5f5eca360e0043dbd2"
   }, {
     "url": "main.js",
-    "revision": "2b2bae0a5534130f89594c07dc6de22f"
+    "revision": "dd2c0872cc0b4c9688d9d1a59d1fc734"
   }], {});
 
 });

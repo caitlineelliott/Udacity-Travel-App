@@ -43,14 +43,10 @@ app.post('/add', addData);
 
 function addData(req, res) {
     const newData = req.body;
-    projectData["date"] = newData.date;
-    projectData["temp"] = newData.temp;
-    projectData["highLow"] = newData.highLow;
-    projectData["entry"] = newData.entry;
-    projectData["mood"] = newData.mood;
-    projectData["moodLabel"] = newData.moodLabel;
-    projectData["weather"] = newData.weather;
-    projectData["weatherName"] = newData.weatherName;
+    projectData["city"] = newData.city;
+    projectData["departure"] = newData.departure;
+    projectData["arrival"] = newData.arrival;
+    console.log(projectData);
     res.send(projectData);
 
     const dateTime = () => {
