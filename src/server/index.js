@@ -1,4 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
+const fetch = require("node-fetch");
+
 projectData = {};
 
 // Express to run server and routes
@@ -14,6 +16,7 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
+const { text } = require("body-parser");
 app.use(cors());
 
 // Initialize the main project folder
@@ -39,7 +42,7 @@ function getData(req, res) {
 };
 
 // Post Route
-app.post('/add', addData);
+app.post('/api/add', addData);
 
 function addData(req, res) {
     const newData = req.body;
@@ -48,6 +51,8 @@ function addData(req, res) {
     projectData["arrival"] = newData.arrival;
     console.log(projectData);
     res.send(projectData);
+
+    getGeonames(newData.city, 'ceelliott');
 
     const dateTime = () => {
         let today = new Date();
@@ -61,4 +66,19 @@ function addData(req, res) {
         }
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
+};
+
+const getGeonames = async (placename, username) => {
+
+    baseURL = 'http://api.geonames.org/searchJSON?q=';
+    try {
+        const request =
+            await fetch(`${baseURL}placename=${placename}&maxRows=1&username=${username}`);
+        console.log('request successful to geonames');
+        return await request.json();
+    }
+
+    catch (e) {
+        console.log('FAILED TO FETCH WEATHER API DATA:', e);
+    }
 };

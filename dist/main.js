@@ -1216,7 +1216,7 @@ async function generate(event) {
 
     console.log(departDate, returnDate, tripCity);
 
-    await postData('/add', {
+    await postData('/api/add', {
         city: tripCity,
         departure: departDate,
         arrival: returnDate
