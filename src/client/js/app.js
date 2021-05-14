@@ -1,3 +1,5 @@
+import { BroadcastUpdatePlugin } from "workbox-broadcast-update";
+
 // Personal API Key for OpenWeatherMap API
 const APIKey = '46612cfd63ae0eb9ca04308c63fd244b';
 
@@ -16,42 +18,46 @@ const makeDateAndTime = () => {
 };
 
 // Event listener to add function to existing HTML DOM element
-// document.querySelector('#generate').addEventListener('click', generate);
+document.querySelector('.submit-btn').addEventListener('click', generate);
 
 /* Function called by event listener */
 async function generate(event) {
     event.preventDefault();
 
-    // GET Weather data from ZIP + API
-    const userZip = document.querySelector('#zip').value;
-    const weather = await getWeather(userZip, APIKey);
-    const weathIcon = weather.weather[0].icon;
-    const userTemp = `${Math.trunc((weather.main.temp - 273.15) * 9 / 5 + 32)}\u00B0`;
+    console.log('clicked!');
 
-    // GET User Data from form
-    const userDate = makeDateAndTime();
-    const userEntry = document.querySelector('#feelings').value;
-    const userMood = document.querySelector('input:checked').id;
+    // // Create Date Data
+    // const departDate = 
 
-    // GET USER data labels
-    const moodName = document.querySelector('input:checked').labels[0].id;
-    const weathName = `${weather.weather[0].description}`;
-    const highLow = `${Math.trunc((weather.main.temp_max - 273.15) * 9 / 5 + 32)}\u00B0 / ${Math.trunc((weather.main.temp_min - 273.15) * 9 / 5 + 32)}\u00B0`;
+    // console.log(makeDateAndTime())
 
-    console.log(`CAPTURED DATA! ${makeDateAndTime()}`);
+    // // GET Weather data from ZIP + API
+    // const userZip = document.querySelector('#zip').value;
+    // const weather = await getWeather(userZip, APIKey);
+    // const weathIcon = weather.weather[0].icon;
+    // const userTemp = `${Math.trunc((weather.main.temp - 273.15) * 9 / 5 + 32)}\u00B0`;
 
-    await postData('/add', {
-        date: userDate,
-        mood: userMood,
-        moodLabel: moodName,
-        weather: weathIcon,
-        weatherName: weathName,
-        temp: userTemp,
-        highLow: highLow,
-        entry: userEntry
-    });
 
-    await getData('/all');
+
+    // // GET USER data labels
+    // const moodName = document.querySelector('input:checked').labels[0].id;
+    // const weathName = `${weather.weather[0].description}`;
+    // const highLow = `${Math.trunc((weather.main.temp_max - 273.15) * 9 / 5 + 32)}\u00B0 / ${Math.trunc((weather.main.temp_min - 273.15) * 9 / 5 + 32)}\u00B0`;
+
+    // console.log(`CAPTURED DATA! ${makeDateAndTime()}`);
+
+    // await postData('/add', {
+    //     date: userDate,
+    //     mood: userMood,
+    //     moodLabel: moodName,
+    //     weather: weathIcon,
+    //     weatherName: weathName,
+    //     temp: userTemp,
+    //     highLow: highLow,
+    //     entry: userEntry
+    // });
+
+    // await getData('/all');
 }
 
 /* Function to GET Web API Data*/

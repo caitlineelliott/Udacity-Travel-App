@@ -96,7 +96,14 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/app */ "./src/client/js/app.js");
+/* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_app__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+
+
+
 
 
 
@@ -114,16 +121,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************!*\
   !*** ./src/client/js/app.js ***!
   \******************************/
-/*! exports provided: makeDateAndTime, generate, postData, getData, getWeather */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeDateAndTime", function() { return makeDateAndTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeather", function() { return getWeather; });
 // Personal API Key for OpenWeatherMap API
 const APIKey = '46612cfd63ae0eb9ca04308c63fd244b';
 
@@ -142,7 +142,7 @@ const makeDateAndTime = () => {
 };
 
 // Event listener to add function to existing HTML DOM element
-document.querySelector('#generate').addEventListener('click', generate);
+// document.querySelector('#generate').addEventListener('click', generate);
 
 /* Function called by event listener */
 async function generate(event) {
@@ -280,11 +280,17 @@ const getData = async (url) => {
 // EXTRA NON RUBRIC JS
 
 // back btn actions: remove previous entries + back btn + display prompt
-document.querySelector('#back').addEventListener('click', function () {
-    window.location.reload();
-});
+// document.querySelector('#back').addEventListener('click', function () {
+// window.location.reload();
+// });
 
-
+// export {
+//     makeDateAndTime,
+//     generate,
+//     postData,
+//     getData,
+//     getWeather
+// }
 
 /***/ }),
 
@@ -292,6 +298,48 @@ document.querySelector('#back').addEventListener('click', function () {
 /*!*************************************!*\
   !*** ./src/client/styles/base.scss ***!
   \*************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/client/styles/header.scss":
+/*!***************************************!*\
+  !*** ./src/client/styles/header.scss ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/client/styles/trip-form-output.scss":
+/*!*************************************************!*\
+  !*** ./src/client/styles/trip-form-output.scss ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/client/styles/trip-form.scss":
+/*!******************************************!*\
+  !*** ./src/client/styles/trip-form.scss ***!
+  \******************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
