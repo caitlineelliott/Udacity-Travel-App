@@ -24,7 +24,11 @@ document.querySelector('.submit-btn').addEventListener('click', generate);
 async function generate(event) {
     event.preventDefault();
 
-    console.log('clicked!');
+    // Get user trip dates
+    const departDate = document.querySelector('.depart-date').value;
+    const returnDate = document.querySelector('.return-date').value;
+
+    console.log(departDate, returnDate)
 
     // // Create Date Data
     // const departDate = 
