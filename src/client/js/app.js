@@ -1,7 +1,4 @@
-import { BroadcastUpdatePlugin } from "workbox-broadcast-update";
-
-// Personal API Key for OpenWeatherMap API
-const APIKey = '46612cfd63ae0eb9ca04308c63fd244b';
+import { updateUI } from './updateUI'
 
 // Make Date + Time
 const makeDateAndTime = () => {
@@ -32,9 +29,11 @@ async function generate(event) {
     // get geonames info
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
     console.log(geonamesInfo);
-    console.log(geonamesInfo.geonames[0].adminName1); // state
-    console.log(geonamesInfo.geonames[0].countryName); // country
-    console.log(geonamesInfo.geonames[0].name); // city name
+    let tripState = geonamesInfo.geonames[0].adminName1; // state
+    let userCountry = geonamesInfo.geonames[0].countryName; // country
+    let userCity = geonamesInfo.geonames[0].name; // city name
+
+    updateUI(tripState, userCountry, userCity, departDate, returnDate);
 
     await postData('/api/add', {
         city: tripCity,
