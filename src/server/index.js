@@ -52,8 +52,6 @@ function addData(req, res) {
     console.log(projectData);
     res.send(projectData);
 
-    getGeonames(newData.city, 'ceelliott');
-
     const dateTime = () => {
         let today = new Date();
         let date = `${today.getMonth()}.${today.getDate()}.${today.getFullYear()}`;
@@ -66,19 +64,4 @@ function addData(req, res) {
         }
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
-};
-
-const getGeonames = async (placename, username) => {
-
-    baseURL = 'http://api.geonames.org/searchJSON?q=';
-    try {
-        const request =
-            await fetch(`${baseURL}placename=${placename}&maxRows=1&username=${username}`);
-        console.log('request successful to geonames');
-        return await request.json();
-    }
-
-    catch (e) {
-        console.log('FAILED TO FETCH WEATHER API DATA:', e);
-    }
 };

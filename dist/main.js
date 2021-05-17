@@ -1214,7 +1214,10 @@ async function generate(event) {
     const departDate = document.querySelector('.depart-date').value;
     const returnDate = document.querySelector('.return-date').value;
 
-    console.log(departDate, returnDate, tripCity);
+    // get geonames info
+    console.log(tripCity)
+    const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
+    console.log(geonamesInfo);
 
     await postData('/api/add', {
         city: tripCity,
@@ -1226,13 +1229,16 @@ async function generate(event) {
 }
 
 /* Function to GET Web API Data*/
-const getWeather = async (userZip, APIKey) => {
+const getGeonames = async (placename, username) => {
+
     try {
-        const request = await fetch(`http://api.openweathermap.org/data/2.5/weather?zip=${userZip},us&appid=${APIKey}`);
+        const request =
+            await fetch(`http://api.geonames.org/searchJSON?q=placename=${placename}&maxRows=1&username=${username}`);
         return await request.json();
     }
+
     catch (e) {
-        console.log('FAILED TO FETCH WEATHER API DATA:', e);
+        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
 };
 
