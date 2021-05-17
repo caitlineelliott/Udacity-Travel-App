@@ -1,13 +1,17 @@
 @import 'base.scss';
 
 .output {
-    height: 62vh;
-    padding: 0 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: -1;
+    display: none;
+    &.display-on {
+        display: block;
+        height: 62vh;
+        padding: 0 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: -1;
+    }
 }
 
 .forecast-row {
