@@ -48,9 +48,9 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     const currentDate = new Date();
     output.classList.add('display-on');
     h1.innerHTML = `${userCity}, ${tripState} `;
-    h2.innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()} - ${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()} `;
+    h2.innerHTML = '';
     travelSum.innerHTML =
-        `I can see that you are traveling to ${userCity} from ${h2.innerHTML}.
+        `I can see that you are traveling to ${userCity} from ${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()} - ${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}.
             Your trip is ${returnDate.getDate() - departDate.getDate() + 1} days and ${returnDate.getDate() - departDate.getDate()} nights long.
             Your trip begins in ${departDate.getDate() - currentDate.getDate()} days.`
 }
