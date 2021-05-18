@@ -66,7 +66,7 @@ function getRandomNum(min, max) {
 async function getHeaderPhoto(userCity) {
     try {
         const request =
-            await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+            await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal&colors=blue`);
         return await request.json();
     }
 
