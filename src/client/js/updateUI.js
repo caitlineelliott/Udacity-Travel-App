@@ -1,6 +1,8 @@
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
+    document.querySelector('.container').style.display = "none";
+
     let forecast = weatherInfo.data;
 
     let dates = [];
