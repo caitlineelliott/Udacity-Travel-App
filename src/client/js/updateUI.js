@@ -44,15 +44,16 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     const h1 = document.querySelector('.title');
     const h2 = document.querySelector('.subtitle');
     const output = document.querySelector('.output');
-    // const travelSum = document.querySelector('.travel-summary');
     const currentDate = new Date();
     output.classList.add('display-on');
     h1.innerHTML = `${userCity}, ${tripState} `;
     h2.innerHTML = '';
-    // travelSum.innerHTML =
-    //     `I can see that you are traveling to ${userCity} from ${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()} - ${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}.
-    //         Your trip is ${returnDate.getDate() - departDate.getDate() + 1} days and ${returnDate.getDate() - departDate.getDate()} nights long.
-    //         Your trip begins in ${departDate.getDate() - currentDate.getDate()} days.`
+
+    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    document.querySelector('#trip-days-count').innerHTML = ` ${returnDate.getDate() - departDate.getDate() + 1} days`;
+    document.querySelector('#trip-nights-count').innerHTML = `${returnDate.getDate() - departDate.getDate()} nights`;
+    document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
 }
 
 export { updateUI }
