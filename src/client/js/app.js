@@ -1,4 +1,6 @@
 import { updateUI } from './updateUI'
+import { getGeonames } from './getGeonames'
+import { getWeatherBit } from './getWeatherbit'
 
 // Make Date + Time
 const makeDateAndTime = () => {
@@ -26,8 +28,6 @@ async function generate(event) {
     const departDate = new Date(document.querySelector('.depart-date').value);
     const returnDate = new Date(document.querySelector('.return-date').value);
 
-    // console.log(departDate, returnDate)
-
     // get geonames info
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
     console.log(geonamesInfo);
@@ -49,31 +49,6 @@ async function generate(event) {
     // await getData('/all');
 }
 
-/* Function to GET Web API Data*/
-const getGeonames = async (placename, username) => {
-
-    try {
-        const request =
-            await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
-        return await request.json();
-    }
-
-    catch (e) {
-        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
-    }
-};
-
-/* function to get weather data */
-const getWeatherBit = async (lat, lng) => {
-    try {
-        const request =
-            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}`);
-        return await request.json();
-    }
-    catch (e) {
-        console.log('no weatherbit data :(', e);
-    }
-}
 
 
 /* Function to POST data */
