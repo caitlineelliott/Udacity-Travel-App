@@ -40,6 +40,13 @@ async function generate(event) {
 
     updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo);
 
+    let bannerImg = await getHeaderPhoto(userCity);
+
+    console.log(bannerImg.hits[0].largeImageURL);
+    console.log(bannerImg.hits)
+
+    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
+
     await postData('/api/add', {
         city: tripCity,
         departure: departDate,
@@ -49,7 +56,24 @@ async function generate(event) {
     // await getData('/all');
 }
 
+// from MDN docs >>
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
+async function getHeaderPhoto(userCity) {
+    try {
+        const request =
+            await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+        return await request.json();
+    }
+
+    catch (e) {
+        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
+    }
+}
 
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
