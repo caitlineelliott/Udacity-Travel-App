@@ -42,9 +42,6 @@ async function generate(event) {
 
     let bannerImg = await getHeaderPhoto(userCity);
 
-    console.log(bannerImg.hits[0].largeImageURL);
-    console.log(bannerImg.hits)
-
     document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
 
     await postData('/api/add', {
@@ -69,7 +66,6 @@ async function getHeaderPhoto(userCity) {
             await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
         return await request.json();
     }
-
     catch (e) {
         console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
