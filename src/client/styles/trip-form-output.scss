@@ -68,7 +68,12 @@
     flex-direction: row;
 
     input {
-        width: 65vw;
+        width: 45vw;
+    }
+
+    select {
+        width: 30vw;
+        opacity: 0.8;
     }
 
     button {
