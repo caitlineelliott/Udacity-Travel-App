@@ -27,16 +27,19 @@ function addPackingItem(event) {
     newItemRow.appendChild(packedFlagLabel);
     packedFlagLabel.appendChild(packedFlag);
 
-
     packedFlag.addEventListener('click', function () {
         newItemRow.classList.toggle('packed');
-    })
+    });
 
     let deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = `<i class="fas fa-times"></i>`;
     deleteBtn.classList.add('packing-item-row-segment')
     deleteBtn.classList.add('delete-btn');
     newItemRow.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener('click', function () {
+        newItemRow.style.display = 'none';
+    });
 
     document.querySelector('.packing-list-item').value = '';
 }
