@@ -7,6 +7,7 @@ import { getGeonames } from './js/getGeonames'
 import { updateUI } from './js/updateUI'
 import { colorChange } from './js/app'
 import { iconColor } from './js/app'
+import { addPackingItem } from './js/addPackingItem'
 
 import './styles/base.scss'
 import './styles/header.scss'
