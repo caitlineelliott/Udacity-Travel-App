@@ -25,8 +25,8 @@ async function generate(event) {
 
     // Get user trip dates + city
     const tripCity = document.querySelector('.trip-city').value
-    const departDate = new Date(document.querySelector('.depart-date').value);
-    const returnDate = new Date(document.querySelector('.return-date').value);
+    const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
+    const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
     // get geonames info
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
