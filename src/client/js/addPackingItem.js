@@ -28,6 +28,10 @@ function addPackingItem(event) {
     packedFlagLabel.appendChild(packedFlag);
 
 
+    packedFlag.addEventListener('click', function () {
+        newItemRow.classList.toggle('packed');
+    })
+
     let deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = `<i class="fas fa-times"></i>`;
     deleteBtn.classList.add('packing-item-row-segment')
