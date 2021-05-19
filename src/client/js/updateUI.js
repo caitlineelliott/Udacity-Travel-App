@@ -4,17 +4,16 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     document.querySelector('.container').style.display = "none";
 
     let forecast = weatherInfo.data;
+    console.log(forecast);
 
     let dates = [];
+
     for (let i = 0; i < forecast.length; i++) {
-        dates[i] = new Date(forecast[i].datetime);
+        dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
     }
 
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
-            console.log(forecast[i].high_temp);
-            console.log(forecast[i].low_temp);
-            console.log(forecast[i].weather.icon);
 
             const newRow = document.createElement('div');
             newRow.classList.add('forecast-row');
@@ -22,13 +21,12 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
-            tripDate.innerHTML = `${dates[i].getMonth() + 1}/${dates[i].getDate() + 1}`;
+            tripDate.innerHTML = `${dates[i].getMonth() + 1} / ${dates[i].getDate()}`;
             newRow.appendChild(tripDate);
 
             const weatherIcon = document.createElement('img');
             weatherIcon.classList.add('forecast-icon');
             weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
-            // weatherIcon.innerHTML = forecast[i].weather.icon;
             newRow.appendChild(weatherIcon);
 
             const weather = document.createElement('div');
