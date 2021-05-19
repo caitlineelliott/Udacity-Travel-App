@@ -1,8 +1,8 @@
 @import 'base.scss';
 
 .output {
-    display: none;
-    &.display-on {
+    // display: none;
+    // &.display-on {
         display: block;
         padding: 50px;
         display: flex;
@@ -10,7 +10,7 @@
         justify-content: center;
         flex-direction: column;
         z-index: -1;
-    }
+    // }
 
     .travel-summary {
         display: flex;
@@ -61,6 +61,20 @@
 .forecast-icon {
     width: 10vw;
     position: relative;
+}
+
+.packing-list-form {
+    display: flex;
+    flex-direction: row;
+
+    input {
+        width: 65vw;
+    }
+
+    button {
+        width: 12vw;
+        opacity: 1;
+    }
 }
 
 /* DESKTOP */
