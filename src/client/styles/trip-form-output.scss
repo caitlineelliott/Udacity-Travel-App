@@ -4,15 +4,27 @@
     display: none;
     &.display-on {
         display: block;
-        // height: 62vh;
-        padding: 0 50px;
+        padding: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         z-index: -1;
     }
+
+    .travel-summary {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 0.8em;
+
+        .form-label {
+            width: 60%;
+        }
+    }
 }
+
+
 
 .forecast {
     width: 80vw;
@@ -48,28 +60,6 @@
 .forecast-icon {
     width: 10vw;
     position: relative;
-}
-
-.forecast-icon:after {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: red;
-    top: 0;
-    left: 0;
-    display: block;
-    content: "";
-}
-
-.travel-summary {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 0.8em;
-
-    .form-label {
-        width: 70%;
-    }
 }
 
 /* DESKTOP */
