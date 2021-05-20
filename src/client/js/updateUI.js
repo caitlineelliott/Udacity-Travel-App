@@ -10,6 +10,7 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
     for (let i = 0; i < forecast.length; i++) {
         dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
+        console.log(dates[i]);
     }
 
     for (let i = 0; i < dates.length; i++) {
@@ -34,6 +35,12 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
             newRow.appendChild(weather);
         }
+        else if (returnDate >= dates[i]) {
+            let currentDate = new Date();
+            console.log(currentDate);
+            console.log(returnDate.getDate() - currentDate.getDate());
+        }
+
         else {
             console.log('feet');
         }
