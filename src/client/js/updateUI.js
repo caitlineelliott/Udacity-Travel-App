@@ -45,8 +45,8 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     const currentDate = new Date();
     output.classList.add('display-on');
     document.querySelector('.enjoy').style.display = 'block';
-    h1.innerHTML = `${userCity}, ${tripState} `;
-    document.querySelector('#photo').innerHTML = `${userCity}, ${tripState} `;
+    h1.innerHTML = `${userCity}`;
+    document.querySelector('#photo').innerHTML = `${userCity}`;
     // h2.innerHTML = '';
 
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
