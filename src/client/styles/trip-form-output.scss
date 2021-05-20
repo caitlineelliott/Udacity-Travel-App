@@ -1,8 +1,8 @@
 @import 'base.scss';
 
 .output {
-    // display: none;
-    // &.display-on {
+    display: none;
+    &.display-on {
         display: block;
         padding: 50px;
         display: flex;
@@ -10,7 +10,7 @@
         justify-content: center;
         flex-direction: column;
         z-index: -1;
-    // }
+    }
 
     .travel-summary {
         display: flex;
