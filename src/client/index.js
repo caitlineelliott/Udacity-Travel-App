@@ -9,7 +9,7 @@ import { colorChange } from './js/app'
 import { iconColor } from './js/app'
 import { addPackingItem } from './js/addPackingItem'
 import { togglePacked } from './js/addPackingItem'
-t
+
 import './styles/base.scss'
 import './styles/header.scss'
 import './styles/trip-form-output.scss'

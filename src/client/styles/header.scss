@@ -1,9 +1,20 @@
 @import 'base.scss';
 
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 30vh;
+    background-color: $h3-color;
+    background-size: 50%;
+    background-image: url('https://images.photowall.com/products/58212/turquoise-colored-brick-wall.jpg?h=699&q=85');
+}
 header {
     margin: 0;
     padding: 0;
-    height: 38vh;
+    // height: 38vh;
     top: 0;
     left: 0;
 
@@ -27,32 +38,51 @@ header {
     }
 
     .banner {
-        background-image: url("https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1586&q=80");
-        background-size: cover;
-        opacity: 0.9;
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 30vh;
-        z-index: -1;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        position: relative;
-
-        &::before {
-            content: '';
-            background-size: cover;
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
-            opacity: 0.3;
-            background-color: $h3-color;
-        }
+        width: 100vw;
+        height: 30vh;
+        // // background-image: url("https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1586&q=80");
+        // width: 100vw;
+        // height: 30vh;
+        // margin: 0;
+        // padding: 0;
+        // // // opacity: 0.9;
+        // z-index: -1;
+            //   display: flex;
+            //   flex-direction: column;
+            //   align-items: center;
+            //   justify-content: center;
+            //   position: relative;
+        // &::before {
+        //     content: '';
+        //     background-size: cover;
+        //     position: absolute;
+        //     top: 0px;
+        //     right: 0px;
+        //     bottom: 0px;
+        //     left: 0px;
+        //     opacity: 0.8;
+        //     background-color: $h3-color;
+        // }
     }
+}
+
+.enjoy {
+    // display: none;
+    // color: $h3-color;
+    color: white;
+    font-family: $plain-font;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px 10px;
+    position: absolute;
+    top: 3vh;
+    left: 3vh;
+    font-size: 5vw;
+    transform: rotate(-4deg);
+    background: $h1-color;
 }
 
 .postage-mark {
