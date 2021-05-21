@@ -24,8 +24,8 @@
 </head>
 
 <body>
+    <div class="enjoy">Enjoy</div>
     <div class="banner">
-        <div class="enjoy">Enjoy</div>
         <h1 class='title'>Los Angeles</h1>
         <h1 id="photo">Los Angeles</h1>
     </div>
@@ -94,17 +94,18 @@
             <form>
                 <label for="destination">
                     <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="trip-city" />
+                    <input type="text" placeholder="City" class="trip-city" name="destination" required />
                 </label>
                 <label for="trip-start">
                     <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date" />
+                    <input type="date" class="depart-date" name="trip-start" required />
                 </label>
                 <label for="trip-end">
                     <span class="form-label">Returning:</span>
-                    <input type="date" class="return-date" />
+                    <input type="date" class="return-date" name="trip-end" required />
                 </label>
-                <button class="submit-btn">Submit</button>
+                <button type="submit" class="submit-btn">Submit</button>
+                <input type="submit" value="Submit" class="submit-btn">
             </form>
         </div>
     </main>
