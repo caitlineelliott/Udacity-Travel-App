@@ -3,21 +3,31 @@ document.querySelector('.packing-list-btn').addEventListener('click', addPacking
 function addPackingItem(event) {
     event.preventDefault();
 
+    // retrieve packing list categories
+    let selectOptions = document.querySelectorAll('option'); // options in select
+    let packingListOutput = document.querySelector('.packing-list'); // whole packing list (incl. form)
+
+    // CREATES NEW ITEM BLOCK
     let newItemRow = document.createElement('div');
     newItemRow.classList.add('packing-list-row');
-    document.querySelector('.packing-list').appendChild(newItemRow)
 
+    // ADDS ITEM TO BLOCK
     let newItemValue = document.createElement('div');
     newItemValue.innerHTML = document.querySelector('.packing-list-item').value;
     newItemValue.classList.add('packing-item-row-segment')
     newItemRow.appendChild(newItemValue);
 
+    // ADDS CATEGORY TO BLOCK
     let newItemCategory = document.createElement('div');
+    let newItemCategoryLabel = document.createElement('div');
     newItemCategory.innerHTML = document.querySelector('.packing-item-category').value;
-    newItemCategory.classList.add('packing-item-row-segment')
-    newItemCategory.classList.add('item-category')
+    newItemCategoryLabel.innerHTML = document.querySelector('.packing-item-category').value;
+    newItemCategoryLabel.id = document.querySelector('.packing-item-category').value;
+    newItemCategoryLabel.classList.add('category-labels');
+    newItemCategory.classList.add('packing-item-row-segment', 'item-category');
     newItemRow.appendChild(newItemCategory);
 
+    // ADDS PACKED TOGGLE TO BLOCK
     let packedFlag = document.createElement('input');
     packedFlag.setAttribute('type', 'checkbox');
     packedFlag.classList.add('packed-flag')
@@ -31,15 +41,55 @@ function addPackingItem(event) {
         newItemRow.classList.toggle('packed');
     });
 
+    // ADDS DELETE BTN TO BLOCK
     let deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = `<i class="fas fa-times"></i>`;
-    deleteBtn.classList.add('packing-item-row-segment')
-    deleteBtn.classList.add('delete-btn');
+    deleteBtn.classList.add('packing-item-row-segment', 'delete-btn')
     newItemRow.appendChild(deleteBtn);
 
     deleteBtn.addEventListener('click', function () {
         newItemRow.style.display = 'none';
     });
+
+    // // APPEND TO PACKING LIST
+    var children = packingListOutput.getElementsByTagName('div')
+    let idArr = []
+    for (var i = 0; i < children.length; i++) {
+        idArr.push(children[i].id);
+    }
+
+    if (idArr.includes(newItemCategoryLabel.innerText)) { // category already present
+        console.log('present');
+        let extantRow = document.querySelector(`#${newItemCategoryLabel.innerText}`);
+        extantRow.appendChild(newItemRow);
+    } else { // append new row
+        packingListOutput.appendChild(newItemCategoryLabel);
+        newItemCategoryLabel.appendChild(newItemRow);
+    }
+
+    console.log(idArr)
+
+    // for (let i = 0; i < children.length; i++) {
+    //     console.log(children);
+    //     console.log(newItemCategoryLabel.innerText);
+    //     if (newItemCategoryLabel.innerText === children[i].id) {
+    //         console.log('match');
+    //         console.log(newItemCategoryLabel.innerText)
+    //         // packingListOutput.appendChild(newItemRow);
+    //     }
+    // }
+
+    // packingListOutput.appendChild(newItemRow);
+
+    // for (let i = 0; i < children.length; i++) {
+    //     if (children[i].getAttribute('id') == newItemCategory.innerText) {
+    //         packingListOutput.appendChild(newItemRow);
+    //         console.log('hi');
+    //     } else {
+    //         packingListOutput.appendChild(newItemCategoryLabel);
+    //         packingListOutput.appendChild(newItemRow);
+    //     }
+    // }
 
     document.querySelector('.packing-list-item').value = '';
 }
