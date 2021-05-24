@@ -41,6 +41,12 @@ function addPackingItem(event) {
         newItemRow.classList.toggle('packed');
     });
 
+    // ADDS EDIT BTN TO BLOCK
+    let editBtn = document.createElement('button');
+    editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+    editBtn.classList.add('packing-item-row-segment', 'delete-btn')
+    newItemRow.appendChild(editBtn);
+
     // ADDS DELETE BTN TO BLOCK
     let deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = `<i class="fas fa-times"></i>`;
@@ -66,30 +72,6 @@ function addPackingItem(event) {
         packingListOutput.appendChild(newItemCategoryLabel);
         newItemCategoryLabel.appendChild(newItemRow);
     }
-
-    console.log(idArr)
-
-    // for (let i = 0; i < children.length; i++) {
-    //     console.log(children);
-    //     console.log(newItemCategoryLabel.innerText);
-    //     if (newItemCategoryLabel.innerText === children[i].id) {
-    //         console.log('match');
-    //         console.log(newItemCategoryLabel.innerText)
-    //         // packingListOutput.appendChild(newItemRow);
-    //     }
-    // }
-
-    // packingListOutput.appendChild(newItemRow);
-
-    // for (let i = 0; i < children.length; i++) {
-    //     if (children[i].getAttribute('id') == newItemCategory.innerText) {
-    //         packingListOutput.appendChild(newItemRow);
-    //         console.log('hi');
-    //     } else {
-    //         packingListOutput.appendChild(newItemCategoryLabel);
-    //         packingListOutput.appendChild(newItemRow);
-    //     }
-    // }
 
     document.querySelector('.packing-list-item').value = '';
 }
