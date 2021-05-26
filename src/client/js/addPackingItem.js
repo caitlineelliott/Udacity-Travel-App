@@ -61,8 +61,8 @@ function addPackingItem(event) {
         // change color back // remove save btn
         saveBtn.addEventListener('click', function () {
             saveBtn.style.display = 'none';
+            newItemValue.setAttribute('style', 'width: 45vw; background: #197278; color: #fff; border: none;');
         })
-
     })
 
     // ADDS DELETE BTN TO BLOCK
