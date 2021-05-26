@@ -51,17 +51,18 @@ function addPackingItem(event) {
     editBtn.addEventListener('click', function () {
         newItemValue.readOnly = false;
         // change color of newItemValue to indicate editable
-        newItemValue.setAttribute('style', 'width: 30vw; background: #c44536; color: #fff; border: 1px solid #fff; border-right: none;');
+        newItemValue.setAttribute('style', 'width: 29vw; background: #c44536; color: #fff;');
         // add save btn
         let saveBtn = document.createElement('div');
         saveBtn.innerHTML = `<i class="fas fa-save"></i>`;
         saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-        saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff; border: 1px solid #fff; border-left: none;');
+        saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff;');
         newItemValue.insertAdjacentElement('afterend', saveBtn);
         // change color back // remove save btn
         saveBtn.addEventListener('click', function () {
             saveBtn.style.display = 'none';
-            newItemValue.setAttribute('style', 'width: 45vw; background: #197278; color: #fff; border: none;');
+            newItemValue.setAttribute('style', 'width: 40vw; background: #197278; color: #fff; border: none;');
+            newItemValue.readOnly = true;
         })
     })
 

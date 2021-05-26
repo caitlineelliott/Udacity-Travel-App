@@ -83,7 +83,7 @@
 }
 
 .packing-list-row {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .packed {
@@ -99,6 +99,7 @@
     align-items: center;
     padding: 10px;
     width: 25vw;
+    background: #43878A;
 }
 
 .item-category {
@@ -119,18 +120,16 @@
     display: flex;
     justify-content: center;
     width: 6vw;
+    background: $h3-color;
 }
 
 .packing-item {
     margin: 0;
-    width: 45vw;
+    width: 40vw;
     font-family: $plain-font;
     color: $h2-color;
     border: none;
-    background: $h3-color;
-    opacity: 0.5;
-    padding: 15px;
-    box-sizing: border-box;
+    background: #83A8A6;
     overflow: scroll;
 }
 
