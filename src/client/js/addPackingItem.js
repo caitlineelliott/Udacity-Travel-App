@@ -1,5 +1,7 @@
 document.querySelector('.packing-list-btn').addEventListener('click', addPackingItem);
 
+
+
 let itemCategoryArr = new Object();
 console.log(itemCategoryArr);
 
@@ -15,8 +17,8 @@ function addPackingItem(event) {
     newItemRow.classList.add('packing-list-row');
 
     // ADDS ITEM TO BLOCK
-    let newItemValue = document.createElement('input');
-    newItemValue.setAttribute('type', 'text');
+    let newItemValue = document.createElement('textarea');
+    newItemValue.setAttribute('style', 'resize: none; height: 1vh; ');
     newItemValue.readOnly = true;
     newItemValue.defaultValue = `${document.querySelector('.packing-list-item').value}`;
     newItemValue.placeholder = `${document.querySelector('.packing-list-item').value}`;
@@ -61,7 +63,7 @@ function addPackingItem(event) {
     editBtn.addEventListener('click', function () {
         newItemValue.readOnly = false;
         // change color of newItemValue to indicate editable
-        newItemValue.setAttribute('style', 'width: 29vw; background: #c44536; color: #fff;');
+        newItemValue.setAttribute('style', 'width: 29vw; height: 1vh; background: #c44536; color: #fff;');
         // add save btn
         let saveBtn = document.createElement('div');
         saveBtn.innerHTML = `<i class="fas fa-save"></i>`;
@@ -71,7 +73,7 @@ function addPackingItem(event) {
         // change color back // remove save btn
         saveBtn.addEventListener('click', function () {
             saveBtn.style.display = 'none';
-            newItemValue.setAttribute('style', 'width: 40vw; background: #197278; color: #fff; border: none;');
+            newItemValue.setAttribute('style', 'width: 40vw; height: 1vh;background: #197278; color: #fff; border: none;');
             newItemValue.readOnly = true;
         });
     });
