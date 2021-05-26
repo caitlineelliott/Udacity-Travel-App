@@ -1,5 +1,8 @@
 document.querySelector('.packing-list-btn').addEventListener('click', addPackingItem);
 
+let itemCategoryArr = new Object();
+console.log(itemCategoryArr);
+
 function addPackingItem(event) {
     event.preventDefault();
 
@@ -25,6 +28,13 @@ function addPackingItem(event) {
     newItemCategoryLabel.innerHTML = document.querySelector('.packing-item-category').value;
     newItemCategoryLabel.id = document.querySelector('.packing-item-category').value;
     newItemCategoryLabel.classList.add('category-labels');
+
+    console.log(newItemCategoryLabel.id.length);
+
+    // add initial values to array
+    for (let i = 0; i < newItemCategoryLabel.length; i++) {
+        itemCategoryArr.set(newItemCategoryLabel[i].id, 1);
+    }
 
     // ADDS PACKED TOGGLE TO BLOCK
     let packedFlag = document.createElement('input');
@@ -63,8 +73,8 @@ function addPackingItem(event) {
             saveBtn.style.display = 'none';
             newItemValue.setAttribute('style', 'width: 40vw; background: #197278; color: #fff; border: none;');
             newItemValue.readOnly = true;
-        })
-    })
+        });
+    });
 
     // ADDS DELETE BTN TO BLOCK
     let deleteBtn = document.createElement('button');
@@ -73,8 +83,30 @@ function addPackingItem(event) {
     newItemRow.appendChild(deleteBtn);
 
     deleteBtn.addEventListener('click', function () {
-        newItemRow.style.display = 'none';
+        newItemRow.parentElement.removeChild(newItemRow);
+        console.log(itemCategoryArr);
+
+
+        for (let i = 0; i < itemCategoryArr.length; i++) {
+            console.log(itemCategoryArr[i]);
+
+            if (itemCategoryArr[i].id < 2) {
+                console.log('less');
+            }
+        }
+
+        if (document.querySelectorAll('.packing-list-row').length < 1) {
+            console.log('bey!');
+
+            console.log(itemCategoryArr);
+            // newItemRow.parentElement.remove();
+
+            // store item category blocks in an array
+            // for loop over the array
+            // if child node length < #, delete label
+        }
     });
+
 
     // APPEND TO PACKING LIST
     var children = packingListOutput.getElementsByTagName('div')
@@ -91,6 +123,10 @@ function addPackingItem(event) {
         packingListOutput.appendChild(newItemCategoryLabel);
         newItemCategoryLabel.appendChild(newItemRow);
     }
+
+    // APPEND TO MAP + increment
+    itemCategoryArr[newItemCategoryLabel.id] ? itemCategoryArr[newItemCategoryLabel.id]++ : itemCategoryArr[newItemCategoryLabel.id] = 1;
+    console.log('ARRAY', itemCategoryArr);
 
     document.querySelector('.packing-list-item').value = '';
 }
