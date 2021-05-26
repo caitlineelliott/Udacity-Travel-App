@@ -67,7 +67,7 @@
     display: flex;
     flex-direction: row;
 
-    input[type="text"] {
+    #pack-list-input {
         width: 45vw;
     }
 
@@ -123,6 +123,14 @@
 .packing-item {
     margin: 0;
     width: 25%;
+    font-family: $plain-font;
+    color: $h2-color;
+    border: none;
+    background: $h3-color;
+    opacity: 0.5;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: scroll;
 }
 
 // .packing-list-row > * {

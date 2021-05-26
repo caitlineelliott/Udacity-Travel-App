@@ -67,7 +67,7 @@
             <h3>Packing List</h3>
             <div class="packing-list">
                 <form class="packing-list-form">
-                    <input type="text" placeholder="add item" class="packing-list-item">
+                    <input type="text" placeholder="add item" class="packing-list-item text-input" id="pack-list-input">
                     <select class="packing-item-category">
                         <option>Category</option>
                         <option class="tops">Tops</option>
@@ -94,15 +94,15 @@
             <form>
                 <label for="destination">
                     <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="trip-city" name="destination" required />
+                    <input type="text" placeholder="City" class="trip-city text-input" name="destination" required />
                 </label>
                 <label for="trip-start">
                     <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date" name="trip-start" required />
+                    <input type="date" class="depart-date date-input" name="trip-start" required />
                 </label>
                 <label for="trip-end">
                     <span class="form-label">Returning:</span>
-                    <input type="date" class="return-date" name="trip-end" required />
+                    <input type="date" class="return-date date-input" name="trip-end" required />
                 </label>
                 <button type="submit" class="submit-btn">Submit</button>
                 <input type="submit" value="Submit" class="submit-btn">
