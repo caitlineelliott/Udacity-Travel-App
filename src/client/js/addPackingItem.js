@@ -36,6 +36,7 @@ function addPackingItem(event) {
     newItemRow.appendChild(packedFlagLabel);
     packedFlagLabel.appendChild(packedFlag);
 
+    // packed? function
     packedFlag.addEventListener('click', function () {
         newItemRow.classList.toggle('packed');
     });
@@ -46,8 +47,22 @@ function addPackingItem(event) {
     editBtn.classList.add('packing-item-row-segment', 'delete-btn')
     newItemRow.appendChild(editBtn);
 
+    // edit function
     editBtn.addEventListener('click', function () {
         newItemValue.readOnly = false;
+        // change color of newItemValue to indicate editable
+        newItemValue.setAttribute('style', 'width: 30vw; background: #c44536; color: #fff; border: 1px solid #fff; border-right: none;');
+        // add save btn
+        let saveBtn = document.createElement('div');
+        saveBtn.innerHTML = `<i class="fas fa-save"></i>`;
+        saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+        saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff; border: 1px solid #fff; border-left: none;');
+        newItemValue.insertAdjacentElement('afterend', saveBtn);
+        // change color back // remove save btn
+        saveBtn.addEventListener('click', function () {
+            saveBtn.style.display = 'none';
+        })
+
     })
 
     // ADDS DELETE BTN TO BLOCK
@@ -60,7 +75,7 @@ function addPackingItem(event) {
         newItemRow.style.display = 'none';
     });
 
-    // // APPEND TO PACKING LIST
+    // APPEND TO PACKING LIST
     var children = packingListOutput.getElementsByTagName('div')
     let idArr = []
     for (var i = 0; i < children.length; i++) {
