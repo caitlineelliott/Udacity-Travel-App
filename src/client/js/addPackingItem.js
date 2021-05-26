@@ -20,15 +20,11 @@ function addPackingItem(event) {
     newItemValue.classList.add('packing-item-row-segment', 'packing-item');
     newItemRow.appendChild(newItemValue);
 
-    // ADDS CATEGORY TO BLOCK
-    let newItemCategory = document.createElement('div');
+    // ADDS CATEGORY LABEL TO BLOCK
     let newItemCategoryLabel = document.createElement('div');
-    newItemCategory.innerHTML = document.querySelector('.packing-item-category').value;
     newItemCategoryLabel.innerHTML = document.querySelector('.packing-item-category').value;
     newItemCategoryLabel.id = document.querySelector('.packing-item-category').value;
     newItemCategoryLabel.classList.add('category-labels');
-    newItemCategory.classList.add('packing-item-row-segment', 'item-category');
-    newItemRow.appendChild(newItemCategory);
 
     // ADDS PACKED TOGGLE TO BLOCK
     let packedFlag = document.createElement('input');
