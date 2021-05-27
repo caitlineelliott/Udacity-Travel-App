@@ -31,13 +31,14 @@
 }
 
 .forecast-row,
-.packing-list-row {
+.packing-list-row, 
+.todo-list-row {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 10px 0;
     background: $h3-color;
-    opacity: 0.5;
+    // opacity: 0.5;
 }
 
 .forecast-date,
@@ -93,12 +94,12 @@
 .packing-item-row-segment {
     font-size: 0.8em;
     color: white;
-    min-height: 30px;
+    margin: 0;
     // border: 1px solid red;
     display: flex;
     align-items: center;
     padding: 10px;
-    width: 25vw;
+    width: 20vw;
     background: #43878A;
 }
 
@@ -109,10 +110,11 @@
 }
 
 .packed-flag {
-    width: 20px !important;
+    width: 6vw;
+    height: 6vh;
     margin: 0;
     opacity: 1;
-    padding: 0;
+    padding: 0 0 0 10px;
 }
 
 .delete-btn {
@@ -131,6 +133,10 @@
     border: none;
     background: #83A8A6;
     overflow: scroll;
+}
+
+#todo-list-input {
+    width: 45vw;
 }
 
 /* DESKTOP */
