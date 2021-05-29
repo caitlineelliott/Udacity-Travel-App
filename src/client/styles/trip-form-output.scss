@@ -68,7 +68,6 @@
     flex-direction: row;
 
     #pack-list-input {
-        margin: 0;
         width: 40vw;
         font-family: $plain-font;
         color: $h2-color;
@@ -128,7 +127,6 @@
 }
 
 #todo-list-input {
-    margin: 0;
     width: 40vw;
     font-family: $plain-font;
     color: $h2-color;
@@ -168,11 +166,6 @@
     background: #83A8A6;
     overflow: scroll;
 }
-
-#todo-list-input {
-    width: 45vw;
-}
-
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
 
