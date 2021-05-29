@@ -7,6 +7,7 @@ $background: #edddd4;
 $h1-color: #c44536;
 $h2-color: #fff;
 $h3-color: #197278;
+$h3-color-light: #83A8A6;
 $cool-accent: #283d3b;
 $warm-accent: #772e25;
 
@@ -169,17 +170,26 @@ h3 {
     text-align: center;
 }
 
-.text-input,
-.date-input,
+
+input,
 button,
 select {
     margin: 5px 0 20px 0;
     font-family: $plain-font;
     color: $h2-color;
     border: none;
-    background: $h3-color;
-    // opacity: 0.5;
+    background: $h3-color-light;
     padding: 15px;
+    width: 80vw;
+    box-sizing: border-box;
+}
+
+.text-input,
+.date-input {
+    font-family: $plain-font;
+    color: $h2-color;
+    border: none;
+    background: $h3-color-light;
     width: 80vw;
     box-sizing: border-box;
 }

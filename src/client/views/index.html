@@ -65,10 +65,11 @@
             </div>
 
             <h3>Packing List</h3>
-            <div class="packing-list">
+            <div class="packing-list-btn-container">
                 <form class="packing-list-form">
-                    <input type="text" placeholder="add item" class="packing-list-item text-input" id="pack-list-input">
-                    <select class="packing-item-category">
+                    <!-- <textarea class="packing-list-btn-item" id="pack-list-input" resize="none">test</textarea> -->
+                    <input type="text" placeholder="add item" class="packing-list-btn-item" id="pack-list-input">
+                    <select class="packing-list-btn-category">
                         <option>Category</option>
                         <option class="tops">Tops</option>
                         <option class="bottoms">Bottoms</option>
@@ -83,10 +84,10 @@
             </div>
 
             <h3>To Do List</h3>
-            <div class="todo-list">
+            <div class="todo-list-btn-container">
                 <form class="packing-list-form">
-                    <input type="text" placeholder="add item" class="packing-list-item text-input" id="todo-list-input">
-                    <select class="todo-item-category">
+                    <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
+                    <select class="todo-list-btn-category">
                         <option>Priority</option>
                         <option class="low">Low</option>
                         <option class="medium">Medium</option>
@@ -116,7 +117,6 @@
                     <input type="date" class="return-date date-input" name="trip-end" required />
                 </label>
                 <button type="submit" class="submit-btn">Submit</button>
-                <input type="submit" value="Submit" class="submit-btn">
             </form>
         </div>
     </main>
