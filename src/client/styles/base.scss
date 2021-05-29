@@ -20,16 +20,14 @@ body {
 }
 
 h1 {
-    font-family: 'raleway';
+    font-family: 'lobster';
     font-weight: 900;
-    text-transform: uppercase;
-    // font-size: 20vw;
-    font-size: 22vw;
+    font-size: 20vw;
     line-height: 8vh;
-    color: transparent;
-    -webkit-text-stroke:
-      3px $h1-color;
-    text-shadow: 2px 3px 0 $h3-color, 2px 4px 0 $h3-color,  2px 5px 0 $h3-color;
+    color: $h1-color;
+    // -webkit-text-stroke:
+    //   1px $h1-color;
+    text-shadow: 2px 3px 0 $background, 2px 4px 0 $background,  2px 5px 0 $background;
     // transform: rotate(-4deg);
     width: 100vw;
     display: flex;

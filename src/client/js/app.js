@@ -42,7 +42,7 @@ async function generate(event) {
 
     let bannerImg = await getHeaderPhoto(userCity);
 
-    document.querySelector('#photo').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
+    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
 
     await postData('/api/add', {
         city: tripCity,
