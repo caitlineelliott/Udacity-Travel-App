@@ -1,7 +1,8 @@
 // Setup empty JS object to act as endpoint for all routes
 const fetch = require("node-fetch");
 
-projectData = {};
+let projectData = {};
+let userTripData = [];
 
 // Express to run server and routes
 const express = require('express');
@@ -46,10 +47,16 @@ app.post('/api/add', addData);
 
 function addData(req, res) {
     const newData = req.body;
+
+    let projectData = {};
+
     projectData["city"] = newData.city;
     projectData["departure"] = newData.departure;
     projectData["arrival"] = newData.arrival;
-    console.log(projectData);
+
+    userTripData.unshift(projectData)
+
+    console.log(userTripData);
     res.send(projectData);
 
     const dateTime = () => {
