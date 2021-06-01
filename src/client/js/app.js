@@ -30,7 +30,6 @@ async function generate(event) {
 
     // get geonames info
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
-    console.log(geonamesInfo);
     let tripState = geonamesInfo.geonames[0].adminName1; // state
     let userCountry = geonamesInfo.geonames[0].countryName; // country
     let userCity = geonamesInfo.geonames[0].name; // city name
@@ -49,8 +48,6 @@ async function generate(event) {
         departure: departDate,
         arrival: returnDate
     });
-
-    // await getData('/all');
 }
 
 // from MDN docs >>
@@ -74,7 +71,6 @@ async function getHeaderPhoto(userCity) {
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
     try {
-        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
@@ -83,6 +79,7 @@ const postData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
+        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
         return await response.json();
     }
     catch {
@@ -96,60 +93,6 @@ const getData = async (url) => {
         const request = await fetch(url);
         const data = await request.json();
 
-        // UPDATE UI
-        document.querySelector('#journal-prompt').style.display = "none";
-        document.querySelector('#entryContainer').style.display = "block";
-
-        // entry date
-        document.querySelector('#date-label').innerHTML = data.date;
-
-        // mood / weather / temp containers
-        let mood = document.querySelector('#moodIcon');
-        let weather = document.querySelector("#weather");
-        let temp = document.querySelector('#temp');
-
-        // changes mood icon + temp to match weather icon from API
-        const colorChange = (hex) => {
-            mood.style.color = hex;
-            temp.style.color = hex;
-        };
-
-        const iconColor = () => {
-            if (parseInt(data.weather.slice(0, 2)) === 3) {
-                colorChange('#f2f2f1');
-            } else if (data.weather.includes('n')) {
-                colorChange('#48484a');
-            } else if (parseInt(data.weather.slice(0, 2)) < 3) {
-                colorChange('#ec6f4d');
-            } else if (parseInt(data.weather.slice(0, 2)) === 10) {
-                colorChange('#ec6f4d');
-            } else {
-                colorChange('#48484a');
-            }
-        };
-
-        iconColor();
-
-        // mood
-        mood.classList.add(`${data.moodLabel}`);
-        // mood name
-        document.querySelector('#mood-name').innerHTML = data.mood;
-
-        // weather
-        let weatherIcon = document.querySelector('#weather').firstElementChild;
-        weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather}@2x.png`;
-        // weather name
-        document.querySelector('#weather-name').innerHTML = data.weatherName;
-
-        // temp
-        temp.innerHTML = data.temp;
-        // daily high + low
-        document.querySelector('#temp-feels').innerHTML = data.highLow;
-
-        // journal entry
-        let feelings = document.querySelector('#content');
-        feelings.innerText = data.entry;
-
         console.log(`DATA POSTED TO UI ${makeDateAndTime()}`);
     }
     catch (e) {
@@ -157,17 +100,12 @@ const getData = async (url) => {
     }
 };
 
-// EXTRA NON RUBRIC JS
-
-// back btn actions: remove previous entries + back btn + display prompt
-// document.querySelector('#back').addEventListener('click', function () {
-// window.location.reload();
-// });
-
-// export {
-//     makeDateAndTime,
-//     generate,
-//     postData,
-//     getData,
-//     getWeather
-// }
+export {
+    makeDateAndTime,
+    generate,
+    getGeonames,
+    getWeatherBit,
+    getRandomNum,
+    getData,
+    postData
+}

@@ -30,8 +30,6 @@ function createElements(event) {
 }
 
 function setValues(target, blockElements, rowElements, checkboxElements) {
-    console.log(document.querySelector(`.${target}-category`))
-
     blockElements.newItemCategoryLabel.innerHTML = document.querySelector(`.${target}-category`).value;
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -101,13 +99,7 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     });
 
     document.querySelector('#deleteBtn').addEventListener('click', function () {
-
-        console.log(event.target.parentElement.parentElement)
-        console.log(blockElements.newItemRow.children)
-
         event.target.parentElement.parentElement.remove()
-
-        // blockElements.newItemRow.parentElement.removeChild(blockElements.newItemRow);
     });
 }
 

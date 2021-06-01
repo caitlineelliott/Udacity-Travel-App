@@ -2,19 +2,13 @@ const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'Ju
 
 function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
 
-    console.log((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24))
-
-    console.log(Math.abs(departDate.getDate() - returnDate.getDate()))
     document.querySelector('.container').style.display = "none";
 
     let forecast = weatherInfo.data;
-    console.log(forecast);
-
     let dates = [];
 
     for (let i = 0; i < forecast.length; i++) {
         dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
-        console.log(dates[i]);
     }
 
     for (let i = 0; i < dates.length; i++) {
@@ -39,10 +33,9 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
             newRow.appendChild(weather);
         }
+
         else if (returnDate >= dates[i]) {
             let currentDate = new Date();
-            console.log(currentDate);
-            console.log(returnDate.getDate() - currentDate.getDate());
         }
 
         else {
@@ -57,15 +50,12 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     output.classList.add('display-on');
 
     h1.innerHTML = `${userCity}`;
-    // h2.innerHTML = '';
 
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
     document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
     document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
-
-    console.log(Math.round((returnDate.getDate() - departDate.getDate()) / 24 * 60 * 60 * 1000))
 }
 
 export { updateUI }
