@@ -25,19 +25,10 @@ h1 {
     font-size: 20vw;
     line-height: 8vh;
     color: $h1-color;
-    // -webkit-text-stroke:
-    //   1px $h1-color;
     text-shadow: 2px 3px 0 $background, 2px 4px 0 $background,  2px 5px 0 $background;
-    // transform: rotate(-4deg);
-    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    // background-color: pink;
-    height: 32vh;
     margin: 0;
   }
 
@@ -234,20 +225,17 @@ input::placeholder {
         background: #197278;
         opacity: 0.5;
         padding: 15px;
-        width: 30vw;
+        width: 40vw;
         box-sizing: border-box;
     }
 
-    button {
-        width: 91.25vw;
+    .text-input, .date-input, button {
+        width: 45vw;
     }
 
-    .text-input, .date-input {
-        width: 30vw;
-    }
-
-    button {
-        width: 92.5vw;
+    body {
+        display: flex;
+        flex-direction: row;
     }
 }
 
