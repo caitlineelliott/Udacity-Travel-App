@@ -235,3 +235,13 @@ input::placeholder {
         height: 7.25vh;
     }
 }
+
+@media only screen and (min-width: 768px) {
+    h1 {
+        font-size: 15vw;
+    }
+
+    h3 {
+        font-size: 6vw;
+    }
+}
