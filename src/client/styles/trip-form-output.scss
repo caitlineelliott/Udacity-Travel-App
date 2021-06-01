@@ -1,8 +1,8 @@
 @import 'base.scss';
 
 .output {
-    // display: none;
-    // &.display-on {
+    display: none;
+    &.display-on {
         display: block;
         padding: 50px;
         display: flex;
@@ -10,7 +10,7 @@
         justify-content: center;
         flex-direction: column;
         z-index: -1;
-    // }
+    }
 
     .travel-summary {
         display: flex;
@@ -184,6 +184,7 @@
     .output {
         font-size: 1em;
         width: 45vw;
+        margin-top: 10vh;
         .travel-summary {
             font-size: 1em;
             width: 30vw;
@@ -204,6 +205,6 @@
     }
 
     .forecast-icon {
-        width: 5vw;
+        width: 3vw;
     }
     }
