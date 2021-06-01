@@ -102,20 +102,23 @@
             <h3>
                 Enter your travel dates:
             </h3>
-            <form>
+            <!-- <form action="/all" method="POST" onsubmit="generate(event)">
+             -->
+            <form action="#" method="post">
                 <label for="destination">
                     <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="trip-city text-input" name="destination" required />
+                    <input type="text" placeholder="City" class="trip-city text-input" name="destination"
+                        required="required" />
                 </label>
                 <label for="trip-start">
                     <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date date-input" name="trip-start" required />
+                    <input type="date" class="depart-date date-input" name="trip-start" required="required" />
                 </label>
                 <label for="trip-end">
                     <span class="form-label">Returning:</span>
                     <input type="date" class="return-date date-input" name="trip-end" required />
                 </label>
-                <button type="submit" class="submit-btn">Submit</button>
+                <button onclick="generate()" class="submit-btn">Submit</button>
             </form>
         </div>
     </main>

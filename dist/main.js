@@ -96,11 +96,18 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/app */ "./src/client/js/app.js");
-/* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_app__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _js_getWeatherbit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/getWeatherbit */ "./src/client/js/getWeatherbit.js");
+/* harmony import */ var _js_getGeonames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/getGeonames */ "./src/client/js/getGeonames.js");
+/* harmony import */ var _js_updateUI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/updateUI */ "./src/client/js/updateUI.js");
+/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+
+
+
+
 
 
 
@@ -117,12 +124,148 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/client/js/addPackingItem.js":
+/*!*****************************************!*\
+  !*** ./src/client/js/addPackingItem.js ***!
+  \*****************************************/
+/*! exports provided: createElements */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElements", function() { return createElements; });
+document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
+document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
+
+function createElements(event) {
+    event.preventDefault();
+
+    const blockElements = {
+        "newItemCategoryLabel": document.createElement('div'),
+        "newItemRow": document.createElement('div'),
+    }
+
+    const rowElements = {
+        "newItemValue": document.createElement('textarea'),
+        "packedFlag": document.createElement('button'),
+        "editBtn": document.createElement('button'),
+        "deleteBtn": document.createElement('button'),
+    }
+
+    const checkboxElements = {
+        "toggleIcon": document.createElement('span'),
+        "toggleLabel": document.createElement('span'),
+    }
+
+    rowElements.newItemValue.readOnly = true;
+    rowElements.newItemValue.setAttribute('style', 'resize: none; ');
+
+    let target = event.target.classList.value;
+
+    setValues(target, blockElements, rowElements, checkboxElements);
+}
+
+function setValues(target, blockElements, rowElements, checkboxElements) {
+    console.log(document.querySelector(`.${target}-category`))
+
+    blockElements.newItemCategoryLabel.innerHTML = document.querySelector(`.${target}-category`).value;
+    blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
+    blockElements.newItemRow.classList.add('packing-list-row');
+
+    rowElements.editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+    rowElements.deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
+    rowElements.newItemValue.defaultValue = document.querySelector(`.${target}-item`).value;
+
+    checkboxElements.toggleIcon.innerHTML = '<i class= "far fa-check-square"></i>';
+    checkboxElements.toggleLabel.innerHTML = 'Packed';
+
+    document.querySelector(`.${target}-item`).value = '';
+
+    appendItem(target, blockElements, rowElements, checkboxElements);
+}
+
+function appendItem(target, blockElements, rowElements, checkboxElements) {
+    const categoryArr = []
+    let appendedElements = document.querySelector(`.${target}-container`).children;
+
+    for (let i = 0; i < appendedElements.length; i++) {
+        categoryArr.push(appendedElements[i].id);
+    }
+
+    if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
+        document.querySelector(`.${target}-container`).appendChild(blockElements.newItemCategoryLabel);
+        blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
+        console.log('new row')
+
+    } else {
+        let extantRow = document.querySelector(`#${blockElements.newItemCategoryLabel.id}`);
+        extantRow.appendChild(blockElements.newItemRow);
+        console.log('old row')
+    }
+
+    for (let i = 0; i < Object.keys(rowElements).length; i++) {
+        blockElements.newItemRow.appendChild(Object.values(rowElements)[i])
+        Object.values(rowElements)[i].id = Object.keys(rowElements)[i]
+        Object.values(rowElements)[i].classList.add('packing-item-row-segment')
+    }
+
+    rowElements.packedFlag.appendChild(checkboxElements.toggleIcon);
+    rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
+
+    document.querySelector('#packedFlag').addEventListener('click', function () {
+        blockElements.newItemRow.classList.toggle('packed');
+        if (checkboxElements.toggleIcon.innerHTML === '<i class= "fas fa-check-square"></i>') {
+            checkboxElements.toggleIcon.innerHTML = '<i class= "far fa-check-square"></i>'
+        } else {
+            checkboxElements.toggleIcon.innerHTML = '<i class= "fas fa-check-square" ></i >'
+        }
+    });
+
+    document.querySelector('#editBtn').addEventListener('click', function () {
+        rowElements.newItemValue.readOnly = false;
+        rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+        let saveBtn = document.createElement('div');
+        saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+        saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+        saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff;');
+        newItemValue.insertAdjacentElement('afterend', saveBtn);
+        saveBtn.addEventListener('click', function () {
+            saveBtn.style.display = 'none';
+            newItemValue.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+            newItemValue.readOnly = true;
+        });
+    });
+
+    document.querySelector('#deleteBtn').addEventListener('click', function () {
+
+        console.log(event.target.parentElement.parentElement)
+        console.log(blockElements.newItemRow.children)
+
+        event.target.parentElement.parentElement.remove()
+
+        // blockElements.newItemRow.parentElement.removeChild(blockElements.newItemRow);
+    });
+}
+
+
+
+/***/ }),
+
 /***/ "./src/client/js/app.js":
 /*!******************************!*\
   !*** ./src/client/js/app.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _updateUI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateUI */ "./src/client/js/updateUI.js");
+/* harmony import */ var _getGeonames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getGeonames */ "./src/client/js/getGeonames.js");
+/* harmony import */ var _getWeatherbit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeatherbit */ "./src/client/js/getWeatherbit.js");
+
+
+
 
 // Make Date + Time
 const makeDateAndTime = () => {
@@ -143,21 +286,27 @@ document.querySelector('.submit-btn').addEventListener('click', generate);
 
 /* Function called by event listener */
 async function generate(event) {
-    event.preventDefault();
 
     // Get user trip dates + city
     const tripCity = document.querySelector('.trip-city').value
-    const departDate = document.querySelector('.depart-date').value;
-    const returnDate = document.querySelector('.return-date').value;
+    const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
+    const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
     // get geonames info
-    const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
+    const geonamesInfo = await Object(_getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott');
     console.log(geonamesInfo);
-    console.log(geonamesInfo.geonames[0].adminName1); // state
-    console.log(geonamesInfo.geonames[0].countryName); // country
-    console.log(geonamesInfo.geonames[0].name); // city name
+    let tripState = geonamesInfo.geonames[0].adminName1; // state
+    let userCountry = geonamesInfo.geonames[0].countryName; // country
+    let userCity = geonamesInfo.geonames[0].name; // city name
 
-    updateUI(tripState, tripCity, tripCountry);
+    //trigger WeatherBit
+    let weatherInfo = await Object(_getWeatherbit__WEBPACK_IMPORTED_MODULE_2__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+
+    Object(_updateUI__WEBPACK_IMPORTED_MODULE_0__["updateUI"])(tripState, userCountry, userCity, departDate, returnDate, weatherInfo);
+
+    let bannerImg = await getHeaderPhoto(userCity);
+
+    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
 
     await postData('/api/add', {
         city: tripCity,
@@ -168,19 +317,23 @@ async function generate(event) {
     // await getData('/all');
 }
 
-/* Function to GET Web API Data*/
-const getGeonames = async (placename, username) => {
+// from MDN docs >>
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
+async function getHeaderPhoto(userCity) {
     try {
         const request =
-            await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+            await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
         return await request.json();
     }
-
     catch (e) {
         console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
-};
+}
 
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
@@ -282,6 +435,144 @@ const getData = async (url) => {
 //     getData,
 //     getWeather
 // }
+
+/***/ }),
+
+/***/ "./src/client/js/getGeonames.js":
+/*!**************************************!*\
+  !*** ./src/client/js/getGeonames.js ***!
+  \**************************************/
+/*! exports provided: getGeonames */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
+/* Function to GET Web API Data*/
+const getGeonames = async (placename, username) => {
+
+    try {
+        const request =
+            await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+        return await request.json();
+    }
+
+    catch (e) {
+        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
+    }
+};
+
+
+
+/***/ }),
+
+/***/ "./src/client/js/getWeatherbit.js":
+/*!****************************************!*\
+  !*** ./src/client/js/getWeatherbit.js ***!
+  \****************************************/
+/*! exports provided: getWeatherBit */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
+/* function to get weather data */
+const getWeatherBit = async (lat, lng) => {
+    try {
+        const request =
+            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}`);
+        return await request.json();
+    }
+    catch (e) {
+        console.log('no weatherbit data :(', e);
+    }
+}
+
+
+
+/***/ }),
+
+/***/ "./src/client/js/updateUI.js":
+/*!***********************************!*\
+  !*** ./src/client/js/updateUI.js ***!
+  \***********************************/
+/*! exports provided: updateUI */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUI", function() { return updateUI; });
+const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
+
+    console.log((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24))
+
+    console.log(Math.abs(departDate.getDate() - returnDate.getDate()))
+    document.querySelector('.container').style.display = "none";
+
+    let forecast = weatherInfo.data;
+    console.log(forecast);
+
+    let dates = [];
+
+    for (let i = 0; i < forecast.length; i++) {
+        dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
+        console.log(dates[i]);
+    }
+
+    for (let i = 0; i < dates.length; i++) {
+        if (dates[i] >= departDate && dates[i] <= returnDate) {
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('forecast-row');
+            document.querySelector('.forecast').appendChild(newRow)
+
+            const tripDate = document.createElement('div');
+            tripDate.classList.add('forecast-date');
+            tripDate.innerHTML = `${dates[i].getMonth() + 1} / ${dates[i].getDate()}`;
+            newRow.appendChild(tripDate);
+
+            const weatherIcon = document.createElement('img');
+            weatherIcon.classList.add('forecast-icon');
+            weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
+            newRow.appendChild(weatherIcon);
+
+            const weather = document.createElement('div');
+            weather.classList.add('forecast-high');
+            weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
+            newRow.appendChild(weather);
+        }
+        else if (returnDate >= dates[i]) {
+            let currentDate = new Date();
+            console.log(currentDate);
+            console.log(returnDate.getDate() - currentDate.getDate());
+        }
+
+        else {
+            console.log('feet');
+        }
+    }
+
+    const h1 = document.querySelector('.title');
+    const h2 = document.querySelector('.subtitle');
+    const output = document.querySelector('.output');
+    const currentDate = new Date();
+    output.classList.add('display-on');
+
+    h1.innerHTML = `${userCity}`;
+    // h2.innerHTML = '';
+
+    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
+    document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
+
+    console.log(Math.round((returnDate.getDate() - departDate.getDate()) / 24 * 60 * 60 * 1000))
+}
+
+
 
 /***/ }),
 

@@ -9,7 +9,13 @@
     <!-- <link rel="stylesheet" href="app2.css"> -->
     <!-- Google Fonts: Lobster & Montserrat -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,700;1,700&family=Raleway:wght@900&display=swap"
+        rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,700;1,700&display=swap"
         rel="stylesheet">
     <!-- FontAwesome Icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -18,147 +24,101 @@
 <link href="main.css" rel="stylesheet"></head>
 
 <body>
+    <!-- <div class="enjoy">Enjoy</div> -->
+    <div class="banner">
+        <h1 class='title'>NextTrek</h1>
+    </div>
     <header>
+        <!-- <div class="banner">
+            <div class="enjoy">Enjoy</div>
+            <div class='title'>NextTrek!</div>
+            <h2 class="subtitle">your adventure awaits</h2> -->
+        <img class="postage-mark" src="imgs/ClipartKey_2381063.e7a12b.png">
+        <!-- </div> -->
+        <!-- <div class="banner-overlay"></div> -->
         <nav>
             <button class="nav-btn">Saved Trips</button>
             <button class="nav-btn">Packing Lists</button>
             <button class="nav-btn">To Do Lists</button>
         </nav>
-        <div class="banner">
-            <h1>NextTrek!</h1>
-            <h2>your adventure awaits</h2>
-        </div>
-
-        <!-- Output Banner -->
-        <!-- <div class="output-banner"></div>
-        <div class="output-banner-overlay"></div>
-        <div class="output-banner-text">
-            Your trip to Paris, France
-        </div> -->
-
     </header>
     <main>
-        <!-- <div class="output">
-            <h2>Hello, Traveler!</h2>
-            <p>
-                I can see that you are traveling to Paris from X to X. Your trip is X days and X nights long.
-            </p>
-            <p>
-                Here are some details about your trip:
-            </p>
+        <div class="output">
+            <h3>Hello, Traveler!</h3>
+            <p>Here are some details about your trip:</p>
+            <div class="travel-summary">
+                <div class="form-label">Departure Date:</div>
+                <div class="trip-details" id="depart-date"></div>
+                <div class="form-label">Arrival Date:</div>
+                <div class="trip-details" id="arrive-date"></div>
+                <div class="form-label">Trip Days:</div>
+                <div class="trip-details" id="trip-days-count"></div>
+                <div class="form-label">Trip Nights:</div>
+                <div class="trip-details" id="trip-nights-count"></div>
+                <div class="form-label">Trip Starts In:</div>
+                <div class="trip-details" id="trip-days-until"></div>
+            </div>
 
-            <h3>Forecast</h3>
             <div class="forecast">
-                <div class="forecast-row">
-                    <div class="forecast-date">
-                        S - 3/30
-                    </div>
-                    <div class="forecast-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="forecast-high">
-                        100*F
-                    </div>
-                    <div class="forecast-slash">
-                        /
-                    </div>
-                    <div class="forecast-low">
-                        30*F
-                    </div>
-                </div>
-                <div class="forecast-row">
-                    <div class="forecast-date">
-                        S - 3/30
-                    </div>
-                    <div class="forecast-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="forecast-high">
-                        100*F
-                    </div>
-                    <div class="forecast-slash">
-                        /
-                    </div>
-                    <div class="forecast-low">
-                        30*F
-                    </div>
-                </div>
-                <div class="forecast-row">
-                    <div class="forecast-date">
-                        M - 3/31
-                    </div>
-                    <div class="forecast-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="forecast-high">
-                        100*F
-                    </div>
-                    <div class="forecast-slash">
-                        /
-                    </div>
-                    <div class="forecast-low">
-                        30*F
-                    </div>
-                </div>
-                <div class="forecast-row">
-                    <div class="forecast-date">
-                        T - 4/1
-                    </div>
-                    <div class="forecast-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="forecast-high">
-                        100*F
-                    </div>
-                    <div class="forecast-slash">
-                        /
-                    </div>
-                    <div class="forecast-low">
-                        30*F
-                    </div>
-                </div>
-                <div class="forecast-row">
-                    <div class="forecast-date">
-                        W - 4/2
-                    </div>
-                    <div class="forecast-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="forecast-high">
-                        100*F
-                    </div>
-                    <div class="forecast-slash">
-                        /
-                    </div>
-                    <div class="forecast-low">
-                        30*F
-                    </div>
-                </div>
+                <h3>Forecast</h3>
             </div>
 
             <h3>Packing List</h3>
+            <div class="packing-list-btn-container">
+                <form class="packing-list-form">
+                    <!-- <textarea class="packing-list-btn-item" id="pack-list-input" resize="none">test</textarea> -->
+                    <input type="text" placeholder="add item" class="packing-list-btn-item" id="pack-list-input">
+                    <select class="packing-list-btn-category">
+                        <option>Category</option>
+                        <option class="tops">Tops</option>
+                        <option class="bottoms">Bottoms</option>
+                        <option class="shoes">Shoes</option>
+                        <option class="accessories">Accessories</option>
+                        <option class="swimwear">Swimwear</option>
+                        <option class="toiletries">Toiletries</option>
+                        <option class="other">Other</option>
+                    </select>
+                    <button class="packing-list-btn"><i class="fas fa-plus"></i></button>
+                </form>
+            </div>
 
-        </div> -->
+            <h3>To Do List</h3>
+            <div class="todo-list-btn-container">
+                <form class="packing-list-form">
+                    <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
+                    <select class="todo-list-btn-category">
+                        <option>Priority</option>
+                        <option class="low">Low</option>
+                        <option class="medium">Medium</option>
+                        <option class="high">High</option>
+                    </select>
+                    <button class="todo-list-btn"><i class="fas fa-plus"></i></button>
+                </form>
+            </div>
+        </div>
 
 
         <div class="container">
             <h3>
                 Enter your travel dates:
             </h3>
-            <form>
+            <!-- <form action="/all" method="POST" onsubmit="generate(event)">
+             -->
+            <form action="#" method="post">
                 <label for="destination">
                     <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="trip-city" />
+                    <input type="text" placeholder="City" class="trip-city text-input" name="destination"
+                        required="required" />
                 </label>
                 <label for="trip-start">
                     <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date" />
+                    <input type="date" class="depart-date date-input" name="trip-start" required="required" />
                 </label>
                 <label for="trip-end">
                     <span class="form-label">Returning:</span>
-                    <input type="date" class="return-date" />
+                    <input type="date" class="return-date date-input" name="trip-end" required />
                 </label>
-                <button class="submit-btn">Submit</button>
+                <button onclick="generate()" class="submit-btn">Submit</button>
             </form>
         </div>
     </main>
