@@ -1,8 +1,8 @@
 @import 'base.scss';
 
 .output {
-    display: none;
-    &.display-on {
+    // display: none;
+    // &.display-on {
         display: block;
         padding: 50px;
         display: flex;
@@ -10,7 +10,7 @@
         justify-content: center;
         flex-direction: column;
         z-index: -1;
-    }
+    // }
 
     .travel-summary {
         display: flex;
@@ -22,6 +22,10 @@
             width: 60%;
         }
     }
+}
+
+.packed {
+    opacity: 0.5;
 }
 
 .forecast {
@@ -41,12 +45,10 @@
 }
 
 .forecast-date,
-.forecast-icon,
 .forecast-high {
     padding: 0 10px;
     font-size: 4vw;
     color: white;
-    // border: 1px solid red;
 }
 
 .forecast-date {
@@ -79,28 +81,19 @@
 
     select {
         width: 30vw;
-        opacity: 0.8;
+        background: #43878A;
     }
 
     button {
         width: 12vw;
-        opacity: 1;
+        background: #197278;
     }
-}
-
-.packing-list-row {
-    opacity: 1;
-}
-
-.packed {
-    opacity: 0.5;
 }
 
 .packing-item-row-segment {
     font-size: 0.8em;
     color: white;
     margin: 0;
-    // border: 1px solid red;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -110,7 +103,6 @@
 
 .item-category {
     background-color: $h1-color;
-    opacity: 1;
     height: auto;
 }
 
@@ -118,7 +110,6 @@
     width: 6vw;
     height: 6vh;
     margin: 0;
-    opacity: 1;
     padding: 0 0 0 10px;
 }
 
@@ -164,11 +155,12 @@
     background: #83A8A6;
     overflow: scroll;
 }
-/* DESKTOP */
+
+/* TABLET */
 @media only screen and (min-width: 768px) {
 .output {
     font-size: 2.5vw;
-    
+
     .travel-summary {
         font-size: 2.5vw;
         width: 60%;
@@ -180,6 +172,7 @@
 }
 }
 
+/* DESKTOP */
 @media only screen and (min-width: 1024px) {
     .output {
         font-size: 1em;
