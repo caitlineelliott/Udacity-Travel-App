@@ -1,6 +1,10 @@
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
+
+    console.log((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24))
+
+    console.log(Math.abs(departDate.getDate() - returnDate.getDate()))
     document.querySelector('.container').style.display = "none";
 
     let forecast = weatherInfo.data;
@@ -57,8 +61,8 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('#trip-days-count').innerHTML = ` ${((returnDate.getDate() - departDate.getDate()) / (1000 * 3600 * 24)).toFixed(0) + 2} days`;
-    document.querySelector('#trip-nights-count').innerHTML = `${returnDate.getDate() - departDate.getDate()} nights`;
+    document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
     document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
 
     console.log(Math.round((returnDate.getDate() - departDate.getDate()) / 24 * 60 * 60 * 1000))
