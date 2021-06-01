@@ -117,8 +117,11 @@ header {
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
 
+    .banner {
+        height: 50vh;
+    }
+
     header {
-        height: 65vh;
 
         nav {
             justify-content: center;
@@ -131,10 +134,9 @@ header {
                 margin: 10px 20px;
             }
         }
+    }
 
-        .banner,
-        .banner-text {
-            height: 55vh;
-        }
+    .postage-mark {
+        width: 10vw;
     }
 }
