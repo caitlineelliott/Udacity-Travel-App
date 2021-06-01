@@ -118,15 +118,19 @@ header {
 @media only screen and (min-width: 1024px) {
     header {
         width: 50%;
+
         .banner {
             height: 100vh;
             width: 50vw;
+            position: fixed;
+            z-index: 100;
+
         }
         nav {
             justify-content: center;
-            position: absolute;
+            position: fixed;
             top: 0;
-            left: 0;
+            left: 50%;
             width: 50vw;
 
             .nav-btn {
@@ -140,6 +144,7 @@ header {
     }
 
     .postage-mark {
+        position: fixed;
         width: 10vw;
         top: 8%;
         left: 39%;

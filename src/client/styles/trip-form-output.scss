@@ -1,8 +1,8 @@
 @import 'base.scss';
 
 .output {
-    display: none;
-    &.display-on {
+    // display: none;
+    // &.display-on {
         display: block;
         padding: 50px;
         display: flex;
@@ -10,7 +10,7 @@
         justify-content: center;
         flex-direction: column;
         z-index: -1;
-    }
+    // }
 
     .travel-summary {
         display: flex;
@@ -168,6 +168,7 @@
 @media only screen and (min-width: 768px) {
 .output {
     font-size: 2.5vw;
+    
     .travel-summary {
         font-size: 2.5vw;
         width: 60%;
@@ -178,3 +179,31 @@
     width: 23vw;
 }
 }
+
+@media only screen and (min-width: 1024px) {
+    .output {
+        font-size: 1em;
+        width: 45vw;
+        .travel-summary {
+            font-size: 1em;
+            width: 30vw;
+        }
+    }
+    #packedFlag {
+        width: 23vw;
+    }
+
+    .forecast,
+    .packing-list-form,
+    .packing-list-row {
+        width: 40vw;
+    }
+
+    .forecast-date, .forecast-icon, .forecast-high {
+        font-size: 1em;
+    }
+
+    .forecast-icon {
+        width: 5vw;
+    }
+    }
