@@ -96,14 +96,17 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/app */ "./src/client/js/app.js");
-/* harmony import */ var _js_getWeatherbit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/getWeatherbit */ "./src/client/js/getWeatherbit.js");
-/* harmony import */ var _js_getGeonames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/getGeonames */ "./src/client/js/getGeonames.js");
-/* harmony import */ var _js_updateUI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/updateUI */ "./src/client/js/updateUI.js");
-/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _js_getWeatherbit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/getWeatherbit */ "./src/client/js/getWeatherbit.js");
+/* harmony import */ var _js_getGeonames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/getGeonames */ "./src/client/js/getGeonames.js");
+/* harmony import */ var _js_updateUI__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/updateUI */ "./src/client/js/updateUI.js");
+/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+
+
 
 
 
@@ -166,8 +169,6 @@ function createElements(event) {
 }
 
 function setValues(target, blockElements, rowElements, checkboxElements) {
-    console.log(document.querySelector(`.${target}-category`))
-
     blockElements.newItemCategoryLabel.innerHTML = document.querySelector(`.${target}-category`).value;
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -237,13 +238,7 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     });
 
     document.querySelector('#deleteBtn').addEventListener('click', function () {
-
-        console.log(event.target.parentElement.parentElement)
-        console.log(blockElements.newItemRow.children)
-
         event.target.parentElement.parentElement.remove()
-
-        // blockElements.newItemRow.parentElement.removeChild(blockElements.newItemRow);
     });
 }
 
@@ -255,14 +250,23 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
 /*!******************************!*\
   !*** ./src/client/js/app.js ***!
   \******************************/
-/*! no exports provided */
+/*! exports provided: makeDateAndTime, generate, getGeonames, getWeatherBit, getRandomNum, getData, postData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeDateAndTime", function() { return makeDateAndTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
 /* harmony import */ var _updateUI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateUI */ "./src/client/js/updateUI.js");
 /* harmony import */ var _getGeonames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getGeonames */ "./src/client/js/getGeonames.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return _getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"]; });
+
 /* harmony import */ var _getWeatherbit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeatherbit */ "./src/client/js/getWeatherbit.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return _getWeatherbit__WEBPACK_IMPORTED_MODULE_2__["getWeatherBit"]; });
+
 
 
 
@@ -286,6 +290,7 @@ document.querySelector('.submit-btn').addEventListener('click', generate);
 
 /* Function called by event listener */
 async function generate(event) {
+    event.preventDefault();
 
     // Get user trip dates + city
     const tripCity = document.querySelector('.trip-city').value
@@ -294,7 +299,6 @@ async function generate(event) {
 
     // get geonames info
     const geonamesInfo = await Object(_getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott');
-    console.log(geonamesInfo);
     let tripState = geonamesInfo.geonames[0].adminName1; // state
     let userCountry = geonamesInfo.geonames[0].countryName; // country
     let userCity = geonamesInfo.geonames[0].name; // city name
@@ -313,8 +317,6 @@ async function generate(event) {
         departure: departDate,
         arrival: returnDate
     });
-
-    // await getData('/all');
 }
 
 // from MDN docs >>
@@ -338,7 +340,6 @@ async function getHeaderPhoto(userCity) {
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
     try {
-        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
@@ -347,6 +348,7 @@ const postData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
+        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
         return await response.json();
     }
     catch {
@@ -360,60 +362,6 @@ const getData = async (url) => {
         const request = await fetch(url);
         const data = await request.json();
 
-        // UPDATE UI
-        document.querySelector('#journal-prompt').style.display = "none";
-        document.querySelector('#entryContainer').style.display = "block";
-
-        // entry date
-        document.querySelector('#date-label').innerHTML = data.date;
-
-        // mood / weather / temp containers
-        let mood = document.querySelector('#moodIcon');
-        let weather = document.querySelector("#weather");
-        let temp = document.querySelector('#temp');
-
-        // changes mood icon + temp to match weather icon from API
-        const colorChange = (hex) => {
-            mood.style.color = hex;
-            temp.style.color = hex;
-        };
-
-        const iconColor = () => {
-            if (parseInt(data.weather.slice(0, 2)) === 3) {
-                colorChange('#f2f2f1');
-            } else if (data.weather.includes('n')) {
-                colorChange('#48484a');
-            } else if (parseInt(data.weather.slice(0, 2)) < 3) {
-                colorChange('#ec6f4d');
-            } else if (parseInt(data.weather.slice(0, 2)) === 10) {
-                colorChange('#ec6f4d');
-            } else {
-                colorChange('#48484a');
-            }
-        };
-
-        iconColor();
-
-        // mood
-        mood.classList.add(`${data.moodLabel}`);
-        // mood name
-        document.querySelector('#mood-name').innerHTML = data.mood;
-
-        // weather
-        let weatherIcon = document.querySelector('#weather').firstElementChild;
-        weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather}@2x.png`;
-        // weather name
-        document.querySelector('#weather-name').innerHTML = data.weatherName;
-
-        // temp
-        temp.innerHTML = data.temp;
-        // daily high + low
-        document.querySelector('#temp-feels').innerHTML = data.highLow;
-
-        // journal entry
-        let feelings = document.querySelector('#content');
-        feelings.innerText = data.entry;
-
         console.log(`DATA POSTED TO UI ${makeDateAndTime()}`);
     }
     catch (e) {
@@ -421,20 +369,7 @@ const getData = async (url) => {
     }
 };
 
-// EXTRA NON RUBRIC JS
 
-// back btn actions: remove previous entries + back btn + display prompt
-// document.querySelector('#back').addEventListener('click', function () {
-// window.location.reload();
-// });
-
-// export {
-//     makeDateAndTime,
-//     generate,
-//     postData,
-//     getData,
-//     getWeather
-// }
 
 /***/ }),
 
@@ -492,6 +427,48 @@ const getWeatherBit = async (lat, lng) => {
 
 /***/ }),
 
+/***/ "./src/client/js/savedTripsView.js":
+/*!*****************************************!*\
+  !*** ./src/client/js/savedTripsView.js ***!
+  \*****************************************/
+/*! exports provided: viewSavedTrips, getUserData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewSavedTrips", function() { return viewSavedTrips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
+document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
+
+async function viewSavedTrips() {
+    document.querySelector('.output').classList.remove('display-on');
+    document.querySelector('.container').style.display = 'none';
+
+    document.querySelector('h1').innerHTML = 'Saved Trips';
+
+    await getUserData('/all');
+}
+
+/* Function to GET Project Data */
+const getUserData = async (url) => {
+    try {
+        const request = await fetch(url);
+        const data = await request.json();
+
+        console.log(`DATA POSTED TO UI`);
+        console.log(data.city);
+    }
+    catch (e) {
+        console.log('DATA NOT RETREIVED FROM SERVER', e);
+    }
+
+
+};
+
+
+
+/***/ }),
+
 /***/ "./src/client/js/updateUI.js":
 /*!***********************************!*\
   !*** ./src/client/js/updateUI.js ***!
@@ -506,19 +483,13 @@ const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'Ju
 
 function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
 
-    console.log((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24))
-
-    console.log(Math.abs(departDate.getDate() - returnDate.getDate()))
     document.querySelector('.container').style.display = "none";
 
     let forecast = weatherInfo.data;
-    console.log(forecast);
-
     let dates = [];
 
     for (let i = 0; i < forecast.length; i++) {
         dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
-        console.log(dates[i]);
     }
 
     for (let i = 0; i < dates.length; i++) {
@@ -543,10 +514,9 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
             newRow.appendChild(weather);
         }
+
         else if (returnDate >= dates[i]) {
             let currentDate = new Date();
-            console.log(currentDate);
-            console.log(returnDate.getDate() - currentDate.getDate());
         }
 
         else {
@@ -561,15 +531,12 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     output.classList.add('display-on');
 
     h1.innerHTML = `${userCity}`;
-    // h2.innerHTML = '';
 
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
     document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
     document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
-
-    console.log(Math.round((returnDate.getDate() - departDate.getDate()) / 24 * 60 * 60 * 1000))
 }
 
 

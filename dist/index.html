@@ -25,10 +25,10 @@
 
 <body>
     <!-- <div class="enjoy">Enjoy</div> -->
-    <div class="banner">
-        <h1 class='title'>NextTrek</h1>
-    </div>
     <header>
+        <div class="banner">
+            <h1 class='title'>NextTrek</h1>
+        </div>
         <!-- <div class="banner">
             <div class="enjoy">Enjoy</div>
             <div class='title'>NextTrek!</div>
@@ -37,14 +37,14 @@
         <!-- </div> -->
         <!-- <div class="banner-overlay"></div> -->
         <nav>
-            <button class="nav-btn">Saved Trips</button>
-            <button class="nav-btn">Packing Lists</button>
-            <button class="nav-btn">To Do Lists</button>
+            <button class="nav-btn nav-saved-trips">Saved Trips</button>
+            <button class="nav-btn nav-packing-lists">Packing Lists</button>
+            <button class="nav-btn nav-todo-lists">To Do Lists</button>
         </nav>
     </header>
     <main>
         <div class="output">
-            <h3>Hello, Traveler!</h3>
+            <h2>Hello, Traveler!</h2>
             <p>Here are some details about your trip:</p>
             <div class="travel-summary">
                 <div class="form-label">Departure Date:</div>
@@ -60,10 +60,10 @@
             </div>
 
             <div class="forecast">
-                <h3>Forecast</h3>
+                <h2>Forecast</h2>
             </div>
 
-            <h3>Packing List</h3>
+            <h2>Packing List</h2>
             <div class="packing-list-btn-container">
                 <form class="packing-list-form">
                     <!-- <textarea class="packing-list-btn-item" id="pack-list-input" resize="none">test</textarea> -->
@@ -82,7 +82,7 @@
                 </form>
             </div>
 
-            <h3>To Do List</h3>
+            <h2>To Do List</h2>
             <div class="todo-list-btn-container">
                 <form class="packing-list-form">
                     <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
@@ -99,114 +99,29 @@
 
 
         <div class="container">
-            <h3>
+            <h2>
                 Enter your travel dates:
-            </h3>
-            <!-- <form action="/all" method="POST" onsubmit="generate(event)">
-             -->
-            <form action="#" method="post">
-                <label for="destination">
-                    <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="trip-city text-input" name="destination"
-                        required="required" />
-                </label>
-                <label for="trip-start">
-                    <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date date-input" name="trip-start" required="required" />
-                </label>
-                <label for="trip-end">
-                    <span class="form-label">Returning:</span>
-                    <input type="date" class="return-date date-input" name="trip-end" required />
-                </label>
-                <button onclick="generate()" class="submit-btn">Submit</button>
-            </form>
+            </h2>
+            <form action="#">
+
+                <form action="#" onsubmit="return false">
+                    <label for="destination">
+                        <span class="form-label">Destination:</span>
+                        <input type="text" placeholder="City" class="trip-city text-input" name="destination"
+                            required="required" />
+                    </label>
+                    <label for="trip-start">
+                        <span class="form-label">Departing:</span>
+                        <input type="date" class="depart-date date-input" name="trip-start" required="required" />
+                    </label>
+                    <label for="trip-end">
+                        <span class="form-label">Returning:</span>
+                        <input type="date" class="return-date date-input" name="trip-end" required />
+                    </label>
+                    <input type="submit" class="submit-btn" onsubmit="generate()" />
+                </form>
         </div>
     </main>
-
-    <!-- <div id="container" class="center-center">
-        <div id="main">
-            <h1>Weather Journal</h1>
-            <div id="journal-prompt" class="card">
-                <form action="" id="weather-form">
-                    <div id="location">
-                        <label for="zip">
-                            <h2>Where are you located?</h2>
-                            <input name="zip" id="zip" placeholder="enter zip code here" maxlength="5" type="text"
-                                required></input>
-                        </label>
-                    </div>
-                    <div id="prompt">
-                        <label for="feelings">
-                            <h2>How are you feeling today?</h2>
-                            <textarea name="feelings" id="feelings" cols="20" rows="7"
-                                placeholder="Describe your mood..." required></textarea>
-                        </label>
-                    </div>
-                    <h2>Select your mood:</h2>
-                    <div id="mood">
-                        <input type="radio" name="gender" value="female" class="v-sad" id="depressed">
-                        <label for="depressed" class="v-sad moods" id="fa-sad-tear" tabindex="0">
-                        </label>
-
-                        <input type="radio" name="gender" value="female" class="sad" id="sad">
-                        <label for="sad" class="sad moods" id="fa-frown" tabindex="0">
-                        </label>
-
-                        <input type="radio" name="gender" value="female" class="happy" id="happy">
-                        <label for="happy" class="happy moods" id="fa-smile" tabindex="0">
-                        </label>
-
-                        <input type="radio" name="gender" value="female" class="meh" id="meh">
-                        <label for="meh" class="meh moods" id="fa-meh" tabindex="0">
-                        </label>
-
-                        <input type="radio" name="gender" value="female" class="angry" id="angry">
-                        <label for="angry" class="angry moods" id="fa-angry" tabindex="0">
-                        </label>
-                    </div>
-                    <div id="execute">
-                        <button id="generate">
-                            <h3>Submit</h3>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="entryContainer">
-            <div class="card" id="entryHolder">
-                <div id="date">
-                    <h2 id="date-label"></h2>
-                </div>
-                <div class="entries">
-                    <div id="data-r1" class="center-center">
-                        <div id="mood">
-                            <i id="moodIcon" class="fas"></i>
-                        </div>
-                        <div id="weather">
-                            <img></img>
-                        </div>
-                        <div id="temp" class="center-center">
-                        </div>
-                    </div>
-                    <div id="data-r2">
-                        <div id="mood-name" class="center-center">
-                        </div>
-                        <div id="weather-name" class="center-center">
-                        </div>
-                        <div id="temp-feels" class="center-center">
-                        </div>
-                    </div>
-                    <h2 id="entry-Title">Journal Entry</h2>
-                    <div id="content"></div>
-                </div>
-            </div>
-            <button id="back">
-                <h3> <i class="fas fa-angle-left"></i>Back</h3>
-            </button>
-        </div>
-    </div> -->
-    <!-- <script src="app.js"></script> -->
 <script src="main.js"></script></body>
 
 </html>
