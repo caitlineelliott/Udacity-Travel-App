@@ -26,6 +26,7 @@ function createElements(event) {
 
     rowElements.newItemValue.readOnly = true;
     rowElements.newItemValue.setAttribute('style', 'resize: none; ');
+    rowElements.editBtn.setAttribute('onclick', 'editItem()');
 
     let target = event.target.classList.value;
 
@@ -108,24 +109,50 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
         }
     });
 
-    document.querySelector('#editBtn').addEventListener('click', function () {
-        rowElements.newItemValue.readOnly = false;
-        rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-        let saveBtn = document.createElement('div');
-        saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-        saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-        saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff;');
-        newItemValue.insertAdjacentElement('afterend', saveBtn);
-        saveBtn.addEventListener('click', function () {
-            saveBtn.style.display = 'none';
-            newItemValue.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-            newItemValue.readOnly = true;
-        });
-    });
+    // document.querySelectorAll('#editBtn').forEach(btn => btn.addEventListener('click', editItem))
+
+    // .addEventListener('click', function () {
+    //     rowElements.newItemValue.readOnly = false;
+    //     rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+    //     let saveBtn = document.createElement('div');
+    //     saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+    //     saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+    //     saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff;');
+    //     newItemValue.insertAdjacentElement('afterend', saveBtn);
+    //     saveBtn.addEventListener('click', function () {
+    //         saveBtn.style.display = 'none';
+    //         newItemValue.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+    //         newItemValue.readOnly = true;
+    //     });
 
     document.querySelector('#deleteBtn').addEventListener('click', function () {
         event.target.parentElement.parentElement.remove()
     });
+}
+
+function editItem() {
+    console.log('edit')
+
+    let item = document.querySelector('#editBtn').previousSibling.previousSibling
+    item.readOnly = false;
+    item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+
+    // let saveBtn = document.createElement('div');
+    // saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+    // saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+    // saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
+
+    // item.insertAdjacentElement('afterend', saveBtn)
+
+    // rowElements.newItemValue.readOnly = false;
+    // rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+
+    // rowElements.newItemValue.insertAdjacentElement('afterend', saveBtn);
+    // saveBtn.addEventListener('click', function () {
+    //     saveBtn.style.display = 'none';
+    //     item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+    //     item.readOnly = true;
+    // })
 }
 
 /* Function to POST data */
@@ -146,4 +173,5 @@ const postData = async (url = '', data = {}) => {
         console.log('FAILED TO POST DATA TO SERVER');
     }
 };
+
 export { createElements }
