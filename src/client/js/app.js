@@ -2,20 +2,6 @@ import { updateUI } from './updateUI'
 import { getGeonames } from './getGeonames'
 import { getWeatherBit } from './getWeatherbit'
 
-// Make Date + Time
-const makeDateAndTime = () => {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
-    if (today.getHours() > 12) {
-        let dateTime = `${date} | ${today.getHours() - 12}:${today.getMinutes()} p.m.`;
-        return dateTime;
-    } else {
-        let dateTime = `${date} | ${today.getHours()}:${today.getMinutes()} a.m.`;
-        return dateTime;
-    }
-};
-
 // Event listener to add function to existing HTML DOM element
 document.querySelector('.submit-btn').addEventListener('click', generate);
 
@@ -28,13 +14,11 @@ async function generate(event) {
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
-    // get geonames info
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
     let tripState = geonamesInfo.geonames[0].adminName1; // state
     let userCountry = geonamesInfo.geonames[0].countryName; // country
     let userCity = geonamesInfo.geonames[0].name; // city name
 
-    //trigger WeatherBit
     let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
     updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo);
@@ -67,6 +51,20 @@ async function getHeaderPhoto(userCity) {
         console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
 }
+
+// Make Date + Time
+const makeDateAndTime = () => {
+    const today = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+    if (today.getHours() > 12) {
+        let dateTime = `${date} | ${today.getHours() - 12}:${today.getMinutes()} p.m.`;
+        return dateTime;
+    } else {
+        let dateTime = `${date} | ${today.getHours()}:${today.getMinutes()} a.m.`;
+        return dateTime;
+    }
+};
 
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {

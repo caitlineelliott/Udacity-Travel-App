@@ -39,7 +39,7 @@ app.get('/all', getData);
 
 // Callback function to complete GET '/all'
 function getData(req, res) {
-    res.send(projectData);
+    res.send(userTripData);
 };
 
 // Post Route
@@ -57,7 +57,7 @@ function addData(req, res) {
     userTripData.unshift(projectData)
 
     console.log(userTripData);
-    res.send(projectData);
+    res.send(userTripData);
 
     const dateTime = () => {
         let today = new Date();

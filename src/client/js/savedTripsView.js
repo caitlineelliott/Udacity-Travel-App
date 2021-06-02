@@ -20,20 +20,23 @@ const getUserData = async (url) => {
 
         console.log(`DATA POSTED TO UI`);
 
-        let city = data.city;
-        let d1 = data.departure;
-        let d2 = data.arrival;
+        // let city = data.city;
+        // let d1 = data.departure;
+        // let d2 = data.arrival;
 
-        addSavedTrip(city, d1, d2)
+        console.log(data)
+        // console.log(city, d1, d2)
+
+        // addSavedTrip(city, d1, d2)
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
 
-        let city = 'Dallas';
-        let d1 = '06/01';
-        let d2 = '06/02';
+        // let city = 'Dallas';
+        // let d1 = '06/01';
+        // let d2 = '06/02';
 
-        addSavedTrip(city, d1, d2)
+        // addSavedTrip(city, d1, d2)
     }
 };
 

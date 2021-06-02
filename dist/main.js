@@ -272,20 +272,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// Make Date + Time
-const makeDateAndTime = () => {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
-    if (today.getHours() > 12) {
-        let dateTime = `${date} | ${today.getHours() - 12}:${today.getMinutes()} p.m.`;
-        return dateTime;
-    } else {
-        let dateTime = `${date} | ${today.getHours()}:${today.getMinutes()} a.m.`;
-        return dateTime;
-    }
-};
-
 // Event listener to add function to existing HTML DOM element
 document.querySelector('.submit-btn').addEventListener('click', generate);
 
@@ -298,13 +284,11 @@ async function generate(event) {
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
-    // get geonames info
     const geonamesInfo = await Object(_getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott');
     let tripState = geonamesInfo.geonames[0].adminName1; // state
     let userCountry = geonamesInfo.geonames[0].countryName; // country
     let userCity = geonamesInfo.geonames[0].name; // city name
 
-    //trigger WeatherBit
     let weatherInfo = await Object(_getWeatherbit__WEBPACK_IMPORTED_MODULE_2__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
     Object(_updateUI__WEBPACK_IMPORTED_MODULE_0__["updateUI"])(tripState, userCountry, userCity, departDate, returnDate, weatherInfo);
@@ -337,6 +321,20 @@ async function getHeaderPhoto(userCity) {
         console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
 }
+
+// Make Date + Time
+const makeDateAndTime = () => {
+    const today = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+    if (today.getHours() > 12) {
+        let dateTime = `${date} | ${today.getHours() - 12}:${today.getMinutes()} p.m.`;
+        return dateTime;
+    } else {
+        let dateTime = `${date} | ${today.getHours()}:${today.getMinutes()} a.m.`;
+        return dateTime;
+    }
+};
 
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
@@ -464,20 +462,23 @@ const getUserData = async (url) => {
 
         console.log(`DATA POSTED TO UI`);
 
-        let city = data.city;
-        let d1 = data.departure;
-        let d2 = data.arrival;
+        // let city = data.city;
+        // let d1 = data.departure;
+        // let d2 = data.arrival;
 
-        addSavedTrip(city, d1, d2)
+        console.log(data)
+        // console.log(city, d1, d2)
+
+        // addSavedTrip(city, d1, d2)
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
 
-        let city = 'Dallas';
-        let d1 = '06/01';
-        let d2 = '06/02';
+        // let city = 'Dallas';
+        // let d1 = '06/01';
+        // let d2 = '06/02';
 
-        addSavedTrip(city, d1, d2)
+        // addSavedTrip(city, d1, d2)
     }
 };
 
