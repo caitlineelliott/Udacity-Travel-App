@@ -157,6 +157,30 @@
     overflow: scroll;
 }
 
+.trip-dates {
+    width: 25vw;
+}
+
+
+.trip-actions > * {
+    padding: 0 10px;
+}
+
+.saved-trips {
+    .packing-list-row {
+        width: 100vw;
+        height: 4vh;
+        font-size: 1.1em;
+        margin: 0;
+        border-bottom: 1px solid $background;
+        box-sizing: border-box;
+        .packing-item-row-segment {
+            height: 4vh;
+            width: 45vw;
+        }
+    }
+}
+
 /* TABLET */
 @media only screen and (min-width: 768px) {
 .output {

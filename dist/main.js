@@ -462,14 +462,9 @@ const getUserData = async (url) => {
 
         console.log(`DATA POSTED TO UI`);
 
-        // let city = data.city;
-        // let d1 = data.departure;
-        // let d2 = data.arrival;
-
         console.log(data)
-        // console.log(city, d1, d2)
 
-        // addSavedTrip(city, d1, d2)
+        addSavedTrip(data)
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
@@ -482,37 +477,38 @@ const getUserData = async (url) => {
     }
 };
 
-function addSavedTrip(city, d1, d2) {
-    let newItemRow = document.createElement('div');
-    let tripDates = document.createElement('div');
-    let tripCity = document.createElement('div');
-    let tripActions = document.createElement('div');
-    const tripPackingList = document.createElement('span');
-    const tripTodoList = document.createElement('span');
-    const editTrip = document.createElement('span');
-    const deleteTrip = document.createElement('span');
+function addSavedTrip(data) {
+    for (let i = 0; i < data.length; i++) {
+        let newItemRow = document.createElement('div');
+        let tripDates = document.createElement('div');
+        let tripCity = document.createElement('div');
+        let tripActions = document.createElement('div');
+        const tripPackingList = document.createElement('span');
+        const tripTodoList = document.createElement('span');
+        const editTrip = document.createElement('span');
+        const deleteTrip = document.createElement('span');
 
-    tripDates.innerHTML = `${d1} - ${d2}`;
-    tripCity.innerHTML = city;
-    tripPackingList.innerHTML = `<i class="fas fa-tshirt"></i>`
-    tripTodoList.innerHTML = `<i class="fas fa-clipboard-list"></i>`
-    editTrip.innerHTML = `<i class="fas fa-edit"></i>`
-    deleteTrip.innerHTML = `<i class="fas fa-times"></i>`
+        tripDates.innerHTML = `${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)} - ${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)}`;
+        tripCity.innerHTML = data[i].city;
+        tripPackingList.innerHTML = `<i class="fas fa-tshirt"></i>`
+        tripTodoList.innerHTML = `<i class="fas fa-clipboard-list"></i>`
+        editTrip.innerHTML = `<i class="fas fa-edit"></i>`
+        deleteTrip.innerHTML = `<i class="fas fa-times"></i>`
 
-    newItemRow.classList.add('packing-list-row');
-    tripDates.classList.add('packing-item-row-segment');
-    tripCity.classList.add('packing-item-row-segment');
-    tripActions.classList.add('packing-item-row-segment');
+        newItemRow.classList.add('packing-list-row');
+        tripDates.classList.add('packing-item-row-segment', 'trip-dates');
+        tripCity.classList.add('packing-item-row-segment');
+        tripActions.classList.add('packing-item-row-segment', 'trip-actions');
 
-    document.querySelector('.saved-trips').appendChild(newItemRow);
-    newItemRow.appendChild(tripDates);
-    newItemRow.appendChild(tripCity);
-    newItemRow.appendChild(tripActions);
-    tripActions.appendChild(tripPackingList);
-    tripActions.appendChild(tripTodoList);
-    tripActions.appendChild(editTrip);
-    tripActions.appendChild(deleteTrip);
-
+        document.querySelector('.saved-trips').appendChild(newItemRow);
+        newItemRow.appendChild(tripDates);
+        newItemRow.appendChild(tripCity);
+        newItemRow.appendChild(tripActions);
+        tripActions.appendChild(tripPackingList);
+        tripActions.appendChild(tripTodoList);
+        tripActions.appendChild(editTrip);
+        tripActions.appendChild(deleteTrip);
+    }
 }
 
 
