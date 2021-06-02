@@ -1,6 +1,9 @@
 document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
 document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
 
+let packingList = []
+let todoList = []
+
 function createElements(event) {
     event.preventDefault();
 
@@ -29,7 +32,7 @@ function createElements(event) {
     setValues(target, blockElements, rowElements, checkboxElements);
 }
 
-function setValues(target, blockElements, rowElements, checkboxElements) {
+async function setValues(target, blockElements, rowElements, checkboxElements) {
     blockElements.newItemCategoryLabel.innerHTML = document.querySelector(`.${target}-category`).value;
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -42,6 +45,28 @@ function setValues(target, blockElements, rowElements, checkboxElements) {
     checkboxElements.toggleLabel.innerHTML = 'Packed';
 
     document.querySelector(`.${target}-item`).value = '';
+
+    let item = {
+        item: rowElements.newItemValue.innerText,
+        category: blockElements.newItemCategoryLabel.innerText,
+        toggleStatus: false,
+        deleted: false
+    }
+
+    if (target === 'packing-list-btn') {
+        packingList.push(item);
+    } else {
+        todoList.push(item)
+    }
+
+    console.log(packingList)
+    console.log(todoList)
+
+    await postData('/api/list', {
+        packingList: packingList,
+        todoList: todoList,
+        tripCity: document.querySelector('h1').innerText
+    });
 
     appendItem(target, blockElements, rowElements, checkboxElements);
 }
@@ -103,4 +128,22 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     });
 }
 
+/* Function to POST data */
+const postData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO POST DATA TO SERVER');
+    }
+};
 export { createElements }

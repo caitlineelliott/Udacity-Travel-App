@@ -43,12 +43,15 @@ function getData(req, res) {
 };
 
 // Post Route
-app.post('/api/add', addData);
+app.post('/api/trip', addTripData);
+app.post('/api/list', addListData);
 
-function addData(req, res) {
+function addTripData(req, res) {
     const newData = req.body;
 
     let projectData = {};
+
+    console.log(newData)
 
     projectData["city"] = newData.city;
     projectData["departure"] = newData.departure;
@@ -71,4 +74,19 @@ function addData(req, res) {
         }
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
+};
+
+function addListData(req, res) {
+    const newData = req.body;
+
+    console.log('userTripData', userTripData[0].city);
+    console.log('tripCity', newData)
+
+    if (userTripData[0].city === newData.tripCity) {
+        console.log('yes!')
+        projectData[0]["packList"] = newData.packingList; // doesn't work
+        console.log(projectData);
+    }
+
+    console.log(`LIST DATA SUCCESSFUL`);
 };

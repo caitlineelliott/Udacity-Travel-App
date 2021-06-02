@@ -27,7 +27,7 @@ async function generate(event) {
 
     document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
 
-    await postData('/api/add', {
+    await postData('/api/trip', {
         city: tripCity,
         departure: departDate,
         arrival: returnDate
