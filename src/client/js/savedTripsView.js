@@ -54,9 +54,9 @@ function addSavedTrip(data) {
         deleteTrip.innerHTML = `<i class="fas fa-times"></i>`
 
         newItemRow.classList.add('packing-list-row');
-        tripDates.classList.add('packing-item-row-segment', 'trip-dates');
-        tripCity.classList.add('packing-item-row-segment');
-        tripActions.classList.add('packing-item-row-segment', 'trip-actions');
+        tripDates.classList.add('trip-dates');
+        tripCity.classList.add('trip-city');
+        tripActions.classList.add('trip-actions');
 
         document.querySelector('.saved-trips').appendChild(newItemRow);
         newItemRow.appendChild(tripDates);

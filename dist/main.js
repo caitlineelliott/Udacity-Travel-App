@@ -171,10 +171,22 @@ function createElements(event) {
     let target = event.target.classList.value;
 
     setValues(target, blockElements, rowElements, checkboxElements);
+
+    /* Collapse Items */
+    blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
+        Array.from(event.target.children).forEach(function (item) {
+            if (item.classList.contains('packing-list-row')) {
+                console.log('success')
+                item.classList.toggle('item-display');
+            } else if (item.classList.contains('fa-chevron-down')) {
+                item.classList.toggle('fa-chevron-up')
+            }
+        })
+    })
 }
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
-    blockElements.newItemCategoryLabel.innerHTML = document.querySelector(`.${target}-category`).value;
+    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
 
@@ -298,6 +310,7 @@ function editItem() {
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
     try {
+        npm
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
@@ -567,9 +580,9 @@ function addSavedTrip(data) {
         deleteTrip.innerHTML = `<i class="fas fa-times"></i>`
 
         newItemRow.classList.add('packing-list-row');
-        tripDates.classList.add('packing-item-row-segment', 'trip-dates');
-        tripCity.classList.add('packing-item-row-segment');
-        tripActions.classList.add('packing-item-row-segment', 'trip-actions');
+        tripDates.classList.add('trip-dates');
+        tripCity.classList.add('trip-city');
+        tripActions.classList.add('trip-actions');
 
         document.querySelector('.saved-trips').appendChild(newItemRow);
         newItemRow.appendChild(tripDates);
