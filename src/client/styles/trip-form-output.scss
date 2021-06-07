@@ -30,20 +30,18 @@
 
 .forecast {
     margin: 50px 0;
-    width: 80vw;
     color: white;
 }
 
 .forecast-row,
 .packing-list-row,
 .todo-list-row {
-    width: 80vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 10px auto;
     background: $h2-color-light;
-    height: 5vh;
+    height: 6vh;
     box-sizing: border-box;
 
 }
@@ -56,17 +54,22 @@
 }
 
 .forecast-date {
-    width: 25%;
+    width: 20vw;
     padding-left: 20px;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .forecast-high {
-    width: 60%;
+    width: 52vw;
+    box-sizing: border-box;
+    padding: 10px;
+
 }
 
 .forecast-icon {
     width: 10vw;
-    position: relative;
+    box-sizing: border-box;
 }
 
 .packing-list-form {
