@@ -270,7 +270,7 @@ input::placeholder {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 50px auto;
+  margin: 10px auto;
   background: #83A8A6; }
 
 .forecast-date,

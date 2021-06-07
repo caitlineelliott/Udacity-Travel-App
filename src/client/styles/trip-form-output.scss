@@ -43,6 +43,9 @@
     align-items: center;
     margin: 10px auto;
     background: $h2-color-light;
+    height: 5vh;
+    box-sizing: border-box;
+
 }
 
 .forecast-date,
@@ -83,11 +86,14 @@
     select {
         width: 30vw;
         background: #43878A;
+        box-sizing: border-box;
     }
 
     button {
         width: 12vw;
         background: #197278;
+        box-sizing: border-box;
+
     }
 }
 
@@ -100,6 +106,7 @@
     padding: 10px;
     width: 20vw;
     background: #43878A;
+    box-sizing: border-box;
 }
 
 .item-category {
@@ -130,14 +137,14 @@
     margin: 0;
     display: flex;
     justify-content: center;
-    width: 8vw;
+    width: 6vw;
     background: $h2-color;
     height: 6vh;
 }
 
 #packedFlag {
     height: 6vh;
-    width: 21vw;
+    width: 30vw;
 }
 
 #newItemValue {
@@ -145,6 +152,8 @@
     font-family: $plain-font;
     font-size: 0.8em;
     width: 40vw;
+    border: none;
+    height: 6vh;
 }
 
 .packing-item {
