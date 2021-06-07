@@ -19,17 +19,15 @@ body {
 }
 
 h1 {
-    font-family: 'lobster';
-    font-size: 20vw;
+    font: 20vw $fancy-font;
     color: $h1-color;
     text-shadow: 2px 3px 0 $background, 2px 4px 0 $background,  2px 5px 0 $background;
     margin: 0;
 }
 
 h2 {
-    font-family: $fancy-font;
+    font: 8vw $fancy-font;
     color: $h2-color;
-    font-size: 8vw;
     margin: 0 0 20px 0;
     text-align: center;
 }
@@ -38,13 +36,13 @@ input,
 button,
 select {
     margin: 5px 0 20px 0;
-    font-family: $plain-font;
-    color: #000;
+    padding: 15px;
+    box-sizing: border-box;
+    width: 80vw;
     border: none;
     background: $h2-color-light;
-    padding: 15px;
-    width: 80vw;
-    box-sizing: border-box;
+    font-family: $plain-font;
+    color: #000;
 }
 
 input::placeholder {
