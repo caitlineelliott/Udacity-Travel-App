@@ -94,6 +94,16 @@
             box-sizing: border-box;
 
         }
+
+        #todo-list-input {
+            width: 40vw;
+            font-family: $plain-font;
+            color: $h2-color;
+            border: none;
+            background: #83A8A6;
+            padding: 10px;
+            box-sizing: border-box;
+        }
     }
 
     .packing-list-row {
@@ -122,59 +132,48 @@
         }
     }
 
+    #newItemValue {
+        margin: 0;
+        font-family: $plain-font;
+        font-size: 0.8em;
+        width: 40vw;
+        border: none;
+        height: 6vh;
+    }
+
+    #deleteBtn,
+    #editBtn,
+    .delete-btn {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        width: 6vw;
+        background: $h2-color;
+        height: 6vh;
+    }
+
     .packed {
         opacity: 0.5;
+    }
+
+    .packing-item {
+        margin: 0;
+        width: 35vw;
+        font-family: $plain-font;
+        color: $h2-color;
+        border: none;
+        background: #83A8A6;
+        overflow: scroll;
+    }
+
+    #packedFlag {
+        height: 6vh;
+        width: 30vw;
     }
 
     .item-display {
         display: none;
     }
-}
-
-
-#todo-list-input {
-    width: 40vw;
-    font-family: $plain-font;
-    color: $h2-color;
-    border: none;
-    background: #83A8A6;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-#deleteBtn,
-#editBtn,
-.delete-btn {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    width: 6vw;
-    background: $h2-color;
-    height: 6vh;
-}
-
-#packedFlag {
-    height: 6vh;
-    width: 30vw;
-}
-
-#newItemValue {
-    margin: 0;
-    font-family: $plain-font;
-    font-size: 0.8em;
-    width: 40vw;
-    border: none;
-    height: 6vh;
-}
-
-.packing-item {
-    margin: 0;
-    width: 35vw;
-    font-family: $plain-font;
-    color: $h2-color;
-    border: none;
-    background: #83A8A6;
-    overflow: scroll;
 }
 
 ////////
