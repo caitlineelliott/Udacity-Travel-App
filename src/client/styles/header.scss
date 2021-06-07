@@ -1,19 +1,44 @@
 @import 'base.scss';
 
-
-.banner {
-    width: 100vw;
-    height: 30vh;
-    display: flex;
-        align-items: center;
-        justify-content: center;
-    background-color: $h2-color;
-    background-size: cover;
-    background-image: url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1586&q=80');
-}
 header {
     margin: 0;
     padding: 0;
+
+    .banner {
+        width: 100vw;
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $h2-color url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1586&q=80');
+        background-size: cover;
+    }
+
+    .postage-mark {
+        width: 30vw;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        filter: invert(1);
+        transform: scaleX(-1);
+    }
+
+    .home-btn {
+        position: absolute;
+        top: 17px;
+        right: 15px;
+        background: white;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        a {
+            color: $h1-color;
+        }
+    }
 
     nav {
         display: flex;
@@ -33,36 +58,12 @@ header {
     }
 }
 
-.postage-mark {
-    width: 30vw;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    // opacity: 0.9;
-    filter: invert(1);
-    transform: scaleX(-1);
-}
-
-.home-btn {
-    position: absolute;
-    top: 17px;
-    right: 15px;
-    background: white;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-        color: $h1-color;
-    }
-}
-
 /* TABLET */
 @media only screen and (min-width: 768px) {
     header {
+        .postage-mark {
+            width: 20vw;
+        }
         nav {
             height: 6vh;
 
@@ -72,15 +73,20 @@ header {
             }
         }
     }
-    .postage-mark {
-        width: 20vw;
-    }
+
 }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
     header {
         width: 50%;
+
+        .postage-mark {
+            position: fixed;
+            width: 10vw;
+            left: 39%;
+            z-index: 101;
+        }
 
         .banner {
             height: 100vh;
@@ -102,12 +108,5 @@ header {
                 margin: 10px 20px;
             }
         }
-    }
-
-    .postage-mark {
-        position: fixed;
-        width: 10vw;
-        left: 39%;
-        z-index: 101;
     }
 }
