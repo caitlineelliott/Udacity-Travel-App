@@ -38,9 +38,26 @@ header {
     position: absolute;
     top: 15px;
     right: 15px;
-    opacity: 0.9;
+    // opacity: 0.9;
     filter: invert(1);
     transform: scaleX(-1);
+}
+
+.home-btn {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+    background: white;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        color: $h1-color;
+    }
 }
 
 /* TABLET */
