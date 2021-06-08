@@ -630,6 +630,7 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     document.querySelector('.container').style.display = "none";
 
     let forecast = weatherInfo.data;
+    console.log(forecast)
     let dates = [];
 
     for (let i = 0; i < forecast.length; i++) {
@@ -638,7 +639,6 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
-
             const newRow = document.createElement('div');
             newRow.classList.add('forecast-row');
             document.querySelector('.forecast').appendChild(newRow)
@@ -658,14 +658,18 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
             newRow.appendChild(weather);
         }
+    }
 
-        else if (returnDate >= dates[i]) {
-            let currentDate = new Date();
-        }
+    let longForecast = document.createElement('div');
 
-        else {
-            console.log('feet');
-        }
+    if (departDate > dates[15]) {
+        longForecast.classList.add('long-forecast');
+        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+        document.querySelector('.forecast').appendChild(longForecast);
+    } else if (returnDate > dates[15]) {
+        longForecast.classList.add('long-forecast');
+        longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
+        document.querySelector('.forecast').appendChild(longForecast);
     }
 
     const h1 = document.querySelector('.title');

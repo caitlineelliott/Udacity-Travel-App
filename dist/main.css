@@ -260,6 +260,9 @@ input::placeholder {
   .output .forecast {
     margin: 50px 0;
     color: white; }
+    .output .forecast .long-forecast {
+      color: black;
+      font-size: 0.8em; }
   .output .forecast-row,
   .output .packing-list-row,
   .output .todo-list-row {
@@ -417,16 +420,34 @@ input::placeholder {
     .output .travel-summary {
       font-size: 1em;
       width: 30vw; }
+    .output .forecast-row {
+      width: 30vw; }
+      .output .forecast-row .forecast-date,
+      .output .forecast-row .forecast-icon,
+      .output .forecast-row .forecast-high {
+        font-size: 1em; }
+      .output .forecast-row .forecast-date {
+        width: 12vw;
+        padding: 0 25px; }
+      .output .forecast-row .forecast-icon {
+        width: 2vw;
+        box-sizing: border-box; }
+      .output .forecast-row .forecast-high {
+        width: 23vw;
+        padding: 0 50px; }
   #packedFlag {
     width: 23vw; }
   .forecast,
   .packing-list-form,
   .packing-list-row {
     width: 40vw; }
-  .forecast-date, .forecast-icon, .forecast-high {
-    font-size: 1em; }
   .forecast-icon {
-    width: 3vw; } }
+    width: 3vw; }
+  .saved-trips .packing-list-row {
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    top: 6vh; } }
 
 body {
   margin: 0;
