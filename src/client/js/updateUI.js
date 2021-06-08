@@ -35,12 +35,16 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
         }
     }
 
-    if (returnDate > dates[15]) {
-        console.log(`${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)}`);
-        let longForecast = document.createElement('div');
+    let longForecast = document.createElement('div');
+
+    if (departDate > dates[15]) {
+        longForecast.classList.add('long-forecast');
+        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+        document.querySelector('.forecast').appendChild(longForecast);
+    } else if (returnDate > dates[15]) {
+        longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         document.querySelector('.forecast').appendChild(longForecast);
-        longForecast.classList.add('long-forecast');
     }
 
     const h1 = document.querySelector('.title');
