@@ -173,6 +173,8 @@
     #packedFlag {
         height: 6vh;
         width: 30vw;
+        display: flex;
+        justify-content: center;
     }
 
     .item-display {
@@ -293,19 +295,16 @@
         width: 40vw;
     }
 
-    
-    
-
     .forecast-icon {
         width: 3vw;
     }
 
     .saved-trips {
-        .packing-list-row {
-            width: 50vw;
-            position: absolute;
+        position: absolute;
             left: 50%;
             top: 6vh;
+        .packing-list-row {
+            width: 50vw;
         }
     }
 

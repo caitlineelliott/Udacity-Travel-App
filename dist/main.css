@@ -155,6 +155,12 @@ header {
 @media only screen and (min-width: 768px) {
   header .postage-mark {
     width: 20vw; }
+  header .home-btn {
+    top: 15px;
+    height: 45px;
+    width: 45px; }
+    header .home-btn a {
+      font-size: 3vw; }
   header nav {
     height: 6vh; }
     header nav .nav-btn {
@@ -170,6 +176,14 @@ header {
       width: 10vw;
       left: 39%;
       z-index: 101; }
+    header .home-btn {
+      top: 16px;
+      left: 46.2%;
+      height: 38px;
+      width: 38px;
+      z-index: 102; }
+      header .home-btn a {
+        font-size: 1.5vw; }
     header .banner {
       height: 100vh;
       width: 50vw;
@@ -363,7 +377,9 @@ input::placeholder {
     overflow: scroll; }
   .output #packedFlag {
     height: 6vh;
-    width: 30vw; }
+    width: 30vw;
+    display: flex;
+    justify-content: center; }
   .output .item-display {
     display: none; }
 
@@ -443,11 +459,12 @@ input::placeholder {
     width: 40vw; }
   .forecast-icon {
     width: 3vw; }
-  .saved-trips .packing-list-row {
-    width: 50vw;
+  .saved-trips {
     position: absolute;
     left: 50%;
-    top: 6vh; } }
+    top: 6vh; }
+    .saved-trips .packing-list-row {
+      width: 50vw; } }
 
 body {
   margin: 0;

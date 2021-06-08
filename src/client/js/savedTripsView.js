@@ -68,19 +68,6 @@ function addSavedTrip(data) {
         tripActions.appendChild(deleteTrip);
     }
 
-    /* Collapse Items */
-    deleteTrip.addEventListener('click', function (event) {
-        Array.from(event.target.children).forEach(function (item) {
-            console.log(item);
-            // if (item.classList.contains('packing-list-row')) {
-            //     console.log('success')
-            //     item.classList.toggle('item-display');
-            // } else if (item.classList.contains('fa-chevron-down')) {
-            //     item.classList.toggle('fa-chevron-up')
-            // }
-        })
-    })
-
 }
 
 export {
