@@ -64,6 +64,16 @@ header {
         .postage-mark {
             width: 20vw;
         }
+
+        .home-btn {
+            top: 15px;
+            height: 45px;
+            width: 45px;
+            a {
+                font-size: 3vw;
+            }
+        }
+
         nav {
             height: 6vh;
 
@@ -86,6 +96,17 @@ header {
             width: 10vw;
             left: 39%;
             z-index: 101;
+        }
+
+        .home-btn {
+            top: 16px;
+            left: 46.2%;
+            height: 38px;
+            width: 38px;
+            z-index: 102;
+            a {
+                font-size: 1.5vw;
+            }
         }
 
         .banner {
