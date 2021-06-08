@@ -30,7 +30,7 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
             const weather = document.createElement('div');
             weather.classList.add('forecast-high');
-            weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
+            weather.innerHTML = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
             newRow.appendChild(weather);
         }
     }
