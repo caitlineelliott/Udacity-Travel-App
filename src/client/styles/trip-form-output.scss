@@ -254,6 +254,30 @@
             font-size: 1em;
             width: 30vw;
         }
+
+        .forecast-row {
+            width: 30vw;
+            .forecast-date,
+            .forecast-icon,
+            .forecast-high {
+                font-size: 1em;
+            }
+
+            .forecast-date {
+                width: 12vw;
+                padding: 0 25px;
+            }
+
+            .forecast-icon {
+                width: 2vw;
+                box-sizing: border-box;
+            }
+
+            .forecast-high {
+                width: 23vw;
+                padding: 0 50px;
+            }
+        }
     }
     #packedFlag {
         width: 23vw;
@@ -265,9 +289,8 @@
         width: 40vw;
     }
 
-    .forecast-date, .forecast-icon, .forecast-high {
-        font-size: 1em;
-    }
+    
+    
 
     .forecast-icon {
         width: 3vw;
