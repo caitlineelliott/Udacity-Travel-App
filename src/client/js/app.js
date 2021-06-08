@@ -2,6 +2,10 @@ import { updateUI } from './updateUI'
 import { getGeonames } from './getGeonames'
 import { getWeatherBit } from './getWeatherbit'
 
+// constrain date based on current date
+let currentDate = new Date()
+document.querySelector('.trip-city').setAttribute('max', currentDate)
+
 // Event listener to add function to existing HTML DOM element
 document.querySelector('.submit-btn').addEventListener('click', generate);
 
