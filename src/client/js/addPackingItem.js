@@ -157,15 +157,6 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.addEventListener('click', function (event) {
         rowElements.packedFlag.parentElement.classList.toggle('packed');
     })
-
-    //     document.querySelector('#packedFlag').addEventListener('click', function () {
-    //         blockElements.newItemRow.classList.toggle('packed');
-    //         if (checkboxElements.toggleIcon.innerHTML === '<i class= "fas fa-check-square"></i>') {
-    //             checkboxElements.toggleIcon.innerHTML = '<i class= "far fa-check-square"></i>'
-    //         } else {
-    //             checkboxElements.toggleIcon.innerHTML = '<i class= "fas fa-check-square" ></i >'
-    //         }
-    //     });
 }
 
 /* Function to POST data */
