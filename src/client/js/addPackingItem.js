@@ -137,9 +137,29 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     //         newItemValue.readOnly = true;
     //     });
 
-    document.querySelector('#deleteBtn').addEventListener('click', function () {
-        event.target.parentElement.parentElement.remove()
-    });
+    // document.querySelector('#deleteBtn').addEventListener('click', function () {
+    //     event.target.parentElement.parentElement.remove()
+    // });
+
+    /* REMOVE Items */
+    rowElements.deleteBtn.addEventListener('click', function (event) {
+        if (event.target.classList.value === 'fas fa-times') {
+            console.log('timesbtn')
+            event.target.parentElement.parentElement.remove();
+            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+            if (blockElements.newItemCategoryLabel.children.length < 2) {
+                blockElements.newItemCategoryLabel.remove()
+            }
+        } else if (event.target.classList.value === 'packing-item-row-segment') {
+            console.log('button');
+            event.target.parentElement.remove();
+            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+            if (blockElements.newItemCategoryLabel.children.length < 2) {
+                blockElements.newItemCategoryLabel.remove()
+            }
+
+        }
+    })
 }
 
 function editItem() {
