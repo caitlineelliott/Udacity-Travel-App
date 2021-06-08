@@ -34,7 +34,8 @@ h2 {
 
 input,
 button,
-select {
+select,
+.trip-city {
     margin: 5px 0 20px 0;
     padding: 15px;
     box-sizing: border-box;
@@ -43,6 +44,7 @@ select {
     background: $h2-color-light;
     font-family: $plain-font;
     color: #000;
+    text-align: left;
 }
 
 input::placeholder {
@@ -71,7 +73,8 @@ input::placeholder {
     }
 
     input,
-    button {
+    button,
+    .trip-city {
         width: 45vw;
     }
 
