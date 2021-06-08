@@ -45,7 +45,14 @@ function createElements(event) {
 }
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
-    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
+
+    if (document.querySelector(`.${target}-category`).value = 'Category') {
+        blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
+    } else {
+        blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
+
+    }
+
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
 
