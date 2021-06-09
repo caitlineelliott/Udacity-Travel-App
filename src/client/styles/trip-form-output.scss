@@ -26,6 +26,19 @@
     .forecast {
         margin: 50px 0;
         color: white;
+
+        .more-days {
+            color: black;
+            font-size: 0.8em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .more-days:hover {
+            color: $cool-accent;
+            cursor:pointer;
+        }
+
         .long-forecast {
             color: black;
             font-size: 0.8em;
