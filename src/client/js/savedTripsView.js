@@ -35,7 +35,7 @@ const getUserData = async (url) => {
     }
 };
 
-function addSavedTrip(data) {
+async function addSavedTrip(data) {
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
@@ -66,11 +66,41 @@ function addSavedTrip(data) {
         tripActions.appendChild(tripTodoList);
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
-    }
 
+        /* REMOVE Items */
+        deleteTrip.addEventListener('click', function (event) {
+            console.log(event.target)
+            deleteTrip.parentElement.parentElement.parentElement.remove()
+            //  need to remove element from server as well
+
+            deleteData('/remove', {
+                city: tripCity.innerHTML
+            });
+        })
+    }
 }
 
+/* Function to POST data */
+const deleteData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA DELETED FROM SERVER ${makeDateAndTime()}`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO DELETE DATA FROM SERVER');
+    }
+};
+
 export {
+    deleteData,
     viewSavedTrips,
     getUserData,
     addSavedTrip

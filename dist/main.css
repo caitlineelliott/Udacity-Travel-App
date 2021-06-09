@@ -19,7 +19,8 @@ h2 {
 
 input,
 button,
-select {
+select,
+.text-input {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -28,6 +29,9 @@ select {
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+.text-input {
+  text-align: left; }
 
 input::placeholder {
   color: #000; }
@@ -46,7 +50,8 @@ input::placeholder {
   h2 {
     font-size: 3vw; }
   input,
-  button {
+  button,
+  .trip-city {
     width: 45vw; }
   body {
     display: flex;
@@ -73,7 +78,8 @@ h2 {
 
 input,
 button,
-select {
+select,
+.text-input {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -82,6 +88,9 @@ select {
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+.text-input {
+  text-align: left; }
 
 input::placeholder {
   color: #000; }
@@ -100,7 +109,8 @@ input::placeholder {
   h2 {
     font-size: 3vw; }
   input,
-  button {
+  button,
+  .trip-city {
     width: 45vw; }
   body {
     display: flex;
@@ -179,8 +189,8 @@ header {
     header .home-btn {
       top: 16px;
       left: 46.2%;
-      height: 38px;
-      width: 38px;
+      height: 3vw;
+      width: 3vw;
       z-index: 102; }
       header .home-btn a {
         font-size: 1.5vw; }
@@ -221,7 +231,8 @@ h2 {
 
 input,
 button,
-select {
+select,
+.text-input {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -230,6 +241,9 @@ select {
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+.text-input {
+  text-align: left; }
 
 input::placeholder {
   color: #000; }
@@ -248,7 +262,8 @@ input::placeholder {
   h2 {
     font-size: 3vw; }
   input,
-  button {
+  button,
+  .trip-city {
     width: 45vw; }
   body {
     display: flex;
@@ -487,7 +502,8 @@ h2 {
 
 input,
 button,
-select {
+select,
+.text-input {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -496,6 +512,9 @@ select {
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+.text-input {
+  text-align: left; }
 
 input::placeholder {
   color: #000; }
@@ -514,7 +533,8 @@ input::placeholder {
   h2 {
     font-size: 3vw; }
   input,
-  button {
+  button,
+  .trip-city {
     width: 45vw; }
   body {
     display: flex;

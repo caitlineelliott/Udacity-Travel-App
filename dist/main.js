@@ -166,7 +166,6 @@ function createElements(event) {
 
     rowElements.newItemValue.readOnly = true;
     rowElements.newItemValue.setAttribute('style', 'resize: none; ');
-    // rowElements.editBtn.setAttribute('onclick', 'editItem()');
 
     let target = event.target.classList.value;
 
@@ -186,7 +185,14 @@ function createElements(event) {
 }
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
-    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
+
+    if (document.querySelector(`.${target}-category`).value = 'Category') {
+        blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
+    } else {
+        blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
+
+    }
+
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
 
@@ -252,35 +258,6 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleIcon);
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
-    document.querySelector('#packedFlag').addEventListener('click', function () {
-        blockElements.newItemRow.classList.toggle('packed');
-        if (checkboxElements.toggleIcon.innerHTML === '<i class= "fas fa-check-square"></i>') {
-            checkboxElements.toggleIcon.innerHTML = '<i class= "far fa-check-square"></i>'
-        } else {
-            checkboxElements.toggleIcon.innerHTML = '<i class= "fas fa-check-square" ></i >'
-        }
-    });
-
-    // document.querySelectorAll('#editBtn').forEach(btn => btn.addEventListener('click', editItem))
-
-    // .addEventListener('click', function () {
-    //     rowElements.newItemValue.readOnly = false;
-    //     rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-    //     let saveBtn = document.createElement('div');
-    //     saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-    //     saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-    //     saveBtn.setAttribute('style', 'width: 6vw; background: #c44536; color: #fff;');
-    //     newItemValue.insertAdjacentElement('afterend', saveBtn);
-    //     saveBtn.addEventListener('click', function () {
-    //         saveBtn.style.display = 'none';
-    //         newItemValue.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-    //         newItemValue.readOnly = true;
-    //     });
-
-    // document.querySelector('#deleteBtn').addEventListener('click', function () {
-    //     event.target.parentElement.parentElement.remove()
-    // });
-
     /* REMOVE Items */
     rowElements.deleteBtn.addEventListener('click', function (event) {
         if (event.target.classList.value === 'fas fa-times') {
@@ -303,7 +280,6 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
 
     // EDIT ITEMS
     rowElements.editBtn.addEventListener('click', function (event) {
-
         let item = rowElements.editBtn.previousSibling.previousSibling
         item.readOnly = false;
         item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
@@ -323,32 +299,12 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
             rowElements.editBtn.removeAttribute('disabled');
         });
     })
+
+    //packed toggle
+    rowElements.packedFlag.addEventListener('click', function (event) {
+        rowElements.packedFlag.parentElement.classList.toggle('packed');
+    })
 }
-
-// function editItem() {
-//     console.log('edit')
-
-//     let item = document.querySelector('#editBtn').previousSibling.previousSibling
-//     item.readOnly = false;
-//     item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-// let saveBtn = document.createElement('div');
-// saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-// saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-// saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
-
-// item.insertAdjacentElement('afterend', saveBtn)
-
-// rowElements.newItemValue.readOnly = false;
-// rowElements.newItemValue.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-// rowElements.newItemValue.insertAdjacentElement('afterend', saveBtn);
-// saveBtn.addEventListener('click', function () {
-//     saveBtn.style.display = 'none';
-//     item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-//     item.readOnly = true;
-// })
-// }
 
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
@@ -398,6 +354,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// constrain date based on current date
+let currentDate = new Date()
+document.querySelector('.trip-city').setAttribute('max', currentDate)
 
 // Event listener to add function to existing HTML DOM element
 document.querySelector('.submit-btn').addEventListener('click', generate);
@@ -541,7 +501,7 @@ __webpack_require__.r(__webpack_exports__);
 const getWeatherBit = async (lat, lng) => {
     try {
         const request =
-            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}`);
+            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
         return await request.json();
     }
     catch (e) {
@@ -557,11 +517,12 @@ const getWeatherBit = async (lat, lng) => {
 /*!*****************************************!*\
   !*** ./src/client/js/savedTripsView.js ***!
   \*****************************************/
-/*! exports provided: viewSavedTrips, getUserData, addSavedTrip */
+/*! exports provided: deleteData, viewSavedTrips, getUserData, addSavedTrip */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteData", function() { return deleteData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewSavedTrips", function() { return viewSavedTrips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addSavedTrip", function() { return addSavedTrip; });
@@ -604,7 +565,7 @@ const getUserData = async (url) => {
     }
 };
 
-function addSavedTrip(data) {
+async function addSavedTrip(data) {
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
@@ -635,9 +596,38 @@ function addSavedTrip(data) {
         tripActions.appendChild(tripTodoList);
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
-    }
 
+        /* REMOVE Items */
+        deleteTrip.addEventListener('click', function (event) {
+            console.log(event.target)
+            deleteTrip.parentElement.parentElement.parentElement.remove()
+            //  need to remove element from server as well
+
+            deleteData('/remove', {
+                city: tripCity.innerHTML
+            });
+        })
+    }
 }
+
+/* Function to POST data */
+const deleteData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA DELETED FROM SERVER ${makeDateAndTime()}`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO DELETE DATA FROM SERVER');
+    }
+};
 
 
 
@@ -685,7 +675,7 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
 
             const weather = document.createElement('div');
             weather.classList.add('forecast-high');
-            weather.innerHTML = `${forecast[i].high_temp}*F / ${forecast[i].low_temp}*F`;
+            weather.innerHTML = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
             newRow.appendChild(weather);
         }
     }

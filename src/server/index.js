@@ -51,15 +51,12 @@ function addTripData(req, res) {
 
     let projectData = {};
 
-    console.log(newData)
-
     projectData["city"] = newData.city;
     projectData["departure"] = newData.departure;
     projectData["arrival"] = newData.arrival;
 
     userTripData.unshift(projectData)
 
-    console.log(userTripData);
     res.send(userTripData);
 
     const dateTime = () => {
@@ -79,14 +76,21 @@ function addTripData(req, res) {
 function addListData(req, res) {
     const newData = req.body;
 
-    console.log('userTripData', userTripData[0].city);
-    console.log('tripCity', newData)
-
     if (userTripData[0].city === newData.tripCity) {
-        console.log('yes!')
         projectData[0]["packList"] = newData.packingList; // doesn't work
-        console.log(projectData);
     }
 
     console.log(`LIST DATA SUCCESSFUL`);
 };
+
+app.delete('/remove', removeData);
+
+function removeData(req, res) {
+    const newData = req.body;
+
+    for (let i = 0; i < userTripData.length; i++) {
+        if (userTripData[i].city === newData.city) {
+            userTripData.splice(i, 1);
+        }
+    }
+}
