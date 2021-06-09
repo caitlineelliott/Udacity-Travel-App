@@ -30,6 +30,13 @@ select,
   font-family: "montserrat", sans-serif;
   color: #000; }
 
+button:hover,
+input[type='submit']:hover,
+a:hover,
+select:hover {
+  opacity: 0.8;
+  cursor: pointer; }
+
 .text-input {
   text-align: left; }
 
@@ -88,6 +95,13 @@ select,
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+button:hover,
+input[type='submit']:hover,
+a:hover,
+select:hover {
+  opacity: 0.8;
+  cursor: pointer; }
 
 .text-input {
   text-align: left; }
@@ -241,6 +255,13 @@ select,
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+button:hover,
+input[type='submit']:hover,
+a:hover,
+select:hover {
+  opacity: 0.8;
+  cursor: pointer; }
 
 .text-input {
   text-align: left; }
@@ -512,6 +533,13 @@ select,
   background: #83A8A6;
   font-family: "montserrat", sans-serif;
   color: #000; }
+
+button:hover,
+input[type='submit']:hover,
+a:hover,
+select:hover {
+  opacity: 0.8;
+  cursor: pointer; }
 
 .text-input {
   text-align: left; }

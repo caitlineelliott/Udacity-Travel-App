@@ -46,12 +46,11 @@ function createElements(event) {
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
 
-    if (document.querySelector(`.${target}-category`).value = 'Category') {
-        blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
-    } else {
-        blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
-
-    }
+    // if (document.querySelector(`.${target}-category`).value = 'Category') {
+    //     blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
+    // } else {
+    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
+    // }
 
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -81,13 +80,14 @@ async function setValues(target, blockElements, rowElements, checkboxElements) {
     console.log(packingList)
     console.log(todoList)
 
+    appendItem(target, blockElements, rowElements, checkboxElements);
+
     await postData('/api/list', {
         packingList: packingList,
         todoList: todoList,
         tripCity: document.querySelector('h1').innerText
     });
 
-    appendItem(target, blockElements, rowElements, checkboxElements);
 }
 
 function appendItem(target, blockElements, rowElements, checkboxElements) {
@@ -169,7 +169,6 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
 /* Function to POST data */
 const postData = async (url = '', data = {}) => {
     try {
-        npm
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
@@ -181,8 +180,8 @@ const postData = async (url = '', data = {}) => {
         console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
         return await response.json();
     }
-    catch {
-        console.log('FAILED TO POST DATA TO SERVER');
+    catch (e) {
+        console.log('FAILED TO POST DATA TO SERVER', e);
     }
 };
 

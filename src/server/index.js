@@ -73,13 +73,20 @@ function addTripData(req, res) {
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
 };
 
+// COME BACK HERE:
 function addListData(req, res) {
     const newData = req.body;
+    console.log(newData)
 
-    if (userTripData[0].city === newData.tripCity) {
-        projectData[0]["packList"] = newData.packingList; // doesn't work
+    for (let i = 0; i < userTripData.length; i++) {
+        if (userTripData[i].city === newData.tripCity) {
+            userTripData[i]["packingList"] = newData.packingList;
+            userTripData[i]["todoList"] = newData.todoList;
+            console.log('WHOLE LIST', userTripData);
+        } else {
+            console.log('no')
+        }
     }
-
     console.log(`LIST DATA SUCCESSFUL`);
 };
 
