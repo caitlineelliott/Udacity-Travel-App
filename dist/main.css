@@ -310,6 +310,14 @@ input::placeholder {
   .output .forecast {
     margin: 50px 0;
     color: white; }
+    .output .forecast .more-days {
+      color: black;
+      font-size: 0.8em;
+      text-align: center;
+      margin: 20px 0; }
+    .output .forecast .more-days:hover {
+      color: #283d3b;
+      cursor: pointer; }
     .output .forecast .long-forecast {
       color: black;
       font-size: 0.8em; }

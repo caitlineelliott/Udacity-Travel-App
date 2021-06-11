@@ -70,7 +70,8 @@ async function addSavedTrip(data) {
         /* REMOVE Items */
         deleteTrip.addEventListener('click', function (event) {
             console.log(event.target)
-            deleteTrip.parentElement.parentElement.parentElement.remove()
+            console.log(deleteTrip.parentElement.parentElement)
+            deleteTrip.parentElement.parentElement.remove()
             //  need to remove element from server as well
 
             deleteData('/remove', {

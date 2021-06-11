@@ -599,7 +599,8 @@ async function addSavedTrip(data) {
         /* REMOVE Items */
         deleteTrip.addEventListener('click', function (event) {
             console.log(event.target)
-            deleteTrip.parentElement.parentElement.parentElement.remove()
+            console.log(deleteTrip.parentElement.parentElement)
+            deleteTrip.parentElement.parentElement.remove()
             //  need to remove element from server as well
 
             deleteData('/remove', {
@@ -656,12 +657,17 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
         dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
     }
 
-    for (let i = 0; i < dates.length; i++) {
-        if (dates[i] >= departDate && dates[i] <= returnDate) {
-            const newRow = document.createElement('div');
-            newRow.classList.add('forecast-row');
-            document.querySelector('.forecast').appendChild(newRow)
+    let tripDaysCount = [];
+    let tripWeather = document.querySelector('.forecast');
 
+    for (let i = 0; i < dates.length; i++) {
+
+        if (dates[i] >= departDate && dates[i] <= returnDate) {
+            let newRow = document.createElement('div');
+            tripWeather.appendChild(newRow)
+            tripDaysCount.push(newRow);
+
+            newRow.classList.add('forecast-row');
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
             tripDate.innerHTML = `${dates[i].getMonth() + 1} / ${dates[i].getDate()}`;
@@ -677,6 +683,47 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             weather.innerHTML = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
             newRow.appendChild(weather);
         }
+    }
+
+    if (tripWeather.childElementCount > 5) {
+        let moreDays = document.createElement('div');
+        moreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+        moreDays.classList.add('more-days');
+        tripWeather.appendChild(moreDays);
+
+        for (let i = 0; i < tripDaysCount.length; i++) {
+            if (i > 4) {
+                tripDaysCount[i].style.display = "none";
+            }
+        }
+
+        console.log(tripDaysCount);
+
+
+        moreDays.addEventListener('click', function () {
+            console.log(tripDaysCount);
+            for (let i = 0; i < tripDaysCount.length; i++) {
+
+                if (i > 4) {
+                    if (tripDaysCount[i].style.cssText === "display: none;") {
+                        tripDaysCount[i].style.cssText = "display: flex;"
+                        moreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
+                    } else {
+                        tripDaysCount[i].style.cssText = "display: none;"
+                        moreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+                    }
+                }
+
+            }
+            // console.log('click')
+            // console.log(tripDaysCount)
+            // let forecastRow = document.querySelector('.forecast-row')
+            // if (forecastRow.style.display === "none") {
+            //     forecastRow.style.display = "flex";
+            // } else {
+            //     forecastRow.style.display = "none"
+            // }
+        });
     }
 
     let longForecast = document.createElement('div');
