@@ -453,6 +453,21 @@ input::placeholder {
     height: 4vh;
     width: 45vw; }
 
+.saved-trip-packing-list {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100vw;
+  padding: 0 20px;
+  height: 5vh;
+  background: #83A8A6; }
+  .saved-trip-packing-list * {
+    padding-right: 10px; }
+  .saved-trip-packing-list div:nth-child(2),
+  .saved-trip-packing-list div:nth-child(3) {
+    width: 30vw; }
+
 /* TABLET */
 @media only screen and (min-width: 768px) {
   .output {

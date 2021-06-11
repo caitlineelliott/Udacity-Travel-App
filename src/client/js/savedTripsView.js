@@ -20,18 +20,10 @@ const getUserData = async (url) => {
 
         console.log(`DATA POSTED TO UI`);
 
-        console.log(data)
-
         addSavedTrip(data)
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
-
-        // let city = 'Dallas';
-        // let d1 = '06/01';
-        // let d2 = '06/02';
-
-        // addSavedTrip(city, d1, d2)
     }
 };
 
@@ -67,12 +59,127 @@ async function addSavedTrip(data) {
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
 
+
+        // GENERATE PACKING LIST
+        let packingListContainer = document.createElement('div');
+        newItemRow.insertAdjacentElement('afterend', packingListContainer);
+        let packingItems = data[i].packingList;
+
+        console.log(data);
+
+        if (packingItems === undefined) {
+            console.log('no items');
+
+            let noItemsContainer = document.createElement('div');
+
+            let nopackingItems = document.createElement('div');
+            nopackingItems.style.cssText = 'padding: 20px; font-size: 0.9em; text-align: left;';
+
+            let addItems = document.createElement('button');
+            nopackingItems.innerHTML = `There are no items in the packing list for this trip. Would you like to add some?`
+            addItems.innerHTML = `Add Items`
+
+            noItemsContainer.appendChild(nopackingItems);
+            noItemsContainer.appendChild(addItems);
+            packingListContainer.style.cssText = 'display: none; flex-direction: column; text-align: center;';
+
+            packingListContainer.appendChild(noItemsContainer);
+
+
+        } else {
+            for (let i = 0; i < packingItems.length; i++) {
+                let packingListRow = document.createElement('div');
+
+                let packingToggle = document.createElement('div');
+                let packingItem = document.createElement('div');
+                let packingCategory = document.createElement('div');
+                let editBtn = document.createElement('div');
+                let deleteBtn = document.createElement('div');
+
+                packingItem.innerHTML = packingItems[i].item;
+                packingCategory.innerHTML = packingItems[i].category;
+                packingToggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+                editBtn.innerHTML = editTrip.innerHTML;
+                deleteBtn.innerHTML = deleteTrip.innerHTML;
+
+                packingListRow.classList.add('saved-trip-packing-list')
+
+                packingListRow.appendChild(packingToggle);
+                packingListRow.appendChild(packingItem);
+                packingListRow.appendChild(packingCategory);
+                packingListRow.appendChild(editBtn);
+                packingListRow.appendChild(deleteBtn);
+
+                packingListContainer.appendChild(packingListRow);
+                packingListContainer.style.display = 'none';
+
+                if (packingItems.length < 1) {
+                    console.log('no packing items')
+                }
+
+                // newItemRow.insertAdjacentElement('afterend', packingList);
+            }
+        }
+
+        /* PACKING Items View */
+        tripPackingList.addEventListener('click', function (event) {
+            let tripCity = event.target.parentElement.parentElement.previousSibling.innerText;
+
+            for (let i = 0; i < data.length; i++) {
+
+                // let packingListContainer = document.createElement('div');
+                // newItemRow.appendChild(packingListContainer)
+                // let packingItems = data[i].packingList;
+
+                if (data[i].city === tripCity) {
+                    if (packingListContainer.style.display === 'none') {
+                        packingListContainer.style.display = 'flex';
+                        packingListContainer.style.flexWrap = 'wrap';
+                    } else {
+                        packingListContainer.style.display = 'none'
+                    }
+
+                    // for (let i = 0; i < packingItems.length; i++) {
+                    //     let packingList = document.createElement('div');
+                    //     let packingToggle = document.createElement('div');
+                    //     let packingItem = document.createElement('div');
+                    //     let packingCategory = document.createElement('div');
+                    //     let editBtn = document.createElement('div');
+                    //     let deleteBtn = document.createElement('div');
+
+                    //     packingItem.innerHTML = packingItems[i].item;
+                    //     packingCategory.innerHTML = packingItems[i].category;
+                    //     packingToggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+                    //     editBtn.innerHTML = editTrip.innerHTML;
+                    //     deleteBtn.innerHTML = deleteTrip.innerHTML;
+
+                    //     packingList.classList.add('saved-trip-packing-list')
+
+                    //     packingList.appendChild(packingToggle);
+                    //     packingList.appendChild(packingItem);
+                    //     packingList.appendChild(packingCategory);
+                    //     packingList.appendChild(editBtn);
+                    //     packingList.appendChild(deleteBtn);
+
+                    //     newItemRow.insertAdjacentElement('afterend', packingList);
+                    // }
+
+                }
+            }
+
+            // console.log(deleteTrip.parentElement.parentElement)
+            // deleteTrip.parentElement.parentElement.remove()
+
+            // deleteData('/remove', {
+            //     city: tripCity.innerHTML
+            // });
+        })
+
         /* REMOVE Items */
         deleteTrip.addEventListener('click', function (event) {
             console.log(event.target)
             console.log(deleteTrip.parentElement.parentElement)
             deleteTrip.parentElement.parentElement.remove()
-            //  need to remove element from server as well
 
             deleteData('/remove', {
                 city: tripCity.innerHTML

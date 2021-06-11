@@ -232,6 +232,26 @@
     }
 }
 
+.saved-trip-packing-list {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100vw;
+    padding: 0 20px;
+    height: 5vh;
+    background: $h2-color-light;
+
+    * {
+        padding-right: 10px;
+    }
+
+    div:nth-child(2),
+    div:nth-child(3) {
+        width: 30vw;
+    }
+}
+
 /* TABLET */
 @media only screen and (min-width: 768px) {
 .output {
