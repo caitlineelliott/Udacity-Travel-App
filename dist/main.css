@@ -298,11 +298,39 @@ input::placeholder {
 .packed {
   opacity: 0.5; }
 
+.packing-list-form {
+  display: flex;
+  flex-direction: row; }
+  .packing-list-form #pack-list-input {
+    width: 40vw;
+    font-family: "montserrat", sans-serif;
+    color: #197278;
+    border: none;
+    background: #83A8A6;
+    padding: 10px;
+    box-sizing: border-box; }
+  .packing-list-form select {
+    width: 30vw;
+    background: #43878A;
+    box-sizing: border-box; }
+  .packing-list-form button {
+    width: 12vw;
+    background: #197278;
+    box-sizing: border-box; }
+  .packing-list-form #todo-list-input {
+    width: 40vw;
+    font-family: "montserrat", sans-serif;
+    color: #197278;
+    border: none;
+    background: #83A8A6;
+    padding: 10px;
+    box-sizing: border-box; }
+
 .output {
   display: none; }
   .output.display-on {
     display: block;
-    padding: 50px;
+    padding: 50px 50px 20px 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -316,7 +344,7 @@ input::placeholder {
     .output .travel-summary .form-label {
       width: 60%; }
   .output .forecast {
-    margin: 50px 0;
+    margin: 20px 0;
     color: white; }
     .output .forecast .more-days {
       color: black;
@@ -356,33 +384,6 @@ input::placeholder {
     width: 52vw;
     box-sizing: border-box;
     padding: 10px; }
-  .output .packing-list-form {
-    display: flex;
-    flex-direction: row; }
-    .output .packing-list-form #pack-list-input {
-      width: 40vw;
-      font-family: "montserrat", sans-serif;
-      color: #197278;
-      border: none;
-      background: #83A8A6;
-      padding: 10px;
-      box-sizing: border-box; }
-    .output .packing-list-form select {
-      width: 30vw;
-      background: #43878A;
-      box-sizing: border-box; }
-    .output .packing-list-form button {
-      width: 12vw;
-      background: #197278;
-      box-sizing: border-box; }
-    .output .packing-list-form #todo-list-input {
-      width: 40vw;
-      font-family: "montserrat", sans-serif;
-      color: #197278;
-      border: none;
-      background: #83A8A6;
-      padding: 10px;
-      box-sizing: border-box; }
   .output .packing-list-row .packing-item-row-segment {
     font-size: 0.8em;
     color: white;
@@ -432,6 +433,11 @@ input::placeholder {
     justify-content: center; }
   .output .item-display {
     display: none; }
+
+.save-trip-btn {
+  margin-top: 20px;
+  width: 82vw;
+  background: #c44536; }
 
 .trip-dates,
 .trip-city,
@@ -530,6 +536,12 @@ input::placeholder {
     top: 6vh; }
     .saved-trips .packing-list-row {
       width: 50vw; } }
+
+.saved-trips-item {
+  width: 48vw; }
+
+.saved-trips-category {
+  width: 40vw; }
 
 body {
   margin: 0;

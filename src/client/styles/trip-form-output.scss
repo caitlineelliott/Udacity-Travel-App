@@ -5,6 +5,45 @@
     opacity: 0.5;
 }
 
+.packing-list-form {
+    display: flex;
+    flex-direction: row;
+
+    #pack-list-input {
+        width: 40vw;
+        font-family: $plain-font;
+        color: $h2-color;
+        border: none;
+        background: #83A8A6;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    select {
+        width: 30vw;
+        background: #43878A;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 12vw;
+        background: #197278;
+        box-sizing: border-box;
+
+    }
+
+    #todo-list-input {
+        width: 40vw;
+        font-family: $plain-font;
+        color: $h2-color;
+        border: none;
+        background: #83A8A6;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+}
+
+
 .output {
     display: none;
     &.display-on {
@@ -88,44 +127,6 @@
             padding: 10px;
         }
 
-    }
-
-    .packing-list-form {
-        display: flex;
-        flex-direction: row;
-
-        #pack-list-input {
-            width: 40vw;
-            font-family: $plain-font;
-            color: $h2-color;
-            border: none;
-            background: #83A8A6;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        select {
-            width: 30vw;
-            background: #43878A;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 12vw;
-            background: #197278;
-            box-sizing: border-box;
-
-        }
-
-        #todo-list-input {
-            width: 40vw;
-            font-family: $plain-font;
-            color: $h2-color;
-            border: none;
-            background: #83A8A6;
-            padding: 10px;
-            box-sizing: border-box;
-        }
     }
 
     .packing-list-row {
@@ -348,4 +349,11 @@
         }
     }
 
+    }
+
+    .saved-trips-item {
+        width: 48vw;
+    }
+    .saved-trips-category {
+        width: 40vw;
     }

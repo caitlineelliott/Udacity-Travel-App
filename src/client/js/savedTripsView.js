@@ -104,12 +104,30 @@ async function addSavedTrip(data) {
                 let packingCategory = document.createElement('div');
                 let editBtn = document.createElement('div');
                 let deleteBtn = document.createElement('div');
+                let addMoreBlock = document.createElement('div');
 
                 packingItem.innerHTML = packingItems[i].item;
                 packingCategory.innerHTML = packingItems[i].category;
                 packingToggle.innerHTML = `<i class= "far fa-check-square"></i>`;
                 editBtn.innerHTML = editTrip.innerHTML;
                 deleteBtn.innerHTML = deleteTrip.innerHTML;
+                addMoreBlock.innerHTML = `<h2>Need to add more?</h2>
+                <div class="packing-list-btn-container">
+                <form class="packing-list-form">
+                    <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item" id="pack-list-input">
+                    <select class="packing-list-btn-category saved-trips-category">
+                        <option>Category</option>
+                        <option class="tops">Tops</option>
+                        <option class="bottoms">Bottoms</option>
+                        <option class="shoes">Shoes</option>
+                        <option class="accessories">Accessories</option>
+                        <option class="swimwear">Swimwear</option>
+                        <option class="toiletries">Toiletries</option>
+                        <option class="other">Other</option>
+                    </select>
+                    <button class="saved-trips-add-btn" onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
+                </form>
+            </div>`
 
                 packingListRow.classList.add('saved-trip-packing-list')
 
@@ -131,6 +149,8 @@ async function addSavedTrip(data) {
 
                 // newItemRow.insertAdjacentElement('afterend', packingList);
             }
+            packingListContainer.appendChild(addMoreBlock);
+
         }
 
         /* PACKING Items View */
