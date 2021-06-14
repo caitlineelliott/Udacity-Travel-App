@@ -538,6 +538,10 @@ async function viewSavedTrips() {
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
+    // change nav links
+    let savedTripsBtn = document.querySelector('.nav-saved-trips');
+    savedTripsBtn.innerHTML = `<a href="index.html">Book Trip</a>` // STYLE THIS LINK
+
     await getUserData('/all');
 }
 
@@ -557,6 +561,9 @@ const getUserData = async (url) => {
 };
 
 async function addSavedTrip(data) {
+
+
+
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
