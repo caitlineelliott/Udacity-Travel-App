@@ -15,6 +15,9 @@ async function viewSavedTrips() {
     let savedTripsBtn = document.querySelector('.nav-saved-trips');
     savedTripsBtn.innerHTML = `<a href="index.html">Book Trip</a>` // STYLE THIS LINK
 
+    // change background of header
+    document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
+
     await getUserData('/all');
 }
 
