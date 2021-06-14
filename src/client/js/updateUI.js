@@ -106,6 +106,12 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
     document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
     document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
+
+    // create save trip info btn
+    let saveTripBtn = document.createElement('button');
+    saveTripBtn.innerText = 'Save Trip Information';
+    saveTripBtn.classList.add('save-trip-btn')
+    output.appendChild(saveTripBtn)
 }
 
 export { updateUI }
