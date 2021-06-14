@@ -45,7 +45,7 @@ async function addSavedTrip(data) {
         const editTrip = document.createElement('span');
         const deleteTrip = document.createElement('span');
 
-        tripDates.innerHTML = `${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)} - ${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)}`;
+        tripDates.innerHTML = `${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)} - ${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)}`;
         tripCity.innerHTML = data[i].city;
         tripPackingList.innerHTML = `<i class="fas fa-tshirt"></i>`
         tripTodoList.innerHTML = `<i class="fas fa-clipboard-list"></i>`
