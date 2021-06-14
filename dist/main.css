@@ -541,7 +541,7 @@ input::placeholder {
   width: 48vw; }
 
 .saved-trips-category {
-  width: 40vw; }
+  width: 40vw !important; }
 
 body {
   margin: 0;
