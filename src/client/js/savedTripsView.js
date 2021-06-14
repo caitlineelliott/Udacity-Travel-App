@@ -1,4 +1,5 @@
 import { createElements } from "./addPackingItem";
+import { removeItems } from "./addPackingItem";
 import { updateUI } from "./updateUI";
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
@@ -32,9 +33,6 @@ const getUserData = async (url) => {
 };
 
 async function addSavedTrip(data) {
-
-
-
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
@@ -123,6 +121,8 @@ async function addSavedTrip(data) {
                 if (packingItems.length < 1) {
                     console.log('no packing items')
                 }
+
+                deleteBtn.addEventListener('click', removeItems)
 
                 // newItemRow.insertAdjacentElement('afterend', packingList);
             }

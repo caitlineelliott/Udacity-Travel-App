@@ -132,12 +132,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/client/js/addPackingItem.js ***!
   \*****************************************/
-/*! exports provided: createElements */
+/*! exports provided: createElements, removeItems */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElements", function() { return createElements; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
 document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
 document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
 
@@ -258,25 +259,7 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleIcon);
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
-    /* REMOVE Items */
-    rowElements.deleteBtn.addEventListener('click', function (event) {
-        if (event.target.classList.value === 'fas fa-times') {
-            console.log('timesbtn')
-            event.target.parentElement.parentElement.remove();
-            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
-            if (blockElements.newItemCategoryLabel.children.length < 2) {
-                blockElements.newItemCategoryLabel.remove()
-            }
-        } else if (event.target.classList.value === 'packing-item-row-segment') {
-            console.log('button');
-            event.target.parentElement.remove();
-            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
-            if (blockElements.newItemCategoryLabel.children.length < 2) {
-                blockElements.newItemCategoryLabel.remove()
-            }
-
-        }
-    })
+    rowElements.deleteBtn.addEventListener('click', removeItems)
 
     // EDIT ITEMS
     rowElements.editBtn.addEventListener('click', function (event) {
@@ -304,6 +287,25 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.addEventListener('click', function (event) {
         rowElements.packedFlag.parentElement.classList.toggle('packed');
     })
+}
+
+function removeItems(event) {
+    if (event.target.classList.value === 'fas fa-times') {
+        console.log('timesbtn')
+        event.target.parentElement.parentElement.remove();
+        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+        if (blockElements.newItemCategoryLabel.children.length < 2) {
+            blockElements.newItemCategoryLabel.remove()
+        }
+    } else if (event.target.classList.value === 'packing-item-row-segment') {
+        console.log('button');
+        event.target.parentElement.remove();
+        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+        if (blockElements.newItemCategoryLabel.children.length < 2) {
+            blockElements.newItemCategoryLabel.remove()
+        }
+
+    }
 }
 
 /* Function to POST data */
@@ -530,6 +532,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
@@ -561,9 +564,6 @@ const getUserData = async (url) => {
 };
 
 async function addSavedTrip(data) {
-
-
-
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
@@ -574,7 +574,7 @@ async function addSavedTrip(data) {
         const editTrip = document.createElement('span');
         const deleteTrip = document.createElement('span');
 
-        tripDates.innerHTML = `${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)} - ${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)}`;
+        tripDates.innerHTML = `${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)} - ${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)}`;
         tripCity.innerHTML = data[i].city;
         tripPackingList.innerHTML = `<i class="fas fa-tshirt"></i>`
         tripTodoList.innerHTML = `<i class="fas fa-clipboard-list"></i>`
@@ -652,6 +652,8 @@ async function addSavedTrip(data) {
                 if (packingItems.length < 1) {
                     console.log('no packing items')
                 }
+
+                deleteBtn.addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
 
                 // newItemRow.insertAdjacentElement('afterend', packingList);
             }

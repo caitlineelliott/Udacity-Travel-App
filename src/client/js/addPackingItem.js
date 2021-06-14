@@ -118,52 +118,52 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleIcon);
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
-    /* REMOVE Items */
-    rowElements.deleteBtn.addEventListener('click', function (event) {
-        if (event.target.classList.value === 'fas fa-times') {
-            console.log('timesbtn')
-            event.target.parentElement.parentElement.remove();
-            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
-            if (blockElements.newItemCategoryLabel.children.length < 2) {
-                blockElements.newItemCategoryLabel.remove()
-            }
-        } else if (event.target.classList.value === 'packing-item-row-segment') {
-            console.log('button');
-            event.target.parentElement.remove();
-            console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
-            if (blockElements.newItemCategoryLabel.children.length < 2) {
-                blockElements.newItemCategoryLabel.remove()
-            }
-
-        }
-    })
-
-    // EDIT ITEMS
-    rowElements.editBtn.addEventListener('click', function (event) {
-        let item = rowElements.editBtn.previousSibling.previousSibling
-        item.readOnly = false;
-        item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-        let saveBtn = document.createElement('div');
-        saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-        saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-        saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
-
-        item.insertAdjacentElement('afterend', saveBtn);
-        rowElements.editBtn.setAttribute('disabled', 'disabled');
-
-        saveBtn.addEventListener('click', function () {
-            saveBtn.remove();
-            item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-            item.readOnly = true;
-            rowElements.editBtn.removeAttribute('disabled');
-        });
-    })
+    rowElements.deleteBtn.addEventListener('click', removeItems)
+    rowElements.editBtn.addEventListener('click', editItems)
 
     //packed toggle
     rowElements.packedFlag.addEventListener('click', function (event) {
         rowElements.packedFlag.parentElement.classList.toggle('packed');
     })
+}
+
+function editItems(event) {
+    let item = rowElements.editBtn.previousSibling.previousSibling
+    item.readOnly = false;
+    item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+
+    let saveBtn = document.createElement('div');
+    saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+    saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+    saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
+
+    item.insertAdjacentElement('afterend', saveBtn);
+    rowElements.editBtn.setAttribute('disabled', 'disabled');
+
+    saveBtn.addEventListener('click', function () {
+        saveBtn.remove();
+        item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+        item.readOnly = true;
+        rowElements.editBtn.removeAttribute('disabled');
+    });
+}
+
+function removeItems(event) {
+    if (event.target.classList.value === 'fas fa-times') {
+        console.log('timesbtn')
+        event.target.parentElement.parentElement.remove();
+        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+        if (blockElements.newItemCategoryLabel.children.length < 2) {
+            blockElements.newItemCategoryLabel.remove()
+        }
+    } else if (event.target.classList.value === 'packing-item-row-segment') {
+        console.log('button');
+        event.target.parentElement.remove();
+        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
+        if (blockElements.newItemCategoryLabel.children.length < 2) {
+            blockElements.newItemCategoryLabel.remove()
+        }
+    }
 }
 
 /* Function to POST data */
@@ -185,4 +185,7 @@ const postData = async (url = '', data = {}) => {
     }
 };
 
-export { createElements }
+export {
+    createElements,
+    removeItems
+}
