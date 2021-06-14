@@ -290,6 +290,9 @@ input::placeholder {
     display: flex;
     flex-direction: row; } }
 
+.packed {
+  opacity: 0.5; }
+
 .output {
   display: none; }
   .output.display-on {
@@ -409,8 +412,6 @@ input::placeholder {
     width: 6vw;
     background: #197278;
     height: 6vh; }
-  .output .packed {
-    opacity: 0.5; }
   .output .packing-item {
     margin: 0;
     width: 35vw;

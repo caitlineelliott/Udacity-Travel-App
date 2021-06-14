@@ -1,5 +1,10 @@
 @import 'base.scss';
 
+
+.packed {
+    opacity: 0.5;
+}
+
 .output {
     display: none;
     &.display-on {
@@ -167,10 +172,6 @@
         width: 6vw;
         background: $h2-color;
         height: 6vh;
-    }
-
-    .packed {
-        opacity: 0.5;
     }
 
     .packing-item {

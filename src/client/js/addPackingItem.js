@@ -45,12 +45,7 @@ function createElements(event) {
 }
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
-
-    // if (document.querySelector(`.${target}-category`).value = 'Category') {
-    //     blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
-    // } else {
     blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
-    // }
 
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -119,34 +114,35 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
     rowElements.deleteBtn.addEventListener('click', removeItems)
-    rowElements.editBtn.addEventListener('click', editItems)
-
-    //packed toggle
-    rowElements.packedFlag.addEventListener('click', function (event) {
-        rowElements.packedFlag.parentElement.classList.toggle('packed');
-    })
+    // rowElements.editBtn.addEventListener('click', editItems)
+    rowElements.packedFlag.addEventListener('click', toggleItems)
 }
 
-function editItems(event) {
-    let item = rowElements.editBtn.previousSibling.previousSibling
-    item.readOnly = false;
-    item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-    let saveBtn = document.createElement('div');
-    saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-    saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-    saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
-
-    item.insertAdjacentElement('afterend', saveBtn);
-    rowElements.editBtn.setAttribute('disabled', 'disabled');
-
-    saveBtn.addEventListener('click', function () {
-        saveBtn.remove();
-        item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-        item.readOnly = true;
-        rowElements.editBtn.removeAttribute('disabled');
-    });
+function toggleItems(event) {
+    event.target.parentElement.parentElement.classList.toggle('packed');
+    console.log(event.target.parentElement.parentElement)
 }
+
+// function editItems(event) {
+//     let item = rowElements.editBtn.previousSibling.previousSibling
+//     item.readOnly = false;
+//     item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+
+//     let saveBtn = document.createElement('div');
+//     saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+//     saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+//     saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
+
+//     item.insertAdjacentElement('afterend', saveBtn);
+//     rowElements.editBtn.setAttribute('disabled', 'disabled');
+
+//     saveBtn.addEventListener('click', function () {
+//         saveBtn.remove();
+//         item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+//         item.readOnly = true;
+//         rowElements.editBtn.removeAttribute('disabled');
+//     });
+// }
 
 function removeItems(event) {
     if (event.target.classList.value === 'fas fa-times') {
@@ -187,5 +183,6 @@ const postData = async (url = '', data = {}) => {
 
 export {
     createElements,
-    removeItems
+    removeItems,
+    toggleItems
 }

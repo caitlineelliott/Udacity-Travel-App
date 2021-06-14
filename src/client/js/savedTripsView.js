@@ -1,6 +1,7 @@
 import { createElements } from "./addPackingItem";
 import { removeItems } from "./addPackingItem";
 import { updateUI } from "./updateUI";
+import { toggleItems } from "./addPackingItem";
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
@@ -123,6 +124,7 @@ async function addSavedTrip(data) {
                 }
 
                 deleteBtn.addEventListener('click', removeItems)
+                packingToggle.addEventListener('click', toggleItems)
 
                 // newItemRow.insertAdjacentElement('afterend', packingList);
             }

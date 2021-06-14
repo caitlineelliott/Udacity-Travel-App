@@ -132,13 +132,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/client/js/addPackingItem.js ***!
   \*****************************************/
-/*! exports provided: createElements, removeItems */
+/*! exports provided: createElements, removeItems, toggleItems */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElements", function() { return createElements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
 document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
 document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
 
@@ -186,12 +187,7 @@ function createElements(event) {
 }
 
 async function setValues(target, blockElements, rowElements, checkboxElements) {
-
-    // if (document.querySelector(`.${target}-category`).value = 'Category') {
-    //     blockElements.newItemCategoryLabel.innerHTML = `Uncategorized <i class="fas fa-chevron-down"></i>`;
-    // } else {
     blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
-    // }
 
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
     blockElements.newItemRow.classList.add('packing-list-row');
@@ -260,34 +256,35 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
     rowElements.deleteBtn.addEventListener('click', removeItems)
-
-    // EDIT ITEMS
-    rowElements.editBtn.addEventListener('click', function (event) {
-        let item = rowElements.editBtn.previousSibling.previousSibling
-        item.readOnly = false;
-        item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-        let saveBtn = document.createElement('div');
-        saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-        saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-        saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
-
-        item.insertAdjacentElement('afterend', saveBtn);
-        rowElements.editBtn.setAttribute('disabled', 'disabled');
-
-        saveBtn.addEventListener('click', function () {
-            saveBtn.remove();
-            item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-            item.readOnly = true;
-            rowElements.editBtn.removeAttribute('disabled');
-        });
-    })
-
-    //packed toggle
-    rowElements.packedFlag.addEventListener('click', function (event) {
-        rowElements.packedFlag.parentElement.classList.toggle('packed');
-    })
+    // rowElements.editBtn.addEventListener('click', editItems)
+    rowElements.packedFlag.addEventListener('click', toggleItems)
 }
+
+function toggleItems(event) {
+    event.target.parentElement.parentElement.classList.toggle('packed');
+    console.log(event.target.parentElement.parentElement)
+}
+
+// function editItems(event) {
+//     let item = rowElements.editBtn.previousSibling.previousSibling
+//     item.readOnly = false;
+//     item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
+
+//     let saveBtn = document.createElement('div');
+//     saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
+//     saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
+//     saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
+
+//     item.insertAdjacentElement('afterend', saveBtn);
+//     rowElements.editBtn.setAttribute('disabled', 'disabled');
+
+//     saveBtn.addEventListener('click', function () {
+//         saveBtn.remove();
+//         item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
+//         item.readOnly = true;
+//         rowElements.editBtn.removeAttribute('disabled');
+//     });
+// }
 
 function removeItems(event) {
     if (event.target.classList.value === 'fas fa-times') {
@@ -304,7 +301,6 @@ function removeItems(event) {
         if (blockElements.newItemCategoryLabel.children.length < 2) {
             blockElements.newItemCategoryLabel.remove()
         }
-
     }
 }
 
@@ -533,6 +529,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
@@ -654,6 +651,7 @@ async function addSavedTrip(data) {
                 }
 
                 deleteBtn.addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
+                packingToggle.addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["toggleItems"])
 
                 // newItemRow.insertAdjacentElement('afterend', packingList);
             }
