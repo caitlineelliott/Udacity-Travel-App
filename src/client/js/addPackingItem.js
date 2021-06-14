@@ -160,6 +160,11 @@ function removeItems(event) {
             blockElements.newItemCategoryLabel.remove()
         }
     }
+
+    deleteData('/remove', {
+        packingItem: document.querySelector('#newItemValue').value,
+        city: document.querySelector('h1').innerText
+    });
 }
 
 /* Function to POST data */

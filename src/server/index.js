@@ -95,6 +95,8 @@ app.delete('/remove', removeData);
 function removeData(req, res) {
     const newData = req.body;
 
+    console.log('packing item data', newData)
+
     for (let i = 0; i < userTripData.length; i++) {
         if (userTripData[i].city === newData.city) {
             userTripData.splice(i, 1);
