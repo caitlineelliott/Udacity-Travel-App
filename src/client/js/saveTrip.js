@@ -1,9 +1,10 @@
-function updateServer(userCity, departDate, returnDate, itemsArr) {
+function updateServer(userCity, departDate, returnDate, packingList, todoList) {
     postData('/api/trip', {
         city: userCity,
         departure: departDate,
         arrival: returnDate,
-        packingList: itemsArr
+        packingList: packingList,
+        todoList: todoList
     });
 }
 

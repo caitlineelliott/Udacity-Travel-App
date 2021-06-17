@@ -117,8 +117,6 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
 
 
     // TODO: add provision for todo list vs packing list
-    let packingList = []
-    let todoList = []
 
     // if (target === 'packing-list-btn') {
     //     packingList.push(item);
@@ -135,14 +133,21 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     output.appendChild(saveTripBtn);
 
     saveTripBtn.addEventListener('click', function () {
-        let itemsArr = []
+        let packingList = []
+        let todoList = []
+
         let items = document.querySelectorAll('.packing-list-row');
         for (let i = 0; i < items.length; i++) {
             let item = {}
             item["item"] = items[i].firstElementChild.innerHTML;
             item["category"] = items[i].parentNode.id;
             item["toggleStatus"] = items[i].classList;
-            itemsArr.push(item)
+
+            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") {
+                todoList.push(item)
+            } else {
+                packingList.push(item)
+            }
         };
 
         document.querySelector('.output').style.display = "none";
@@ -153,7 +158,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
                 <div>Your trip details have been saved.</div>;`
         document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
 
-        updateServer(userCity, departDate, returnDate, itemsArr, todoList);
+        updateServer(userCity, departDate, returnDate, packingList, todoList);
     });
     // see about moving to addtrip.js?
 }
