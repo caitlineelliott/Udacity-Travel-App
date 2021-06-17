@@ -327,15 +327,12 @@ input::placeholder {
     box-sizing: border-box; }
 
 .output {
-  display: none; }
-  .output.display-on {
-    display: block;
-    padding: 50px 50px 20px 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: -1; }
+  display: none;
+  padding: 50px 50px 20px 50px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: -1; }
   .output .travel-summary {
     display: flex;
     flex-direction: row;
@@ -542,6 +539,13 @@ input::placeholder {
 
 .saved-trips-category {
   width: 40vw !important; }
+
+.trip-saved-container {
+  height: 62vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
 
 body {
   margin: 0;

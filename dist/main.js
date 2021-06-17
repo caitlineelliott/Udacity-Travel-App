@@ -95,20 +95,15 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/app */ "./src/client/js/app.js");
+/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
 /* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
-/* harmony import */ var _js_getWeatherbit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/getWeatherbit */ "./src/client/js/getWeatherbit.js");
-/* harmony import */ var _js_getGeonames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/getGeonames */ "./src/client/js/getGeonames.js");
-/* harmony import */ var _js_updateUI__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/updateUI */ "./src/client/js/updateUI.js");
-/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-
-
-
-
+/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
+/* harmony import */ var _js_saveTrip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/saveTrip */ "./src/client/js/saveTrip.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
 
 
 
@@ -132,7 +127,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/client/js/addPackingItem.js ***!
   \*****************************************/
-/*! exports provided: createElements, removeItems, toggleItems */
+/*! exports provided: createElements, removeItems, toggleItems, appendItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -140,11 +135,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElements", function() { return createElements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
-document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
-document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
-
-let packingList = []
-let todoList = []
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendItem", function() { return appendItem; });
+// generates packing + todo list items on new trip view
 
 function createElements(event) {
     event.preventDefault();
@@ -177,7 +169,6 @@ function createElements(event) {
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.children).forEach(function (item) {
             if (item.classList.contains('packing-list-row')) {
-                console.log('success')
                 item.classList.toggle('item-display');
             } else if (item.classList.contains('fa-chevron-down')) {
                 item.classList.toggle('fa-chevron-up')
@@ -201,30 +192,7 @@ async function setValues(target, blockElements, rowElements, checkboxElements) {
 
     document.querySelector(`.${target}-item`).value = '';
 
-    let item = {
-        item: rowElements.newItemValue.innerText,
-        category: blockElements.newItemCategoryLabel.innerText,
-        toggleStatus: false,
-        deleted: false
-    }
-
-    if (target === 'packing-list-btn') {
-        packingList.push(item);
-    } else {
-        todoList.push(item)
-    }
-
-    console.log(packingList)
-    console.log(todoList)
-
     appendItem(target, blockElements, rowElements, checkboxElements);
-
-    await postData('/api/list', {
-        packingList: packingList,
-        todoList: todoList,
-        tripCity: document.querySelector('h1').innerText
-    });
-
 }
 
 function appendItem(target, blockElements, rowElements, checkboxElements) {
@@ -238,12 +206,10 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
         document.querySelector(`.${target}-container`).appendChild(blockElements.newItemCategoryLabel);
         blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
-        console.log('new row')
 
     } else {
         let extantRow = document.querySelector(`#${blockElements.newItemCategoryLabel.id}`);
         extantRow.appendChild(blockElements.newItemRow);
-        console.log('old row')
     }
 
     for (let i = 0; i < Object.keys(rowElements).length; i++) {
@@ -262,244 +228,73 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
 
 function toggleItems(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
-    console.log(event.target.parentElement.parentElement)
 }
-
-// function editItems(event) {
-//     let item = rowElements.editBtn.previousSibling.previousSibling
-//     item.readOnly = false;
-//     item.setAttribute('style', 'width: 24vw; background: #c44536; color: #fff;');
-
-//     let saveBtn = document.createElement('div');
-//     saveBtn.innerHTML = '<i class= "fas fa-save"></i>';
-//     saveBtn.classList.add('packing-item-row-segment', 'delete-btn');
-//     saveBtn.setAttribute('style', 'width: 6vw; height: 4vh; background: #c44536; color: #fff;');
-
-//     item.insertAdjacentElement('afterend', saveBtn);
-//     rowElements.editBtn.setAttribute('disabled', 'disabled');
-
-//     saveBtn.addEventListener('click', function () {
-//         saveBtn.remove();
-//         item.setAttribute('style', 'width: 35vw; background: #197278; color: #fff; border: none;');
-//         item.readOnly = true;
-//         rowElements.editBtn.removeAttribute('disabled');
-//     });
-// }
 
 function removeItems(event) {
     if (event.target.classList.value === 'fas fa-times') {
-        console.log('timesbtn')
         event.target.parentElement.parentElement.remove();
-        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
         if (blockElements.newItemCategoryLabel.children.length < 2) {
             blockElements.newItemCategoryLabel.remove()
         }
     } else if (event.target.classList.value === 'packing-item-row-segment') {
-        console.log('button');
         event.target.parentElement.remove();
-        console.log(blockElements.newItemCategoryLabel, blockElements.newItemCategoryLabel.children.length)
         if (blockElements.newItemCategoryLabel.children.length < 2) {
             blockElements.newItemCategoryLabel.remove()
         }
     }
-
-    deleteData('/remove', {
-        packingItem: document.querySelector('#newItemValue').value,
-        city: document.querySelector('h1').innerText
-    });
 }
-
-/* Function to POST data */
-const postData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
-        return await response.json();
-    }
-    catch (e) {
-        console.log('FAILED TO POST DATA TO SERVER', e);
-    }
-};
 
 
 
 /***/ }),
 
-/***/ "./src/client/js/app.js":
-/*!******************************!*\
-  !*** ./src/client/js/app.js ***!
-  \******************************/
-/*! exports provided: makeDateAndTime, generate, getGeonames, getWeatherBit, getRandomNum, getData, postData */
+/***/ "./src/client/js/handleSubmit.js":
+/*!***************************************!*\
+  !*** ./src/client/js/handleSubmit.js ***!
+  \***************************************/
+/*! exports provided: generate, getGeonames, getWeatherBit */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeDateAndTime", function() { return makeDateAndTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-/* harmony import */ var _updateUI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateUI */ "./src/client/js/updateUI.js");
-/* harmony import */ var _getGeonames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getGeonames */ "./src/client/js/getGeonames.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return _getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"]; });
-
-/* harmony import */ var _getWeatherbit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeatherbit */ "./src/client/js/getWeatherbit.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return _getWeatherbit__WEBPACK_IMPORTED_MODULE_2__["getWeatherBit"]; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
+/* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
 
 
-
-
-
-// constrain date based on current date
+// constrain form input dates date based on current date - NOT FUNCTIONAL RIGHT NOW
 let currentDate = new Date()
 document.querySelector('.trip-city').setAttribute('max', currentDate)
 
-// Event listener to add function to existing HTML DOM element
+// submit btn event listener
 document.querySelector('.submit-btn').addEventListener('click', generate);
-
-/* Function called by event listener */
 async function generate(event) {
     event.preventDefault();
 
-    // Get user trip dates + city
     const tripCity = document.querySelector('.trip-city').value
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
-    const geonamesInfo = await Object(_getGeonames__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott');
-    let tripState = geonamesInfo.geonames[0].adminName1; // state
-    let userCountry = geonamesInfo.geonames[0].countryName; // country
+    const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
     let userCity = geonamesInfo.geonames[0].name; // city name
 
-    let weatherInfo = await Object(_getWeatherbit__WEBPACK_IMPORTED_MODULE_2__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+    let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
-    Object(_updateUI__WEBPACK_IMPORTED_MODULE_0__["updateUI"])(tripState, userCountry, userCity, departDate, returnDate, weatherInfo);
-
-    let bannerImg = await getHeaderPhoto(userCity);
-
-    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
-
-    await postData('/api/trip', {
-        city: tripCity,
-        departure: departDate,
-        arrival: returnDate
-    });
+    Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, weatherInfo);
 }
 
-// from MDN docs >>
-function getRandomNum(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-async function getHeaderPhoto(userCity) {
-    try {
-        const request =
-            await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
-        return await request.json();
-    }
-    catch (e) {
-        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
-    }
-}
-
-// Make Date + Time
-const makeDateAndTime = () => {
-    const today = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
-    if (today.getHours() > 12) {
-        let dateTime = `${date} | ${today.getHours() - 12}:${today.getMinutes()} p.m.`;
-        return dateTime;
-    } else {
-        let dateTime = `${date} | ${today.getHours()}:${today.getMinutes()} a.m.`;
-        return dateTime;
-    }
-};
-
-/* Function to POST data */
-const postData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA SENT TO SERVER ${makeDateAndTime()}`);
-        return await response.json();
-    }
-    catch {
-        console.log('FAILED TO POST DATA TO SERVER');
-    }
-};
-
-/* Function to GET Project Data */
-const getData = async (url) => {
-    try {
-        const request = await fetch(url);
-        const data = await request.json();
-
-        console.log(`DATA POSTED TO UI ${makeDateAndTime()}`);
-    }
-    catch (e) {
-        console.log('DATA NOT RETREIVED FROM SERVER', e);
-    }
-};
-
-
-
-/***/ }),
-
-/***/ "./src/client/js/getGeonames.js":
-/*!**************************************!*\
-  !*** ./src/client/js/getGeonames.js ***!
-  \**************************************/
-/*! exports provided: getGeonames */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
-/* Function to GET Web API Data*/
 const getGeonames = async (placename, username) => {
-
     try {
         const request =
             await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
         return await request.json();
     }
-
     catch (e) {
         console.log('FAILED TO FETCH GEONAMES API DATA:', e);
     }
 };
 
-
-
-/***/ }),
-
-/***/ "./src/client/js/getWeatherbit.js":
-/*!****************************************!*\
-  !*** ./src/client/js/getWeatherbit.js ***!
-  \****************************************/
-/*! exports provided: getWeatherBit */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
-/* function to get weather data */
 const getWeatherBit = async (lat, lng) => {
     try {
         const request =
@@ -509,7 +304,49 @@ const getWeatherBit = async (lat, lng) => {
     catch (e) {
         console.log('no weatherbit data :(', e);
     }
+};
+
+
+
+/***/ }),
+
+/***/ "./src/client/js/saveTrip.js":
+/*!***********************************!*\
+  !*** ./src/client/js/saveTrip.js ***!
+  \***********************************/
+/*! exports provided: updateServer, postData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateServer", function() { return updateServer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+function updateServer(userCity, departDate, returnDate, itemsArr) {
+    postData('/api/trip', {
+        city: userCity,
+        departure: departDate,
+        arrival: returnDate,
+        packingList: itemsArr
+    });
 }
+
+const postData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA SENT TO SERVER`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO POST DATA TO SERVER');
+    }
+};
 
 
 
@@ -519,7 +356,7 @@ const getWeatherBit = async (lat, lng) => {
 /*!*****************************************!*\
   !*** ./src/client/js/savedTripsView.js ***!
   \*****************************************/
-/*! exports provided: deleteData, viewSavedTrips, getUserData, addSavedTrip */
+/*! exports provided: deleteData, viewSavedTrips, getUserData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -527,19 +364,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteData", function() { return deleteData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewSavedTrips", function() { return viewSavedTrips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addSavedTrip", function() { return addSavedTrip; });
 /* harmony import */ var _addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _updateUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./updateUI */ "./src/client/js/updateUI.js");
+/* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _saveTrip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./saveTrip */ "./src/client/js/saveTrip.js");
 
 
 
 
+
+
+
+// This js file should be used ONLY to generate the DOM view of saved trips (FROM SERVER DATA)
+// This file will communicate with the server re: editing/deleting though
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
-    document.querySelector('.output').classList.remove('display-on');
+    document.querySelector('.output').style.display = 'none';
     document.querySelector('.container').style.display = 'none';
+    document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
@@ -560,8 +403,7 @@ const getUserData = async (url) => {
         const data = await request.json();
 
         console.log(`DATA POSTED TO UI`);
-
-        addSavedTrip(data)
+        addSavedTrip(data);
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
@@ -600,7 +442,6 @@ async function addSavedTrip(data) {
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
 
-
         // GENERATE PACKING LIST
         let packingListContainer = document.createElement('div');
         newItemRow.insertAdjacentElement('afterend', packingListContainer);
@@ -625,8 +466,6 @@ async function addSavedTrip(data) {
             packingListContainer.style.cssText = 'display: none; flex-direction: column; text-align: center;';
 
             packingListContainer.appendChild(noItemsContainer);
-
-
         } else {
             for (let i = 0; i < packingItems.length; i++) {
                 let packingListRow = document.createElement('div');
@@ -660,16 +499,16 @@ async function addSavedTrip(data) {
 
                 deleteBtn.addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
                 packingToggle.addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["toggleItems"])
-
-                // newItemRow.insertAdjacentElement('afterend', packingList);
             }
 
             let addMoreBlock = document.createElement('div');
-            addMoreBlock.innerHTML = `<div class="packing-list-row">Need to add more?</div>
+
+            // need to generate this dynamically
+            addMoreBlock.innerHTML = `<div class="packing-list-row" style="background-color: transparent; color: #197278">Need to add more?</div>
             <div class="packing-list-btn-container">
             <form class="packing-list-form">
-                <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item">
-                <select class="packing-list-btn-category saved-trips-category">
+                <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item" style="margin: 0 0 20px 0;">
+                <select class="packing-list-btn-category saved-trips-category" style="margin: 0 0 20px 0;">
                     <option>Category</option>
                     <option class="tops">Tops</option>
                     <option class="bottoms">Bottoms</option>
@@ -679,22 +518,18 @@ async function addSavedTrip(data) {
                     <option class="toiletries">Toiletries</option>
                     <option class="other">Other</option>
                 </select>
-                <button class="saved-trips-add-btn" onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
+                <button class="saved-trips-add-btn" class="packing-list-btn" style="margin: 0 0 20px 0;"><i class="fas fa-plus"></i></button>
             </form>
         </div>`
             packingListContainer.appendChild(addMoreBlock);
-
         }
 
-        /* PACKING Items View */
-        tripPackingList.addEventListener('click', function (event) {
+        // TODO Items View
+        tripTodoList.addEventListener('click', function (event) {
+            console.log('clicked')
             let tripCity = event.target.parentElement.parentElement.previousSibling.innerText;
 
             for (let i = 0; i < data.length; i++) {
-
-                // let packingListContainer = document.createElement('div');
-                // newItemRow.appendChild(packingListContainer)
-                // let packingItems = data[i].packingList;
 
                 if (data[i].city === tripCity) {
                     if (packingListContainer.style.display === 'none') {
@@ -703,41 +538,25 @@ async function addSavedTrip(data) {
                     } else {
                         packingListContainer.style.display = 'none'
                     }
-
-                    // for (let i = 0; i < packingItems.length; i++) {
-                    //     let packingList = document.createElement('div');
-                    //     let packingToggle = document.createElement('div');
-                    //     let packingItem = document.createElement('div');
-                    //     let packingCategory = document.createElement('div');
-                    //     let editBtn = document.createElement('div');
-                    //     let deleteBtn = document.createElement('div');
-
-                    //     packingItem.innerHTML = packingItems[i].item;
-                    //     packingCategory.innerHTML = packingItems[i].category;
-                    //     packingToggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-                    //     editBtn.innerHTML = editTrip.innerHTML;
-                    //     deleteBtn.innerHTML = deleteTrip.innerHTML;
-
-                    //     packingList.classList.add('saved-trip-packing-list')
-
-                    //     packingList.appendChild(packingToggle);
-                    //     packingList.appendChild(packingItem);
-                    //     packingList.appendChild(packingCategory);
-                    //     packingList.appendChild(editBtn);
-                    //     packingList.appendChild(deleteBtn);
-
-                    //     newItemRow.insertAdjacentElement('afterend', packingList);
-                    // }
-
                 }
             }
+        })
 
-            // console.log(deleteTrip.parentElement.parentElement)
-            // deleteTrip.parentElement.parentElement.remove()
+        /* PACKING Items View */
+        tripPackingList.addEventListener('click', function (event) {
+            let tripCity = event.target.parentElement.parentElement.previousSibling.innerText;
 
-            // deleteData('/remove', {
-            //     city: tripCity.innerHTML
-            // });
+            for (let i = 0; i < data.length; i++) {
+
+                if (data[i].city === tripCity) {
+                    if (packingListContainer.style.display === 'none') {
+                        packingListContainer.style.display = 'flex';
+                        packingListContainer.style.flexWrap = 'wrap';
+                    } else {
+                        packingListContainer.style.display = 'none'
+                    }
+                }
+            }
         })
 
         /* REMOVE Items */
@@ -773,27 +592,67 @@ const deleteData = async (url = '', data = {}) => {
 };
 
 
+// deleteData('/remove', {
+//     packingItem: document.querySelector('#newItemValue').value,
+//     city: document.querySelector('h1').innerText
+// });
+
+
 
 /***/ }),
 
-/***/ "./src/client/js/updateUI.js":
-/*!***********************************!*\
-  !*** ./src/client/js/updateUI.js ***!
-  \***********************************/
-/*! exports provided: updateUI */
+/***/ "./src/client/js/viewNewTrip.js":
+/*!**************************************!*\
+  !*** ./src/client/js/viewNewTrip.js ***!
+  \**************************************/
+/*! exports provided: viewNewTrip, getRandomNum */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUI", function() { return updateUI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewNewTrip", function() { return viewNewTrip; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
+/* harmony import */ var _addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPackingItem */ "./src/client/js/addPackingItem.js");
+/* harmony import */ var _saveTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./saveTrip */ "./src/client/js/saveTrip.js");
+// updates UI to new trip view
+
+
+
+
+
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-function updateUI(tripState, userCountry, userCity, departDate, returnDate, weatherInfo) {
-
+async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
+    // remove default form from UI - need better class name here
     document.querySelector('.container').style.display = "none";
+    let output = document.querySelector('.output')
+    output.style.display = "flex"; // fix styling
 
+    let bannerImg = await getHeaderPhoto(userCity);
+    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
+    document.querySelector('h1').innerHTML = `${userCity}`;
+
+    async function getHeaderPhoto(userCity) {
+        try {
+            const request =
+                await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+            return await request.json();
+        }
+        catch (e) {
+            console.log('FAILED TO FETCH GEONAMES API DATA:', e);
+        }
+    }
+
+    // Update Trip Details
+    const currentDate = new Date();
+    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
+    document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
+
+    // Update Forecast
     let forecast = weatherInfo.data;
-    console.log(forecast)
     let dates = [];
 
     for (let i = 0; i < forecast.length; i++) {
@@ -804,7 +663,6 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
     let tripWeather = document.querySelector('.forecast');
 
     for (let i = 0; i < dates.length; i++) {
-
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
             tripWeather.appendChild(newRow)
@@ -840,11 +698,7 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
             }
         }
 
-        console.log(tripDaysCount);
-
-
         moreDays.addEventListener('click', function () {
-            console.log(tripDaysCount);
             for (let i = 0; i < tripDaysCount.length; i++) {
 
                 if (i > 4) {
@@ -858,14 +712,6 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
                 }
 
             }
-            // console.log('click')
-            // console.log(tripDaysCount)
-            // let forecastRow = document.querySelector('.forecast-row')
-            // if (forecastRow.style.display === "none") {
-            //     forecastRow.style.display = "flex";
-            // } else {
-            //     forecastRow.style.display = "none"
-            // }
         });
     }
 
@@ -879,27 +725,66 @@ function updateUI(tripState, userCountry, userCity, departDate, returnDate, weat
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         document.querySelector('.forecast').appendChild(longForecast);
-    }
+    };
 
-    const h1 = document.querySelector('.title');
-    const h2 = document.querySelector('.subtitle');
-    const output = document.querySelector('.output');
-    const currentDate = new Date();
-    output.classList.add('display-on');
+    // add form event listeners
+    document.querySelector('.packing-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target packing list
+    document.querySelector('.todo-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target to do list
 
-    h1.innerHTML = `${userCity}`;
 
-    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
-    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
-    document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
+    // TODO: add provision for todo list vs packing list
+    let packingList = []
+    let todoList = []
+
+    // if (target === 'packing-list-btn') {
+    //     packingList.push(item);
+    //     console.log(packingList)
+    // } else {
+    //     todoList.push(item)
+    //     console.log(todoList)
+    // }
 
     // create save trip info btn
     let saveTripBtn = document.createElement('button');
     saveTripBtn.innerText = 'Save Trip Information';
-    saveTripBtn.classList.add('save-trip-btn')
-    output.appendChild(saveTripBtn)
+    saveTripBtn.classList.add('save-trip-btn');
+    output.appendChild(saveTripBtn);
+
+    saveTripBtn.addEventListener('click', function () {
+        let itemsArr = []
+        let items = document.querySelectorAll('.packing-list-row');
+        for (let i = 0; i < items.length; i++) {
+            let item = {}
+            item["item"] = items[i].firstElementChild.innerHTML;
+            item["category"] = items[i].parentNode.id;
+            item["toggleStatus"] = items[i].classList;
+            itemsArr.push(item)
+        };
+
+        document.querySelector('.output').style.display = "none";
+        const saveConfirmed = document.querySelector('.trip-saved-container');
+        saveConfirmed.style.display = 'flex';
+        saveConfirmed.innerHTML = `
+                <h2>Happy trails!</h2>
+                <div>Your trip details have been saved.</div>;`
+        document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
+
+        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, itemsArr, todoList);
+    });
+
+    // see about moving to addtrip.js?
+
+}
+
+/* Function to POST data */
+
+// Helper Functions
+
+// NEED TO CITE - From MDN
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 

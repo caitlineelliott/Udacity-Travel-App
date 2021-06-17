@@ -42,6 +42,8 @@ function getData(req, res) {
     res.send(userTripData);
 };
 
+// REQUESTS & ROUTES
+
 // Post Route
 app.post('/api/trip', addTripData);
 app.post('/api/list', addListData);
@@ -54,6 +56,7 @@ function addTripData(req, res) {
     projectData["city"] = newData.city;
     projectData["departure"] = newData.departure;
     projectData["arrival"] = newData.arrival;
+    projectData["packingList"] = newData.packingList;
 
     userTripData.unshift(projectData)
 
@@ -71,6 +74,7 @@ function addTripData(req, res) {
         }
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
+    console.log(userTripData)
 };
 
 // COME BACK HERE:

@@ -1,13 +1,19 @@
 import { createElements } from "./addPackingItem";
 import { removeItems } from "./addPackingItem";
-import { updateUI } from "./updateUI";
+import { appendItem } from "./addPackingItem";
+import { viewNewTrip } from "./viewNewTrip";
 import { toggleItems } from "./addPackingItem";
+import { updateServer } from "./saveTrip";
+
+// This js file should be used ONLY to generate the DOM view of saved trips (FROM SERVER DATA)
+// This file will communicate with the server re: editing/deleting though
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
-    document.querySelector('.output').classList.remove('display-on');
+    document.querySelector('.output').style.display = 'none';
     document.querySelector('.container').style.display = 'none';
+    document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
@@ -28,8 +34,7 @@ const getUserData = async (url) => {
         const data = await request.json();
 
         console.log(`DATA POSTED TO UI`);
-
-        addSavedTrip(data)
+        addSavedTrip(data);
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
@@ -68,7 +73,6 @@ async function addSavedTrip(data) {
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
 
-
         // GENERATE PACKING LIST
         let packingListContainer = document.createElement('div');
         newItemRow.insertAdjacentElement('afterend', packingListContainer);
@@ -93,8 +97,6 @@ async function addSavedTrip(data) {
             packingListContainer.style.cssText = 'display: none; flex-direction: column; text-align: center;';
 
             packingListContainer.appendChild(noItemsContainer);
-
-
         } else {
             for (let i = 0; i < packingItems.length; i++) {
                 let packingListRow = document.createElement('div');
@@ -128,16 +130,16 @@ async function addSavedTrip(data) {
 
                 deleteBtn.addEventListener('click', removeItems)
                 packingToggle.addEventListener('click', toggleItems)
-
-                // newItemRow.insertAdjacentElement('afterend', packingList);
             }
 
             let addMoreBlock = document.createElement('div');
-            addMoreBlock.innerHTML = `<div class="packing-list-row">Need to add more?</div>
+
+            // need to generate this dynamically
+            addMoreBlock.innerHTML = `<div class="packing-list-row" style="background-color: transparent; color: #197278">Need to add more?</div>
             <div class="packing-list-btn-container">
             <form class="packing-list-form">
-                <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item">
-                <select class="packing-list-btn-category saved-trips-category">
+                <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item" style="margin: 0 0 20px 0;">
+                <select class="packing-list-btn-category saved-trips-category" style="margin: 0 0 20px 0;">
                     <option>Category</option>
                     <option class="tops">Tops</option>
                     <option class="bottoms">Bottoms</option>
@@ -147,22 +149,18 @@ async function addSavedTrip(data) {
                     <option class="toiletries">Toiletries</option>
                     <option class="other">Other</option>
                 </select>
-                <button class="saved-trips-add-btn" onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
+                <button class="saved-trips-add-btn" class="packing-list-btn" style="margin: 0 0 20px 0;"><i class="fas fa-plus"></i></button>
             </form>
         </div>`
             packingListContainer.appendChild(addMoreBlock);
-
         }
 
-        /* PACKING Items View */
-        tripPackingList.addEventListener('click', function (event) {
+        // TODO Items View
+        tripTodoList.addEventListener('click', function (event) {
+            console.log('clicked')
             let tripCity = event.target.parentElement.parentElement.previousSibling.innerText;
 
             for (let i = 0; i < data.length; i++) {
-
-                // let packingListContainer = document.createElement('div');
-                // newItemRow.appendChild(packingListContainer)
-                // let packingItems = data[i].packingList;
 
                 if (data[i].city === tripCity) {
                     if (packingListContainer.style.display === 'none') {
@@ -171,41 +169,25 @@ async function addSavedTrip(data) {
                     } else {
                         packingListContainer.style.display = 'none'
                     }
-
-                    // for (let i = 0; i < packingItems.length; i++) {
-                    //     let packingList = document.createElement('div');
-                    //     let packingToggle = document.createElement('div');
-                    //     let packingItem = document.createElement('div');
-                    //     let packingCategory = document.createElement('div');
-                    //     let editBtn = document.createElement('div');
-                    //     let deleteBtn = document.createElement('div');
-
-                    //     packingItem.innerHTML = packingItems[i].item;
-                    //     packingCategory.innerHTML = packingItems[i].category;
-                    //     packingToggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-                    //     editBtn.innerHTML = editTrip.innerHTML;
-                    //     deleteBtn.innerHTML = deleteTrip.innerHTML;
-
-                    //     packingList.classList.add('saved-trip-packing-list')
-
-                    //     packingList.appendChild(packingToggle);
-                    //     packingList.appendChild(packingItem);
-                    //     packingList.appendChild(packingCategory);
-                    //     packingList.appendChild(editBtn);
-                    //     packingList.appendChild(deleteBtn);
-
-                    //     newItemRow.insertAdjacentElement('afterend', packingList);
-                    // }
-
                 }
             }
+        })
 
-            // console.log(deleteTrip.parentElement.parentElement)
-            // deleteTrip.parentElement.parentElement.remove()
+        /* PACKING Items View */
+        tripPackingList.addEventListener('click', function (event) {
+            let tripCity = event.target.parentElement.parentElement.previousSibling.innerText;
 
-            // deleteData('/remove', {
-            //     city: tripCity.innerHTML
-            // });
+            for (let i = 0; i < data.length; i++) {
+
+                if (data[i].city === tripCity) {
+                    if (packingListContainer.style.display === 'none') {
+                        packingListContainer.style.display = 'flex';
+                        packingListContainer.style.flexWrap = 'wrap';
+                    } else {
+                        packingListContainer.style.display = 'none'
+                    }
+                }
+            }
         })
 
         /* REMOVE Items */
@@ -240,9 +222,14 @@ const deleteData = async (url = '', data = {}) => {
     }
 };
 
+
+// deleteData('/remove', {
+//     packingItem: document.querySelector('#newItemValue').value,
+//     city: document.querySelector('h1').innerText
+// });
+
 export {
     deleteData,
     viewSavedTrips,
-    getUserData,
-    addSavedTrip
+    getUserData
 }

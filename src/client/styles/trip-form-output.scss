@@ -46,15 +46,11 @@
 
 .output {
     display: none;
-    &.display-on {
-        display: block;
-        padding: 50px 50px 20px 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        z-index: -1;
-    }
+    padding: 50px 50px 20px 50px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: -1;
 
     .travel-summary {
         display: flex;
@@ -356,4 +352,12 @@
     }
     .saved-trips-category {
         width: 40vw !important;
+    }
+
+    .trip-saved-container {
+        height: 62vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
