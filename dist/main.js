@@ -409,7 +409,7 @@ const getUserData = async (url) => {
 };
 
 async function displayTrip(data) {
-    console.log(data)
+    // adds a row for each trip the user has saved
     for (let i = 0; i < data.length; i++) {
         let newItemRow = document.createElement('div');
         let tripDates = document.createElement('div');
@@ -444,131 +444,73 @@ async function displayTrip(data) {
         tripActions.appendChild(editTrip);
         tripActions.appendChild(deleteTrip);
 
+        // trip data actions
         tripPackingList.addEventListener('click', displayData(data))
         tripTodoList.addEventListener('click', displayData(data))
         tripWeather.addEventListener('click', displayData(data))
         editTrip.addEventListener('click', displayData(data))
         deleteTrip.addEventListener('click', displayData(data))
-
-        //         // GENERATE PACKING LIST
-        //         newItemRow.insertAdjacentElement('afterend', packingListContainer);
-        //         console.log(data);
-
-        //         // if (packingItems === undefined) {
-        //         //     console.log('no items');
-
-        //         //     let noItemsContainer = document.createElement('div');
-
-        //         //     let nopackingItems = document.createElement('div');
-        //         //     nopackingItems.style.cssText = 'padding: 20px; font-size: 0.9em; text-align: left;';
-
-        //         //     let addItems = document.createElement('button');
-        //         //     nopackingItems.innerHTML = `There are no items in the packing list for this trip. Would you like to add some?`
-        //         //     addItems.innerHTML = `Add Items`
-
-        //         //     noItemsContainer.appendChild(nopackingItems);
-        //         //     noItemsContainer.appendChild(addItems);
-        //         //     packingListContainer.style.cssText = 'display: none; flex-direction: column; text-align: center;';
-
-        //         //     packingListContainer.appendChild(noItemsContainer);
-        //         // } else {
-        //         //     let addMoreBlock = document.createElement('div');
-
-        //         //     // need to generate this dynamically
-        //         //     addMoreBlock.innerHTML = `<div class="packing-list-row" style="background-color: transparent; color: #197278">Need to add more?</div>
-        //         //     <div class="packing-list-btn-container">
-        //         //     <form class="packing-list-form">
-        //         //         <input type="text" placeholder="add item" class="packing-list-btn-item saved-trips-item" style="margin: 0 0 20px 0;">
-        //         //         <select class="packing-list-btn-category saved-trips-category" style="margin: 0 0 20px 0;">
-        //         //             <option>Category</option>
-        //         //             <option class="tops">Tops</option>
-        //         //             <option class="bottoms">Bottoms</option>
-        //         //             <option class="shoes">Shoes</option>
-        //         //             <option class="accessories">Accessories</option>
-        //         //             <option class="swimwear">Swimwear</option>
-        //         //             <option class="toiletries">Toiletries</option>
-        //         //             <option class="other">Other</option>
-        //         //         </select>
-        //         //         <button class="saved-trips-add-btn" class="packing-list-btn" style="margin: 0 0 20px 0;"><i class="fas fa-plus"></i></button>
-        //         //     </form>
-        //         // </div>`
-        //         //     packingListContainer.appendChild(addMoreBlock);
-        //         // }
-
-        //         // TODO Items View
-        //         tripTodoList.addEventListener('click', function (event) {
-        //             let clicked = event.target;
-        //             displayData(clicked)
-        //             // replicate packing list functions above and generalize based on event click
-        //         })
-
-        //         /* PACKING Items View */
-        //         tripPackingList.addEventListener('click', function (event) {
-        //             let clicked = event.target;
-        //             displayData(clicked, data, packingListContainer)
-        //         })
-
-        //         /* REMOVE Items */
-        //         deleteTrip.addEventListener('click', function () {
-        //             console.log(deleteTrip.parentElement.parentElement)
-        //             deleteTrip.parentElement.parentElement.remove()
-
-        //             deleteData('/remove', {
-        //                 city: tripCity.innerHTML
-        //             });
-        //         })
     }
 }
 
-// // function to display trip data - DOM ONLY - PIPES TO SERVER FUNCTIONS
+// function to display trip data - DOM ONLY - PIPES TO SERVER FUNCTIONS
 function displayData(data) {
     return function (event) {
-        console.log(data)
         let city = event.target.parentElement.parentElement.previousSibling;
         let clicked = event.target;
 
-        let tripRow = city.parentElement
-        let container = document.createElement('div');
-        let toggle = document.createElement('div');
-        let item = document.createElement('div');
-        let category = document.createElement('div');
-        let editBtn = document.createElement('div');
-        let deleteBtn = document.createElement('div');
-
-        container.classList.add('saved-trip-packing-list')
-        container.appendChild(toggle);
-        container.appendChild(item);
-        container.appendChild(category);
-        container.appendChild(editBtn);
-        container.appendChild(deleteBtn);
+        let tripRow = city.parentElement // trip
+        let container = document.createElement('div'); // whole list under trip
 
         container.id = clicked.id;
 
-        tripRow.insertAdjacentElement('afterend', container);
+        // let elements = container.parentElement.children
 
-        let elements = container.parentElement.children
+        // function appendElements() {
+
+        // }
 
         // toggle packing list
         if (clicked.classList[1] === 'fa-tshirt') {
             for (let i = 0; i < data.length; i++) {
+                // search through all trips to find current trip
                 if (data[i].city === city.innerText) {
-                    console.log('same city')
-                    for (let i = 0; i < data[i].packingList; i++) {
-                        item.innerHTML = data[i].packingList[i].item
-                        category.innerHTML = 'category';
+                    let currentList = data[i].packingList
+                    console.log(currentList.length)
+
+                    for (let i = 0; i < currentList.length; i++) {
+
+
+                        let containerRow = document.createElement('div'); // row of whole list under trip
+                        container.appendChild(containerRow);
+                        containerRow.classList.add('saved-trip-packing-list')
+
+
+                        let toggle = document.createElement('div');
+                        let item = document.createElement('div');
+                        let category = document.createElement('div');
+                        let editBtn = document.createElement('div');
+                        let deleteBtn = document.createElement('div');
+
+                        // elements within containerRow
+                        containerRow.appendChild(item)
+                        containerRow.appendChild(toggle);
+                        containerRow.appendChild(category);
+                        containerRow.appendChild(editBtn);
+                        containerRow.appendChild(deleteBtn);
+
+                        item.innerHTML = currentList[i].item
+                        category.innerHTML = currentList[i].category;
                         toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
                         editBtn.innerHTML = 'edit';
                         deleteBtn.innerHTML = 'delete';
                     }
-
-                } else {
-                    console.log('no')
                 }
             }
 
-            for (let i = 2; i < elements.length; i++) {
-                elements[i].style.display = 'none';
-            }
+            // for (let i = 2; i < elements.length; i++) {
+            //     // elements[i].style.display = 'none';
+            // }
         }
 
         // toggle to do list
@@ -579,75 +521,34 @@ function displayData(data) {
             editBtn.innerHTML = 'edit';
             deleteBtn.innerHTML = 'delete';
 
-            for (let i = 2; i < elements.length; i++) {
-                elements[i].style.display = 'none';
-            }
+            // for (let i = 2; i < elements.length; i++) {
+            //     // elements[i].style.display = 'none';
+            // }
         }
 
         // toggle weather
         else if (clicked.classList[1] === 'fa-sun') {
-            for (let i = 2; i < elements.length; i++) {
-                elements[i].style.display = 'none';
-            }
+            // for (let i = 2; i < elements.length; i++) {
+            //     elements[i].style.display = 'none';
+            // }
         }
 
         // edit function
         else if (clicked.classList[1] === 'fa-edit') {
-            for (let i = 2; i < elements.length; i++) {
-                elements[i].style.display = 'none';
-            }
+            // for (let i = 2; i < elements.length; i++) {
+            //     elements[i].style.display = 'none';
+            // }
         }
 
-        // delete function
+        // delete function - DOM DONE, NEED SERVER
         else if (clicked.classList[1] === 'fa-times') {
             tripRow.style.display = "none";
+            // needs to delete child elements too, if open
         }
+
+        tripRow.insertAdjacentElement('afterend', container);
+
     }
-
-    //     // toggle packing list
-    //     if (clicked.classList[1] === 'fa-tshirt') {
-    //         console.log('packing list')
-    //         let packingItems = data[i].packingList;
-    //         // add packing list info HERE
-    //         for (let i = 0; i < packingItems.length; i++) {
-    //             item.innerHTML = packingItems[i].item;
-    //             category.innerHTML = packingItems[i].category;
-    //             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-    //             editBtn.innerHTML = editTrip.innerHTML;
-    //             deleteBtn.innerHTML = deleteTrip.innerHTML;
-
-    //             row.classList.add('saved-trip-packing-list')
-    //             row.appendChild(packingToggle);
-    //             row.appendChild(packingItem);
-    //             row.appendChild(packingCategory);
-    //             row.appendChild(editBtn);
-    //             row.appendChild(deleteBtn);
-
-    //             packingListContainer.appendChild(row);
-    //             packingListContainer.style.display = 'none';
-
-    //             if (packingItems.length < 1) {
-    //                 console.log('no packing items')
-    //             }
-    //             deleteBtn.addEventListener('click', removeItems)
-    //             packingToggle.addEventListener('click', toggleItems)
-    //         }
-    //     }
-
-    //     // toggle to do list
-    //     else if (clicked.classList[1] === 'fa-clipboard-list') {
-    //         console.log('to do list')
-    //     }
-
-    //     // edit function
-    //     else if (clicked.classList[1] === 'fa-clipboard-list') {
-    //         console.log('to do list')
-    //     }
-
-    //     // delete function
-    //     else if (clicked.classList[1] === 'fa-clipboard-list') {
-    //         console.log('to do list')
-    //     }
 }
 
 /* Function to POST data */
