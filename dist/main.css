@@ -443,6 +443,10 @@ input::placeholder {
   padding: 0 10px;
   text-align: center; }
 
+.trip-actions {
+  width: 40%;
+  text-align: right; }
+
 .trip-actions > * {
   padding: 5px; }
 

@@ -160,10 +160,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
 
         updateServer(userCity, departDate, returnDate, packingList, todoList);
     });
-    // see about moving to addtrip.js?
 }
-
-/* Function to POST data */
 
 // Helper Functions
 
