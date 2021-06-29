@@ -94,12 +94,6 @@ function displayData(data) {
 
         container.id = clicked.id;
 
-        // let elements = container.parentElement.children
-
-        // function appendElements() {
-
-        // }
-
         // toggle packing list
         if (clicked.classList[1] === 'fa-tshirt') {
             for (let i = 0; i < data.length; i++) {
@@ -109,12 +103,9 @@ function displayData(data) {
                     console.log(currentList.length)
 
                     for (let i = 0; i < currentList.length; i++) {
-
-
                         let containerRow = document.createElement('div'); // row of whole list under trip
                         container.appendChild(containerRow);
                         containerRow.classList.add('saved-trip-packing-list')
-
 
                         let toggle = document.createElement('div');
                         let item = document.createElement('div');
@@ -137,23 +128,41 @@ function displayData(data) {
                     }
                 }
             }
-
-            // for (let i = 2; i < elements.length; i++) {
-            //     // elements[i].style.display = 'none';
-            // }
         }
 
         // toggle to do list
         else if (clicked.classList[1] === 'fa-clipboard-list') {
-            item.innerHTML = 'item';
-            category.innerHTML = 'category';
-            toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-            editBtn.innerHTML = 'edit';
-            deleteBtn.innerHTML = 'delete';
+            for (let i = 0; i < data.length; i++) {
+                // search through all trips to find current trip
+                if (data[i].city === city.innerText) {
+                    let currentList = data[i].todoList
+                    console.log(currentList.length)
 
-            // for (let i = 2; i < elements.length; i++) {
-            //     // elements[i].style.display = 'none';
-            // }
+                    for (let i = 0; i < currentList.length; i++) {
+                        let containerRow = document.createElement('div'); // row of whole list under trip
+                        container.appendChild(containerRow);
+                        containerRow.classList.add('saved-trip-packing-list')
+                        let toggle = document.createElement('div');
+                        let item = document.createElement('div');
+                        let category = document.createElement('div');
+                        let editBtn = document.createElement('div');
+                        let deleteBtn = document.createElement('div');
+
+                        // elements within containerRow
+                        containerRow.appendChild(item)
+                        containerRow.appendChild(toggle);
+                        containerRow.appendChild(category);
+                        containerRow.appendChild(editBtn);
+                        containerRow.appendChild(deleteBtn);
+
+                        item.innerHTML = currentList[i].item
+                        category.innerHTML = currentList[i].category;
+                        toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+                        editBtn.innerHTML = 'edit';
+                        deleteBtn.innerHTML = 'delete';
+                    }
+                }
+            }
         }
 
         // toggle weather
@@ -172,7 +181,7 @@ function displayData(data) {
 
         // delete function - DOM DONE, NEED SERVER
         else if (clicked.classList[1] === 'fa-times') {
-            tripRow.style.display = "none";
+            tripRow.remove()
             // needs to delete child elements too, if open
         }
 
