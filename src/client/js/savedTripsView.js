@@ -44,7 +44,8 @@ async function displayTrip(data) {
     // adds a row for each trip the user has saved
     for (let i = 0; i < data.length; i++) {
         let tripContainer = document.querySelector('.saved-trips');
-        let newTripRow = document.createElement('div');
+        let newTripContainer = document.createElement('div');
+        let newTripHeading = document.createElement('div');
         let tripDates = document.createElement('div');
         let tripCity = document.createElement('div');
         let tripActions = document.createElement('div');
@@ -63,14 +64,14 @@ async function displayTrip(data) {
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
 
-        newTripRow.classList.add('packing-list-row');
+        newTripHeading.classList.add('packing-list-row');
         tripDates.classList.add('trip-dates');
         tripCity.classList.add('trip-city');
         tripActions.classList.add('trip-actions');
 
-        newTripRow.appendChild(tripDates);
-        newTripRow.appendChild(tripCity);
-        newTripRow.appendChild(tripActions);
+        newTripHeading.appendChild(tripDates);
+        newTripHeading.appendChild(tripCity);
+        newTripHeading.appendChild(tripActions);
         tripActions.appendChild(tripPackingList);
         tripActions.appendChild(tripTodoList);
         tripActions.appendChild(tripWeather);
@@ -87,11 +88,14 @@ async function displayTrip(data) {
         todoListContainer.style.display = 'none';
         weatherContainer.style.display = 'none';
 
-        newTripRow.insertAdjacentElement('afterend', tripContainer);
-        tripContainer.appendChild(newTripRow);
-        tripContainer.appendChild(packingListContainer);
-        tripContainer.appendChild(todoListContainer);
-        tripContainer.appendChild(weatherContainer);
+        newTripContainer.appendChild(newTripHeading);
+        newTripContainer.appendChild(packingListContainer);
+        newTripContainer.appendChild(todoListContainer);
+        newTripContainer.appendChild(weatherContainer);
+
+        newTripContainer.id = `${data[i].city}-trip`;
+
+        tripContainer.appendChild(newTripContainer)
 
         // add data to DOM shells
         // PACKING LIST
@@ -157,7 +161,7 @@ async function displayTrip(data) {
 
         // change to edit/delete functions
         editTrip.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
-        deleteTrip.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
+        deleteTrip.addEventListener('click', removeData(data, packingListContainer, todoListContainer, weatherContainer))
     }
 }
 
@@ -229,8 +233,16 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
     }
 }
 
+function removeData(data) {
+    return function (event) {
+        let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
+        tripRow.remove();
+    }
+
+}
+
 /* Function to POST data */
-const deleteData = async (url = '', data = {}) => {
+const deleteServerData = async (url = '', data = {}) => {
     try {
         const response = await fetch(url, {
             method: 'DELETE',
@@ -255,7 +267,7 @@ const deleteData = async (url = '', data = {}) => {
 // // });
 
 export {
-    deleteData,
+    removeData,
     viewSavedTrips,
     getUserData
 }
