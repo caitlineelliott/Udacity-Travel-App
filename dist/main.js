@@ -222,12 +222,17 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
     rowElements.deleteBtn.addEventListener('click', removeItems)
-    // rowElements.editBtn.addEventListener('click', editItems)
+    rowElements.editBtn.addEventListener('click', editItems)
     rowElements.packedFlag.addEventListener('click', toggleItems)
 }
 
 function toggleItems(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
+}
+
+function editItems(event) {
+    event.target.parentElement.previousSibling.previousSibling.readOnly = false;
+    event.target.parentElement.previousSibling.previousSibling.style.backgroundColor = '#c44536';
 }
 
 function removeItems(event) {
@@ -471,7 +476,7 @@ async function displayTrip(data) {
         // PACKING LIST
         let packingList = data[i].packingList;
         for (let i = 0; i < packingList.length; i++) {
-            let packingItemRow = document.createElement('div'); // row of whole list under trip
+            let packingItemRow = document.createElement('div');
             packingItemRow.classList.add('saved-trip-packing-list')
 
             let toggle = document.createElement('div');
@@ -531,7 +536,7 @@ async function displayTrip(data) {
 
         // change to edit/delete functions
         editTrip.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
-        deleteTrip.addEventListener('click', removeData(data, packingListContainer, todoListContainer, weatherContainer))
+        deleteTrip.addEventListener('click', removeData(data))
     }
 }
 
@@ -555,8 +560,6 @@ function setTripDataValues(data) {
         editBtn.innerHTML = 'edit';
         deleteBtn.innerHTML = 'delete';
     }
-
-
 }
 
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
@@ -593,14 +596,11 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
         //     //     elements[i].style.display = 'none';
         //     // }
         // }
-
-        // // delete function - DOM DONE, NEED SERVER
-        // else if (clicked.classList[1] === 'fa-times') {
-        //     tripRow.remove()
-        //     // needs to delete child elements too, if open
-        // }
-        // }
     }
+}
+
+function editData(data) {
+
 }
 
 function removeData(data) {

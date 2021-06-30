@@ -84,12 +84,17 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
     rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
 
     rowElements.deleteBtn.addEventListener('click', removeItems)
-    // rowElements.editBtn.addEventListener('click', editItems)
+    rowElements.editBtn.addEventListener('click', editItems)
     rowElements.packedFlag.addEventListener('click', toggleItems)
 }
 
 function toggleItems(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
+}
+
+function editItems(event) {
+    event.target.parentElement.previousSibling.previousSibling.readOnly = false;
+    event.target.parentElement.previousSibling.previousSibling.style.backgroundColor = '#c44536';
 }
 
 function removeItems(event) {
