@@ -127,14 +127,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/client/js/addPackingItem.js ***!
   \*****************************************/
-/*! exports provided: createElements, removeItems, toggleItems, appendItem */
+/*! exports provided: createElements, removeItems, appendItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElements", function() { return createElements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendItem", function() { return appendItem; });
 // generates packing + todo list items on new trip view
 
@@ -148,14 +147,8 @@ function createElements(event) {
 
     const rowElements = {
         "newItemValue": document.createElement('textarea'),
-        "packedFlag": document.createElement('button'),
         "editBtn": document.createElement('button'),
         "deleteBtn": document.createElement('button'),
-    }
-
-    const checkboxElements = {
-        "toggleIcon": document.createElement('span'),
-        "toggleLabel": document.createElement('span'),
     }
 
     rowElements.newItemValue.readOnly = true;
@@ -163,7 +156,7 @@ function createElements(event) {
 
     let target = event.target.classList.value;
 
-    setValues(target, blockElements, rowElements, checkboxElements);
+    setValues(target, blockElements, rowElements);
 
     /* Collapse Items */
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
@@ -177,7 +170,7 @@ function createElements(event) {
     })
 }
 
-async function setValues(target, blockElements, rowElements, checkboxElements) {
+async function setValues(target, blockElements, rowElements) {
     blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
 
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
@@ -187,15 +180,12 @@ async function setValues(target, blockElements, rowElements, checkboxElements) {
     rowElements.deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     rowElements.newItemValue.defaultValue = document.querySelector(`.${target}-item`).value;
 
-    checkboxElements.toggleIcon.innerHTML = '<i class= "far fa-check-square"></i>';
-    checkboxElements.toggleLabel.innerHTML = 'Packed';
-
     document.querySelector(`.${target}-item`).value = '';
 
-    appendItem(target, blockElements, rowElements, checkboxElements);
+    appendItem(target, blockElements, rowElements);
 }
 
-function appendItem(target, blockElements, rowElements, checkboxElements) {
+function appendItem(target, blockElements, rowElements) {
     const categoryArr = []
     let appendedElements = document.querySelector(`.${target}-container`).children;
 
@@ -218,17 +208,13 @@ function appendItem(target, blockElements, rowElements, checkboxElements) {
         Object.values(rowElements)[i].classList.add('packing-item-row-segment')
     }
 
-    rowElements.packedFlag.appendChild(checkboxElements.toggleIcon);
-    rowElements.packedFlag.appendChild(checkboxElements.toggleLabel);
-
     rowElements.deleteBtn.addEventListener('click', removeItems)
     rowElements.editBtn.addEventListener('click', editItems)
-    rowElements.packedFlag.addEventListener('click', toggleItems)
 }
 
-function toggleItems(event) {
-    event.target.parentElement.parentElement.classList.toggle('packed');
-}
+// function toggleItems(event) {
+//     event.target.parentElement.parentElement.classList.toggle('packed');
+// }
 
 function editItems(event) {
     event.target.parentElement.previousSibling.previousSibling.readOnly = false;
