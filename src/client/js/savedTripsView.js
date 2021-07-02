@@ -109,6 +109,7 @@ async function displayTrip(data) {
             let category = document.createElement('div');
             let editBtn = document.createElement('div');
             let deleteBtn = document.createElement('div');
+            let saveBtn = document.createElement('button');
 
             // elements within containerRow
             packingItemRow.appendChild(item)
@@ -122,10 +123,15 @@ async function displayTrip(data) {
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = 'edit';
             deleteBtn.innerHTML = 'delete';
+            saveBtn.innerHTML = 'Save Changes';
+
+            saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
 
             packingListContainer.appendChild(packingItemRow);
+            packingListContainer.appendChild(saveBtn);
 
             toggle.addEventListener('click', toggleData);
+            saveBtn.addEventListener('click', updateServerLists);
         }
 
         // TO DO LIST
@@ -241,13 +247,6 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
                 weatherContainer.style.display = 'none'
             }
         }
-
-        // // edit function
-        // else if (clicked.classList[1] === 'fa-edit') {
-        //     // for (let i = 2; i < elements.length; i++) {
-        //     //     elements[i].style.display = 'none';
-        //     // }
-        // }
     }
 }
 
