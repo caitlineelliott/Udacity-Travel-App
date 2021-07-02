@@ -124,6 +124,8 @@ async function displayTrip(data) {
             deleteBtn.innerHTML = 'delete';
 
             packingListContainer.appendChild(packingItemRow);
+
+            toggle.addEventListener('click', toggleData);
         }
 
         // TO DO LIST
@@ -224,6 +226,10 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
     }
 }
 
+function toggleData(event) {
+    event.target.parentElement.parentElement.classList.toggle('packed');
+}
+
 function editData(data) {
 
 }
@@ -237,7 +243,6 @@ function removeData(data) {
         console.log(tripCity, departDate, returnDate);
 
         tripRow.remove();
-
 
         deleteFromServer(tripCity, departDate, returnDate)
     }
@@ -269,12 +274,6 @@ const deleteServerData = async (url = '', data = {}) => {
         console.log('FAILED TO DELETE DATA FROM SERVER');
     }
 };
-
-
-// // deleteData('/remove', {
-// //     packingItem: document.querySelector('#newItemValue').value,
-// //     city: document.querySelector('h1').innerText
-// // });
 
 export {
     removeData,

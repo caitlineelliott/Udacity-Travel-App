@@ -75,10 +75,6 @@ function appendItem(target, blockElements, rowElements) {
     rowElements.editBtn.addEventListener('click', editItems)
 }
 
-// function toggleItems(event) {
-//     event.target.parentElement.parentElement.classList.toggle('packed');
-// }
-
 function editItems(event) {
     event.target.parentElement.previousSibling.readOnly = false;
     event.target.parentElement.previousSibling.style.backgroundColor = '#c44536';
