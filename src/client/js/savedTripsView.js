@@ -154,6 +154,7 @@ async function displayTrip(data) {
             deleteBtn.innerHTML = 'delete'
 
             todoListContainer.appendChild(todoItemRow);
+            toggle.addEventListener('click', toggleData);
         }
 
         // trip data actions
