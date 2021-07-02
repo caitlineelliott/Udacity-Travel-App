@@ -316,13 +316,15 @@ const getWeatherBit = async (lat, lng) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateServer", function() { return updateServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-function updateServer(userCity, departDate, returnDate, packingList, todoList) {
+function updateServer(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr) {
+    console.log('weather', tripWeatherArr)
     postData('/api/trip', {
         city: userCity,
         departure: departDate,
         arrival: returnDate,
         packingList: packingList,
-        todoList: todoList
+        todoList: todoList,
+        weather: tripWeatherArr,
     });
 }
 
@@ -519,6 +521,31 @@ async function displayTrip(data) {
             deleteBtn.innerHTML = 'delete'
 
             todoListContainer.appendChild(todoItemRow);
+            toggle.addEventListener('click', toggleData);
+        }
+
+        // WEATHER
+        let weatherData = data[i].weather;
+        weatherContainer.classList.add('forecast')
+        for (let i = 0; i < weatherData.length; i++) {
+            let newRow = document.createElement('div');
+            weatherContainer.appendChild(newRow);
+
+            newRow.classList.add('forecast-row');
+            const tripDate = document.createElement('div');
+            tripDate.classList.add('forecast-date');
+            tripDate.innerHTML = weatherData[i].date;
+            newRow.appendChild(tripDate);
+
+            const weatherIcon = document.createElement('img');
+            weatherIcon.classList.add('forecast-icon');
+            weatherIcon.src = `${weatherData[i].weatherIcon}`;
+            newRow.appendChild(weatherIcon);
+
+            const weather = document.createElement('div');
+            weather.classList.add('forecast-high');
+            weather.innerHTML = weatherData[i].weather;
+            newRow.appendChild(weather);
         }
 
         // trip data actions
@@ -705,6 +732,8 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     let tripDaysCount = [];
     let tripWeather = document.querySelector('.forecast');
 
+    let tripWeatherArr = [];
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
@@ -726,8 +755,16 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
             weather.classList.add('forecast-high');
             weather.innerHTML = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
             newRow.appendChild(weather);
+
+            let tripDayData = {}
+            tripDayData['date'] = tripDate.innerHTML;
+            tripDayData['weatherIcon'] = weatherIcon.src;
+            tripDayData['weather'] = weather.innerHTML;
+            tripWeatherArr.push(tripDayData);
         }
     }
+
+    console.log(tripWeatherArr)
 
     if (tripWeather.childElementCount > 5) {
         let moreDays = document.createElement('div');
@@ -774,17 +811,6 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     document.querySelector('.packing-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target to do list
 
-
-    // TODO: add provision for todo list vs packing list
-
-    // if (target === 'packing-list-btn') {
-    //     packingList.push(item);
-    //     console.log(packingList)
-    // } else {
-    //     todoList.push(item)
-    //     console.log(todoList)
-    // }
-
     // create save trip info btn
     let saveTripBtn = document.createElement('button');
     saveTripBtn.innerText = 'Save Trip Information';
@@ -817,7 +843,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
                 <div>Your trip details have been saved.</div>;`
         document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
 
-        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, packingList, todoList);
+        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
     });
 }
 

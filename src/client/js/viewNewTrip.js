@@ -46,6 +46,8 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     let tripDaysCount = [];
     let tripWeather = document.querySelector('.forecast');
 
+    let tripWeatherArr = [];
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
@@ -67,8 +69,16 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
             weather.classList.add('forecast-high');
             weather.innerHTML = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
             newRow.appendChild(weather);
+
+            let tripDayData = {}
+            tripDayData['date'] = tripDate.innerHTML;
+            tripDayData['weatherIcon'] = weatherIcon.src;
+            tripDayData['weather'] = weather.innerHTML;
+            tripWeatherArr.push(tripDayData);
         }
     }
+
+    console.log(tripWeatherArr)
 
     if (tripWeather.childElementCount > 5) {
         let moreDays = document.createElement('div');
@@ -115,17 +125,6 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
 
-
-    // TODO: add provision for todo list vs packing list
-
-    // if (target === 'packing-list-btn') {
-    //     packingList.push(item);
-    //     console.log(packingList)
-    // } else {
-    //     todoList.push(item)
-    //     console.log(todoList)
-    // }
-
     // create save trip info btn
     let saveTripBtn = document.createElement('button');
     saveTripBtn.innerText = 'Save Trip Information';
@@ -158,7 +157,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
                 <div>Your trip details have been saved.</div>;`
         document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
 
-        updateServer(userCity, departDate, returnDate, packingList, todoList);
+        updateServer(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
     });
 }
 

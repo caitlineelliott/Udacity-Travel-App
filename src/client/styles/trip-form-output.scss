@@ -43,6 +43,45 @@
     }
 }
 
+.forecast-row,
+    .packing-list-row,
+    .todo-list-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 10px auto;
+        background: $h2-color-light;
+        height: 6vh;
+        box-sizing: border-box;
+    }
+
+    .forecast-row {
+        .forecast-date,
+        .forecast-high {
+            padding: 0 10px;
+            font-size: 4vw;
+            color: white;
+        }
+
+        .forecast-date {
+            width: 20vw;
+            padding-left: 20px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .forecast-icon {
+            width: 10vw;
+            box-sizing: border-box;
+        }
+
+        .forecast-high {
+            width: 52vw;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+    }
 
 .output {
     display: none;
@@ -83,46 +122,6 @@
             color: black;
             font-size: 0.8em;
         }
-    }
-
-    .forecast-row,
-    .packing-list-row,
-    .todo-list-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 10px auto;
-        background: $h2-color-light;
-        height: 6vh;
-        box-sizing: border-box;
-    }
-
-    .forecast-row {
-        .forecast-date,
-        .forecast-high {
-            padding: 0 10px;
-            font-size: 4vw;
-            color: white;
-        }
-
-        .forecast-date {
-            width: 20vw;
-            padding-left: 20px;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-
-        .forecast-icon {
-            width: 10vw;
-            box-sizing: border-box;
-        }
-
-        .forecast-high {
-            width: 52vw;
-            box-sizing: border-box;
-            padding: 10px;
-        }
-
     }
 
     .packing-list-row {

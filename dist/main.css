@@ -326,6 +326,38 @@ input::placeholder {
     padding: 10px;
     box-sizing: border-box; }
 
+.forecast-row,
+.packing-list-row,
+.todo-list-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px auto;
+  background: #83A8A6;
+  height: 6vh;
+  box-sizing: border-box; }
+
+.forecast-row .forecast-date,
+.forecast-row .forecast-high {
+  padding: 0 10px;
+  font-size: 4vw;
+  color: white; }
+
+.forecast-row .forecast-date {
+  width: 20vw;
+  padding-left: 20px;
+  box-sizing: border-box;
+  padding: 10px; }
+
+.forecast-row .forecast-icon {
+  width: 10vw;
+  box-sizing: border-box; }
+
+.forecast-row .forecast-high {
+  width: 52vw;
+  box-sizing: border-box;
+  padding: 10px; }
+
 .output {
   display: none;
   padding: 50px 50px 20px 50px;
@@ -354,33 +386,6 @@ input::placeholder {
     .output .forecast .long-forecast {
       color: black;
       font-size: 0.8em; }
-  .output .forecast-row,
-  .output .packing-list-row,
-  .output .todo-list-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 10px auto;
-    background: #83A8A6;
-    height: 6vh;
-    box-sizing: border-box; }
-  .output .forecast-row .forecast-date,
-  .output .forecast-row .forecast-high {
-    padding: 0 10px;
-    font-size: 4vw;
-    color: white; }
-  .output .forecast-row .forecast-date {
-    width: 20vw;
-    padding-left: 20px;
-    box-sizing: border-box;
-    padding: 10px; }
-  .output .forecast-row .forecast-icon {
-    width: 10vw;
-    box-sizing: border-box; }
-  .output .forecast-row .forecast-high {
-    width: 52vw;
-    box-sizing: border-box;
-    padding: 10px; }
   .output .packing-list-row .packing-item-row-segment {
     font-size: 0.8em;
     color: white;

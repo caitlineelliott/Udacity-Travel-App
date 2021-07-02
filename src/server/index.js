@@ -50,6 +50,7 @@ app.post('/api/list', addListData);
 
 function addTripData(req, res) {
     const newData = req.body;
+    console.log(newData)
 
     let projectData = {};
 
@@ -58,6 +59,7 @@ function addTripData(req, res) {
     projectData["arrival"] = newData.arrival;
     projectData["packingList"] = newData.packingList;
     projectData["todoList"] = newData.todoList;
+    projectData["weather"] = newData.weather;
 
     userTripData.unshift(projectData)
 
@@ -76,6 +78,7 @@ function addTripData(req, res) {
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
     console.log(userTripData)
+    console.log(userTripData[0].weather)
 };
 
 // COME BACK HERE:

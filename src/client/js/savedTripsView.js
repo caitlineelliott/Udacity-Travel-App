@@ -157,6 +157,30 @@ async function displayTrip(data) {
             toggle.addEventListener('click', toggleData);
         }
 
+        // WEATHER
+        let weatherData = data[i].weather;
+        weatherContainer.classList.add('forecast')
+        for (let i = 0; i < weatherData.length; i++) {
+            let newRow = document.createElement('div');
+            weatherContainer.appendChild(newRow);
+
+            newRow.classList.add('forecast-row');
+            const tripDate = document.createElement('div');
+            tripDate.classList.add('forecast-date');
+            tripDate.innerHTML = weatherData[i].date;
+            newRow.appendChild(tripDate);
+
+            const weatherIcon = document.createElement('img');
+            weatherIcon.classList.add('forecast-icon');
+            weatherIcon.src = `${weatherData[i].weatherIcon}`;
+            newRow.appendChild(weatherIcon);
+
+            const weather = document.createElement('div');
+            weather.classList.add('forecast-high');
+            weather.innerHTML = weatherData[i].weather;
+            newRow.appendChild(weather);
+        }
+
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
