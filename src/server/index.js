@@ -99,12 +99,20 @@ app.delete('/remove', removeData);
 
 function removeData(req, res) {
     const newData = req.body;
-
-    console.log('packing item data', newData)
+    console.log('trip to be deleted', newData)
 
     for (let i = 0; i < userTripData.length; i++) {
-        if (userTripData[i].city === newData.city) {
+        let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
+        let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
+
+        let departServer = userTripData[i].departure.slice(5, 10)
+        let returnServer = userTripData[i].arrival.slice(5, 10)
+
+        if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             userTripData.splice(i, 1);
+            console.log('usertripdata', userTripData)
+        } else {
+            console.log('no');
         }
     }
 }

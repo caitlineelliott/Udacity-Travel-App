@@ -231,9 +231,24 @@ function editData(data) {
 function removeData(data) {
     return function (event) {
         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-        tripRow.remove();
-    }
+        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(8, 13);
+        console.log(tripCity, departDate, returnDate);
 
+        tripRow.remove();
+
+
+        deleteFromServer(tripCity, departDate, returnDate)
+    }
+}
+
+function deleteFromServer(tripCity, departDate, returnDate) {
+    deleteServerData('/remove', {
+        city: tripCity,
+        depart: departDate,
+        return: returnDate
+    });
 }
 
 /* Function to POST data */

@@ -80,8 +80,14 @@ function appendItem(target, blockElements, rowElements) {
 // }
 
 function editItems(event) {
-    event.target.parentElement.previousSibling.previousSibling.readOnly = false;
-    event.target.parentElement.previousSibling.previousSibling.style.backgroundColor = '#c44536';
+    event.target.parentElement.previousSibling.readOnly = false;
+    event.target.parentElement.previousSibling.style.backgroundColor = '#c44536';
+
+    document.querySelector('#newItemValue').style.width = '46vw';
+
+    let saveBtn = document.createElement('button');
+    saveBtn.innerHTML = 'save';
+    saveBtn.style.width = '12vw';
 }
 
 function removeItems(event) {
@@ -97,6 +103,8 @@ function removeItems(event) {
         }
     }
 }
+
+
 
 export {
     createElements,

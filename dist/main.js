@@ -217,8 +217,14 @@ function appendItem(target, blockElements, rowElements) {
 // }
 
 function editItems(event) {
-    event.target.parentElement.previousSibling.previousSibling.readOnly = false;
-    event.target.parentElement.previousSibling.previousSibling.style.backgroundColor = '#c44536';
+    event.target.parentElement.previousSibling.readOnly = false;
+    event.target.parentElement.previousSibling.style.backgroundColor = '#c44536';
+
+    document.querySelector('#newItemValue').style.width = '46vw';
+
+    let saveBtn = document.createElement('button');
+    saveBtn.innerHTML = 'save';
+    saveBtn.style.width = '12vw';
 }
 
 function removeItems(event) {
@@ -234,6 +240,8 @@ function removeItems(event) {
         }
     }
 }
+
+
 
 
 
@@ -592,9 +600,24 @@ function editData(data) {
 function removeData(data) {
     return function (event) {
         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-        tripRow.remove();
-    }
+        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(8, 13);
+        console.log(tripCity, departDate, returnDate);
 
+        tripRow.remove();
+
+
+        deleteFromServer(tripCity, departDate, returnDate)
+    }
+}
+
+function deleteFromServer(tripCity, departDate, returnDate) {
+    deleteServerData('/remove', {
+        city: tripCity,
+        depart: departDate,
+        return: returnDate
+    });
 }
 
 /* Function to POST data */
