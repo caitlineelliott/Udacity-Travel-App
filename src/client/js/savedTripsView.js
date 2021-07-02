@@ -123,6 +123,7 @@ async function displayTrip(data) {
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = 'edit';
             deleteBtn.innerHTML = 'delete';
+            deleteBtn.id = 'delete-item-btn';
             saveBtn.innerHTML = 'Save Changes';
 
             saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
@@ -131,7 +132,8 @@ async function displayTrip(data) {
             packingListContainer.appendChild(saveBtn);
 
             toggle.addEventListener('click', toggleData);
-            saveBtn.addEventListener('click', updateServerLists);
+            deleteBtn.addEventListener('click', removeData(data))
+            // saveBtn.addEventListener('click', updateServerLists);
         }
 
         // TO DO LIST
@@ -260,15 +262,23 @@ function editData(data) {
 
 function removeData(data) {
     return function (event) {
-        let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-        let departDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(0, 5);
-        let returnDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(8, 13);
-        console.log(tripCity, departDate, returnDate);
+        console.log(event.target)
+        let deleteTripBtn = document.querySelector('#delete');
+        let deleteItemBtn = document.querySelector('#delete-item-btn');
+        if (event.target === deleteTripBtn) {
+            let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
+            let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+            let departDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(0, 5);
+            let returnDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(8, 13);
+            console.log(tripCity, departDate, returnDate);
 
-        tripRow.remove();
-
-        deleteFromServer(tripCity, departDate, returnDate)
+            tripRow.remove();
+            // deleteFromServer(tripCity, departDate, returnDate)
+        } else if (event.target === deleteItemBtn) {
+            deleteItemBtn.parentElement.remove();
+        } else {
+            console.log('error')
+        }
     }
 }
 
@@ -276,7 +286,7 @@ function deleteFromServer(tripCity, departDate, returnDate) {
     deleteServerData('/remove', {
         city: tripCity,
         depart: departDate,
-        return: returnDate
+        return: returnDate,
     });
 }
 
