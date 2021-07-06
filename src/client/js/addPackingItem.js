@@ -72,18 +72,31 @@ function appendItem(target, blockElements, rowElements) {
     }
 
     rowElements.deleteBtn.addEventListener('click', removeItems)
-    rowElements.editBtn.addEventListener('click', editItems)
+    rowElements.editBtn.addEventListener('click', editNewItems)
 }
 
-function editItems(event) {
-    event.target.parentElement.previousSibling.readOnly = false;
-    event.target.parentElement.previousSibling.style.backgroundColor = '#c44536';
+function editNewItems(event) {
+    console.log(event.target)
+    let editibleItem = event.target.previousSibling;
+    editibleItem.readOnly = false;
+    editibleItem.backgroundColor = '#c44536';
+    editibleItem.style.width = '46vw';
 
-    document.querySelector('#newItemValue').style.width = '46vw';
+    let saveBtnNTV = document.createElement('button');
+    saveBtnNTV.innerHTML = 'save';
+    saveBtnNTV.style.width = '12vw';
+    editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+    saveBtnNTV.addEventListener('click', function () {
+        saveEditedItem(editibleItem, saveBtnNTV);
+    })
+}
 
-    let saveBtn = document.createElement('button');
-    saveBtn.innerHTML = 'save';
-    saveBtn.style.width = '12vw';
+function saveEditedItem(editibleItem, saveBtnNTV) {
+    editibleItem.innerHTML = editibleItem.value;
+    editibleItem.readOnly = true;
+    editibleItem.style.backgroundColor = '#000';
+    // editibleItem.style.width = '23vw';
+    saveBtnNTV.remove();
 }
 
 function removeItems(event) {
