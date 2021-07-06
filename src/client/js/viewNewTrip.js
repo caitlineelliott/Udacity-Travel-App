@@ -154,7 +154,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
         saveConfirmed.style.display = 'flex';
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
-                <div>Your trip details have been saved.</div>;`
+                <div>Your trip details have been saved.</div>`
         document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
 
         updateServer(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
