@@ -528,7 +528,9 @@ function displayTrip(data) {
         saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
         packingListContainer.appendChild(saveBtn);
 
-        saveBtn.addEventListener('click', updateServerLists(tripCity, tripDates));
+        saveBtn.addEventListener('click', function () {
+            updateServerLists(tripCity, tripDates)
+        });
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -624,11 +626,15 @@ function addMoreItems(event) {
     document.querySelector('.saved-trip-packing-list').after(packingItemRow)
 
     toggle.addEventListener('click', toggleData);
-    deleteBtn.addEventListener('click', removeData(data))
+    // deleteBtn.addEventListener('click', removeData())
+
 }
 
+// WHY IS THIS FIRING ON PAGE LOAD????
 function updateServerLists(tripCity, tripDates) {
+    alert('hey')
     let list = document.querySelectorAll('.saved-trip-packing-list');
+    console.log(list)
     for (let i = 0; i < list.length; i++) {
         let newItem = list[i].firstChild.innerText;
         let newCategory = true;
@@ -640,7 +646,6 @@ function updateServerLists(tripCity, tripDates) {
         packingListItem['toggle'] = newToggle;
         packingListArr.push(packingListItem);
         console.log(packingListArr)
-        alert('saved!')
     }
     addServerData('/list', {
         city: tripCity.innerText,
