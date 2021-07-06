@@ -405,6 +405,8 @@ const getUserData = async (url) => {
     }
 };
 
+let packingListArr = [];
+let todoListArr = [];
 
 // need to create shells of all data in this function & set display to NONE, trigger display in event listener func
 async function displayTrip(data) {
@@ -476,7 +478,6 @@ async function displayTrip(data) {
             let category = document.createElement('div');
             let editBtn = document.createElement('div');
             let deleteBtn = document.createElement('div');
-            let saveBtn = document.createElement('button');
 
             // elements within containerRow
             packingItemRow.appendChild(item)
@@ -491,17 +492,18 @@ async function displayTrip(data) {
             editBtn.innerHTML = 'edit';
             deleteBtn.innerHTML = 'delete';
             deleteBtn.id = 'delete-item-btn';
-            saveBtn.innerHTML = 'Save Changes';
-
-            saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
 
             packingListContainer.appendChild(packingItemRow);
-            packingListContainer.appendChild(saveBtn);
 
             toggle.addEventListener('click', toggleData);
             deleteBtn.addEventListener('click', removeData(data))
-            // saveBtn.addEventListener('click', updateServerLists);
         }
+
+        let saveBtn = document.createElement('button');
+        saveBtn.innerHTML = 'Save Changes';
+        saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
+        packingListContainer.appendChild(saveBtn);
+        saveBtn.addEventListener('click', updateServerLists(tripCity, tripDates));
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -566,6 +568,30 @@ async function displayTrip(data) {
         deleteTrip.addEventListener('click', removeData(data))
     }
 }
+
+function updateServerLists(tripCity, tripDates) {
+    let list = document.querySelectorAll('.saved-trip-packing-list');
+    for (let i = 0; i < list.length; i++) {
+        let newItem = list[i].firstChild.innerText;
+        let newCategory = true;
+        let newToggle = true;
+
+        let packingListItem = {};
+        packingListItem['item'] = newItem;
+        packingListItem['category'] = newCategory;
+        packingListItem['toggle'] = newToggle;
+        packingListArr.push(packingListItem);
+        console.log(packingListArr)
+    }
+    addServerData('/list', {
+        city: tripCity.innerText,
+        depart: tripDates.innerHTML.slice(0, 5),
+        return: tripDates.innerHTML.slice(8, 13),
+        list: packingListArr
+    });
+}
+
+
 
 /// how can I broaden this out so I only have to write it once for packing, todo, and weather?
 function setTripDataValues(data) {
@@ -642,6 +668,12 @@ function removeData(data) {
             tripRow.remove();
             // deleteFromServer(tripCity, departDate, returnDate)
         } else if (event.target === deleteItemBtn) {
+            // let tripCity = event.target.parentElement.parentElement.parentElement.id.split('-')[0];
+            // let departDate = event.target.parentElement.parentElement.parentElement.firstElementChild.innerText.slice(0, 5);
+            // let returnDate = event.target.parentElement.parentElement.parentElement.firstElementChild.innerText.slice(8, 13);
+            // console.log(tripCity, departDate, returnDate)
+            // let itemToDelete = deleteItemBtn.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
+            // console.log(itemToDelete);
             deleteItemBtn.parentElement.remove();
         } else {
             console.log('error')
@@ -649,15 +681,35 @@ function removeData(data) {
     }
 }
 
-function deleteFromServer(tripCity, departDate, returnDate) {
+function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
     deleteServerData('/remove', {
         city: tripCity,
         depart: departDate,
         return: returnDate,
+        item: itemToDelete,
     });
 }
 
-/* Function to POST data */
+/* POST DATA */
+const addServerData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA POSTED TO SERVER ${makeDateAndTime()}`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO POST DATA TO SERVER');
+    }
+};
+
+/* Function to DELETE data */
 const deleteServerData = async (url = '', data = {}) => {
     try {
         const response = await fetch(url, {

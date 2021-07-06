@@ -46,11 +46,10 @@ function getData(req, res) {
 
 // Post Route
 app.post('/api/trip', addTripData);
-app.post('/api/list', addListData);
+app.post('/list', addListData);
 
 function addTripData(req, res) {
     const newData = req.body;
-    console.log(newData)
 
     let projectData = {};
 
@@ -77,40 +76,52 @@ function addTripData(req, res) {
         }
     }
     console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
-    console.log(userTripData)
-    console.log(userTripData[0].weather)
 };
 
 // COME BACK HERE:
 function addListData(req, res) {
     const newData = req.body;
-    console.log(newData)
+    console.log(newData);
+    console.log(userTripData);
 
     for (let i = 0; i < userTripData.length; i++) {
-        if (userTripData[i].city === newData.tripCity) {
-            userTripData[i]["packingList"] = newData.packingList;
-            userTripData[i]["todoList"] = newData.todoList;
-            console.log('WHOLE LIST', userTripData);
+        let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
+        let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
+
+        let departServer = userTripData[i].departure.slice(5, 10);
+        let returnServer = userTripData[i].arrival.slice(5, 10);
+
+        if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
+            userTripData[i]['packingList'] = newData.list;
+            console.log(userTripData[i]['packingList']);
         } else {
-            console.log('no')
+            console.log('no');
         }
     }
-    console.log(`LIST DATA SUCCESSFUL`);
+
+    // for (let i = 0; i < userTripData.length; i++) {
+    //     if (userTripData[i].city === newData.tripCity) {
+    //         userTripData[i]["packingList"] = newData.packingList;
+    //         userTripData[i]["todoList"] = newData.todoList;
+    //     } else {
+    //         console.log('no')
+    //     }
+    // }
+    // console.log(`LIST DATA SUCCESSFUL`);
 };
 
 app.delete('/remove', removeData);
 
 function removeData(req, res) {
     const newData = req.body;
-    console.log('trip to be deleted', newData)
-
     for (let i = 0; i < userTripData.length; i++) {
         let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
         let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
 
-        let departServer = userTripData[i].departure.slice(5, 10)
-        let returnServer = userTripData[i].arrival.slice(5, 10)
+        let departServer = userTripData[i].departure.slice(5, 10);
+        let returnServer = userTripData[i].arrival.slice(5, 10);
 
+        // whole trip delete
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             userTripData.splice(i, 1);
             console.log('usertripdata', userTripData)
