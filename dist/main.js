@@ -474,7 +474,8 @@ function displayTrip(data) {
             packingItemRow.classList.add('saved-trip-packing-list')
 
             let toggle = document.createElement('div');
-            let item = document.createElement('div');
+            let item = document.createElement('textarea');
+            item.readOnly = true;
             let category = document.createElement('div');
             let editBtn = document.createElement('div');
             let deleteBtn = document.createElement('div');
@@ -495,6 +496,7 @@ function displayTrip(data) {
 
             packingListContainer.appendChild(packingItemRow);
 
+            editBtn.addEventListener('click', editItems)
             toggle.addEventListener('click', toggleData);
             deleteBtn.addEventListener('click', removeData(data))
         }
@@ -596,6 +598,28 @@ function displayTrip(data) {
     }
 }
 
+function editItems(event) {
+    let editedItem = event.target.parentElement.firstChild;
+    editedItem.readOnly = false;
+    editedItem.style.backgroundColor = '#c44536';
+    editedItem.style.width = '46vw';
+
+    let saveBtn = document.createElement('button');
+    saveBtn.innerHTML = 'save';
+    saveBtn.style.width = '12vw';
+    editedItem.insertAdjacentElement('afterend', saveBtn);
+    saveBtn.addEventListener('click', function () {
+        saveEditedItem(editedItem, saveBtn);
+    })
+}
+
+function saveEditedItem(editedItem, saveBtn) {
+    editedItem.readOnly = true;
+    editedItem.style.backgroundColor = '#fff';
+    editedItem.style.width = '23vw';
+    saveBtn.remove();
+}
+
 function addMoreItems(event) {
     event.preventDefault();
     let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
@@ -625,6 +649,7 @@ function addMoreItems(event) {
 
     document.querySelector('.saved-trip-packing-list').after(packingItemRow)
 
+    editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
     // deleteBtn.addEventListener('click', removeData())
 
@@ -636,7 +661,7 @@ function updateServerLists(tripCity, tripDates) {
     let list = document.querySelectorAll('.saved-trip-packing-list');
     console.log(list)
     for (let i = 0; i < list.length; i++) {
-        let newItem = list[i].firstChild.innerText;
+        let newItem = list[i].firstChild.value;
         let newCategory = true;
         let newToggle = true;
 
@@ -965,7 +990,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
         saveConfirmed.style.display = 'flex';
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
-                <div>Your trip details have been saved.</div>;`
+                <div>Your trip details have been saved.</div>`
         document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
 
         Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
