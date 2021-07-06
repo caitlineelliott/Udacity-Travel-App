@@ -204,6 +204,8 @@ function displayTrip(data) {
             weatherContainer.appendChild(newRow);
 
             newRow.classList.add('forecast-row');
+            newRow.style.margin = '0';
+            newRow.style.justifyContent = 'center';
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
             tripDate.innerHTML = weatherData[i].date;
@@ -216,6 +218,7 @@ function displayTrip(data) {
 
             const weather = document.createElement('div');
             weather.classList.add('forecast-high');
+            weather.style.width = '40vw';
             weather.innerHTML = weatherData[i].weather;
             newRow.appendChild(weather);
         }
