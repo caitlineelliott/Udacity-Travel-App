@@ -409,7 +409,7 @@ let packingListArr = [];
 let todoListArr = [];
 
 // need to create shells of all data in this function & set display to NONE, trigger display in event listener func
-async function displayTrip(data) {
+function displayTrip(data) {
     // adds a row for each trip the user has saved
     for (let i = 0; i < data.length; i++) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -499,10 +499,35 @@ async function displayTrip(data) {
             deleteBtn.addEventListener('click', removeData(data))
         }
 
+        let addMoreForm = document.createElement('div');
+        addMoreForm.innerHTML = `
+    <div class="packing-list-btn-container">
+        <form class="packing-list-form">
+            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="pack-list-input">
+            <select class="packing-list-btn-category">
+                <option>Category</option>
+                <option class="tops">Tops</option>
+                <option class="bottoms">Bottoms</option>
+                <option class="shoes">Shoes</option>
+                <option class="accessories">Accessories</option>
+                <option class="swimwear">Swimwear</option>
+                <option class="toiletries">Toiletries</option>
+                <option class="other">Other</option>
+            </select>
+            <button class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
+        </form>
+    </div>`
+        packingListContainer.appendChild(addMoreForm);
+        packingListContainer.id = 'packing-list'
+        // add more packing items
+        let addMoreBtn = document.querySelector('.packing-list-btn-stv');
+        addMoreBtn.addEventListener('click', addMoreItems);
+
         let saveBtn = document.createElement('button');
         saveBtn.innerHTML = 'Save Changes';
         saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
         packingListContainer.appendChild(saveBtn);
+
         saveBtn.addEventListener('click', updateServerLists(tripCity, tripDates));
 
         // TO DO LIST
@@ -569,6 +594,39 @@ async function displayTrip(data) {
     }
 }
 
+function addMoreItems(event) {
+    event.preventDefault();
+    let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
+    let nextCat = document.querySelector('.packing-list-btn-category').value;
+
+    let packingItemRow = document.createElement('div');
+    packingItemRow.classList.add('saved-trip-packing-list');
+    let toggle = document.createElement('div');
+    let item = document.createElement('div');
+    let category = document.createElement('div');
+    let editBtn = document.createElement('div');
+    let deleteBtn = document.createElement('div');
+
+    // elements within containerRow
+    packingItemRow.appendChild(item)
+    packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(category);
+    packingItemRow.appendChild(editBtn);
+    packingItemRow.appendChild(deleteBtn);
+
+    item.innerHTML = nextItem;
+    category.innerHTML = nextCat;
+    toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+    editBtn.innerHTML = 'edit';
+    deleteBtn.innerHTML = 'delete';
+    deleteBtn.id = 'delete-item-btn';
+
+    document.querySelector('.saved-trip-packing-list').after(packingItemRow)
+
+    toggle.addEventListener('click', toggleData);
+    deleteBtn.addEventListener('click', removeData(data))
+}
+
 function updateServerLists(tripCity, tripDates) {
     let list = document.querySelectorAll('.saved-trip-packing-list');
     for (let i = 0; i < list.length; i++) {
@@ -582,6 +640,7 @@ function updateServerLists(tripCity, tripDates) {
         packingListItem['toggle'] = newToggle;
         packingListArr.push(packingListItem);
         console.log(packingListArr)
+        alert('saved!')
     }
     addServerData('/list', {
         city: tripCity.innerText,
