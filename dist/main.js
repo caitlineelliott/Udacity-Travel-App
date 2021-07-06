@@ -281,15 +281,36 @@ async function generate(event) {
     event.preventDefault();
 
     const tripCity = document.querySelector('.trip-city').value
+    let formDepart = document.querySelector('.depart-date').value;
+    let formReturn = document.querySelector('.return-date').value;
+    let compDepart = new Date(`${formDepart}T00:00:00`);
+    let compReturn = new Date(`${formReturn}T00:00:00`);
+    let today = new Date();
+    console.log(compDepart > compReturn);
+
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
 
-    const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
-    let userCity = geonamesInfo.geonames[0].name; // city name
+    // validation
+    if (tripCity === '' || formDepart === '' || formReturn === '') {
+        alert('please fill out all fields')
+        return
+    } else if (compDepart > compReturn) {
+        alert('return date cannot be before departing date')
+    } else if (compDepart < today) {
+        alert('cannot add a trip in the past')
+    }
 
-    let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+    // run as normal
+    else {
+        const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
+        let userCity = geonamesInfo.geonames[0].name; // city name
 
-    Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, weatherInfo);
+        let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+
+        Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, weatherInfo);
+    }
+
 }
 
 const getGeonames = async (placename, username) => {
