@@ -100,15 +100,18 @@ function saveEditedItem(editibleItem, saveBtnNTV) {
 }
 
 function removeItems(event) {
+    let item = event.target.parentElement.parentElement;
+    let itemCategory = event.target.parentElement.parentElement.parentElement;
+
     if (event.target.classList.value === 'fas fa-times') {
-        event.target.parentElement.parentElement.remove();
-        if (blockElements.newItemCategoryLabel.children.length < 2) {
-            blockElements.newItemCategoryLabel.remove()
+        item.remove();
+        if (itemCategory.children.length < 2) {
+            itemCategory.remove()
         }
     } else if (event.target.classList.value === 'packing-item-row-segment') {
         event.target.parentElement.remove();
-        if (blockElements.newItemCategoryLabel.children.length < 2) {
-            blockElements.newItemCategoryLabel.remove()
+        if (itemCategory.children.length < 2) {
+            itemCategory.remove()
         }
     }
 }
