@@ -125,11 +125,21 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
 
+    let tripBtnContainer = document.createElement('div');
+    tripBtnContainer.style = "display: flex";
+    output.appendChild(tripBtnContainer);
+
+    // create discard trip info btn
+    let discardTripBtn = document.createElement('button');
+    discardTripBtn.innerHTML = '<a href="index.html">Discard Trip</a>';
+    discardTripBtn.classList.add('save-trip-btn');
+    tripBtnContainer.appendChild(discardTripBtn);
+
     // create save trip info btn
     let saveTripBtn = document.createElement('button');
-    saveTripBtn.innerText = 'Save Trip Information';
+    saveTripBtn.innerText = 'Save Trip';
     saveTripBtn.classList.add('save-trip-btn');
-    output.appendChild(saveTripBtn);
+    tripBtnContainer.appendChild(saveTripBtn);
 
     saveTripBtn.addEventListener('click', function () {
         let packingList = []
