@@ -709,12 +709,13 @@ function addMoreItems(event) {
     deleteBtn.innerHTML = 'delete';
     deleteBtn.id = 'delete-item-btn';
 
-    document.querySelector('.saved-trip-packing-list').after(packingItemRow)
+    // back here
+    let packingList = document.querySelector('#packing-list');
+    packingList.insertBefore(packingItemRow, packingList.children[0])
 
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
     deleteBtn.addEventListener('click', removeItem)
-
 }
 
 // WHY IS THIS FIRING ON PAGE LOAD????

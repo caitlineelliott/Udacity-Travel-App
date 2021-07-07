@@ -488,7 +488,8 @@ input::placeholder {
   background-color: transparent;
   border: none;
   font-family: "montserrat", sans-serif;
-  font-size: 1em; }
+  font-size: 1em;
+  color: white; }
 
 .trip-actions {
   width: 40%;
