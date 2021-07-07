@@ -236,6 +236,7 @@ function displayTrip(data) {
 }
 
 function editTripDates(event) {
+    let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     tripDates.readOnly = false;
     tripDates.style.backgroundColor = '#c44536';
@@ -247,7 +248,20 @@ function editTripDates(event) {
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(tripDates, saveBtn);
+        let newTripDates = tripDates.value;
+        let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
+        console.log(tripWeatherTestData);
+        changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
     })
+}
+
+function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
+    addServerData('/tripdates', {
+        city: tripCity,
+        depart: newTripDates.slice(0, 5),
+        return: newTripDates.slice(8, 13),
+        weatherTest: tripWeatherTestData,
+    });
 }
 
 function editItems(event) {

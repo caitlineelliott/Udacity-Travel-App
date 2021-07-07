@@ -57,7 +57,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
             newRow.classList.add('forecast-row');
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
-            tripDate.innerHTML = `${dates[i].getMonth() + 1} / ${dates[i].getDate()}`;
+            tripDate.innerHTML = `${dates[i].getMonth() + 1}/${dates[i].getDate()}`;
             newRow.appendChild(tripDate);
 
             const weatherIcon = document.createElement('img');

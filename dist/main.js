@@ -535,7 +535,7 @@ function displayTrip(data) {
             category.innerHTML = packingList[i].category;
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-            deleteBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+            deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
             deleteBtn.id = 'delete-item-btn';
 
             packingListContainer.appendChild(packingItemRow);
@@ -646,6 +646,7 @@ function displayTrip(data) {
 }
 
 function editTripDates(event) {
+    let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     tripDates.readOnly = false;
     tripDates.style.backgroundColor = '#c44536';
@@ -657,7 +658,20 @@ function editTripDates(event) {
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(tripDates, saveBtn);
+        let newTripDates = tripDates.value;
+        let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
+        console.log(tripWeatherTestData);
+        changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
     })
+}
+
+function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
+    addServerData('/tripdates', {
+        city: tripCity,
+        depart: newTripDates.slice(0, 5),
+        return: newTripDates.slice(8, 13),
+        weatherTest: tripWeatherTestData,
+    });
 }
 
 function editItems(event) {
@@ -953,7 +967,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
             newRow.classList.add('forecast-row');
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
-            tripDate.innerHTML = `${dates[i].getMonth() + 1} / ${dates[i].getDate()}`;
+            tripDate.innerHTML = `${dates[i].getMonth() + 1}/${dates[i].getDate()}`;
             newRow.appendChild(tripDate);
 
             const weatherIcon = document.createElement('img');

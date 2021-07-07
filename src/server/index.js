@@ -47,6 +47,7 @@ function getData(req, res) {
 // Post Route
 app.post('/api/trip', addTripData);
 app.post('/list', addListData);
+app.post('/tripdates', changeTripDates);
 
 function addTripData(req, res) {
     const newData = req.body;
@@ -109,6 +110,30 @@ function addListData(req, res) {
     // }
     // console.log(`LIST DATA SUCCESSFUL`);
 };
+
+function changeTripDates(req, res) {
+    let newData = req.body;
+    console.log(newData);
+
+    for (let i = 0; i < userTripData.length; i++) {
+        let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
+        let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
+
+        let departServer = userTripData[i].departure.slice(5, 10);
+        let returnServer = userTripData[i].arrival.slice(5, 10);
+
+
+        // change trip dates
+        if (newData.weatherTest == userTripData[i].weather[0].weather) {
+            console.log('match');
+            userTripData[i]['departure'] = newData.depart;
+            userTripData[i]['arrival'] = newData.return;
+            console.log(userTripData[i])
+        } else {
+            console.log('no match');
+        }
+    }
+}
 
 app.delete('/remove', removeData);
 
