@@ -482,6 +482,14 @@ input::placeholder {
   padding: 0 10px;
   text-align: center; }
 
+.trip-dates {
+  padding-top: 20px;
+  padding-right: 10px;
+  background-color: transparent;
+  border: none;
+  font-family: "montserrat", sans-serif;
+  font-size: 1em; }
+
 .trip-actions {
   width: 40%;
   text-align: right; }
@@ -514,8 +522,14 @@ input::placeholder {
   padding: 0 20px;
   height: 5vh;
   background: #83A8A6; }
+  .saved-trip-packing-list textarea {
+    padding-top: 20px; }
   .saved-trip-packing-list * {
-    padding-right: 10px; }
+    padding-right: 10px;
+    background-color: transparent;
+    border: none;
+    font-family: "montserrat", sans-serif;
+    font-size: 1em; }
   .saved-trip-packing-list div:nth-child(2),
   .saved-trip-packing-list div:nth-child(3) {
     width: 30vw; }

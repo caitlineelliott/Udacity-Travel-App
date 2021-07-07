@@ -256,6 +256,16 @@
     text-align: center;
 }
 
+.trip-dates {
+    padding-top: 20px;
+    padding-right: 10px;
+    background-color: transparent;
+    border: none;
+    font-family: $plain-font;
+    font-size: 1em;
+    color: white;
+}
+
 .trip-actions {
     width: 40%;
     text-align: right;
@@ -296,8 +306,16 @@
     height: 5vh;
     background: $h2-color-light;
 
+    textarea {
+        padding-top: 20px;
+    }
+
     * {
         padding-right: 10px;
+        background-color: transparent;
+        border: none;
+        font-family: $plain-font;
+        font-size: 1em;
     }
 
     div:nth-child(2),
