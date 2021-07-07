@@ -1030,8 +1030,11 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
         saveConfirmed.style.display = 'flex';
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
-                <div>Your trip details have been saved.</div>`
-        document.querySelector('nav').insertAdjacentElement('beforebegin', saveConfirmed);
+                <div>Your trip details have been saved.</div>
+                <button>View Saved Trips</button>`
+        document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
+        let savedTripsBtn = document.querySelector('.nav-saved-trips');
+        savedTripsBtn.innerHTML = '<a href="index.html">Book Trip</a>'
 
         Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
     });
