@@ -295,14 +295,31 @@ input::placeholder {
     display: flex;
     flex-direction: row; } }
 
+.packing-list-container,
+.todo-list-container {
+  background-color: #43878A;
+  width: 100vw;
+  color: #edddd4;
+  padding: 20px 0; }
+  .packing-list-container h2,
+  .todo-list-container h2 {
+    color: #edddd4; }
+
+.todo-list-container {
+  background-color: #197278; }
+
 .packed {
   opacity: 0.5; }
 
+.select-categories {
+  margin: 0 20px; }
+
 .packing-list-form {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  margin: 20px 20px 0 20px; }
   .packing-list-form #pack-list-input {
-    width: 40vw;
+    width: 50vw;
     font-family: "montserrat", sans-serif;
     color: #197278;
     border: none;
@@ -310,15 +327,17 @@ input::placeholder {
     padding: 10px;
     box-sizing: border-box; }
   .packing-list-form select {
-    width: 30vw;
-    background: #43878A;
-    box-sizing: border-box; }
+    width: 35vw;
+    background: #83A8A6;
+    box-sizing: border-box;
+    opacity: 0.8; }
   .packing-list-form button {
-    width: 12vw;
-    background: #197278;
+    width: 15vw;
+    background: #83A8A6;
+    opacity: 0.5;
     box-sizing: border-box; }
   .packing-list-form #todo-list-input {
-    width: 40vw;
+    width: 50vw;
     font-family: "montserrat", sans-serif;
     color: #197278;
     border: none;
@@ -337,46 +356,55 @@ input::placeholder {
   height: 6vh;
   box-sizing: border-box; }
 
-.forecast-row .forecast-date,
-.forecast-row .forecast-high {
-  padding: 0 10px;
-  font-size: 4vw;
-  color: white; }
-
-.forecast-row .forecast-date {
-  width: 20vw;
-  padding-left: 20px;
-  box-sizing: border-box;
-  padding: 10px; }
-
-.forecast-row .forecast-icon {
-  width: 10vw;
-  box-sizing: border-box; }
-
-.forecast-row .forecast-high {
-  width: 52vw;
-  box-sizing: border-box;
-  padding: 10px; }
+.forecast-row {
+  display: flex;
+  justify-content: center;
+  margin: 0; }
+  .forecast-row .forecast-date,
+  .forecast-row .forecast-high {
+    padding: 0 10px;
+    font-size: 4vw;
+    color: white; }
+  .forecast-row .forecast-date {
+    width: 20vw;
+    padding-left: 20px;
+    box-sizing: border-box;
+    padding: 10px; }
+  .forecast-row .forecast-icon {
+    width: 10vw;
+    box-sizing: border-box; }
+  .forecast-row .forecast-high {
+    width: 40vw;
+    box-sizing: border-box;
+    padding: 10px; }
 
 .output {
   display: none;
-  padding: 50px 50px 20px 50px;
+  padding: 20px 50px 0 50px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   z-index: -1; }
+  .output h2 {
+    margin-bottom: 0; }
   .output .travel-summary {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    font-size: 0.8em; }
+    font-size: 0.8em;
+    margin-bottom: 20px; }
     .output .travel-summary .form-label {
       width: 60%; }
   .output .forecast {
-    margin: 20px 0;
-    color: white; }
+    margin: 0;
+    color: white;
+    width: 100vw;
+    background-color: #83A8A6; }
+    .output .forecast h2 {
+      color: #edddd4;
+      margin-top: 20px; }
     .output .forecast .more-days {
-      color: black;
+      color: #edddd4;
       font-size: 0.8em;
       text-align: center;
       margin: 20px 0; }
@@ -384,8 +412,10 @@ input::placeholder {
       color: #283d3b;
       cursor: pointer; }
     .output .forecast .long-forecast {
-      color: black;
-      font-size: 0.8em; }
+      color: #edddd4;
+      width: 80vw;
+      font-size: 0.8em;
+      margin-bottom: 20px; }
   .output .packing-list-row .packing-item-row-segment {
     font-size: 0.8em;
     color: white;
@@ -408,9 +438,10 @@ input::placeholder {
     margin: 0;
     font-family: "montserrat", sans-serif;
     font-size: 0.8em;
-    width: 58vw;
+    width: 70vw;
     border: none;
-    height: 6vh; }
+    height: 6vh;
+    background-color: #83A8A6; }
   .output #deleteBtn,
   .output #editBtn,
   .output .delete-btn {
@@ -437,9 +468,12 @@ input::placeholder {
     display: none; }
 
 .save-trip-btn {
-  margin: 10px 10px 0 10px;
-  width: 39vw;
+  margin: 0 !important;
+  width: 50vw;
   background: #c44536; }
+  .save-trip-btn a {
+    color: #edddd4;
+    text-decoration: none; }
 
 .trip-dates,
 .trip-city,

@@ -133,6 +133,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
     let discardTripBtn = document.createElement('button');
     discardTripBtn.innerHTML = '<a href="index.html">Discard Trip</a>';
     discardTripBtn.classList.add('save-trip-btn');
+    discardTripBtn.style = "background-color: #772e25; color: #edddd4";
     tripBtnContainer.appendChild(discardTripBtn);
 
     // create save trip info btn

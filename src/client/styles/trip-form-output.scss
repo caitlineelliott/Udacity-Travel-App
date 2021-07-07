@@ -1,16 +1,36 @@
 @import 'base.scss';
 
+.packing-list-container,
+.todo-list-container {
+    background-color: #43878A;
+    width: 100vw;
+    color: $background;
+    padding: 20px 0;
+
+    h2 {
+        color: $background;
+    }
+}
+
+.todo-list-container {
+    background-color: #197278;
+}
 
 .packed {
     opacity: 0.5;
 }
 
+.select-categories { // include others as well
+    margin: 0 20px;
+}
+
 .packing-list-form {
     display: flex;
     flex-direction: row;
+    margin: 20px 20px 0 20px;
 
     #pack-list-input {
-        width: 40vw;
+        width: 50vw;
         font-family: $plain-font;
         color: $h2-color;
         border: none;
@@ -20,20 +40,22 @@
     }
 
     select {
-        width: 30vw;
-        background: #43878A;
+        width: 35vw;
+        background: #83A8A6;
         box-sizing: border-box;
+        opacity: 0.8;
     }
 
     button {
-        width: 12vw;
-        background: #197278;
+        width: 15vw;
+        background: #83A8A6;
+        opacity: 0.5;
         box-sizing: border-box;
 
     }
 
     #todo-list-input {
-        width: 40vw;
+        width: 50vw;
         font-family: $plain-font;
         color: $h2-color;
         border: none;
@@ -56,6 +78,10 @@
     }
 
     .forecast-row {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+
         .forecast-date,
         .forecast-high {
             padding: 0 10px;
@@ -76,7 +102,7 @@
         }
 
         .forecast-high {
-            width: 52vw;
+            width: 40vw;
             box-sizing: border-box;
             padding: 10px;
         }
@@ -85,17 +111,22 @@
 
 .output {
     display: none;
-    padding: 50px 50px 20px 50px;
+    padding: 20px 50px 0 50px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     z-index: -1;
+
+    h2 {
+        margin-bottom: 0;
+    }
 
     .travel-summary {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         font-size: 0.8em;
+        margin-bottom: 20px;
 
         .form-label {
             width: 60%;
@@ -103,11 +134,18 @@
     }
 
     .forecast {
-        margin: 20px 0;
+        margin: 0;
         color: white;
+        width: 100vw;
+        background-color: $h2-color-light;
+
+        h2 {
+            color: $background;
+            margin-top: 20px;
+        }
 
         .more-days {
-            color: black;
+            color: $background;
             font-size: 0.8em;
             text-align: center;
             margin: 20px 0;
@@ -119,8 +157,10 @@
         }
 
         .long-forecast {
-            color: black;
+            color: $background;
+            width: 80vw;
             font-size: 0.8em;
+            margin-bottom: 20px;
         }
     }
 
@@ -154,9 +194,10 @@
         margin: 0;
         font-family: $plain-font;
         font-size: 0.8em;
-        width: 58vw;
+        width: 70vw;
         border: none;
         height: 6vh;
+        background-color: $h2-color-light;
     }
 
     #deleteBtn,
@@ -193,9 +234,14 @@
 }
 
 .save-trip-btn {
-    margin: 10px 10px 0 10px;
-    width: 39vw;
+    margin: 0 !important;
+    width: 50vw;
     background: $h1-color;
+
+    a {
+        color: $background;
+        text-decoration: none;
+    }
 }
 
 ////////

@@ -37,6 +37,7 @@ async function setValues(target, blockElements, rowElements) {
     blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
 
     blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
+    blockElements.newItemCategoryLabel.classList.add('select-categories');
     blockElements.newItemRow.classList.add('packing-list-row');
 
     rowElements.editBtn.innerHTML = '<i class= "fas fa-edit"></i>';

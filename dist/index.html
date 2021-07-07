@@ -44,8 +44,8 @@
     <main>
         <div class="output">
             <h2>Hello, Traveler!</h2>
-            <p>Here are some details about your trip:</p>
             <div class="travel-summary">
+                <p>Here are some details about your trip:</p>
                 <div class="form-label">Departure Date:</div>
                 <div class="trip-details" id="depart-date"></div>
                 <div class="form-label">Arrival Date:</div>
@@ -61,39 +61,43 @@
             <div class="forecast">
                 <h2>Forecast</h2>
             </div>
-
-            <h2>Packing List</h2>
-            <div class="packing-list-btn-container">
-                <form class="packing-list-form">
-                    <input type="text" placeholder="add item" class="packing-list-btn-item" id="pack-list-input">
-                    <select class="packing-list-btn-category">
-                        <option>Category</option>
-                        <option class="tops">Tops</option>
-                        <option class="bottoms">Bottoms</option>
-                        <option class="shoes">Shoes</option>
-                        <option class="accessories">Accessories</option>
-                        <option class="swimwear">Swimwear</option>
-                        <option class="toiletries">Toiletries</option>
-                        <option class="other">Other</option>
-                    </select>
-                    <button onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
-                </form>
+            <div class="packing-list-container">
+                <h2>Packing List</h2>
+                <div class="packing-list-btn-container">
+                    <form class="packing-list-form">
+                        <input type="text" placeholder="add item" class="packing-list-btn-item" id="pack-list-input">
+                        <select class="packing-list-btn-category">
+                            <option>Category</option>
+                            <option class="tops">Tops</option>
+                            <option class="bottoms">Bottoms</option>
+                            <option class="shoes">Shoes</option>
+                            <option class="accessories">Accessories</option>
+                            <option class="swimwear">Swimwear</option>
+                            <option class="toiletries">Toiletries</option>
+                            <option class="other">Other</option>
+                        </select>
+                        <button onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
             </div>
 
-            <h2>To Do List</h2>
-            <div class="todo-list-btn-container">
-                <form class="packing-list-form">
-                    <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
-                    <select class="todo-list-btn-category">
-                        <option>Priority</option>
-                        <option class="low">Low</option>
-                        <option class="medium">Medium</option>
-                        <option class="high">High</option>
-                    </select>
-                    <button class="todo-list-btn"><i class="fas fa-plus"></i></button>
-                </form>
+            <div class="todo-list-container">
+                <h2>To Do List</h2>
+                <div class="todo-list-btn-container">
+                    <form class="packing-list-form">
+                        <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
+                        <select class="todo-list-btn-category">
+                            <option>Priority</option>
+                            <option class="low">Low</option>
+                            <option class="medium">Medium</option>
+                            <option class="high">High</option>
+                        </select>
+                        <button class="todo-list-btn"><i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
+
 
         <div class="saved-trips">
 
