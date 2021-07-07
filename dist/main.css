@@ -524,12 +524,12 @@ input::placeholder {
   height: 5vh;
   background: #83A8A6; }
   .saved-trip-packing-list textarea {
-    padding-top: 20px; }
+    padding-top: 20px;
+    font-family: "montserrat", sans-serif; }
   .saved-trip-packing-list * {
     padding-right: 10px;
     background-color: transparent;
     border: none;
-    font-family: "montserrat", sans-serif;
     font-size: 1em; }
   .saved-trip-packing-list div:nth-child(2),
   .saved-trip-packing-list div:nth-child(3) {

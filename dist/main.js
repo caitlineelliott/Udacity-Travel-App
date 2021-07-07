@@ -534,8 +534,8 @@ function displayTrip(data) {
             item.innerHTML = packingList[i].item;
             category.innerHTML = packingList[i].category;
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-            editBtn.innerHTML = 'edit';
-            deleteBtn.innerHTML = 'delete';
+            editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+            deleteBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.id = 'delete-item-btn';
 
             packingListContainer.appendChild(packingItemRow);
@@ -600,8 +600,8 @@ function displayTrip(data) {
             item.innerHTML = todoList[i].item;
             category.innerHTML = todoList[i].category;
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-            editBtn.innerHTML = 'edit';
-            deleteBtn.innerHTML = 'delete'
+            editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+            deleteBtn.innerHTML = '<i class= "fas fa-times"></i>'
 
             todoListContainer.appendChild(todoItemRow);
             toggle.addEventListener('click', toggleData);
@@ -652,7 +652,7 @@ function editTripDates(event) {
     tripDates.style.width = '46vw';
 
     let saveBtn = document.createElement('button');
-    saveBtn.innerHTML = 'save';
+    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
     saveBtn.style.width = '12vw';
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
@@ -667,7 +667,7 @@ function editItems(event) {
     editedItem.style.width = '46vw';
 
     let saveBtn = document.createElement('button');
-    saveBtn.innerHTML = 'save';
+    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
     saveBtn.style.width = '12vw';
     editedItem.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
@@ -705,8 +705,8 @@ function addMoreItems(event) {
     item.innerHTML = nextItem;
     category.innerHTML = nextCat;
     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-    editBtn.innerHTML = 'edit';
-    deleteBtn.innerHTML = 'delete';
+    editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+    deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     deleteBtn.id = 'delete-item-btn';
 
     // back here
@@ -754,16 +754,16 @@ function setTripDataValues(data) {
         item.innerHTML = packingList[i].item
         category.innerHTML = packingList[i].category;
         toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-        editBtn.innerHTML = 'edit';
-        deleteBtn.innerHTML = 'delete';
+        editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+        deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     }
 
     for (let i = 0; i < todoList.length; i++) {
         item.innerHTML = todoList[i].item
         category.innerHTML = todoList[i].category;
         toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-        editBtn.innerHTML = 'edit';
-        deleteBtn.innerHTML = 'delete';
+        editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+        deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     }
 }
 
