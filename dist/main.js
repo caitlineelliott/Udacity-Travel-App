@@ -452,7 +452,7 @@ function displayTrip(data) {
         let tripContainer = document.querySelector('.saved-trips');
         let newTripContainer = document.createElement('div');
         let newTripHeading = document.createElement('div');
-        let tripDates = document.createElement('div');
+        let tripDates = document.createElement('textarea');
         let tripCity = document.createElement('div');
         let tripActions = document.createElement('div');
 
@@ -463,6 +463,7 @@ function displayTrip(data) {
         const deleteTrip = document.createElement('span');
 
         tripDates.innerHTML = `${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)} - ${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)}`;
+        tripDates.readOnly = true;
         tripCity.innerHTML = data[i].city;
         tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt"></i>`
         tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list"></i>`
@@ -633,9 +634,24 @@ function displayTrip(data) {
         tripWeather.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
 
         // change to edit/delete functions
-        editTrip.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
+        editTrip.addEventListener('click', editTripDates)
         deleteTrip.addEventListener('click', removeData(data))
     }
+}
+
+function editTripDates(event) {
+    let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
+    tripDates.readOnly = false;
+    tripDates.style.backgroundColor = '#c44536';
+    tripDates.style.width = '46vw';
+
+    let saveBtn = document.createElement('button');
+    saveBtn.innerHTML = 'save';
+    saveBtn.style.width = '12vw';
+    tripDates.insertAdjacentElement('afterend', saveBtn);
+    saveBtn.addEventListener('click', function () {
+        saveEditedItem(tripDates, saveBtn);
+    })
 }
 
 function editItems(event) {
