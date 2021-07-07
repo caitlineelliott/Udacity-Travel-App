@@ -415,7 +415,7 @@ input::placeholder {
       color: #edddd4;
       width: 80vw;
       font-size: 0.8em;
-      margin-bottom: 20px; }
+      margin: 20px auto; }
   .output .packing-list-row .packing-item-row-segment {
     font-size: 0.8em;
     color: white;
