@@ -535,7 +535,7 @@ function displayTrip(data) {
 
             editBtn.addEventListener('click', editItems)
             toggle.addEventListener('click', toggleData);
-            deleteBtn.addEventListener('click', removeData(data))
+            deleteBtn.addEventListener('click', removeItem)
         }
 
         let addMoreForm = document.createElement('div');
@@ -691,7 +691,7 @@ function addMoreItems(event) {
 
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
-    // deleteBtn.addEventListener('click', removeData())
+    deleteBtn.addEventListener('click', removeItem)
 
 }
 
@@ -786,7 +786,7 @@ function removeData(data) {
     return function (event) {
         console.log(event.target)
         let deleteTripBtn = document.querySelector('#delete');
-        let deleteItemBtn = document.querySelector('#delete-item-btn');
+        let deleteItemBtn = document.querySelectorAll('#delete-item-btn');
         if (event.target === deleteTripBtn) {
             let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
             let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
@@ -796,18 +796,15 @@ function removeData(data) {
 
             tripRow.remove();
             // deleteFromServer(tripCity, departDate, returnDate)
-        } else if (event.target === deleteItemBtn) {
-            // let tripCity = event.target.parentElement.parentElement.parentElement.id.split('-')[0];
-            // let departDate = event.target.parentElement.parentElement.parentElement.firstElementChild.innerText.slice(0, 5);
-            // let returnDate = event.target.parentElement.parentElement.parentElement.firstElementChild.innerText.slice(8, 13);
-            // console.log(tripCity, departDate, returnDate)
-            // let itemToDelete = deleteItemBtn.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
-            // console.log(itemToDelete);
-            deleteItemBtn.parentElement.remove();
         } else {
             console.log('error')
         }
     }
+}
+
+function removeItem(event) {
+    let item = event.target.parentElement;
+    item.remove();
 }
 
 function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {

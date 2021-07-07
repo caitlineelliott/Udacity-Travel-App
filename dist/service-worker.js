@@ -117,7 +117,7 @@ define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use s
     "revision": "476d7059e0649e3f7404a0ced1106ffc"
   }, {
     "url": "main.js",
-    "revision": "85eb2ebed0d0f251e7a2a9339908032e"
+    "revision": "be84839a88d0f67cca9c0213dc5a29be"
   }], {});
 
 });
