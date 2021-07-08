@@ -408,7 +408,6 @@ function addMoreTodos(event) {
     deleteBtn.addEventListener('click', removeItem)
 }
 
-// WHY IS THIS FIRING ON PAGE LOAD????
 function updateServerLists(tripCity, tripDates) {
     let list = document.querySelectorAll('.saved-trip-packing-list');
     for (let i = 0; i < list.length; i++) {
@@ -506,12 +505,12 @@ function removeData(data) {
         if (event.target === deleteTripBtn) {
             let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
             let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-            let departDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(0, 5);
-            let returnDate = event.target.parentElement.parentElement.previousElementSibling.previousSibling.innerText.slice(8, 13);
+            let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+            let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
             console.log(tripCity, departDate, returnDate);
 
             tripRow.remove();
-            // deleteFromServer(tripCity, departDate, returnDate)
+            deleteFromServer(tripCity, departDate, returnDate)
         } else {
             console.log('error')
         }
