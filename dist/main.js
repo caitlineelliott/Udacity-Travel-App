@@ -700,11 +700,14 @@ function editTripDates(event) {
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     tripDates.readOnly = false;
     tripDates.style.backgroundColor = '#c44536';
-    tripDates.style.width = '46vw';
+    let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
+    tripCityContainer.style.width = "24%"
 
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style.width = '12vw';
+    saveBtn.style.width = '10%';
+    saveBtn.style.backgroundColor = '#c44536';
+    saveBtn.style.color = "#fff";
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(tripDates, saveBtn);
