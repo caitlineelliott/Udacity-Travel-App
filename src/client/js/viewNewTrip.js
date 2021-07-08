@@ -119,7 +119,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         document.querySelector('.forecast').appendChild(longForecast);
     };
-
     // add form event listeners
     document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list

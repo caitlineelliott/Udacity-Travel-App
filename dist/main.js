@@ -470,6 +470,21 @@ const getUserData = async (url) => {
     }
 };
 
+/* Function to GET NEW WEATHER Data */
+const getServerWeather = async (url, packingListContainer, todoListContainer, weatherContainer) => {
+    try {
+        const request = await fetch(url);
+        const data = await request.json();
+
+        console.log(`DATA POSTED TO UI`);
+        console.log(data)
+        getNewWeather(data, packingListContainer, todoListContainer, weatherContainer);
+    }
+    catch (e) {
+        console.log('DATA NOT RETREIVED FROM SERVER', e);
+    }
+};
+
 let packingListArr = [];
 let todoListArr = [];
 
@@ -674,37 +689,12 @@ function displayTrip(data) {
             updateServerLists(tripCity, tripDates)
         });
 
-        // WEATHER
-        let weatherData = data[i].weather;
-        weatherContainer.classList.add('forecast')
-        for (let i = 0; i < weatherData.length; i++) {
-            let newRow = document.createElement('div');
-            weatherContainer.appendChild(newRow);
-
-            newRow.classList.add('forecast-row');
-            newRow.style.margin = '0';
-            newRow.style.justifyContent = 'center';
-            const tripDate = document.createElement('div');
-            tripDate.classList.add('forecast-date');
-            tripDate.innerHTML = weatherData[i].date;
-            newRow.appendChild(tripDate);
-
-            const weatherIcon = document.createElement('img');
-            weatherIcon.classList.add('forecast-icon');
-            weatherIcon.src = `${weatherData[i].weatherIcon}`;
-            newRow.appendChild(weatherIcon);
-
-            const weather = document.createElement('div');
-            weather.classList.add('forecast-high');
-            weather.style.width = '40vw';
-            weather.innerHTML = weatherData[i].weather;
-            newRow.appendChild(weather);
-        }
-
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
-        tripWeather.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
+        tripWeather.addEventListener('click', function () {
+            getServerWeather('/all', packingListContainer, todoListContainer, weatherContainer)
+        });
 
         // change to edit/delete functions
         editTrip.addEventListener('click', editTripDates)
@@ -884,8 +874,53 @@ function setTripDataValues(data) {
     }
 }
 
+function getNewWeather(data, packingListContainer, todoListContainer, weatherContainer) {
+    if (weatherContainer.style.display === 'none') {
+        weatherContainer.style.display = 'block';
+        packingListContainer.style.display = 'none';
+        todoListContainer.style.display = 'none';
+
+        for (let i = 0; i < data.length; i++) {
+            let weatherData = data[i].weather;
+            weatherContainer.classList.add('forecast')
+
+            // remove old weather before trip date change
+            if (weatherContainer.children.length > 0) {
+                weatherContainer.children.remove();
+            }
+
+            for (let i = 0; i < weatherData.length; i++) {
+                let newRow = document.createElement('div');
+                weatherContainer.appendChild(newRow);
+
+                newRow.classList.add('forecast-row');
+                newRow.style.margin = '0';
+                newRow.style.justifyContent = 'center';
+                const tripDate = document.createElement('div');
+                tripDate.classList.add('forecast-date');
+                tripDate.innerHTML = weatherData[i].date;
+                newRow.appendChild(tripDate);
+
+                const weatherIcon = document.createElement('img');
+                weatherIcon.classList.add('forecast-icon');
+                weatherIcon.src = `${weatherData[i].weatherIcon}`;
+                newRow.appendChild(weatherIcon);
+
+                const weather = document.createElement('div');
+                weather.classList.add('forecast-high');
+                weather.style.width = '40vw';
+                weather.innerHTML = weatherData[i].weather;
+                newRow.appendChild(weather);
+            }
+        }
+
+    }
+
+}
+
+
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
-    return function (event) {
+    return async function (event) {
         if (event.target.classList[1] === 'fa-tshirt') {
             if (packingListContainer.style.display === 'none') {
                 packingListContainer.style.display = 'block';
@@ -902,17 +937,12 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
             } else if (todoListContainer.style.display === 'block') {
                 todoListContainer.style.display = 'none'
             }
-        } else if (event.target.classList[1] === 'fa-sun') {
-            if (weatherContainer.style.display === 'none') {
-                weatherContainer.style.display = 'block';
-                packingListContainer.style.display = 'none';
-                todoListContainer.style.display = 'none';
-            } else if (weatherContainer.style.display === 'block') {
-                weatherContainer.style.display = 'none'
-            }
+        } else if (weatherContainer.style.display === 'block') {
+            weatherContainer.style.display = 'none'
         }
     }
 }
+
 
 function toggleData(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
@@ -1140,7 +1170,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         document.querySelector('.forecast').appendChild(longForecast);
     };
-
     // add form event listeners
     document.querySelector('.packing-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target to do list

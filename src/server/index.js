@@ -114,24 +114,55 @@ function addListData(req, res) {
     // console.log(`LIST DATA SUCCESSFUL`);
 };
 
-function changeTripDates(req, res) {
+async function changeTripDates(req, res) {
     let newData = req.body;
     console.log(newData);
 
     for (let i = 0; i < userTripData.length; i++) {
-        let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
-        let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
-
-        let departServer = userTripData[i].departure.slice(5, 10);
-        let returnServer = userTripData[i].arrival.slice(5, 10);
-
-
         // change trip dates
         if (newData.weatherTest == userTripData[i].weather[0].weather) {
-            console.log('match');
             userTripData[i]['displayDepart'] = newData.depart;
             userTripData[i]['displayReturn'] = newData.return;
+            userTripData[i]['departure'] = new Date(`2021-${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}T04:00:00.000Z`);
+            userTripData[i]['arrival'] = new Date(`2021-${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}T04:00:00.000Z`);
+
+            let newDepart = userTripData[i]['departure']
+            let newReturn = userTripData[i]['arrival']
+
+            let tripCity = newData.city;
+            const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
+            let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+
+            let forecast = weatherInfo.data;
+            let dates = [];
+
+            for (let i = 0; i < forecast.length; i++) {
+                dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`);
+            }
+
+            console.log(dates)
+            let newWeather = []
+
+            for (let i = 0; i < dates.length; i++) {
+                if (dates[i] >= newDepart && dates[i] <= newReturn) {
+                    let tripDayData = {}
+                    console.log(dates[i].toString())
+                    tripDayData['date'] = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
+                    tripDayData['weatherIcon'] = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
+                    tripDayData['weather'] = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
+
+                    newWeather.push(tripDayData);
+                }
+            }
+
+            userTripData[i]['weather'] = newWeather;
             console.log(userTripData[i])
+
+            // contact API
+            // loop through dates in API and match to new trip dates
+            // update weather accordingly
+
+            // updateForecast(weatherInfo, newData.depart, newData.return)
         } else {
             console.log('no match');
         }
@@ -171,3 +202,27 @@ function removeData(req, res) {
         }
     }
 }
+
+// update weather
+
+const getGeonames = async (placename, username) => {
+    try {
+        const request =
+            await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+        return await request.json();
+    }
+    catch (e) {
+        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
+    }
+};
+
+const getWeatherBit = async (lat, lng) => {
+    try {
+        const request =
+            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+        return await request.json();
+    }
+    catch (e) {
+        console.log('no weatherbit data :(', e);
+    }
+};
