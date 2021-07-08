@@ -3,6 +3,7 @@
 import { setValues } from './addPackingItem'
 import { createElements } from './addPackingItem'
 import { updateServer } from './saveTrip'
+import { viewSavedTrips } from './savedTripsView'
 
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -77,8 +78,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             tripWeatherArr.push(tripDayData);
         }
     }
-
-    console.log(tripWeatherArr)
 
     if (tripWeather.childElementCount > 5) {
         let moreDays = document.createElement('div');
@@ -166,10 +165,12 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
                 <div>Your trip details have been saved.</div>
-                <button>View Saved Trips</button>`
+                <button id="view-saved-trips">View Saved Trips</button>`
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
-        let savedTripsBtn = document.querySelector('.nav-saved-trips');
-        savedTripsBtn.innerHTML = '<a href="index.html">Book Trip</a>'
+        let bookTripBtn = document.querySelector('.nav-saved-trips');
+        bookTripBtn.innerHTML = '<a href="index.html">Book Trip</a>'
+        let savedTripsBtn = document.querySelector('#view-saved-trips');
+        savedTripsBtn.addEventListener('click', viewSavedTrips)
 
         updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });

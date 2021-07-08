@@ -515,8 +515,8 @@ function displayTrip(data) {
 
         if (data[i].city.indexOf(' ') >= 0) {
             console.log('space')
-            let newID = data[i].city.replace(/\s/g, '-');
-            newTripContainer.id = newID;
+            let newID = data[i].city.replace(/\s/g, '');
+            newTripContainer.id = `${newID}-trip`;
         } else {
             newTripContainer.id = `${data[i].city}-trip`;
         }
@@ -965,7 +965,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
 /* harmony import */ var _addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPackingItem */ "./src/client/js/addPackingItem.js");
 /* harmony import */ var _saveTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./saveTrip */ "./src/client/js/saveTrip.js");
+/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
 // updates UI to new trip view
+
 
 
 
@@ -1044,8 +1046,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             tripWeatherArr.push(tripDayData);
         }
     }
-
-    console.log(tripWeatherArr)
 
     if (tripWeather.childElementCount > 5) {
         let moreDays = document.createElement('div');
@@ -1133,10 +1133,12 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
                 <div>Your trip details have been saved.</div>
-                <button>View Saved Trips</button>`
+                <button id="view-saved-trips">View Saved Trips</button>`
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
-        let savedTripsBtn = document.querySelector('.nav-saved-trips');
-        savedTripsBtn.innerHTML = '<a href="index.html">Book Trip</a>'
+        let bookTripBtn = document.querySelector('.nav-saved-trips');
+        bookTripBtn.innerHTML = '<a href="index.html">Book Trip</a>'
+        let savedTripsBtn = document.querySelector('#view-saved-trips');
+        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
 
         Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });
