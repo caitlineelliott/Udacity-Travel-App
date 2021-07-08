@@ -359,6 +359,8 @@ function addMoreItems(event) {
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     deleteBtn.id = 'delete-item-btn';
 
+    document.querySelector('.packing-list-btn-item-stv').value = '';
+
     // back here
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
