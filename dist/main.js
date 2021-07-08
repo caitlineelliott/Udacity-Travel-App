@@ -215,25 +215,40 @@ function appendItem(target, blockElements, rowElements) {
 
 function editNewItems(event) {
     console.log(event.target)
-    let editibleItem = event.target.previousSibling;
-    editibleItem.readOnly = false;
-    editibleItem.backgroundColor = '#c44536';
-    editibleItem.style.width = '46vw';
 
-    let saveBtnNTV = document.createElement('button');
-    saveBtnNTV.innerHTML = 'save';
-    saveBtnNTV.style.width = '12vw';
-    editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
-    saveBtnNTV.addEventListener('click', function () {
-        saveEditedItem(editibleItem, saveBtnNTV);
-    })
+    if (event.target.id === 'editBtn') {
+        let editibleItem = event.target.previousSibling;
+        editibleItem.readOnly = false;
+        editibleItem.style = "background-color: #c44536"
+
+        let saveBtnNTV = document.createElement('button');
+        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
+        saveBtnNTV.style = 'height: 6vh; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+        saveBtnNTV.addEventListener('click', function () {
+            saveEditedItem(editibleItem, saveBtnNTV);
+        })
+    } else if (event.target.classList[1] === 'fa-edit') {
+        let editibleItem = event.target.parentElement.previousSibling;
+        editibleItem.readOnly = false;
+        editibleItem.style = "background-color: #c44536"
+
+
+        let saveBtnNTV = document.createElement('button');
+        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
+        saveBtnNTV.style = 'margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+        saveBtnNTV.addEventListener('click', function () {
+            saveEditedItem(editibleItem, saveBtnNTV);
+        })
+    }
+
 }
 
 function saveEditedItem(editibleItem, saveBtnNTV) {
     editibleItem.innerHTML = editibleItem.value;
     editibleItem.readOnly = true;
-    editibleItem.style.backgroundColor = '#000';
-    // editibleItem.style.width = '23vw';
+    editibleItem.style.backgroundColor = '#83A8A6';
     saveBtnNTV.remove();
 }
 
@@ -730,14 +745,13 @@ function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
 }
 
 function editItems(event) {
-    let editedItem = event.target.parentElement.firstChild;
+    let editedItem = event.target.parentElement.parentElement.firstChild;
     editedItem.readOnly = false;
-    editedItem.style.backgroundColor = '#c44536';
-    editedItem.style.width = '46vw';
+    editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
 
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style.width = '12vw';
+    saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
     editedItem.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(editedItem, saveBtn);
@@ -747,7 +761,7 @@ function editItems(event) {
 function saveEditedItem(editedItem, saveBtn) {
     editedItem.readOnly = true;
     editedItem.style.backgroundColor = '#197278';
-    editedItem.style = 'padding-top: 15px; height 4vh; width: 46vw;'
+    editedItem.style = 'box-sizing: border-box; width: 62vw; padding: 10px 0 0 20px; height: 5vh;'
     saveBtn.remove();
 }
 
@@ -939,7 +953,7 @@ function removeData(data) {
 }
 
 function removeItem(event) {
-    let item = event.target.parentElement;
+    let item = event.target.parentElement.parentElement;
     item.remove();
 }
 

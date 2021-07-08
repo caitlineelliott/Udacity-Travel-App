@@ -78,25 +78,40 @@ function appendItem(target, blockElements, rowElements) {
 
 function editNewItems(event) {
     console.log(event.target)
-    let editibleItem = event.target.previousSibling;
-    editibleItem.readOnly = false;
-    editibleItem.backgroundColor = '#c44536';
-    editibleItem.style.width = '46vw';
 
-    let saveBtnNTV = document.createElement('button');
-    saveBtnNTV.innerHTML = 'save';
-    saveBtnNTV.style.width = '12vw';
-    editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
-    saveBtnNTV.addEventListener('click', function () {
-        saveEditedItem(editibleItem, saveBtnNTV);
-    })
+    if (event.target.id === 'editBtn') {
+        let editibleItem = event.target.previousSibling;
+        editibleItem.readOnly = false;
+        editibleItem.style = "background-color: #c44536"
+
+        let saveBtnNTV = document.createElement('button');
+        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
+        saveBtnNTV.style = 'height: 6vh; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+        saveBtnNTV.addEventListener('click', function () {
+            saveEditedItem(editibleItem, saveBtnNTV);
+        })
+    } else if (event.target.classList[1] === 'fa-edit') {
+        let editibleItem = event.target.parentElement.previousSibling;
+        editibleItem.readOnly = false;
+        editibleItem.style = "background-color: #c44536"
+
+
+        let saveBtnNTV = document.createElement('button');
+        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
+        saveBtnNTV.style = 'margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+        saveBtnNTV.addEventListener('click', function () {
+            saveEditedItem(editibleItem, saveBtnNTV);
+        })
+    }
+
 }
 
 function saveEditedItem(editibleItem, saveBtnNTV) {
     editibleItem.innerHTML = editibleItem.value;
     editibleItem.readOnly = true;
-    editibleItem.style.backgroundColor = '#000';
-    // editibleItem.style.width = '23vw';
+    editibleItem.style.backgroundColor = '#83A8A6';
     saveBtnNTV.remove();
 }
 

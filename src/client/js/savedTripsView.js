@@ -313,14 +313,13 @@ function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
 }
 
 function editItems(event) {
-    let editedItem = event.target.parentElement.firstChild;
+    let editedItem = event.target.parentElement.parentElement.firstChild;
     editedItem.readOnly = false;
-    editedItem.style.backgroundColor = '#c44536';
-    editedItem.style.width = '46vw';
+    editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
 
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style.width = '12vw';
+    saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
     editedItem.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(editedItem, saveBtn);
@@ -330,7 +329,7 @@ function editItems(event) {
 function saveEditedItem(editedItem, saveBtn) {
     editedItem.readOnly = true;
     editedItem.style.backgroundColor = '#197278';
-    editedItem.style = 'padding-top: 15px; height 4vh; width: 46vw;'
+    editedItem.style = 'box-sizing: border-box; width: 62vw; padding: 10px 0 0 20px; height: 5vh;'
     saveBtn.remove();
 }
 
@@ -522,7 +521,7 @@ function removeData(data) {
 }
 
 function removeItem(event) {
-    let item = event.target.parentElement;
+    let item = event.target.parentElement.parentElement;
     item.remove();
 }
 
