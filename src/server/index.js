@@ -97,7 +97,7 @@ function addListData(req, res) {
 
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             userTripData[i]['packingList'] = newData.list;
-            console.log(userTripData[i]['packingList']);
+            console.log('NEW PACKING LIST', userTripData[i]['packingList']);
         } else {
             console.log('no');
         }
@@ -186,6 +186,7 @@ function changeItemToggle(req, res) {
 }
 
 app.delete('/remove', removeData);
+app.delete('/removeItems', removeItems);
 
 function removeData(req, res) {
     const newData = req.body;
@@ -201,6 +202,22 @@ function removeData(req, res) {
             console.log('no');
         }
     }
+}
+
+function removeItems(req, res) {
+    const newData = req.body;
+    // for (let i = 0; i < userTripData.length; i++) {
+    //     console.log(userTripData[i].city, userTripData[i].displayDepart, userTripData[i].displayReturn)
+    //     console.log(newData.city, newData.depart, newData.return)
+
+    //     // whole trip delete
+    //     if (userTripData[i].city === newData.city && userTripData[i].displayDepart === newData.depart && userTripData[i].displayReturn === newData.return) {
+    //         userTripData.splice(i, 1);
+    //         console.log('usertripdata', userTripData)
+    //     } else {
+    //         console.log('no');
+    //     }
+    // }
 }
 
 // update weather

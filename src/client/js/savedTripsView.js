@@ -401,7 +401,7 @@ function addMoreTodos(event) {
 function updateServerLists(tripCity, tripDates) {
     let list = document.querySelectorAll('.saved-trip-packing-list');
     for (let i = 0; i < list.length; i++) {
-        let newItem = list[i].firstChild.innerText;
+        let newItem = list[i].firstChild.value;
         let newCategory = list[i].children[2].innerText;
         let newToggle = true;
 
@@ -550,7 +550,11 @@ function removeData(data) {
 function removeItem(event) {
     let item = event.target.parentElement.parentElement;
     item.remove();
+
+    // deleteItems(tripCity, departDate, returnDate, itemToDelete)
 }
+
+// 
 
 function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
     deleteServerData('/remove', {
