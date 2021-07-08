@@ -104,9 +104,6 @@ function displayTrip(data) {
             newTripContainer.id = `${data[i].city}-trip`;
         }
 
-
-
-
         tripContainer.appendChild(newTripContainer)
 
         // add data to DOM shells
@@ -213,7 +210,7 @@ function displayTrip(data) {
     <div class="packing-list-btn-container">
     <p>Missing something? Add more here:</p>
         <form class="packing-list-form">
-            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="pack-list-input">
+            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="todo-list-input">
             <select class="packing-list-btn-category">
                 <option>Category</option>
                 <option class="tops">Tops</option>
@@ -224,12 +221,17 @@ function displayTrip(data) {
                 <option class="toiletries">Toiletries</option>
                 <option class="other">Other</option>
             </select>
-            <button class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
+            <button id='add-more-todos-stv' class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
     </div>`;
 
         todoListContainer.appendChild(addMoreFormTodo);
         todoListContainer.id = 'todo-list'
+
+        let addMoreTodo = document.querySelector('#add-more-todos-stv');
+        addMoreTodo.addEventListener('click', function (event) {
+            addMoreTodos(event);
+        });
 
         let saveBtnTodo = document.createElement('button');
         saveBtnTodo.innerHTML = 'Save Changes';
@@ -361,9 +363,46 @@ function addMoreItems(event) {
 
     document.querySelector('.packing-list-btn-item-stv').value = '';
 
-    // back here
+
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
+
+
+    editBtn.addEventListener('click', editItems)
+    toggle.addEventListener('click', toggleData);
+    deleteBtn.addEventListener('click', removeItem)
+}
+
+function addMoreTodos(event) {
+    event.preventDefault();
+    let nextItem = document.querySelector('#todo-list-input').value; //change ids here
+    let nextCat = document.querySelector('.packing-list-btn-category').value;
+    console.log(nextItem)
+
+    let packingItemRow = document.createElement('div');
+    packingItemRow.classList.add('saved-trip-packing-list');
+    let toggle = document.createElement('div');
+    let item = document.createElement('div');
+    let category = document.createElement('div');
+    let editBtn = document.createElement('div');
+    let deleteBtn = document.createElement('div');
+
+    // elements within containerRow
+    packingItemRow.appendChild(item)
+    packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(category);
+    packingItemRow.appendChild(editBtn);
+    packingItemRow.appendChild(deleteBtn);
+
+    item.innerHTML = nextItem;
+    category.innerHTML = nextCat;
+    toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+    editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+    deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
+    deleteBtn.id = 'delete-item-btn';
+
+    let todoList = document.querySelector('#todo-list');
+    todoList.insertBefore(packingItemRow, todoList.children[0])
 
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
@@ -394,8 +433,6 @@ function updateServerLists(tripCity, tripDates) {
         list: packingListArr
     });
 }
-
-
 
 /// how can I broaden this out so I only have to write it once for packing, todo, and weather?
 function setTripDataValues(data) {
