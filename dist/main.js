@@ -806,7 +806,7 @@ function addMoreItems(event) {
 
 function addMoreTodos(event) {
     event.preventDefault();
-    let nextItem = document.querySelector('#todo-list-input').value; //change ids here
+    let nextItem = event.target.previousElementSibling.previousElementSibling.value;
     let nextCat = document.querySelector('.packing-list-btn-category').value;
     console.log(nextItem)
 
