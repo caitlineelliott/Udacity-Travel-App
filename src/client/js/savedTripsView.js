@@ -58,7 +58,7 @@ function displayTrip(data) {
         const editTrip = document.createElement('span');
         const deleteTrip = document.createElement('span');
 
-        tripDates.innerHTML = `${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)} - ${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)}`;
+        tripDates.innerHTML = `${data[i].displayDepart} - ${data[i].displayReturn}`;
         tripDates.readOnly = true;
         tripCity.innerHTML = data[i].city;
         tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt"></i>`

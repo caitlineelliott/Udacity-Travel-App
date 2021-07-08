@@ -6,7 +6,7 @@ import { updateServer } from './saveTrip'
 
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
+async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     // remove default form from UI - need better class name here
     document.querySelector('.container').style.display = "none";
     let output = document.querySelector('.output')
@@ -171,7 +171,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
         let savedTripsBtn = document.querySelector('.nav-saved-trips');
         savedTripsBtn.innerHTML = '<a href="index.html">Book Trip</a>'
 
-        updateServer(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
+        updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });
 }
 

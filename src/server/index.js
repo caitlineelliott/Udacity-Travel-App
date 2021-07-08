@@ -57,7 +57,9 @@ function addTripData(req, res) {
 
     projectData["city"] = newData.city;
     projectData["departure"] = newData.departure;
+    projectData["displayDepart"] = newData.displayDepart;
     projectData["arrival"] = newData.arrival;
+    projectData["displayReturn"] = newData.displayReturn;
     projectData["packingList"] = newData.packingList;
     projectData["todoList"] = newData.todoList;
     projectData["weather"] = newData.weather;
@@ -127,8 +129,8 @@ function changeTripDates(req, res) {
         // change trip dates
         if (newData.weatherTest == userTripData[i].weather[0].weather) {
             console.log('match');
-            userTripData[i]['departure'] = newData.depart;
-            userTripData[i]['arrival'] = newData.return;
+            userTripData[i]['displayDepart'] = newData.depart;
+            userTripData[i]['displayReturn'] = newData.return;
             console.log(userTripData[i])
         } else {
             console.log('no match');

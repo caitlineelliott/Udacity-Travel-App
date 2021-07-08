@@ -17,8 +17,13 @@ async function generate(event) {
     let today = new Date();
     console.log(compDepart > compReturn);
 
+    const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
+    const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
+
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
+    // console.log(formDepart);
+    // console.log(formReturn);
 
     // validation
     if (tripCity === '' || formDepart === '' || formReturn === '') {
@@ -37,7 +42,7 @@ async function generate(event) {
 
         let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
-        viewNewTrip(userCity, departDate, returnDate, weatherInfo);
+        viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
     }
 
 }

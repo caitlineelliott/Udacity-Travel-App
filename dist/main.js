@@ -297,8 +297,13 @@ async function generate(event) {
     let today = new Date();
     console.log(compDepart > compReturn);
 
+    const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
+    const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
+
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
+    // console.log(formDepart);
+    // console.log(formReturn);
 
     // validation
     if (tripCity === '' || formDepart === '' || formReturn === '') {
@@ -317,7 +322,7 @@ async function generate(event) {
 
         let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
-        Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, weatherInfo);
+        Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
     }
 
 }
@@ -359,11 +364,13 @@ const getWeatherBit = async (lat, lng) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateServer", function() { return updateServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-function updateServer(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr) {
+function updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr) {
     console.log('weather', tripWeatherArr)
     postData('/api/trip', {
         city: userCity,
         departure: departDate,
+        displayDepart: displayDepart,
+        displayReturn: displayReturn,
         arrival: returnDate,
         packingList: packingList,
         todoList: todoList,
@@ -468,7 +475,7 @@ function displayTrip(data) {
         const editTrip = document.createElement('span');
         const deleteTrip = document.createElement('span');
 
-        tripDates.innerHTML = `${data[i].departure.slice(5, 7)}/${data[i].departure.slice(8, 10)} - ${data[i].arrival.slice(5, 7)}/${data[i].arrival.slice(8, 10)}`;
+        tripDates.innerHTML = `${data[i].displayDepart} - ${data[i].displayReturn}`;
         tripDates.readOnly = true;
         tripCity.innerHTML = data[i].city;
         tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt"></i>`
@@ -957,7 +964,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
+async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     // remove default form from UI - need better class name here
     document.querySelector('.container').style.display = "none";
     let output = document.querySelector('.output')
@@ -1122,7 +1129,7 @@ async function viewNewTrip(userCity, departDate, returnDate, weatherInfo) {
         let savedTripsBtn = document.querySelector('.nav-saved-trips');
         savedTripsBtn.innerHTML = '<a href="index.html">Book Trip</a>'
 
-        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, packingList, todoList, tripWeatherArr);
+        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });
 }
 
