@@ -138,6 +138,7 @@ function displayTrip(data) {
         let addMoreForm = document.createElement('div');
         addMoreForm.innerHTML = `
     <div class="packing-list-btn-container">
+    <p>Missing something? Add more here:</p>
         <form class="packing-list-form">
             <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="pack-list-input">
             <select class="packing-list-btn-category">
@@ -196,6 +197,39 @@ function displayTrip(data) {
             todoListContainer.appendChild(todoItemRow);
             toggle.addEventListener('click', toggleData);
         }
+
+        // ADD MORE FORM
+        let addMoreFormTodo = document.createElement('div');
+        addMoreFormTodo.innerHTML = `
+    <div class="packing-list-btn-container">
+    <p>Missing something? Add more here:</p>
+        <form class="packing-list-form">
+            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="pack-list-input">
+            <select class="packing-list-btn-category">
+                <option>Category</option>
+                <option class="tops">Tops</option>
+                <option class="bottoms">Bottoms</option>
+                <option class="shoes">Shoes</option>
+                <option class="accessories">Accessories</option>
+                <option class="swimwear">Swimwear</option>
+                <option class="toiletries">Toiletries</option>
+                <option class="other">Other</option>
+            </select>
+            <button class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
+        </form>
+    </div>`;
+
+        todoListContainer.appendChild(addMoreFormTodo);
+        todoListContainer.id = 'todo-list'
+
+        let saveBtnTodo = document.createElement('button');
+        saveBtnTodo.innerHTML = 'Save Changes';
+        saveBtnTodo.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
+        todoListContainer.appendChild(saveBtnTodo);
+
+        saveBtnTodo.addEventListener('click', function () {
+            updateServerLists(tripCity, tripDates)
+        });
 
         // WEATHER
         let weatherData = data[i].weather;

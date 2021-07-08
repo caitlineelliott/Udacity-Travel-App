@@ -1,5 +1,24 @@
 @import 'base.scss';
 
+.packing-list-btn-container {
+    p {
+        margin: 20px;
+        text-align: center;
+        font-size: 0.9em;
+    }
+}
+
+.saved-trips {
+    .packing-list-form {
+        margin: 0;
+        input,
+        select,
+        button {
+            margin: 0;
+        }
+    }
+}
+
 .packing-list-container,
 .todo-list-container {
     background-color: #43878A;
