@@ -96,7 +96,16 @@ function displayTrip(data) {
         newTripContainer.appendChild(todoListContainer);
         newTripContainer.appendChild(weatherContainer);
 
-        newTripContainer.id = `${data[i].city}-trip`;
+        if (data[i].city.indexOf(' ') >= 0) {
+            console.log('space')
+            let newID = data[i].city.replace(/\s/g, '');
+            newTripContainer.id = `${newID}-trip`;
+        } else {
+            newTripContainer.id = `${data[i].city}-trip`;
+        }
+
+
+
 
         tripContainer.appendChild(newTripContainer)
 
