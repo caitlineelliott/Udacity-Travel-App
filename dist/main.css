@@ -490,13 +490,14 @@ input::placeholder {
 .trip-dates,
 .trip-city,
 .trip-actions {
-  width: 33%;
-  padding: 0 10px;
   text-align: center; }
 
+.trip-city {
+  width: 35%; }
+
 .trip-dates {
-  padding-top: 20px;
-  padding-right: 10px;
+  width: 26%;
+  padding-top: 22px;
   background-color: transparent;
   border: none;
   font-family: "montserrat", sans-serif;
@@ -504,7 +505,7 @@ input::placeholder {
   color: white; }
 
 .trip-actions {
-  width: 40%;
+  width: 34%;
   text-align: right; }
 
 .trip-actions > * {
