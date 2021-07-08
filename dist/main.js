@@ -333,14 +333,13 @@ async function generate(event) {
         alert('cannot add a trip in the past')
     } else if (city === undefined) {
         alert('invalid city name')
+    } else {
+        let userCity = geonamesInfo.geonames[0].name;
+
+        let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+
+        Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
     }
-
-    let userCity = geonamesInfo.geonames[0].name;
-
-    let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
-
-    Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
-
 }
 
 const getGeonames = async (placename, username) => {
@@ -843,12 +842,10 @@ function addMoreTodos(event) {
 
 // WHY IS THIS FIRING ON PAGE LOAD????
 function updateServerLists(tripCity, tripDates) {
-    alert('hey')
     let list = document.querySelectorAll('.saved-trip-packing-list');
-    console.log(list)
     for (let i = 0; i < list.length; i++) {
-        let newItem = list[i].firstChild.value;
-        let newCategory = true;
+        let newItem = list[i].firstChild.innerText;
+        let newCategory = list[i].children[2].innerText;
         let newToggle = true;
 
         let packingListItem = {};

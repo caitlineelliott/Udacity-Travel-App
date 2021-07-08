@@ -410,12 +410,10 @@ function addMoreTodos(event) {
 
 // WHY IS THIS FIRING ON PAGE LOAD????
 function updateServerLists(tripCity, tripDates) {
-    alert('hey')
     let list = document.querySelectorAll('.saved-trip-packing-list');
-    console.log(list)
     for (let i = 0; i < list.length; i++) {
-        let newItem = list[i].firstChild.value;
-        let newCategory = true;
+        let newItem = list[i].firstChild.innerText;
+        let newCategory = list[i].children[2].innerText;
         let newToggle = true;
 
         let packingListItem = {};
