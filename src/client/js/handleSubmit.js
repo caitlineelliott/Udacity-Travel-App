@@ -25,6 +25,9 @@ async function generate(event) {
     // console.log(formDepart);
     // console.log(formReturn);
 
+    const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
+    let city = geonamesInfo.geonames[0]; // city name
+
     // validation
     if (tripCity === '' || formDepart === '' || formReturn === '') {
         alert('please fill out all fields')
@@ -33,18 +36,15 @@ async function generate(event) {
         alert('return date cannot be before departing date')
     } else if (compDepart < today) {
         alert('cannot add a trip in the past')
-    }
-
-    // run as normal
-    else {
-        const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
-        let userCity = geonamesInfo.geonames[0].name; // city name
+    } else if (city === undefined) {
+        alert('invalid city name')
+    } else {
+        let userCity = geonamesInfo.geonames[0].name;
 
         let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
         viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
     }
-
 }
 
 const getGeonames = async (placename, username) => {
