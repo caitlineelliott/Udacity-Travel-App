@@ -149,7 +149,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             let item = {}
             item["item"] = items[i].firstElementChild.innerHTML;
             item["category"] = items[i].parentNode.id;
-            item["toggleStatus"] = items[i].classList;
+            item["toggleStatus"] = false;
 
             if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") {
                 todoList.push(item)

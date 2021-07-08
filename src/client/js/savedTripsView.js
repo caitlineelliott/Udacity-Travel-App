@@ -31,6 +31,7 @@ const getUserData = async (url) => {
         const data = await request.json();
 
         console.log(`DATA POSTED TO UI`);
+        console.log(data)
         displayTrip(data);
     }
     catch (e) {
@@ -123,10 +124,20 @@ function displayTrip(data) {
 
         // add data to DOM shells
         // PACKING LIST
-        let packingList = data[i].packingList;
-        for (let i = 0; i < packingList.length; i++) {
+        console.log(data[i])
+        let packedItems = data[i].packingList;
+        for (let i = 0; i < packedItems.length; i++) {
             let packingItemRow = document.createElement('div');
-            packingItemRow.classList.add('saved-trip-packing-list')
+            packingItemRow.classList.add('saved-trip-packing-list');
+
+            console.log(packedItems[i].toggle)
+
+            if (packedItems[i].toggle === true) {
+                console.log('yo!')
+                packingItemRow.classList.add('packed');
+            } else {
+                console.log('no')
+            }
 
             let toggle = document.createElement('div');
             let item = document.createElement('textarea');
@@ -142,8 +153,8 @@ function displayTrip(data) {
             packingItemRow.appendChild(editBtn);
             packingItemRow.appendChild(deleteBtn);
 
-            item.innerHTML = packingList[i].item;
-            category.innerHTML = packingList[i].category;
+            item.innerHTML = packedItems[i].item;
+            category.innerHTML = packedItems[i].category;
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
@@ -331,7 +342,7 @@ function addMoreItems(event) {
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
     let toggle = document.createElement('div');
-    let item = document.createElement('div');
+    let item = document.createElement('textarea');
     let category = document.createElement('div');
     let editBtn = document.createElement('div');
     let deleteBtn = document.createElement('div');
@@ -400,23 +411,36 @@ function addMoreTodos(event) {
 
 function updateServerLists(tripCity, tripDates) {
     let list = document.querySelectorAll('.saved-trip-packing-list');
+    let newPackListArr = []
     for (let i = 0; i < list.length; i++) {
-        let newItem = list[i].firstChild.value;
+        let newItemRow = list[i];
+        let newItem = list[i].firstChild;
+        let newItemText = list[i].firstChild.value;
         let newCategory = list[i].children[2].innerText;
-        let newToggle = true;
 
         let packingListItem = {};
-        packingListItem['item'] = newItem;
+
+        // handle packed/unpacked toggle
+        if (newItemRow.classList[1] === 'packed') {
+            let newToggle = true;
+            packingListItem['toggle'] = newToggle;
+        } else {
+            let newToggle = false;
+            packingListItem['toggle'] = newToggle;
+        }
+
+        packingListItem['item'] = newItemText;
         packingListItem['category'] = newCategory;
-        packingListItem['toggle'] = newToggle;
-        packingListArr.push(packingListItem);
-        console.log(packingListArr)
+
+        newPackListArr.push(packingListItem);
     }
+    console.log(newPackListArr);
+
     addServerData('/list', {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
         return: tripDates.innerHTML.slice(8, 13),
-        list: packingListArr
+        list: newPackListArr
     });
 }
 
@@ -514,13 +538,13 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
 
 function toggleData(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
-    console.log(event.target);
-    console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
-    console.log(event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText)
-    addServerData('/toggle', {
-        city: event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText,
-        item: event.target.parentElement.parentElement.firstChild.innerHTML,
-    })
+    // console.log(event.target);
+    // console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+    // console.log(event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText)
+    // addServerData('/toggle', {
+    //     city: event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText,
+    //     item: event.target.parentElement.parentElement.firstChild.innerHTML,
+    // })
 }
 
 function editData(data) {
