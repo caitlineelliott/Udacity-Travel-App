@@ -48,6 +48,7 @@ function getData(req, res) {
 app.post('/api/trip', addTripData);
 app.post('/list', addListData);
 app.post('/tripdates', changeTripDates);
+app.post('/toggle', changeItemToggle);
 
 function addTripData(req, res) {
     const newData = req.body;
@@ -131,6 +132,22 @@ function changeTripDates(req, res) {
             console.log(userTripData[i])
         } else {
             console.log('no match');
+        }
+    }
+}
+
+function changeItemToggle(req, res) {
+    let newData = req.body;
+    console.log(newData);
+
+    for (let i = 0; i < userTripData.length; i++) {
+
+        // change toggle status
+        if (userTripData[i].city === newData.city) {
+            if (userTripData[i].packingList[i].item === newData.item) {
+                userTripData[i].packingList[i].toggleStatus = true;
+                console.log(userTripData[i].packingList[i]);
+            }
         }
     }
 }

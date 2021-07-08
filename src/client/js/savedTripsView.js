@@ -437,6 +437,13 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
 
 function toggleData(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
+    console.log(event.target);
+    console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+    console.log(event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText)
+    addServerData('/toggle', {
+        city: event.target.parentElement.parentElement.parentElement.parentElement.children[0].children[1].innerText,
+        item: event.target.parentElement.parentElement.firstChild.innerHTML,
+    })
 }
 
 function editData(data) {
