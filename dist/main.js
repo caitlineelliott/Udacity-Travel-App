@@ -725,8 +725,8 @@ function editItems(event) {
 
 function saveEditedItem(editedItem, saveBtn) {
     editedItem.readOnly = true;
-    editedItem.style.backgroundColor = '#fff';
-    editedItem.style.width = '23vw';
+    editedItem.style.backgroundColor = '#197278';
+    editedItem.style = 'padding-top: 15px; height 4vh; width: 46vw;'
     saveBtn.remove();
 }
 
