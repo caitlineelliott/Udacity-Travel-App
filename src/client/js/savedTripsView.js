@@ -350,15 +350,13 @@ function editTripDates(event) {
     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     tripDates.readOnly = false;
-    tripDates.style.backgroundColor = '#c44536';
+    tripDates.style = 'background-color: rgb(196, 69, 54); height: 6.7vh; box-sizing: border-box; padding-left: 8px; margin-left: -15px;'
     let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
     tripCityContainer.style.width = "24%"
 
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style.width = '10%';
-    saveBtn.style.backgroundColor = '#c44536';
-    saveBtn.style.color = "#fff";
+    saveBtn.style = 'margin: 0; height: 6.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
         saveEditedItem(tripDates, saveBtn);
@@ -390,16 +388,16 @@ function editItems(event) {
     saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
     editedItem.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () {
-        saveEditedItem(editedItem, saveBtn);
+        saveEditedItem(editedItem);
     })
 }
 
-function saveEditedItem(editedItem, saveBtn) {
+function saveEditedItem(editedItem) {
     editedItem.readOnly = true;
-    editedItem.style.backgroundColor = '#197278';
-    editedItem.style = 'box-sizing: border-box; width: 62vw; padding: 10px 0 0 20px; height: 5vh;'
-    let editBtn = editedItem.parentElement.children[4];
+    editedItem.style = 'background-color: #197278; height: 4vh; padding-top: 18px;'
+    let editBtn = editedItem.parentElement.children[3].children[3];
     editBtn.disabled = false;
+    let saveBtn = editedItem.parentElement.children[1];
     saveBtn.remove();
 }
 

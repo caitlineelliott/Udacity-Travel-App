@@ -520,7 +520,7 @@ input::placeholder {
 .saved-trips .packing-list-row {
   width: 100vw;
   height: 7vh;
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 0;
   border-bottom: 1px solid #edddd4;
   box-sizing: border-box;
