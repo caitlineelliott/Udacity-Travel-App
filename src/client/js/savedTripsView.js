@@ -189,7 +189,7 @@ function displayTrip(data) {
 
         let saveBtn = document.createElement('button');
         saveBtn.innerHTML = 'Save Changes';
-        saveBtn.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
+        saveBtn.style = "position: fixed; bottom: 0px; background-color: #c44536; width: 100vw; color: white; margin: 0";
         packingListContainer.appendChild(saveBtn);
 
         saveBtn.addEventListener('click', function () {
@@ -256,7 +256,7 @@ function displayTrip(data) {
 
         let saveBtnTodo = document.createElement('button');
         saveBtnTodo.innerHTML = 'Save Changes';
-        saveBtnTodo.style = 'background-color: #c44536; width: 100vw; color: white; margin: 0';
+        saveBtnTodo.style = "position: fixed; bottom: 0px; background-color: #c44536; width: 100vw; color: white; margin: 0";
         todoListContainer.appendChild(saveBtnTodo);
 
         saveBtnTodo.addEventListener('click', function () {
