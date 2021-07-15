@@ -214,8 +214,6 @@ function appendItem(target, blockElements, rowElements) {
 }
 
 function editNewItems(event) {
-    console.log(event.target)
-
     if (event.target.id === 'editBtn') {
         let editibleItem = event.target.previousSibling;
         editibleItem.readOnly = false;
@@ -223,7 +221,7 @@ function editNewItems(event) {
 
         let saveBtnNTV = document.createElement('button');
         saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'height: 6vh; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
         editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
         saveBtnNTV.addEventListener('click', function () {
             saveEditedItem(editibleItem, saveBtnNTV);
@@ -236,7 +234,7 @@ function editNewItems(event) {
 
         let saveBtnNTV = document.createElement('button');
         saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
         editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
         saveBtnNTV.addEventListener('click', function () {
             saveEditedItem(editibleItem, saveBtnNTV);
@@ -257,13 +255,11 @@ function removeItems(event) {
     let itemCategory = event.target.parentElement.parentElement.parentElement;
 
     if (event.target.classList.value === 'fas fa-times') {
-        console.log(event.target);
         item.remove();
         if (itemCategory.children.length < 2) {
             itemCategory.remove()
         }
     } else if (event.target.classList.value === 'packing-item-row-segment') {
-        console.log(event.target);
         let item = event.target.parentElement;
         let itemCategory = event.target.parentElement.parentElement;
 
@@ -310,15 +306,12 @@ async function generate(event) {
     let compDepart = new Date(`${formDepart}T00:00:00`);
     let compReturn = new Date(`${formReturn}T00:00:00`);
     let today = new Date();
-    console.log(compDepart > compReturn);
 
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
 
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
-    // console.log(formDepart);
-    // console.log(formReturn);
 
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
     let city = geonamesInfo.geonames[0]; // city name
@@ -380,7 +373,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateServer", function() { return updateServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
 function updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr) {
-    console.log('weather', tripWeatherArr)
     postData('/api/trip', {
         city: userCity,
         departure: departDate,
@@ -544,7 +536,6 @@ function displayTrip(data) {
         newTripContainer.appendChild(weatherContainer);
 
         if (data[i].city.indexOf(' ') >= 0) {
-            console.log('space')
             let newID = data[i].city.replace(/\s/g, '');
             newTripContainer.id = `${newID}-trip`;
         } else {
@@ -555,16 +546,13 @@ function displayTrip(data) {
 
         // add data to DOM shells
         // PACKING LIST
-        console.log(data[i])
         let packedItems = data[i].packingList;
         for (let i = 0; i < packedItems.length; i++) {
             let packingItemRow = document.createElement('div');
             packingItemRow.classList.add('saved-trip-packing-list');
 
-            console.log(packedItems[i].toggle)
 
             if (packedItems[i].toggle === true) {
-                console.log('yo!')
                 packingItemRow.classList.add('packed');
             } else {
                 console.log('no')
@@ -739,9 +727,6 @@ function displayTrip(data) {
             let weatherStart = new Date(`${weatherData[0].date.slice(0, 1)}-${weatherData[0].date.slice(2, 4)}-21`);
             let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
 
-            // console.log(tripStart, weatherStart)
-            // console.log(tripEnd, weatherEnd)
-
             if (tripEnd > weatherEnd) {
                 // console.log('the forecast for X days is out of range')
             } else if (tripStart > weatherStart) {
@@ -791,7 +776,6 @@ function editTripDates(event) {
         saveEditedItem(tripDates, saveBtn);
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-        console.log(tripWeatherTestData);
         changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
     })
 }
@@ -869,7 +853,6 @@ function addMoreTodos(event) {
     event.preventDefault();
     let nextItem = event.target.previousElementSibling.previousElementSibling.value;
     let nextCat = document.querySelector('.packing-list-btn-category').value;
-    console.log(nextItem)
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
@@ -926,7 +909,6 @@ function updateServerLists(tripCity, tripDates) {
 
         newPackListArr.push(packingListItem);
     }
-    console.log(newPackListArr);
 
     addServerData('/list', {
         city: tripCity.innerText,
@@ -1015,7 +997,6 @@ function editData(data) {
 
 function removeData(data) {
     return function (event) {
-        console.log(event.target)
         let deleteTripBtn = document.querySelector('#delete');
         let deleteItemBtn = document.querySelectorAll('#delete-item-btn');
         if (event.target === deleteTripBtn) {
@@ -1023,7 +1004,6 @@ function removeData(data) {
             let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
             let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
             let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-            console.log(tripCity, departDate, returnDate);
 
             tripRow.remove();
             deleteFromServer(tripCity, departDate, returnDate)

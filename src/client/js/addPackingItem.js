@@ -84,7 +84,7 @@ function editNewItems(event) {
 
         let saveBtnNTV = document.createElement('button');
         saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'height: 6vh; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
         editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
         saveBtnNTV.addEventListener('click', function () {
             saveEditedItem(editibleItem, saveBtnNTV);
@@ -97,7 +97,7 @@ function editNewItems(event) {
 
         let saveBtnNTV = document.createElement('button');
         saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'margin: 0; color: white; width: 12vw; background-color: #c44536;'
+        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
         editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
         saveBtnNTV.addEventListener('click', function () {
             saveEditedItem(editibleItem, saveBtnNTV);
