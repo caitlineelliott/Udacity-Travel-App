@@ -46,7 +46,6 @@ const getServerWeather = async (url, packingListContainer, todoListContainer, we
         const data = await request.json();
 
         console.log(`DATA POSTED TO UI`);
-        console.log(data)
         getNewWeather(data, packingListContainer, todoListContainer, weatherContainer);
     }
     catch (e) {
@@ -268,6 +267,67 @@ function displayTrip(data) {
             updateServerLists(tripCity, tripDates)
         });
 
+        // WEATHER
+        let weatherData = data[i].weather;
+        weatherContainer.classList.add('forecast');
+        let tripStart = new Date(data[i].departure);
+        let tripEnd = new Date(data[i].arrival);
+
+        // // remove old weather before trip date change
+        if (weatherContainer.children.length > 0) {
+            weatherContainer.children.remove();
+        }
+
+        // add new weather data
+        for (let i = 0; i < weatherData.length; i++) {
+            let newRow = document.createElement('div');
+            weatherContainer.appendChild(newRow);
+
+            newRow.classList.add('forecast-row');
+            newRow.style.margin = '0';
+            newRow.style.justifyContent = 'center';
+            const tripDate = document.createElement('div');
+            tripDate.classList.add('forecast-date');
+            tripDate.innerHTML = weatherData[i].date;
+            newRow.appendChild(tripDate);
+
+            const weatherIcon = document.createElement('img');
+            weatherIcon.classList.add('forecast-icon');
+            weatherIcon.src = `${weatherData[i].weatherIcon}`;
+            newRow.appendChild(weatherIcon);
+
+            const weatherHighLow = document.createElement('div');
+            weatherHighLow.classList.add('forecast-high');
+            weatherHighLow.style.width = '40vw';
+            weatherHighLow.innerHTML = weatherData[i].weather;
+            newRow.appendChild(weatherHighLow);
+
+            let longForecast = document.createElement('div');
+
+            let weatherStart = new Date(`${weatherData[0].date.slice(0, 1)}-${weatherData[0].date.slice(2, 4)}-21`);
+            let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
+
+            // console.log(tripStart, weatherStart)
+            // console.log(tripEnd, weatherEnd)
+
+            if (tripEnd > weatherEnd) {
+                // console.log('the forecast for X days is out of range')
+            } else if (tripStart > weatherStart) {
+                // console.log('your trip is too far in the future for weather stuff')
+            }
+
+            // if (departDate > dates[15]) {
+            //     longForecast.classList.add('long-forecast');
+            //     longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+            //     document.querySelector('.forecast').appendChild(longForecast);
+            // } else if (returnDate > dates[15]) {
+            //     longForecast.classList.add('long-forecast');
+            //     longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
+            //     document.querySelector('.forecast').appendChild(longForecast);
+            // };
+        }
+
+
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
@@ -471,43 +531,7 @@ function getNewWeather(data, packingListContainer, todoListContainer, weatherCon
         weatherContainer.style.display = 'block';
         packingListContainer.style.display = 'none';
         todoListContainer.style.display = 'none';
-
-        for (let i = 0; i < data.length; i++) {
-            let weatherData = data[i].weather;
-            weatherContainer.classList.add('forecast')
-
-            // remove old weather before trip date change
-            if (weatherContainer.children.length > 0) {
-                weatherContainer.children.remove();
-            }
-
-            for (let i = 0; i < weatherData.length; i++) {
-                let newRow = document.createElement('div');
-                weatherContainer.appendChild(newRow);
-
-                newRow.classList.add('forecast-row');
-                newRow.style.margin = '0';
-                newRow.style.justifyContent = 'center';
-                const tripDate = document.createElement('div');
-                tripDate.classList.add('forecast-date');
-                tripDate.innerHTML = weatherData[i].date;
-                newRow.appendChild(tripDate);
-
-                const weatherIcon = document.createElement('img');
-                weatherIcon.classList.add('forecast-icon');
-                weatherIcon.src = `${weatherData[i].weatherIcon}`;
-                newRow.appendChild(weatherIcon);
-
-                const weather = document.createElement('div');
-                weather.classList.add('forecast-high');
-                weather.style.width = '40vw';
-                weather.innerHTML = weatherData[i].weather;
-                newRow.appendChild(weather);
-            }
-        }
-
     }
-
 }
 
 
@@ -529,8 +553,14 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
             } else if (todoListContainer.style.display === 'block') {
                 todoListContainer.style.display = 'none'
             }
-        } else if (weatherContainer.style.display === 'block') {
-            weatherContainer.style.display = 'none'
+        } else if (event.target.classList[1] === 'fa-sun') {
+            if (weatherContainer.style.display === 'none') {
+                weatherContainer.style.display = 'block';
+                packingListContainer.style.display = 'none';
+                todoListContainer.style.display = 'none';
+            } else if (weatherContainer.style.display === 'block') {
+                weatherContainer.style.display = 'none'
+            }
         }
     }
 }

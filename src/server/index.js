@@ -63,6 +63,7 @@ function addTripData(req, res) {
     projectData["packingList"] = newData.packingList;
     projectData["todoList"] = newData.todoList;
     projectData["weather"] = newData.weather;
+    console.log(projectData["weather"])
 
     userTripData.unshift(projectData)
 
