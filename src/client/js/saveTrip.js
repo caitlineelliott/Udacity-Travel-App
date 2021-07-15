@@ -1,5 +1,4 @@
 function updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr) {
-    console.log('weather', tripWeatherArr)
     postData('/api/trip', {
         city: userCity,
         departure: departDate,

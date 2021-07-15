@@ -112,7 +112,6 @@ function displayTrip(data) {
         newTripContainer.appendChild(weatherContainer);
 
         if (data[i].city.indexOf(' ') >= 0) {
-            console.log('space')
             let newID = data[i].city.replace(/\s/g, '');
             newTripContainer.id = `${newID}-trip`;
         } else {
@@ -123,16 +122,13 @@ function displayTrip(data) {
 
         // add data to DOM shells
         // PACKING LIST
-        console.log(data[i])
         let packedItems = data[i].packingList;
         for (let i = 0; i < packedItems.length; i++) {
             let packingItemRow = document.createElement('div');
             packingItemRow.classList.add('saved-trip-packing-list');
 
-            console.log(packedItems[i].toggle)
 
             if (packedItems[i].toggle === true) {
-                console.log('yo!')
                 packingItemRow.classList.add('packed');
             } else {
                 console.log('no')
@@ -307,9 +303,6 @@ function displayTrip(data) {
             let weatherStart = new Date(`${weatherData[0].date.slice(0, 1)}-${weatherData[0].date.slice(2, 4)}-21`);
             let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
 
-            // console.log(tripStart, weatherStart)
-            // console.log(tripEnd, weatherEnd)
-
             if (tripEnd > weatherEnd) {
                 // console.log('the forecast for X days is out of range')
             } else if (tripStart > weatherStart) {
@@ -359,7 +352,6 @@ function editTripDates(event) {
         saveEditedItem(tripDates, saveBtn);
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-        console.log(tripWeatherTestData);
         changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
     })
 }
@@ -437,7 +429,6 @@ function addMoreTodos(event) {
     event.preventDefault();
     let nextItem = event.target.previousElementSibling.previousElementSibling.value;
     let nextCat = document.querySelector('.packing-list-btn-category').value;
-    console.log(nextItem)
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
@@ -494,7 +485,6 @@ function updateServerLists(tripCity, tripDates) {
 
         newPackListArr.push(packingListItem);
     }
-    console.log(newPackListArr);
 
     addServerData('/list', {
         city: tripCity.innerText,
@@ -583,7 +573,6 @@ function editData(data) {
 
 function removeData(data) {
     return function (event) {
-        console.log(event.target)
         let deleteTripBtn = document.querySelector('#delete');
         let deleteItemBtn = document.querySelectorAll('#delete-item-btn');
         if (event.target === deleteTripBtn) {
@@ -591,7 +580,6 @@ function removeData(data) {
             let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
             let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
             let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-            console.log(tripCity, departDate, returnDate);
 
             tripRow.remove();
             deleteFromServer(tripCity, departDate, returnDate)

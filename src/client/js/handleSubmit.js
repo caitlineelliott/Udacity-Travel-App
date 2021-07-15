@@ -15,15 +15,12 @@ async function generate(event) {
     let compDepart = new Date(`${formDepart}T00:00:00`);
     let compReturn = new Date(`${formReturn}T00:00:00`);
     let today = new Date();
-    console.log(compDepart > compReturn);
 
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
 
     const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
     const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
-    // console.log(formDepart);
-    // console.log(formReturn);
 
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
     let city = geonamesInfo.geonames[0]; // city name

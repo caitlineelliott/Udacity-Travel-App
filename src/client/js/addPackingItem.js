@@ -77,8 +77,6 @@ function appendItem(target, blockElements, rowElements) {
 }
 
 function editNewItems(event) {
-    console.log(event.target)
-
     if (event.target.id === 'editBtn') {
         let editibleItem = event.target.previousSibling;
         editibleItem.readOnly = false;
@@ -120,13 +118,11 @@ function removeItems(event) {
     let itemCategory = event.target.parentElement.parentElement.parentElement;
 
     if (event.target.classList.value === 'fas fa-times') {
-        console.log(event.target);
         item.remove();
         if (itemCategory.children.length < 2) {
             itemCategory.remove()
         }
     } else if (event.target.classList.value === 'packing-item-row-segment') {
-        console.log(event.target);
         let item = event.target.parentElement;
         let itemCategory = event.target.parentElement.parentElement;
 
