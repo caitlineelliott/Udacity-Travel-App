@@ -537,6 +537,7 @@ input::placeholder {
   background: #83A8A6; }
   .saved-trip-packing-list textarea {
     padding-top: 20px;
+    padding-left: 20px;
     font-family: "montserrat", sans-serif; }
   .saved-trip-packing-list * {
     padding-right: 10px;
