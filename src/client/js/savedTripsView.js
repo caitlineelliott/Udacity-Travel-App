@@ -67,11 +67,11 @@ function displayTrip(data) {
         let tripCity = document.createElement('div');
         let tripActions = document.createElement('div');
 
-        const tripPackingList = document.createElement('span');
-        const tripTodoList = document.createElement('span');
-        const tripWeather = document.createElement('span');
-        const editTrip = document.createElement('span');
-        const deleteTrip = document.createElement('span');
+        const tripPackingList = document.createElement('button');
+        const tripTodoList = document.createElement('button');
+        const tripWeather = document.createElement('button');
+        const editTrip = document.createElement('button');
+        const deleteTrip = document.createElement('button');
 
         tripDates.innerHTML = `${data[i].displayDepart} - ${data[i].displayReturn}`;
         tripDates.readOnly = true;
@@ -81,6 +81,8 @@ function displayTrip(data) {
         tripWeather.innerHTML = `<i id="weather" class="fas fa-sun"></i>`
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
+
+        editTrip.id = 'edit-trip-btn';
 
         newTripHeading.classList.add('packing-list-row');
         tripDates.classList.add('trip-dates');
@@ -335,6 +337,16 @@ function displayTrip(data) {
 }
 
 function editTripDates(event) {
+    if (event.target === 'edit-trip-btn') {
+        console.log('button');
+        let btn = event.target;
+        btn.disabled = true;
+    } else if (event.target.id === 'edit') {
+        console.log('icon');
+        let btn = event.target.parentElement;
+        btn.disabled = true;
+    }
+
     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     tripDates.readOnly = false;
@@ -383,6 +395,8 @@ function saveEditedItem(editedItem, saveBtn) {
     editedItem.readOnly = true;
     editedItem.style.backgroundColor = '#197278';
     editedItem.style = 'box-sizing: border-box; width: 62vw; padding: 10px 0 0 20px; height: 5vh;'
+    let editBtn = editedItem.parentElement.children[3].children[3];
+    editBtn.disabled = false;
     saveBtn.remove();
 }
 

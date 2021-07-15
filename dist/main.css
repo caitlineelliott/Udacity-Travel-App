@@ -493,10 +493,10 @@ input::placeholder {
   text-align: center; }
 
 .trip-city {
-  width: 35%; }
+  width: 33%; }
 
 .trip-dates {
-  width: 26%;
+  width: 28%;
   padding-top: 22px;
   background-color: transparent;
   border: none;
@@ -506,10 +506,16 @@ input::placeholder {
 
 .trip-actions {
   width: 34%;
-  text-align: right; }
+  text-align: right;
+  display: flex; }
 
 .trip-actions > * {
-  padding: 5px; }
+  padding: 5px;
+  padding: 5px;
+  color: white;
+  background: transparent;
+  font-size: 2vh;
+  margin: 0; }
 
 .saved-trips .packing-list-row {
   width: 100vw;

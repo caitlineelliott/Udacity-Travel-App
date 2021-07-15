@@ -290,10 +290,16 @@
 .trip-actions {
     width: 34%;
     text-align: right;
+    display: flex;
 }
 
 .trip-actions > * {
     padding: 5px;
+    padding: 5px;
+    color: white;
+    background: transparent;
+    font-size: 2vh;
+    margin: 0;
 }
 
 .saved-trips {
