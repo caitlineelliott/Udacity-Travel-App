@@ -136,12 +136,12 @@ function displayTrip(data) {
                 console.log('no')
             }
 
-            let toggle = document.createElement('div');
+            let toggle = document.createElement('button');
             let item = document.createElement('textarea');
             item.readOnly = true;
             let category = document.createElement('div');
-            let editBtn = document.createElement('div');
-            let deleteBtn = document.createElement('div');
+            let editBtn = document.createElement('button');
+            let deleteBtn = document.createElement('button');
 
             // elements within containerRow
             packingItemRow.appendChild(item)
@@ -382,6 +382,9 @@ function editItems(event) {
     editedItem.readOnly = false;
     editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
 
+    let btn = event.target.parentElement;
+    btn.disabled = true;
+
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
     saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
@@ -395,7 +398,7 @@ function saveEditedItem(editedItem, saveBtn) {
     editedItem.readOnly = true;
     editedItem.style.backgroundColor = '#197278';
     editedItem.style = 'box-sizing: border-box; width: 62vw; padding: 10px 0 0 20px; height: 5vh;'
-    let editBtn = editedItem.parentElement.children[3].children[3];
+    let editBtn = editedItem.parentElement.children[4];
     editBtn.disabled = false;
     saveBtn.remove();
 }
@@ -410,8 +413,8 @@ function addMoreItems(event) {
     let toggle = document.createElement('div');
     let item = document.createElement('textarea');
     let category = document.createElement('div');
-    let editBtn = document.createElement('div');
-    let deleteBtn = document.createElement('div');
+    let editBtn = document.createElement('button');
+    let deleteBtn = document.createElement('button');
 
     // elements within containerRow
     packingItemRow.appendChild(item)

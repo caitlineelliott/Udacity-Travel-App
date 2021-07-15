@@ -78,6 +78,9 @@ function appendItem(target, blockElements, rowElements) {
 
 function editNewItems(event) {
     if (event.target.id === 'editBtn') {
+        let editBtn = event.target;
+        editBtn.disabled = true;
+
         let editibleItem = event.target.previousSibling;
         editibleItem.readOnly = false;
         editibleItem.style = "background-color: #c44536"
@@ -90,10 +93,12 @@ function editNewItems(event) {
             saveEditedItem(editibleItem, saveBtnNTV);
         })
     } else if (event.target.classList[1] === 'fa-edit') {
+        let editBtn = event.target.parentElement;
+        editBtn.disabled = true;
+
         let editibleItem = event.target.parentElement.previousSibling;
         editibleItem.readOnly = false;
         editibleItem.style = "background-color: #c44536"
-
 
         let saveBtnNTV = document.createElement('button');
         saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
@@ -107,6 +112,8 @@ function editNewItems(event) {
 }
 
 function saveEditedItem(editibleItem, saveBtnNTV) {
+    let btn = editibleItem.parentElement.children[2];
+    btn.disabled = false;
     editibleItem.innerHTML = editibleItem.value;
     editibleItem.readOnly = true;
     editibleItem.style.backgroundColor = '#83A8A6';
