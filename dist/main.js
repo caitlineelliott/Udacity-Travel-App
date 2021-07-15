@@ -835,7 +835,7 @@ function saveEditedItem(editedItem) {
 function addMoreItems(event) {
     event.preventDefault();
     let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
-    let nextCat = document.querySelector('.packing-list-btn-category').value;
+    let nextCat = event.target.parentElement.children[1].value;
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
