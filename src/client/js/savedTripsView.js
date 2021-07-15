@@ -144,8 +144,8 @@ function displayTrip(data) {
             let deleteBtn = document.createElement('button');
 
             // elements within containerRow
-            packingItemRow.appendChild(item)
             packingItemRow.appendChild(toggle);
+            packingItemRow.appendChild(item)
             packingItemRow.appendChild(category);
             packingItemRow.appendChild(editBtn);
             packingItemRow.appendChild(deleteBtn);
@@ -415,8 +415,8 @@ function addMoreItems(event) {
     let deleteBtn = document.createElement('button');
 
     // elements within containerRow
-    packingItemRow.appendChild(item)
     packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(item)
     packingItemRow.appendChild(category);
     packingItemRow.appendChild(editBtn);
     packingItemRow.appendChild(deleteBtn);
@@ -433,7 +433,6 @@ function addMoreItems(event) {
 
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
-
 
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
@@ -454,8 +453,8 @@ function addMoreTodos(event) {
     let deleteBtn = document.createElement('div');
 
     // elements within containerRow
-    packingItemRow.appendChild(item)
     packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(item)
     packingItemRow.appendChild(category);
     packingItemRow.appendChild(editBtn);
     packingItemRow.appendChild(deleteBtn);

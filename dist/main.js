@@ -575,8 +575,8 @@ function displayTrip(data) {
             let deleteBtn = document.createElement('button');
 
             // elements within containerRow
-            packingItemRow.appendChild(item)
             packingItemRow.appendChild(toggle);
+            packingItemRow.appendChild(item)
             packingItemRow.appendChild(category);
             packingItemRow.appendChild(editBtn);
             packingItemRow.appendChild(deleteBtn);
@@ -846,8 +846,8 @@ function addMoreItems(event) {
     let deleteBtn = document.createElement('button');
 
     // elements within containerRow
-    packingItemRow.appendChild(item)
     packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(item)
     packingItemRow.appendChild(category);
     packingItemRow.appendChild(editBtn);
     packingItemRow.appendChild(deleteBtn);
@@ -865,7 +865,6 @@ function addMoreItems(event) {
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
 
-
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
     deleteBtn.addEventListener('click', removeItem)
@@ -874,7 +873,7 @@ function addMoreItems(event) {
 function addMoreTodos(event) {
     event.preventDefault();
     let nextItem = event.target.previousElementSibling.previousElementSibling.value;
-    let nextCat = document.querySelector('.packing-list-btn-category').value;
+    let nextCat = event.target.parentElement.children[1].value;
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
@@ -885,8 +884,8 @@ function addMoreTodos(event) {
     let deleteBtn = document.createElement('div');
 
     // elements within containerRow
-    packingItemRow.appendChild(item)
     packingItemRow.appendChild(toggle);
+    packingItemRow.appendChild(item)
     packingItemRow.appendChild(category);
     packingItemRow.appendChild(editBtn);
     packingItemRow.appendChild(deleteBtn);
