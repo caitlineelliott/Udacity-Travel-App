@@ -9,7 +9,10 @@ h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
   text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  margin: 0; }
+  margin: 0 auto;
+  width: 100vw;
+  text-align: center;
+  line-height: 0.9em; }
 
 h2 {
   font: 8vw "lobster", serif;
@@ -75,7 +78,10 @@ h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
   text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  margin: 0; }
+  margin: 0 auto;
+  width: 100vw;
+  text-align: center;
+  line-height: 0.9em; }
 
 h2 {
   font: 8vw "lobster", serif;
@@ -240,7 +246,10 @@ h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
   text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  margin: 0; }
+  margin: 0 auto;
+  width: 100vw;
+  text-align: center;
+  line-height: 0.9em; }
 
 h2 {
   font: 8vw "lobster", serif;
@@ -636,7 +645,10 @@ h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
   text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  margin: 0; }
+  margin: 0 auto;
+  width: 100vw;
+  text-align: center;
+  line-height: 0.9em; }
 
 h2 {
   font: 8vw "lobster", serif;
