@@ -14,7 +14,16 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     output.style.display = "flex"; // fix styling
 
     let bannerImg = await getHeaderPhoto(userCity);
-    document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
+
+    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
+        console.log('undefined bg')
+    } else {
+        document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
+    }
+
+    // no city validation
+    console.log(bannerImg)
+
     document.querySelector('h1').innerHTML = `${userCity}`;
 
     async function getHeaderPhoto(userCity) {

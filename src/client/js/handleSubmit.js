@@ -1,11 +1,37 @@
 import { viewNewTrip } from './viewNewTrip'
 
 // constrain form input dates date based on current date - NOT FUNCTIONAL RIGHT NOW
-let currentDate = new Date()
-document.querySelector('.trip-city').setAttribute('max', currentDate)
+// from stack overflow - https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
 
-// submit btn event listener
-document.querySelector('.submit-btn').addEventListener('click', generate);
+if (dd < 10) {
+    dd = '0' + dd
+}
+
+if (mm < 10) {
+    mm = '0' + mm
+}
+
+today = yyyy + '-' + mm + '-' + dd;
+
+let departDate = document.querySelector('.depart-date');
+
+document.querySelector('.depart-date').setAttribute("min", today);
+
+document.querySelector('.return-date').addEventListener('click', function (event) {
+    console.log(departDate.value)
+
+    document.querySelector('.return-date').setAttribute("min", departDate.value);
+})
+
+document.querySelector('#initial-request').addEventListener('submit', function (event) {
+    generate(event)
+})
+
+// submit event listener
 async function generate(event) {
     event.preventDefault();
 
@@ -26,15 +52,8 @@ async function generate(event) {
     let city = geonamesInfo.geonames[0]; // city name
 
     // validation
-    if (tripCity === '' || formDepart === '' || formReturn === '') {
-        alert('please fill out all fields')
-        return
-    } else if (compDepart > compReturn) {
+    if (compDepart > compReturn) {
         alert('return date cannot be before departing date')
-    } else if (compDepart < today) {
-        alert('cannot add a trip in the past')
-    } else if (city === undefined) {
-        alert('invalid city name')
     } else {
         let userCity = geonamesInfo.geonames[0].name;
 
