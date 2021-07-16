@@ -312,7 +312,7 @@ input::placeholder {
   background-color: #43878A;
   width: 100vw;
   color: #edddd4;
-  padding: 20px 0; }
+  padding: 20px 0 0 0; }
   .packing-list-container h2,
   .todo-list-container h2 {
     color: #edddd4; }
@@ -324,7 +324,7 @@ input::placeholder {
   opacity: 0.5; }
 
 .select-categories {
-  margin: 0 20px; }
+  margin: 0 20px 20px 20px; }
 
 .packing-list-form {
   display: flex;

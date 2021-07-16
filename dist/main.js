@@ -1177,7 +1177,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     for (let i = 0; i < forecast.length; i++) {
         dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
     }
-
     let tripDaysCount = [];
     let tripWeather = document.querySelector('.forecast');
 
@@ -1244,6 +1243,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let longForecast = document.createElement('div');
 
+    console.log(tripDaysCount)
+
     if (departDate > dates[15]) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
@@ -1252,7 +1253,10 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         document.querySelector('.forecast').appendChild(longForecast);
-    };
+    } else if (tripDaysCount.length < 6) {
+        document.querySelector('.forecast').style = "padding-bottom: 20px;"
+    }
+
     // add form event listeners
     document.querySelector('.packing-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target packing list
     document.querySelector('.todo-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]); // target to do list

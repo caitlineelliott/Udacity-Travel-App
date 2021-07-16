@@ -24,7 +24,7 @@
     background-color: #43878A;
     width: 100vw;
     color: $background;
-    padding: 20px 0;
+    padding: 20px 0 0 0;
 
     h2 {
         color: $background;
@@ -40,7 +40,7 @@
 }
 
 .select-categories { // include others as well
-    margin: 0 20px;
+    margin: 0 20px 20px 20px;
 }
 
 .packing-list-form {
