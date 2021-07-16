@@ -388,7 +388,9 @@ function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
 }
 
 function editItems(event) {
-    let editedItem = event.target.parentElement.parentElement.firstChild;
+    console.log(event.target)
+
+    let editedItem = event.target.parentElement.parentElement.children[1]
     editedItem.readOnly = false;
     editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
 
@@ -406,10 +408,10 @@ function editItems(event) {
 
 function saveEditedItem(editedItem) {
     editedItem.readOnly = true;
-    editedItem.style = 'background-color: #197278; height: 4vh; padding-top: 18px;'
-    let editBtn = editedItem.parentElement.children[3].children[3];
+    editedItem.style = 'background-color: transparent; padding-top: 18px;'
+    let editBtn = editedItem.parentElement.children[4];
     editBtn.disabled = false;
-    let saveBtn = editedItem.parentElement.children[1];
+    let saveBtn = editedItem.parentElement.children[2];
     saveBtn.remove();
 }
 
