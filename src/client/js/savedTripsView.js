@@ -150,12 +150,18 @@ function displayTrip(data) {
             packingItemRow.appendChild(editBtn);
             packingItemRow.appendChild(deleteBtn);
 
+            toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             item.innerHTML = packedItems[i].item;
             category.innerHTML = packedItems[i].category;
-            toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
             deleteBtn.id = 'delete-item-btn';
+
+            toggle.style = "width: 15vw; font-size: 1em;"
+            item.style = "width: 30vw; font-size: 0.9em;"
+            category.style = "width: 30vw; font-size: 0.9em;"
+            editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+            deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
             packingListContainer.appendChild(packingItemRow);
 
@@ -204,11 +210,11 @@ function displayTrip(data) {
             let todoItemRow = document.createElement('div'); // row of whole list under trip
             todoItemRow.classList.add('saved-trip-packing-list')
 
-            let toggle = document.createElement('div');
+            let toggle = document.createElement('button');
             let item = document.createElement('div');
             let category = document.createElement('div');
-            let editBtn = document.createElement('div');
-            let deleteBtn = document.createElement('div');
+            let editBtn = document.createElement('button');
+            let deleteBtn = document.createElement('button');
 
             // elements within containerRow
             todoItemRow.appendChild(item)
@@ -222,6 +228,12 @@ function displayTrip(data) {
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>'
+
+            toggle.style = "width: 15vw; font-size: 1em;"
+            item.style = "width: 30vw; font-size: 0.9em;"
+            category.style = "width: 30vw; font-size: 0.9em;"
+            editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+            deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
             todoListContainer.appendChild(todoItemRow);
             toggle.addEventListener('click', toggleData);
@@ -428,6 +440,12 @@ function addMoreItems(event) {
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     deleteBtn.id = 'delete-item-btn';
 
+    toggle.style = "width: 15vw; font-size: 1em;"
+    item.style = "width: 30vw; font-size: 0.9em;"
+    category.style = "width: 30vw; font-size: 0.9em;"
+    editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+    deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+
     document.querySelector('.packing-list-btn-item-stv').value = '';
 
 
@@ -465,6 +483,12 @@ function addMoreTodos(event) {
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     deleteBtn.id = 'delete-item-btn';
+
+    toggle.style = "width: 15vw; font-size: 1em;"
+    item.style = "width: 30vw; font-size: 0.9em;"
+    category.style = "width: 30vw; font-size: 0.9em;"
+    editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+    deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
     let todoList = document.querySelector('#todo-list');
     todoList.insertBefore(packingItemRow, todoList.children[0])
