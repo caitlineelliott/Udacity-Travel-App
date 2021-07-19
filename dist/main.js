@@ -526,9 +526,9 @@ function displayTrip(data) {
         tripDates.innerHTML = `${data[i].displayDepart} - ${data[i].displayReturn}`;
         tripDates.readOnly = true;
         tripCity.innerHTML = data[i].city;
-        tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt"></i>`
-        tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list"></i>`
-        tripWeather.innerHTML = `<i id="weather" class="fas fa-sun"></i>`
+        tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
+        tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
+        tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
 
@@ -647,7 +647,7 @@ function displayTrip(data) {
 
         let saveBtn = document.createElement('button');
         saveBtn.innerHTML = 'Save Changes';
-        saveBtn.style = "position: fixed; bottom: 0px; background-color: #c44536; width: 100vw; color: white; margin: 0";
+        saveBtn.style = "background-color: #c44536; width: 100vw; color: white; margin: 0";
         packingListContainer.appendChild(saveBtn);
 
         saveBtn.addEventListener('click', function () {
@@ -860,7 +860,7 @@ function saveEditedItem(editedItem) {
     editedItem.readOnly = true;
     editedItem.style = 'background-color: transparent; padding-top: 18px;'
     let editBtn = editedItem.parentElement.children[4];
-    editBtn.disabled = false; // this is where it's breaking
+    editBtn.disabled = false;
     let saveBtn = editedItem.parentElement.children[2];
     saveBtn.remove();
 }
@@ -1017,6 +1017,7 @@ function getNewWeather(data, packingListContainer, todoListContainer, weatherCon
 
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
     return async function (event) {
+        // general display of data
         if (event.target.classList[1] === 'fa-tshirt') {
             if (packingListContainer.style.display === 'none') {
                 packingListContainer.style.display = 'block';
@@ -1040,6 +1041,18 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
                 todoListContainer.style.display = 'none';
             } else if (weatherContainer.style.display === 'block') {
                 weatherContainer.style.display = 'none'
+            }
+        }
+
+        // fully remove other trips from DOM when data is open
+        let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children;
+        console.log(allTrips)
+        let currentTrip = event.target.parentElement.parentElement.parentElement.parentElement;
+
+        for (let i = 0; i < allTrips.length; i++) {
+            if (event.target.classList[2] !== allTrips[i].id) {
+                console.log(event.target.classList[2], currentTrip.id)
+                allTrips[i].style = "display: none;"
             }
         }
     }
