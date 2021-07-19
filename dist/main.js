@@ -772,28 +772,24 @@ function displayTrip(data) {
             weatherHighLow.innerHTML = weatherData[i].weather;
             newRow.appendChild(weatherHighLow);
 
-            let longForecast = document.createElement('div');
+        }
 
+        // long forecast
+        let longForecast = document.createElement('div');
+
+        if (weatherData[0] !== undefined) {
             let weatherStart = new Date(`${weatherData[0].date.slice(0, 1)}-${weatherData[0].date.slice(2, 4)}-21`);
             let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
 
-            if (tripEnd > weatherEnd) {
-                // console.log('the forecast for X days is out of range')
-            } else if (tripStart > weatherStart) {
-                // console.log('your trip is too far in the future for weather stuff')
+            if (tripStart < weatherEnd && weatherEnd < tripEnd) {
+                longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+                weatherContainer.appendChild(longForecast);
             }
-
-            // if (departDate > dates[15]) {
-            //     longForecast.classList.add('long-forecast');
-            //     longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-            //     document.querySelector('.forecast').appendChild(longForecast);
-            // } else if (returnDate > dates[15]) {
-            //     longForecast.classList.add('long-forecast');
-            //     longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
-            //     document.querySelector('.forecast').appendChild(longForecast);
-            // };
+        } else if (weatherData[0] === undefined) {
+            console.log('ALL weather out of range');
+            longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+            weatherContainer.appendChild(longForecast);
         }
-
 
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
