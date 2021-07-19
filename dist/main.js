@@ -651,6 +651,11 @@ function displayTrip(data) {
         packingListContainer.appendChild(saveBtn);
 
         saveBtn.addEventListener('click', function () {
+            if (todoListContainer.style.display === 'block') {
+                todoListContainer.style.display = 'none';
+            } else if (packingListContainer.style.display === 'block') {
+                packingListContainer.style.display = 'none';
+            }
             updateServerLists(tripCity, tripDates)
         });
 
@@ -720,11 +725,16 @@ function displayTrip(data) {
 
         let saveBtnTodo = document.createElement('button');
         saveBtnTodo.innerHTML = 'Save Changes';
-        saveBtnTodo.style = "position: fixed; bottom: 0px; background-color: #c44536; width: 100vw; color: white; margin: 0";
+        saveBtnTodo.style = "background-color: #c44536; width: 100vw; color: white; margin: 0";
         todoListContainer.appendChild(saveBtnTodo);
 
-        saveBtnTodo.addEventListener('click', function () {
-            updateServerLists(tripCity, tripDates)
+        saveBtnTodo.addEventListener('click', function (event) {
+            if (todoListContainer.style.display === 'block') {
+                todoListContainer.style.display = 'none';
+            } else if (packingListContainer.style.display === 'block') {
+                packingListContainer.style.display = 'none';
+            }
+            updateServerLists(tripCity, tripDates);
         });
 
         // WEATHER
@@ -869,6 +879,7 @@ function addMoreItems(event) {
     event.preventDefault();
     let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
     let nextCat = event.target.parentElement.children[1].value;
+    console.log(nextItem, nextCat, event.target);
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
@@ -1053,6 +1064,8 @@ function displayData(data, packingListContainer, todoListContainer, weatherConta
             if (event.target.classList[2] !== allTrips[i].id) {
                 console.log(event.target.classList[2], currentTrip.id)
                 allTrips[i].style = "display: none;"
+            } else {
+                // add something to bring other trip back
             }
         }
     }
