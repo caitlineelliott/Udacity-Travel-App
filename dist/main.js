@@ -798,9 +798,10 @@ function displayTrip(data) {
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
-        tripWeather.addEventListener('click', function () {
-            getServerWeather('/all', packingListContainer, todoListContainer, weatherContainer)
-        });
+        tripWeather.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
+        // tripWeather.addEventListener('click', function () {
+        //     getServerWeather('/all', packingListContainer, todoListContainer, weatherContainer)
+        // });
 
         // change to edit/delete functions
         editTrip.addEventListener('click', editTripDates)
@@ -879,7 +880,6 @@ function addMoreItems(event) {
     event.preventDefault();
     let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
     let nextCat = event.target.parentElement.children[1].value;
-    console.log(nextItem, nextCat, event.target);
 
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');

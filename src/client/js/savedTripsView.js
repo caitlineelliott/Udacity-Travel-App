@@ -348,9 +348,10 @@ function displayTrip(data) {
         // trip data actions
         tripPackingList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
-        tripWeather.addEventListener('click', function () {
-            getServerWeather('/all', packingListContainer, todoListContainer, weatherContainer)
-        });
+        tripWeather.addEventListener('click', displayData(data, packingListContainer, todoListContainer, weatherContainer))
+        // tripWeather.addEventListener('click', function () {
+        //     getServerWeather('/all', packingListContainer, todoListContainer, weatherContainer)
+        // });
 
         // change to edit/delete functions
         editTrip.addEventListener('click', editTripDates)
