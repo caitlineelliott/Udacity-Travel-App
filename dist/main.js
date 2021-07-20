@@ -645,10 +645,19 @@ function displayTrip(data) {
         let addMoreBtn = document.querySelector('.packing-list-btn-stv');
         addMoreBtn.addEventListener('click', addMoreItems);
 
+        let btnContainer = document.createElement('div');
+        btnContainer.style = 'width: 100vw; margin: 0; padding: 0; display: flex;'
+        packingListContainer.appendChild(btnContainer)
+
+        let discardBtn = document.createElement('button');
+        discardBtn.innerHTML = 'Discard Changes';
+        discardBtn.style = "background-color: #772e25; width: 50vw; color: white; margin: 0";
+        btnContainer.appendChild(discardBtn);
+
         let saveBtn = document.createElement('button');
         saveBtn.innerHTML = 'Save Changes';
-        saveBtn.style = "background-color: #c44536; width: 100vw; color: white; margin: 0";
-        packingListContainer.appendChild(saveBtn);
+        saveBtn.style = "background-color: #c44536; width: 50vw; color: white; margin: 0";
+        btnContainer.appendChild(saveBtn);
 
         saveBtn.addEventListener('click', function () {
             if (todoListContainer.style.display === 'block') {
@@ -657,6 +666,22 @@ function displayTrip(data) {
                 packingListContainer.style.display = 'none';
             }
             updateServerLists(tripCity, tripDates)
+        });
+
+        discardBtn.addEventListener('click', function () {
+            if (todoListContainer.style.display === 'block') {
+                todoListContainer.style.display = 'none';
+            } else if (packingListContainer.style.display === 'block') {
+                packingListContainer.style.display = 'none';
+
+                // remove discarded items
+                let children = packingListContainer.children;
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].classList[0] == 'saved-trip-packing-list') {
+                        children[i].remove();
+                    }
+                }
+            }
         });
 
         // TO DO LIST
@@ -725,10 +750,19 @@ function displayTrip(data) {
             addMoreTodos(event);
         });
 
+        let todoBtnContainer = document.createElement('div');
+        todoBtnContainer.style = 'width: 100vw; margin: 0; padding: 0; display: flex;'
+        todoListContainer.appendChild(todoBtnContainer)
+
+        let discardBtnTodo = document.createElement('button');
+        discardBtnTodo.innerHTML = 'Discard Changes';
+        discardBtnTodo.style = "background-color: #772e25; width: 50vw; color: white; margin: 0";
+        todoBtnContainer.appendChild(discardBtnTodo);
+
         let saveBtnTodo = document.createElement('button');
         saveBtnTodo.innerHTML = 'Save Changes';
-        saveBtnTodo.style = "background-color: #c44536; width: 100vw; color: white; margin: 0";
-        todoListContainer.appendChild(saveBtnTodo);
+        saveBtnTodo.style = "background-color: #c44536; width: 50vw; color: white; margin: 0";
+        todoBtnContainer.appendChild(saveBtnTodo);
 
         saveBtnTodo.addEventListener('click', function (event) {
             if (todoListContainer.style.display === 'block') {
@@ -737,6 +771,21 @@ function displayTrip(data) {
                 packingListContainer.style.display = 'none';
             }
             updateServerLists(tripCity, tripDates);
+        });
+
+        discardBtnTodo.addEventListener('click', function () {
+            if (todoListContainer.style.display === 'block') {
+                todoListContainer.style.display = 'none';
+                // remove discarded items
+                let children = todoListContainer.children;
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].classList[0] == 'saved-trip-packing-list') {
+                        children[i].remove();
+                    }
+                }
+            } else if (packingListContainer.style.display === 'block') {
+                packingListContainer.style.display = 'none';
+            }
         });
 
         // WEATHER
