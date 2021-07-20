@@ -65,7 +65,7 @@ function addTripData(req, res) {
     projectData["weather"] = newData.weather;
 
     userTripData.push(projectData)
-
+    //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
     function compareData(a, b) {
         const tripA = a.departure;
         const tripB = b.departure;

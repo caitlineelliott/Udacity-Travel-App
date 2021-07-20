@@ -666,21 +666,21 @@ function displayTrip(data) {
             todoItemRow.classList.add('saved-trip-packing-list')
 
             let toggle = document.createElement('button');
-            let item = document.createElement('div');
+            let item = document.createElement('textarea');
             let category = document.createElement('div');
             let editBtn = document.createElement('button');
             let deleteBtn = document.createElement('button');
 
             // elements within containerRow
-            todoItemRow.appendChild(item)
             todoItemRow.appendChild(toggle);
+            todoItemRow.appendChild(item)
             todoItemRow.appendChild(category);
             todoItemRow.appendChild(editBtn);
             todoItemRow.appendChild(deleteBtn);
 
+            toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             item.innerHTML = todoList[i].item;
             category.innerHTML = todoList[i].category;
-            toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>'
 
@@ -691,7 +691,9 @@ function displayTrip(data) {
             deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
             todoListContainer.appendChild(todoItemRow);
+            editBtn.addEventListener('click', editItems)
             toggle.addEventListener('click', toggleData);
+            deleteBtn.addEventListener('click', removeItem)
         }
 
         // ADD MORE FORM
@@ -923,7 +925,7 @@ function addMoreTodos(event) {
     let packingItemRow = document.createElement('div');
     packingItemRow.classList.add('saved-trip-packing-list');
     let toggle = document.createElement('div');
-    let item = document.createElement('div');
+    let item = document.createElement('textarea');
     let category = document.createElement('div');
     let editBtn = document.createElement('div');
     let deleteBtn = document.createElement('div');
