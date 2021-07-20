@@ -564,6 +564,9 @@ input::placeholder {
   .saved-trip-packing-list * {
     text-align: center; }
 
+.packing-list-btn-stv > * {
+  pointer-events: none; }
+
 /* TABLET */
 @media only screen and (min-width: 768px) {
   .output {
