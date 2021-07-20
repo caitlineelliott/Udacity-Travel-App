@@ -343,8 +343,8 @@ async function generate(event) {
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
 
-    const departDate = new Date(`${document.querySelector('.depart-date').value}T00:00:00`);
-    const returnDate = new Date(`${document.querySelector('.return-date').value}T00:00:00`);
+    const departDate = new Date(`${document.querySelector('.depart-date').value} 00:00:00`);
+    const returnDate = new Date(`${document.querySelector('.return-date').value} 00:00:00`);
 
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
     let city = geonamesInfo.geonames[0]; // city name
@@ -907,7 +907,6 @@ function addMoreItems(event) {
 
     document.querySelector('.packing-list-btn-item-stv').value = '';
 
-
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
 
@@ -948,6 +947,8 @@ function addMoreTodos(event) {
     category.style = "width: 30vw; font-size: 0.9em;"
     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+
+    document.querySelector('#todo-list-input').value = '';
 
     let todoList = document.querySelector('#todo-list');
     todoList.insertBefore(packingItemRow, todoList.children[0])

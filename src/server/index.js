@@ -63,9 +63,25 @@ function addTripData(req, res) {
     projectData["packingList"] = newData.packingList;
     projectData["todoList"] = newData.todoList;
     projectData["weather"] = newData.weather;
-    console.log(projectData["weather"])
 
-    userTripData.unshift(projectData)
+    userTripData.push(projectData)
+
+    function compareData(a, b) {
+        const tripA = a.departure;
+        const tripB = b.departure;
+
+        let comparison = 0;
+        if (tripA > tripB) {
+            comparison = 1;
+        } else if (tripA < tripB) {
+            comparison = -1;
+        }
+        return comparison;
+    }
+
+    userTripData.sort(compareData);
+
+    console.log(userTripData)
 
     res.send(userTripData);
 
@@ -86,8 +102,6 @@ function addTripData(req, res) {
 // COME BACK HERE:
 function addListData(req, res) {
     const newData = req.body;
-    console.log(newData);
-    console.log(userTripData);
 
     for (let i = 0; i < userTripData.length; i++) {
         let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
@@ -102,21 +116,10 @@ function addListData(req, res) {
             console.log('no');
         }
     }
-
-    // for (let i = 0; i < userTripData.length; i++) {
-    //     if (userTripData[i].city === newData.tripCity) {
-    //         userTripData[i]["packingList"] = newData.packingList;
-    //         userTripData[i]["todoList"] = newData.todoList;
-    //     } else {
-    //         console.log('no')
-    //     }
-    // }
-    // console.log(`LIST DATA SUCCESSFUL`);
 };
 
 async function changeTripDates(req, res) {
     let newData = req.body;
-    console.log(newData);
 
     for (let i = 0; i < userTripData.length; i++) {
         // change trip dates
@@ -140,13 +143,11 @@ async function changeTripDates(req, res) {
                 dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`);
             }
 
-            console.log(dates)
             let newWeather = []
 
             for (let i = 0; i < dates.length; i++) {
                 if (dates[i] >= newDepart && dates[i] <= newReturn) {
                     let tripDayData = {}
-                    console.log(dates[i].toString())
                     tripDayData['date'] = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
                     tripDayData['weatherIcon'] = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
                     tripDayData['weather'] = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
@@ -156,7 +157,6 @@ async function changeTripDates(req, res) {
             }
 
             userTripData[i]['weather'] = newWeather;
-            console.log(userTripData[i])
 
             // contact API
             // loop through dates in API and match to new trip dates
@@ -189,13 +189,9 @@ app.delete('/removeItems', removeItems);
 function removeData(req, res) {
     const newData = req.body;
     for (let i = 0; i < userTripData.length; i++) {
-        console.log(userTripData[i].city, userTripData[i].displayDepart, userTripData[i].displayReturn)
-        console.log(newData.city, newData.depart, newData.return)
-
         // whole trip delete
         if (userTripData[i].city === newData.city && userTripData[i].displayDepart === newData.depart && userTripData[i].displayReturn === newData.return) {
             userTripData.splice(i, 1);
-            console.log('usertripdata', userTripData)
         } else {
             console.log('no');
         }
@@ -203,19 +199,7 @@ function removeData(req, res) {
 }
 
 function removeItems(req, res) {
-    const newData = req.body;
-    // for (let i = 0; i < userTripData.length; i++) {
-    //     console.log(userTripData[i].city, userTripData[i].displayDepart, userTripData[i].displayReturn)
-    //     console.log(newData.city, newData.depart, newData.return)
-
-    //     // whole trip delete
-    //     if (userTripData[i].city === newData.city && userTripData[i].displayDepart === newData.depart && userTripData[i].displayReturn === newData.return) {
-    //         userTripData.splice(i, 1);
-    //         console.log('usertripdata', userTripData)
-    //     } else {
-    //         console.log('no');
-    //     }
-    // }
+    const newData = req.body
 }
 
 // update weather

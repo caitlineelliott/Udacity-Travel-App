@@ -457,7 +457,6 @@ function addMoreItems(event) {
 
     document.querySelector('.packing-list-btn-item-stv').value = '';
 
-
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
 
@@ -498,6 +497,8 @@ function addMoreTodos(event) {
     category.style = "width: 30vw; font-size: 0.9em;"
     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+
+    document.querySelector('#todo-list-input').value = '';
 
     let todoList = document.querySelector('#todo-list');
     todoList.insertBefore(packingItemRow, todoList.children[0])
