@@ -592,11 +592,8 @@ function displayTrip(data) {
             let packingItemRow = document.createElement('div');
             packingItemRow.classList.add('saved-trip-packing-list');
 
-
             if (packedItems[i].toggle === true) {
                 packingItemRow.classList.add('packed');
-            } else {
-                console.log('no')
             }
 
             let toggle = document.createElement('button');
@@ -1038,8 +1035,8 @@ function updateServerLists(tripCity, tripDates) {
     let newPackListArr = []
     for (let i = 0; i < list.length; i++) {
         let newItemRow = list[i];
-        let newItem = list[i].firstChild;
-        let newItemText = list[i].firstChild.value;
+        let newItem = list[i].children[1];
+        let newItemText = list[i].children[1].value;
         let newCategory = list[i].children[2].innerText;
 
         let packingListItem = {};
@@ -1053,6 +1050,8 @@ function updateServerLists(tripCity, tripDates) {
             packingListItem['toggle'] = newToggle;
         }
 
+        console.log(newItem)
+        console.log(newItemText)
         packingListItem['item'] = newItemText;
         packingListItem['category'] = newCategory;
 
