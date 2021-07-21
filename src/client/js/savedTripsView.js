@@ -501,7 +501,8 @@ function saveEditedItem(editedItem) {
 
 function addMoreItems(event) {
     event.preventDefault();
-    let nextItem = document.querySelector('.packing-list-btn-item-stv').value; //change ids here
+    let nextItem = event.target.parentElement.children[0].value;
+    console.log(nextItem)
     let nextCat = event.target.parentElement.children[1].value;
 
     let packingItemRow = document.createElement('div');
@@ -532,7 +533,7 @@ function addMoreItems(event) {
     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
-    document.querySelector('.packing-list-btn-item-stv').value = '';
+    event.target.parentElement.children[0].value = '';
 
     let packingList = document.querySelector('#packing-list');
     packingList.insertBefore(packingItemRow, packingList.children[0])
@@ -544,7 +545,7 @@ function addMoreItems(event) {
 
 function addMoreTodos(event) {
     event.preventDefault();
-    let nextItem = event.target.previousElementSibling.previousElementSibling.value;
+    let nextItem = event.target.parentElement.children[0].value;
     let nextCat = event.target.parentElement.children[1].value;
 
     let packingItemRow = document.createElement('div');
@@ -575,7 +576,7 @@ function addMoreTodos(event) {
     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
-    document.querySelector('#todo-list-input').value = '';
+    event.target.parentElement.children[0].value = '';
 
     let todoList = document.querySelector('#todo-list');
     todoList.insertBefore(packingItemRow, todoList.children[0])
