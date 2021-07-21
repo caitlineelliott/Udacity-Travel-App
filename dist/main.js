@@ -315,21 +315,20 @@ if (mm < 10) {
 
 today = yyyy + '-' + mm + '-' + dd;
 
+// constrain trip date inputs
 let departDate = document.querySelector('.depart-date');
-
 document.querySelector('.depart-date').setAttribute("min", today);
 
 document.querySelector('.return-date').addEventListener('click', function (event) {
     console.log(departDate.value)
-
     document.querySelector('.return-date').setAttribute("min", departDate.value);
 })
 
+// generate trip
 document.querySelector('#initial-request').addEventListener('submit', function (event) {
     generate(event)
 })
 
-// submit event listener
 async function generate(event) {
     event.preventDefault();
 
@@ -1307,9 +1306,14 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     let forecast = weatherInfo.data;
     let dates = [];
 
+    console.log(weatherInfo.data)
+
     for (let i = 0; i < forecast.length; i++) {
-        dates[i] = new Date(`${forecast[i].datetime} T00: 00: 00`);
+        dates[i] = new Date(`${forecast[i].datetime} 00:00:00`);
+        console.log(dates[i])
+        console.log(forecast[i].datetime)
     }
+
     let tripDaysCount = [];
     let tripWeather = document.querySelector('.forecast');
 
@@ -1318,7 +1322,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
-            tripWeather.appendChild(newRow)
+            tripWeather.appendChild(newRow);
             tripDaysCount.push(newRow);
 
             newRow.classList.add('forecast-row');
@@ -1375,8 +1379,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     }
 
     let longForecast = document.createElement('div');
-
-    console.log(tripDaysCount)
 
     if (departDate > dates[15]) {
         longForecast.classList.add('long-forecast');

@@ -17,21 +17,20 @@ if (mm < 10) {
 
 today = yyyy + '-' + mm + '-' + dd;
 
+// constrain trip date inputs
 let departDate = document.querySelector('.depart-date');
-
 document.querySelector('.depart-date').setAttribute("min", today);
 
 document.querySelector('.return-date').addEventListener('click', function (event) {
     console.log(departDate.value)
-
     document.querySelector('.return-date').setAttribute("min", departDate.value);
 })
 
+// generate trip
 document.querySelector('#initial-request').addEventListener('submit', function (event) {
     generate(event)
 })
 
-// submit event listener
 async function generate(event) {
     event.preventDefault();
 
