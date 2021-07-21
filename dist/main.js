@@ -1435,8 +1435,10 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         saveConfirmed.innerHTML = `
                 <h2>Happy trails!</h2>
                 <div>Your trip details have been saved.</div>
-                <button id="view-saved-trips">View Saved Trips</button>`
+                <button id="view-saved-trips" style="margin-top: 20px">View Saved Trips</button>`
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
+        let savedTripsBtn = document.querySelector('#view-saved-trips');
+        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
 
         let bookTripBtn = document.querySelector('.nav-saved-trips');
         bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
