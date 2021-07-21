@@ -62,6 +62,16 @@ let todoListArr = [];
 
 // need to create shells of all data in this function & set display to NONE, trigger display in event listener func
 function displayTrip(data) {
+    if (data.length === 0) {
+        let noTripsContainer = document.createElement('div');
+        noTripsContainer.classList.add('no-trips-container');
+        noTripsContainer.innerHTML = `
+                <h2>Uh oh!</h2>
+                <div>You have no trips booked at this time.</div>
+                <button id="book-trip" style="margin-top: 20px" onclick="location.href='index.html'">Book now!</button>`
+        document.querySelector('nav').insertAdjacentElement('afterend', noTripsContainer);
+    }
+
     // adds a row for each trip the user has saved
     for (let i = 0; i < data.length; i++) {
         let tripContainer = document.querySelector('.saved-trips');

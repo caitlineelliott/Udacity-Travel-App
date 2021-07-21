@@ -454,7 +454,8 @@
         width: 40vw !important;
     }
 
-    .trip-saved-container {
+    .trip-saved-container,
+    .no-trips-container {
         height: 62vh;
         display: flex;
         flex-direction: column;
