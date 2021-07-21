@@ -352,7 +352,9 @@
     }
 }
 
-.packing-list-btn-stv > * {
+// stop pointer events for icons
+.packing-list-btn-stv,
+.packing-list-btn > * {
     pointer-events: none;
 }
 
