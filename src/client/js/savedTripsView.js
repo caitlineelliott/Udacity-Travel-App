@@ -293,14 +293,10 @@ function displayTrip(data) {
         <form class="packing-list-form">
             <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="todo-list-input">
             <select class="packing-list-btn-category">
-                <option>Category</option>
-                <option class="tops">Tops</option>
-                <option class="bottoms">Bottoms</option>
-                <option class="shoes">Shoes</option>
-                <option class="accessories">Accessories</option>
-                <option class="swimwear">Swimwear</option>
-                <option class="toiletries">Toiletries</option>
-                <option class="other">Other</option>
+                <option>Priority</option>
+                <option class="high">High</option>
+                <option class="medium">Medium</option>
+                <option class="low">Low</option>
             </select>
             <button id='add-more-todos-stv' class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
