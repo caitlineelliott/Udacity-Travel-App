@@ -459,6 +459,7 @@ __webpack_require__.r(__webpack_exports__);
 // This file will communicate with the server re: editing/deleting though
 /// NEED A NO SAVED TRIPS OPTION
 
+// saved trips view link
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
@@ -467,8 +468,11 @@ async function viewSavedTrips() {
     document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
+
     let savedTripsBtn = document.querySelector('.nav-saved-trips');
-    savedTripsBtn.innerHTML = `<a href="index.html">Book Trip</a>` // STYLE THIS LINK
+    savedTripsBtn.removeEventListener('click', viewSavedTrips)
+    savedTripsBtn.innerHTML = `Book Trip`
+    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"') // test
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
     await getUserData('/all');
@@ -1422,10 +1426,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                 <div>Your trip details have been saved.</div>
                 <button id="view-saved-trips">View Saved Trips</button>`
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
+
         let bookTripBtn = document.querySelector('.nav-saved-trips');
-        bookTripBtn.innerHTML = '<a href="index.html">Book Trip</a>'
-        let savedTripsBtn = document.querySelector('#view-saved-trips');
-        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
+        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
+        bookTripBtn.innerHTML = `Book Trip`
+        bookTripBtn.setAttribute("onclick", 'location.href="index.html"') // test
 
         Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });

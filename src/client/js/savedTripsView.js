@@ -9,6 +9,7 @@ import { updateServer } from "./saveTrip";
 // This file will communicate with the server re: editing/deleting though
 /// NEED A NO SAVED TRIPS OPTION
 
+// saved trips view link
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
@@ -17,8 +18,11 @@ async function viewSavedTrips() {
     document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
+
     let savedTripsBtn = document.querySelector('.nav-saved-trips');
-    savedTripsBtn.innerHTML = `<a href="index.html">Book Trip</a>` // STYLE THIS LINK
+    savedTripsBtn.removeEventListener('click', viewSavedTrips)
+    savedTripsBtn.innerHTML = `Book Trip`
+    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"') // test
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
     await getUserData('/all');

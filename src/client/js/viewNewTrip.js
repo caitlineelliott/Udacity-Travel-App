@@ -180,10 +180,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                 <div>Your trip details have been saved.</div>
                 <button id="view-saved-trips">View Saved Trips</button>`
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
+
         let bookTripBtn = document.querySelector('.nav-saved-trips');
-        bookTripBtn.innerHTML = '<a href="index.html">Book Trip</a>'
-        let savedTripsBtn = document.querySelector('#view-saved-trips');
-        savedTripsBtn.addEventListener('click', viewSavedTrips)
+        bookTripBtn.removeEventListener('click', viewSavedTrips)
+        bookTripBtn.innerHTML = `Book Trip`
+        bookTripBtn.setAttribute("onclick", 'location.href="index.html"') // test
 
         updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });
