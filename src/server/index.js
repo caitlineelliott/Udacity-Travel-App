@@ -36,11 +36,37 @@ function listening() {
 
 // Initialize all route with a callback function
 app.get('/all', getData);
+app.get('/tripdates', getTripDates);
 
 // Callback function to complete GET '/all'
 function getData(req, res) {
     res.send(userTripData);
 };
+
+// get request for new trip dates
+function getTripDates(req, res) {
+
+    function compareData(a, b) {
+        const tripA = a.departure;
+        const tripB = b.departure;
+        console.log(typeof tripA, tripA)
+        console.log(typeof tripB, tripB)
+
+        let comparison = 0;
+        if (tripA > tripB) {
+            comparison = 1;
+        } else if (tripA < tripB) {
+            comparison = -1;
+        }
+        return comparison;
+    }
+
+    userTripData.sort(compareData);
+
+    console.log('GET REQUEST', userTripData)
+    res.send(userTripData);
+};
+
 
 // REQUESTS & ROUTES
 
@@ -53,12 +79,12 @@ app.post('/tripdates', changeTripDates);
 function addTripData(req, res) {
     const newData = req.body;
 
-    let projectData = {};
+    let projectData = {}
 
     projectData["city"] = newData.city;
-    projectData["departure"] = newData.departure;
+    projectData["departure"] = new Date(JSON.parse(JSON.stringify(new Date(newData.departure))));
     projectData["displayDepart"] = newData.displayDepart;
-    projectData["arrival"] = newData.arrival;
+    projectData["arrival"] = new Date(JSON.parse(JSON.stringify(new Date(newData.arrival))));
     projectData["displayReturn"] = newData.displayReturn;
     projectData["packingList"] = newData.packingList;
     projectData["todoList"] = newData.todoList;
@@ -123,11 +149,13 @@ async function changeTripDates(req, res) {
 
     for (let i = 0; i < userTripData.length; i++) {
         // change trip dates
+        console.log(newData.weatherTest);
+        console.log(userTripData[i].weather[0].weather)
         if (newData.weatherTest == userTripData[i].weather[0].weather) {
             userTripData[i]['displayDepart'] = newData.depart;
             userTripData[i]['displayReturn'] = newData.return;
-            userTripData[i]['departure'] = new Date(`2021-${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}T04:00:00.000Z`);
-            userTripData[i]['arrival'] = new Date(`2021-${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}T04:00:00.000Z`);
+            userTripData[i]['departure'] = new Date(`2021-${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)} 00:00:00`);
+            userTripData[i]['arrival'] = new Date(`2021-${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)} 00:00:00`);
 
             let newDepart = userTripData[i]['departure']
             let newReturn = userTripData[i]['arrival']
@@ -158,11 +186,26 @@ async function changeTripDates(req, res) {
 
             userTripData[i]['weather'] = newWeather;
 
-            // contact API
-            // loop through dates in API and match to new trip dates
-            // update weather accordingly
+            // need to sort when changing dates
+            function compareData(a, b) {
+                const tripA = a.departure;
+                const tripB = b.departure;
+                console.log(typeof tripA, tripA)
+                console.log(typeof tripB, tripB)
 
-            // updateForecast(weatherInfo, newData.depart, newData.return)
+                let comparison = 0;
+                if (tripA > tripB) {
+                    comparison = 1;
+                } else if (tripA < tripB) {
+                    comparison = -1;
+                }
+                return comparison;
+            }
+
+            userTripData.sort(compareData);
+            console.log('SORTED', userTripData)
+            res.send(userTripData)
+
         } else {
             console.log('no match');
         }

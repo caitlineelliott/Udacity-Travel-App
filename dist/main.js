@@ -878,15 +878,27 @@ function editTripDates(event) {
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
     saveBtn.style = 'margin: 0; height: 6.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
     tripDates.insertAdjacentElement('afterend', saveBtn);
-    saveBtn.addEventListener('click', function () {
+    saveBtn.addEventListener('click', async function () {
         saveEditedItem(tripDates, saveBtn);
+
+        //refresh page
+        let trips = document.querySelector('.saved-trips').children;
+
+        for (let i = trips.length - 1; i >= 0; i--) {
+            trips[i].remove();
+        }
+
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-        changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
+        await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
+
+        // need a loading animation here
+
+        getUserData('/tripdates');
     })
 }
 
-function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
+async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
     addServerData('/tripdates', {
         city: tripCity,
         depart: newTripDates.slice(0, 5),
@@ -1160,7 +1172,7 @@ function removeItem(event) {
     // deleteItems(tripCity, departDate, returnDate, itemToDelete)
 }
 
-// 
+//
 
 function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
     deleteServerData('/remove', {
@@ -1182,11 +1194,12 @@ const addServerData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA POSTED TO SERVER ${makeDateAndTime()}`);
+        console.log(`DATA POSTED TO SERVER`);
         return await response.json();
     }
-    catch {
+    catch (e) {
         console.log('FAILED TO POST DATA TO SERVER');
+        console.log(e)
     }
 };
 
@@ -1237,6 +1250,7 @@ __webpack_require__.r(__webpack_exports__);
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
+
     // remove default form from UI - need better class name here
     document.querySelector('.container').style.display = "none";
     let output = document.querySelector('.output')

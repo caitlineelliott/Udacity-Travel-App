@@ -8,6 +8,7 @@ import { viewSavedTrips } from './savedTripsView'
 const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
+
     // remove default form from UI - need better class name here
     document.querySelector('.container').style.display = "none";
     let output = document.querySelector('.output')
