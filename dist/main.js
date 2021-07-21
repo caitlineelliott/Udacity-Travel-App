@@ -1163,19 +1163,14 @@ function editData(data) {
 
 function removeData(data) {
     return function (event) {
-        let deleteTripBtn = document.querySelector('#delete');
-        let deleteItemBtn = document.querySelectorAll('#delete-item-btn');
-        if (event.target === deleteTripBtn) {
-            let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-            let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-            let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-            let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
+        let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
+        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
-            tripRow.remove();
-            deleteFromServer(tripCity, departDate, returnDate)
-        } else {
-            console.log('error')
-        }
+        tripRow.remove();
+        deleteFromServer(tripCity, departDate, returnDate)
+
     }
 }
 
@@ -1306,12 +1301,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     let forecast = weatherInfo.data;
     let dates = [];
 
-    console.log(weatherInfo.data)
-
     for (let i = 0; i < forecast.length; i++) {
         dates[i] = new Date(`${forecast[i].datetime} 00:00:00`);
-        console.log(dates[i])
-        console.log(forecast[i].datetime)
     }
 
     let tripDaysCount = [];

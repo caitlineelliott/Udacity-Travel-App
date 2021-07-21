@@ -714,19 +714,14 @@ function editData(data) {
 
 function removeData(data) {
     return function (event) {
-        let deleteTripBtn = document.querySelector('#delete');
-        let deleteItemBtn = document.querySelectorAll('#delete-item-btn');
-        if (event.target === deleteTripBtn) {
-            let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-            let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-            let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-            let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
+        let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
+        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
-            tripRow.remove();
-            deleteFromServer(tripCity, departDate, returnDate)
-        } else {
-            console.log('error')
-        }
+        tripRow.remove();
+        deleteFromServer(tripCity, departDate, returnDate)
+
     }
 }
 
