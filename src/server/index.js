@@ -133,8 +133,13 @@ function addListData(req, res) {
         let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
         let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
 
-        let departServer = userTripData[i].departure.slice(5, 10);
-        let returnServer = userTripData[i].arrival.slice(5, 10);
+        let departMM = (userTripData[i].departure.getMonth() + 1 < 10) ? `0${userTripData[i].departure.getMonth() + 1}` : `${userTripData[i].departure.getMonth() + 1}`
+        let departDD = (userTripData[i].departure.getDate() + 1 < 10) ? `0${userTripData[i].departure.getDate()}` : `${userTripData[i].departure.getDate()}`
+        let returnMM = (userTripData[i].arrival.getMonth() + 1 < 10) ? `0${userTripData[i].arrival.getMonth() + 1}` : `${userTripData[i].arrival.getMonth() + 1}`
+        let returnDD = (userTripData[i].arrival.getDate() + 1 < 10) ? `0${userTripData[i].arrival.getDate()}` : `${userTripData[i].arrival.getDate()}`
+
+        let departServer = `${departMM}-${departDD}`
+        let returnServer = `${returnMM}-${returnDD}`
 
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             userTripData[i]['packingList'] = newData.list;

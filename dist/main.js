@@ -853,6 +853,7 @@ function displayTrip(data) {
         } else if (weatherData[0] === undefined) {
             console.log('ALL weather out of range');
             longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+            longForecast.style = 'width: 80vw; margin: 20px auto; background-color: #83A8A6; padding: 20px;';
             weatherContainer.appendChild(longForecast);
         }
 
