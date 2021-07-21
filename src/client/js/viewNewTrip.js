@@ -42,16 +42,16 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     const currentDate = new Date();
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('#trip-days-count').innerHTML = ` ${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('#trip-nights-count').innerHTML = `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} nights`;
-    document.querySelector('#trip-days-until').innerHTML = `${departDate.getDate() - currentDate.getDate()} days`;
+    document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('#trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
+    document.querySelector('#trip-days-until').innerHTML = (departDate.getDate() - currentDate.getDate() === 1) ? `1 day` : `${departDate.getDate() - currentDate.getDate()} days`;
 
     // Update Forecast
     let forecast = weatherInfo.data;
     let dates = [];
 
     for (let i = 0; i < forecast.length; i++) {
-        dates[i] = new Date(`${forecast[i].datetime}T00:00:00`);
+        dates[i] = new Date(`${forecast[i].datetime} T00: 00: 00`);
     }
     let tripDaysCount = [];
     let tripWeather = document.querySelector('.forecast');
@@ -67,7 +67,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             newRow.classList.add('forecast-row');
             const tripDate = document.createElement('div');
             tripDate.classList.add('forecast-date');
-            tripDate.innerHTML = `${dates[i].getMonth() + 1}/${dates[i].getDate()}`;
+            tripDate.innerHTML = `${dates[i].getMonth() + 1} /${dates[i].getDate()}`;
             newRow.appendChild(tripDate);
 
             const weatherIcon = document.createElement('img');
