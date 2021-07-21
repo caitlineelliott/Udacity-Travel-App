@@ -847,6 +847,7 @@ function displayTrip(data) {
 
             if (tripStart < weatherEnd && weatherEnd < tripEnd) {
                 longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+                longForecast.style = 'width: 80vw; margin: 20px auto; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
             }
         } else if (weatherData[0] === undefined) {
