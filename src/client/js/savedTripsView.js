@@ -142,6 +142,7 @@ function displayTrip(data) {
         for (let i = 0; i < packedItems.length; i++) {
             let packingItemRow = document.createElement('div');
             packingItemRow.classList.add('saved-trip-packing-list');
+            packingItemRow.classList.add('packing');
 
             if (packedItems[i].toggle === true) {
                 packingItemRow.classList.add('packed');
@@ -220,13 +221,16 @@ function displayTrip(data) {
         saveBtn.style = "background-color: #c44536; width: 50vw; color: white; margin: 0";
         btnContainer.appendChild(saveBtn);
 
-        saveBtn.addEventListener('click', function () {
+        saveBtn.addEventListener('click', function (event) {
             if (todoListContainer.style.display === 'block') {
                 todoListContainer.style.display = 'none';
             } else if (packingListContainer.style.display === 'block') {
                 packingListContainer.style.display = 'none';
             }
-            updateServerLists(tripCity, tripDates)
+
+            let list = event.target.parentElement.parentElement;
+
+            updateServerLists(list, tripCity, tripDates)
         });
 
         discardBtn.addEventListener('click', function () {
@@ -249,7 +253,8 @@ function displayTrip(data) {
         let todoList = data[i].todoList;
         for (let i = 0; i < todoList.length; i++) {
             let todoItemRow = document.createElement('div'); // row of whole list under trip
-            todoItemRow.classList.add('saved-trip-packing-list')
+            todoItemRow.classList.add('saved-trip-packing-list');
+            todoItemRow.classList.add('todo');
 
             let toggle = document.createElement('button');
             let item = document.createElement('textarea');
@@ -327,7 +332,10 @@ function displayTrip(data) {
             } else if (packingListContainer.style.display === 'block') {
                 packingListContainer.style.display = 'none';
             }
-            updateServerLists(tripCity, tripDates);
+
+            let list = event.target.parentElement.parentElement;
+
+            updateServerLists(list, tripCity, tripDates);
         });
 
         discardBtnTodo.addEventListener('click', function () {
@@ -581,37 +589,68 @@ function addMoreTodos(event) {
     deleteBtn.addEventListener('click', removeItem)
 }
 
-function updateServerLists(tripCity, tripDates) {
-    let list = document.querySelectorAll('.saved-trip-packing-list');
+function updateServerLists(list, tripCity, tripDates) {
+    console.log(list.children);
     let newPackListArr = []
-    for (let i = 0; i < list.length; i++) {
-        let newItemRow = list[i];
-        let newItem = list[i].children[1];
-        let newItemText = list[i].children[1].value;
-        let newCategory = list[i].children[2].innerText;
+    let newTodoListArr = []
 
-        let packingListItem = {};
+    let items = list.children;
 
-        // handle packed/unpacked toggle
-        if (newItemRow.classList[1] === 'packed') {
-            let newToggle = true;
-            packingListItem['toggle'] = newToggle;
-        } else {
-            let newToggle = false;
-            packingListItem['toggle'] = newToggle;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].classList[1] === 'packing') { // need to diff between pack and todo & have two procesess here
+            let newItemRow = items[i];
+            let newItem = items[i].children[1];
+            let newItemText = items[i].children[1].value;
+            let newCategory = items[i].children[2].innerText;
+
+            let packingListItem = {};
+
+            // handle packed/unpacked toggle
+            if (newItemRow.classList[1] === 'packed') {
+                let newToggle = true;
+                packingListItem['toggle'] = newToggle;
+            } else {
+                let newToggle = false;
+                packingListItem['toggle'] = newToggle;
+            }
+
+            packingListItem['item'] = newItemText;
+            packingListItem['category'] = newCategory;
+
+            newPackListArr.push(packingListItem);
+        } else if (items[i].classList[1] === 'todo') {
+            let newItemRow = items[i];
+            let newItem = items[i].children[1];
+            let newItemText = items[i].children[1].value;
+            let newPriority = items[i].children[2].innerText;
+
+            let todoListItem = {};
+
+            // handle packed/unpacked toggle
+            if (newItemRow.classList[1] === 'packed') {
+                let newToggle = true;
+                todoListItem['toggle'] = newToggle;
+            } else {
+                let newToggle = false;
+                todoListItem['toggle'] = newToggle;
+            }
+
+            todoListItem['item'] = newItemText;
+            todoListItem['priority'] = newPriority;
+
+            newTodoListArr.push(todoListItem);
         }
-
-        packingListItem['item'] = newItemText;
-        packingListItem['category'] = newCategory;
-
-        newPackListArr.push(packingListItem);
     }
+
+    console.log(newPackListArr)
+
 
     addServerData('/list', {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
         return: tripDates.innerHTML.slice(8, 13),
-        list: newPackListArr
+        list: newPackListArr,
+        todo: newTodoListArr
     });
 }
 
