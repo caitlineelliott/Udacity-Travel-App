@@ -142,8 +142,14 @@ function addListData(req, res) {
         let returnServer = `${returnMM}-${returnDD}`
 
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
-            console.log('NEWDATA', userTripData[i])
-            userTripData[i]['packingList'] = newData.list; // collapses all data into packing list, need todo
+            if (newData.todo.length === 0) {
+                userTripData[i]['packingList'] = newData.list;
+            } else if (newData.list.length === 0) {
+                userTripData[i]['todoList'] = newData.todo;
+            } else {
+                console.log('no data transmitted')
+            }
+            console.log(newData)
         } else {
             console.log('no');
         }

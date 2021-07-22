@@ -141,8 +141,7 @@ function displayTrip(data) {
         let packedItems = data[i].packingList;
         for (let i = 0; i < packedItems.length; i++) {
             let packingItemRow = document.createElement('div');
-            packingItemRow.classList.add('saved-trip-packing-list');
-            packingItemRow.classList.add('packing');
+            packingItemRow.classList.add('saved-trip-packing-list', 'packing');
 
             if (packedItems[i].toggle === true) {
                 packingItemRow.classList.add('packed');
@@ -251,10 +250,10 @@ function displayTrip(data) {
 
         // TO DO LIST
         let todoList = data[i].todoList;
+        console.log(todoList)
         for (let i = 0; i < todoList.length; i++) {
             let todoItemRow = document.createElement('div'); // row of whole list under trip
-            todoItemRow.classList.add('saved-trip-packing-list');
-            todoItemRow.classList.add('todo');
+            todoItemRow.classList.add('saved-trip-packing-list', 'todo');
 
             let toggle = document.createElement('button');
             let item = document.createElement('textarea');
@@ -271,7 +270,7 @@ function displayTrip(data) {
 
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             item.innerHTML = todoList[i].item;
-            category.innerHTML = todoList[i].category;
+            category.innerHTML = todoList[i].priority;
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>'
 
@@ -509,7 +508,7 @@ function addMoreItems(event) {
     let nextCat = event.target.parentElement.children[1].value;
 
     let packingItemRow = document.createElement('div');
-    packingItemRow.classList.add('saved-trip-packing-list');
+    packingItemRow.classList.add('saved-trip-packing-list', 'packing');
     let toggle = document.createElement('div');
     let item = document.createElement('textarea');
     let category = document.createElement('div');
@@ -550,9 +549,10 @@ function addMoreTodos(event) {
     event.preventDefault();
     let nextItem = event.target.parentElement.children[0].value;
     let nextCat = event.target.parentElement.children[1].value;
+    console.log(nextCat)
 
     let packingItemRow = document.createElement('div');
-    packingItemRow.classList.add('saved-trip-packing-list');
+    packingItemRow.classList.add('saved-trip-packing-list', 'todo');
     let toggle = document.createElement('div');
     let item = document.createElement('textarea');
     let category = document.createElement('div');
@@ -595,6 +595,7 @@ function updateServerLists(list, tripCity, tripDates) {
     let newTodoListArr = []
 
     let items = list.children;
+    console.log(items)
 
     for (let i = 0; i < items.length; i++) {
         if (items[i].classList[1] === 'packing') { // need to diff between pack and todo & have two procesess here
