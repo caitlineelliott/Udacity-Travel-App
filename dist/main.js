@@ -894,7 +894,7 @@ function editTripDates(event) {
     saveBtn.style = 'margin: 0; height: 6.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
     tripDates.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', async function () {
-        saveEditedItem(tripDates, saveBtn);
+        saveEditedTripDates(tripDates, saveBtn);
 
         //refresh page
         let trips = document.querySelector('.saved-trips').children;
@@ -947,6 +947,15 @@ function saveEditedItem(editedItem) {
     let editBtn = editedItem.parentElement.children[4];
     editBtn.disabled = false;
     let saveBtn = editedItem.parentElement.children[2];
+    saveBtn.remove();
+}
+
+function saveEditedTripDates(editedItem) {
+    editedItem.readOnly = true;
+    editedItem.style = 'background-color: transparent; padding-top: 18px;'
+    let editBtn = editedItem.parentElement.children[3].children[3];
+    editBtn.disabled = false;
+    let saveBtn = editedItem.parentElement.children[1];
     saveBtn.remove();
 }
 
