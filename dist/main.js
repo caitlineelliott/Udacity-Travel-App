@@ -944,9 +944,9 @@ function editItems(event) {
 function saveEditedItem(editedItem) {
     editedItem.readOnly = true;
     editedItem.style = 'background-color: transparent; padding-top: 18px;'
-    let editBtn = editedItem.parentElement.children[3].children[3];
+    let editBtn = editedItem.parentElement.children[4];
     editBtn.disabled = false;
-    let saveBtn = editedItem.parentElement.children[1];
+    let saveBtn = editedItem.parentElement.children[2];
     saveBtn.remove();
 }
 
