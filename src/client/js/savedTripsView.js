@@ -688,46 +688,75 @@ function getNewWeather(data, packingListContainer, todoListContainer, weatherCon
 
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
     return async function (event) {
+        let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children;
+
+        let trips = document.querySelector('.saved-trips').children;
+        console.log(trips)
+
         // general display of data
         if (event.target.classList[1] === 'fa-tshirt') {
             if (packingListContainer.style.display === 'none') {
                 packingListContainer.style.display = 'block';
                 weatherContainer.style.display = 'none';
                 todoListContainer.style.display = 'none';
+
+                for (let i = 0; i < allTrips.length; i++) {
+                    if (event.target.classList[2] !== allTrips[i].id) {
+                        allTrips[i].style = "display: none;"
+                    }
+                }
+
             } else if (packingListContainer.style.display === 'block') {
                 packingListContainer.style.display = 'none'
+
+                for (let i = 0; i < trips.length; i++) {
+                    trips[i].style = 'display: block;'
+                    console.log(trips[i])
+                }
             }
         } else if (event.target.classList[1] === 'fa-clipboard-list') {
             if (todoListContainer.style.display === 'none') {
                 todoListContainer.style.display = 'block';
                 packingListContainer.style.display = 'none';
                 weatherContainer.style.display = 'none';
+
+                for (let i = 0; i < allTrips.length; i++) {
+                    if (event.target.classList[2] !== allTrips[i].id) {
+                        allTrips[i].style = "display: none;"
+                    }
+                }
+
             } else if (todoListContainer.style.display === 'block') {
                 todoListContainer.style.display = 'none'
+
+                for (let i = 0; i < trips.length; i++) {
+                    trips[i].style.display = 'block';
+                }
             }
         } else if (event.target.classList[1] === 'fa-sun') {
             if (weatherContainer.style.display === 'none') {
                 weatherContainer.style.display = 'block';
                 packingListContainer.style.display = 'none';
                 todoListContainer.style.display = 'none';
+
+                for (let i = 0; i < allTrips.length; i++) {
+                    if (event.target.classList[2] !== allTrips[i].id) {
+                        allTrips[i].style = "display: none;"
+                    }
+                }
+
             } else if (weatherContainer.style.display === 'block') {
-                weatherContainer.style.display = 'none'
+                weatherContainer.style.display = 'none';
+
+                for (let i = 0; i < trips.length; i++) {
+                    trips[i].style.display = 'block';
+                }
             }
         }
 
-        // fully remove other trips from DOM when data is open
-        let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children;
-        console.log(allTrips)
-        let currentTrip = event.target.parentElement.parentElement.parentElement.parentElement;
-
-        for (let i = 0; i < allTrips.length; i++) {
-            if (event.target.classList[2] !== allTrips[i].id) {
-                console.log(event.target.classList[2], currentTrip.id)
-                allTrips[i].style = "display: none;"
-            } else {
-                // add something to bring other trip back
-            }
-        }
+        // // hide remove other trips from DOM when data is open
+        // console.log(allTrips)
+        // let currentTrip = event.target.parentElement.parentElement.parentElement.parentElement;
     }
 }
 
