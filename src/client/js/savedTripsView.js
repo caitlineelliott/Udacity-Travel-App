@@ -270,7 +270,8 @@ function displayTrip(data) {
 
             toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
             item.innerHTML = todoList[i].item;
-            category.innerHTML = todoList[i].priority;
+            category.innerHTML = todoList[i].category;
+            console.log(todoList[i])
             editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
             deleteBtn.innerHTML = '<i class= "fas fa-times"></i>'
 
@@ -655,7 +656,7 @@ function updateServerLists(list, tripCity, tripDates) {
             }
 
             todoListItem['item'] = newItemText;
-            todoListItem['priority'] = newPriority;
+            todoListItem['category'] = newPriority;
 
             newTodoListArr.push(todoListItem);
         }
@@ -674,26 +675,26 @@ function updateServerLists(list, tripCity, tripDates) {
 }
 
 /// how can I broaden this out so I only have to write it once for packing, todo, and weather?
-function setTripDataValues(data) {
-    let packingList = data[i].packingList;
-    let todoList = data[i].todoList;
+// function setTripDataValues(data) {
+//     let packingList = data[i].packingList;
+//     let todoList = data[i].todoList;
 
-    for (let i = 0; i < packingList.length; i++) {
-        item.innerHTML = packingList[i].item
-        category.innerHTML = packingList[i].category;
-        toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-        editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-        deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-    }
+//     for (let i = 0; i < packingList.length; i++) {
+//         item.innerHTML = packingList[i].item
+//         category.innerHTML = packingList[i].category;
+//         toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+//         editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+//         deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
+//     }
 
-    for (let i = 0; i < todoList.length; i++) {
-        item.innerHTML = todoList[i].item
-        category.innerHTML = todoList[i].category;
-        toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-        editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-        deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-    }
-}
+//     for (let i = 0; i < todoList.length; i++) {
+//         item.innerHTML = todoList[i].item
+//         category.innerHTML = todoList[i].priority;
+//         toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+//         editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+//         deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
+//     }
+// }
 
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
     return async function (event) {

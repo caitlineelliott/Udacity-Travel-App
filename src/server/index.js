@@ -39,7 +39,6 @@ app.get('/all', getData);
 
 // Callback function to complete GET '/all'
 function getData(req, res) {
-    console.log('INITIAL GET REQ', userTripData[0].weather)
     res.send(userTripData);
 };
 
