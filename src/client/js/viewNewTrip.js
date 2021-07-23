@@ -1,29 +1,19 @@
-// updates UI to new trip view
-
-import { setValues } from './addPackingItem'
 import { createElements } from './addPackingItem'
 import { updateServer } from './saveTrip'
 import { viewSavedTrips } from './savedTripsView'
 
-const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
-
-    // remove default form from UI - need better class name here
-    document.querySelector('.container').style.display = "none";
+    document.querySelector('.container').style.display = "none"; // removes #initial-request from
     let output = document.querySelector('.output')
-    output.style.display = "flex"; // fix styling
+    output.style.display = "flex";
 
+    // Update Banner Img
     let bannerImg = await getHeaderPhoto(userCity);
-
     if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
-        console.log('undefined bg')
+        console.log('undefined/no background') // TODO: add custom bg here?
     } else {
         document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
     }
-
-    // no city validation
-    console.log(bannerImg)
 
     document.querySelector('h1').innerHTML = `${userCity}`;
 
@@ -40,6 +30,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     // Update Trip Details
     const currentDate = new Date();
+    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
@@ -55,9 +47,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     }
 
     let tripDaysCount = [];
-    let tripWeather = document.querySelector('.forecast');
-
     let tripWeatherArr = [];
+    let tripWeather = document.querySelector('.forecast');
 
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
@@ -96,14 +87,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         tripWeather.appendChild(moreDays);
 
         for (let i = 0; i < tripDaysCount.length; i++) {
-            if (i > 4) {
-                tripDaysCount[i].style.display = "none";
-            }
+            if (i > 4) { tripDaysCount[i].style.display = "none"; }
         }
 
         moreDays.addEventListener('click', function () {
             for (let i = 0; i < tripDaysCount.length; i++) {
-
                 if (i > 4) {
                     if (tripDaysCount[i].style.cssText === "display: none;") {
                         tripDaysCount[i].style.cssText = "display: flex;"
@@ -113,7 +101,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                         moreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
                     }
                 }
-
             }
         });
     }
@@ -132,28 +119,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         document.querySelector('.forecast').style = "padding-bottom: 20px;"
     }
 
-    // add form event listeners
-    document.querySelector('.packing-list-btn').addEventListener('click', createElements); // target packing list
-    document.querySelector('.todo-list-btn').addEventListener('click', createElements); // target to do list
+    // Packing & Todo Add Item Listeners - executed in addPackingItem.js
+    document.querySelector('.packing-list-btn').addEventListener('click', createElements);
+    document.querySelector('.todo-list-btn').addEventListener('click', createElements);
 
-    let tripBtnContainer = document.createElement('div');
-    tripBtnContainer.style = "display: flex";
-    output.appendChild(tripBtnContainer);
-
-    // create discard trip info btn
-    let discardTripBtn = document.createElement('button');
-    discardTripBtn.innerHTML = '<a href="index.html">Discard Trip</a>';
-    discardTripBtn.classList.add('save-trip-btn');
-    discardTripBtn.style = "background-color: #772e25; color: #edddd4";
-    tripBtnContainer.appendChild(discardTripBtn);
-
-    // create save trip info btn
-    let saveTripBtn = document.createElement('button');
-    saveTripBtn.innerText = 'Save Trip';
-    saveTripBtn.classList.add('save-trip-btn');
-    tripBtnContainer.appendChild(saveTripBtn);
-
-    saveTripBtn.addEventListener('click', function () {
+    document.querySelector('.save').addEventListener('click', function () {
         let packingList = []
         let todoList = []
 
@@ -171,6 +141,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             }
         };
 
+        // Save Confirmed View
         document.querySelector('.output').style.display = "none";
         const saveConfirmed = document.querySelector('.trip-saved-container');
         saveConfirmed.style.display = 'flex';
@@ -185,14 +156,13 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         let bookTripBtn = document.querySelector('.nav-saved-trips');
         bookTripBtn.removeEventListener('click', viewSavedTrips)
         bookTripBtn.innerHTML = `Book Trip`
-        bookTripBtn.setAttribute("onclick", 'location.href="index.html"') // test
+        bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
 
         updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
     });
 }
 
 // Helper Functions
-
 // NEED TO CITE - From MDN
 function getRandomNum(min, max) {
     min = Math.ceil(min);

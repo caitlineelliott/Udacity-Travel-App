@@ -488,6 +488,9 @@ input::placeholder {
   .output .item-display {
     display: none; }
 
+.trip-btn-container {
+  display: flex; }
+
 .save-trip-btn {
   margin: 0 !important;
   width: 50vw;
@@ -495,6 +498,10 @@ input::placeholder {
   .save-trip-btn a {
     color: #edddd4;
     text-decoration: none; }
+
+.discard {
+  background-color: #772e25;
+  color: #edddd4; }
 
 .trip-dates,
 .trip-city,
@@ -565,7 +572,8 @@ input::placeholder {
     text-align: center; }
 
 .packing-list-btn-stv > *,
-.packing-list-btn > * {
+.packing-list-btn > *,
+.edit-trip-btn > * {
   pointer-events: none; }
 
 .loading-animation {

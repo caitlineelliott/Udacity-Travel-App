@@ -252,6 +252,10 @@
     }
 }
 
+.trip-btn-container {
+    display: flex;
+}
+
 .save-trip-btn {
     margin: 0 !important;
     width: 50vw;
@@ -261,6 +265,11 @@
         color: $background;
         text-decoration: none;
     }
+}
+
+.discard {
+    background-color: #772e25;
+    color: #edddd4;
 }
 
 ////////
@@ -354,7 +363,8 @@
 
 // stop pointer events for icons
 .packing-list-btn-stv > *,
-.packing-list-btn > * {
+.packing-list-btn > *,
+.edit-trip-btn > * {
     pointer-events: none;
 }
 
