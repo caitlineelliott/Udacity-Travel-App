@@ -36,10 +36,10 @@ function listening() {
 
 // Initialize all route with a callback function
 app.get('/all', getData);
-app.get('/tripdates', getTripDates);
 
 // Callback function to complete GET '/all'
 function getData(req, res) {
+    console.log('INITIAL GET REQ', userTripData[0].weather)
     res.send(userTripData);
 };
 
@@ -49,8 +49,6 @@ function getTripDates(req, res) {
     function compareData(a, b) {
         const tripA = a.departure;
         const tripB = b.departure;
-        console.log(typeof tripA, tripA)
-        console.log(typeof tripB, tripB)
 
         let comparison = 0;
         if (tripA > tripB) {
@@ -63,7 +61,6 @@ function getTripDates(req, res) {
 
     userTripData.sort(compareData);
 
-    console.log('GET REQUEST', userTripData)
     res.send(userTripData);
 };
 
@@ -107,8 +104,6 @@ function addTripData(req, res) {
 
     userTripData.sort(compareData);
 
-    console.log(userTripData)
-
     res.send(userTripData);
 
     const dateTime = () => {
@@ -149,7 +144,6 @@ function addListData(req, res) {
             } else {
                 console.log('no data transmitted')
             }
-            console.log(newData)
         } else {
             console.log('no');
         }
@@ -160,9 +154,7 @@ async function changeTripDates(req, res) {
     let newData = req.body;
 
     for (let i = 0; i < userTripData.length; i++) {
-        // change trip dates
-        console.log(newData.weatherTest);
-        console.log(userTripData[i].weather[0].weather)
+        // change trip dates - on initial request
         if (newData.weatherTest == userTripData[i].weather[0].weather) {
             userTripData[i]['displayDepart'] = newData.depart;
             userTripData[i]['displayReturn'] = newData.return;
@@ -202,8 +194,6 @@ async function changeTripDates(req, res) {
             function compareData(a, b) {
                 const tripA = a.departure;
                 const tripB = b.departure;
-                console.log(typeof tripA, tripA)
-                console.log(typeof tripB, tripB)
 
                 let comparison = 0;
                 if (tripA > tripB) {
@@ -215,28 +205,18 @@ async function changeTripDates(req, res) {
             }
 
             userTripData.sort(compareData);
-            console.log('SORTED', userTripData)
-            res.send(userTripData)
-
-        } else {
-            console.log('no match');
         }
+
+        console.log('NEW WEATHER?', userTripData[0].weather)
     }
 }
 
-// function changeItemToggle(req, res) {
-//     let newData = req.body;
+app.get('/tripdates2', getUpdatedData);
 
-//     for (let i = 0; i < userTripData.length; i++) {
-//         // change toggle status
-//         if (userTripData[i].city === newData.city) {
-//             if (userTripData[i].packingList[i].item === newData.item) {
-//                 userTripData[i].packingList[i].toggleStatus = true;
-//                 console.log(userTripData[i].packingList[i]);
-//             }
-//         }
-//     }
-// }
+async function getUpdatedData(req, res) {
+    console.log('REVISED GET REQ', userTripData[0].weather)
+    res.send(userTripData);
+};
 
 app.delete('/remove', removeData);
 app.delete('/removeItems', removeItems);

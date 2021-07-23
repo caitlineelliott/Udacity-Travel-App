@@ -447,21 +447,30 @@ function editTripDates(event) {
     saveBtn.addEventListener('click', async function () {
         saveEditedTripDates(tripDates, saveBtn);
 
-        //refresh page
+        // refresh page
         let trips = document.querySelector('.saved-trips').children;
 
         for (let i = trips.length - 1; i >= 0; i--) {
             trips[i].remove();
         }
 
+        // let trips = document.querySelector('.saved-trips')
+        // trips.remove()
+
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
+
         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
 
         // need a loading animation here
 
-        getUserData('/tripdates');
+        setTimeout(displayNewTrips, 1000)
     })
+}
+
+async function displayNewTrips() {
+    await getUserData('/all')
+    console.log('timeout done')
 }
 
 async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
@@ -685,15 +694,6 @@ function setTripDataValues(data) {
         deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
     }
 }
-
-function getNewWeather(data, packingListContainer, todoListContainer, weatherContainer) {
-    if (weatherContainer.style.display === 'none') {
-        weatherContainer.style.display = 'block';
-        packingListContainer.style.display = 'none';
-        todoListContainer.style.display = 'none';
-    }
-}
-
 
 function displayData(data, packingListContainer, todoListContainer, weatherContainer) {
     return async function (event) {
