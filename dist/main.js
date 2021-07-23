@@ -1061,6 +1061,7 @@ function updateServerLists(list, tripCity, tripDates) {
     console.log(list.children);
     let newPackListArr = []
     let newTodoListArr = []
+    let newArr = []
 
     let items = list.children;
     console.log(items)
@@ -1086,7 +1087,7 @@ function updateServerLists(list, tripCity, tripDates) {
             packingListItem['item'] = newItemText;
             packingListItem['category'] = newCategory;
 
-            newPackListArr.push(packingListItem);
+            newArr.push(packingListItem);
         } else if (items[i].classList[1] === 'todo') {
             let newItemRow = items[i];
             let newItem = items[i].children[1];
@@ -1107,19 +1108,19 @@ function updateServerLists(list, tripCity, tripDates) {
             todoListItem['item'] = newItemText;
             todoListItem['category'] = newPriority;
 
-            newTodoListArr.push(todoListItem);
+            newArr.push(todoListItem);
         }
     }
 
-    console.log(newPackListArr)
+    // console.log(newPackListArr)
+    // console.log(newTodoListArr)
 
 
     addServerData('/list', {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
         return: tripDates.innerHTML.slice(8, 13),
-        list: newPackListArr,
-        todo: newTodoListArr
+        list: newArr
     });
 }
 
@@ -1251,7 +1252,6 @@ function removeData(data) {
 function removeItem(event) {
     let item = event.target.parentElement.parentElement;
     item.remove();
-
     // deleteItems(tripCity, departDate, returnDate, itemToDelete)
 }
 
