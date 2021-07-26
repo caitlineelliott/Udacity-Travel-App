@@ -564,17 +564,28 @@ function displayTrip(data) {
             </select>
             <button class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
-        <div class="trip-btn-container">
-            <button class="save-trip-btn discard discard-items-btn">Discard Changes</button>
-            <button class="save-trip-btn save save-items-btn">Save Changes</button>
-        </div>
     </div>`
+
         packingListContainer.appendChild(addMoreForm);
         packingListContainer.id = 'packing-list'
 
-        document.querySelector('.add-more-btn').addEventListener('click', addMoreItems);
-        document.querySelector('.save-items-btn').addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
-        document.querySelector('.discard-items-btn').addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        let btnContainer = document.createElement('div');
+        let addMoreBtn = document.createElement('button');
+        let discardItemsBtn = document.createElement('button');
+        let saveItemsBtn = document.createElement('button');
+        discardItemsBtn.innerHTML = 'Discard Changes';
+        saveItemsBtn.innerHTML = 'Save Changes';
+        discardItemsBtn.classList.add('save-trip-btn', 'discard', 'discard-items-btn');
+        saveItemsBtn.classList.add('save-trip-btn', 'save', 'save-items-btn');
+        packingListContainer.appendChild(btnContainer);
+        btnContainer.classList.add('trip-btn-container')
+
+        btnContainer.appendChild(discardItemsBtn);
+        btnContainer.appendChild(saveItemsBtn);
+
+        addMoreBtn.addEventListener('click', addMoreItems);
+        discardItemsBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        saveItemsBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -885,8 +896,20 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             packingListContainer.style.display = 'none';
         }
 
-        let list = event.target.parentElement.parentElement;
+        try {
+            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
 
+            for (let i = 0; i < allTrips.length; i++) {
+                allTrips[i].style = "display: block;"
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+
+
+
+        let list = event.target.parentElement.parentElement;
         updateServerLists(list, tripCity, tripDates)
     }
 }
@@ -974,25 +997,39 @@ const addServerData = async (url = '', data = {}) => {
 };
 
 function discardSTVItems(todoListContainer, packingListContainer) {
-    if (todoListContainer.style.display === 'block') {
-        todoListContainer.style.display = 'none';
-        // remove discarded items
-        let children = todoListContainer.children;
-        for (let i = 0; i < children.length; i++) {
-            if (children[i].classList[0] == 'saved-trip-packing-list') {
-                children[i].remove();
+    return function (event) {
+        if (todoListContainer.style.display === 'block') {
+            todoListContainer.style.display = 'none';
+            // remove discarded items
+            let children = todoListContainer.children;
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].classList[0] == 'saved-trip-packing-list') {
+                    children[i].remove();
+                }
+            }
+        } else if (packingListContainer.style.display === 'block') {
+            packingListContainer.style.display = 'none';
+            // remove discarded items
+            let children = packingListContainer.children;
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].classList[0] == 'saved-trip-packing-list') {
+                    children[i].remove();
+                }
             }
         }
-    } else if (packingListContainer.style.display === 'block') {
-        packingListContainer.style.display = 'none';
-        // remove discarded items
-        let children = packingListContainer.children;
-        for (let i = 0; i < children.length; i++) {
-            if (children[i].classList[0] == 'saved-trip-packing-list') {
-                children[i].remove();
+
+        try {
+            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
+
+            for (let i = 0; i < allTrips.length; i++) {
+                allTrips[i].style = "display: block;"
+
             }
+        } catch (e) {
+            console.log(e)
         }
     }
+
 };
 
 function editItems(event) {
@@ -1039,39 +1076,15 @@ function addMoreItems(event) {
     event.target.parentElement.children[0].value = '';
 
     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
-        //todo stuff
         itemRow.classList.add('saved-trip-packing-list', 'todo');
         let todoList = document.querySelector('#todo-list');
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
-        //packs tuff
         itemRow.classList.add('saved-trip-packing-list', 'packing');
         let packingList = document.querySelector('#packing-list');
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
-
-// function addMoreTodos(event) {
-//     event.preventDefault();
-
-//     let itemRow = document.createElement('div');
-
-//     // if (packedItems[i].toggle === true) { itemRow.classList.add('packed'); }
-
-//     let item = document.createElement('textarea');
-//     let category = document.createElement('div');
-//     let nextItem = event.target.parentElement.children[0].value;
-//     let nextCat = event.target.parentElement.children[1].value;
-//     item.innerHTML = nextItem;
-//     category.innerHTML = nextCat;
-
-//     addItemRows(itemRow, item, category)
-
-//     event.target.parentElement.children[0].value = '';
-
-//     // these two lines only diff between add item func, combine?
-
-// }
 
 function toggleData(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');

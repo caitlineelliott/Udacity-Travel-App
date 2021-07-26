@@ -136,17 +136,28 @@ function displayTrip(data) {
             </select>
             <button class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
-        <div class="trip-btn-container">
-            <button class="save-trip-btn discard discard-items-btn">Discard Changes</button>
-            <button class="save-trip-btn save save-items-btn">Save Changes</button>
-        </div>
     </div>`
+
         packingListContainer.appendChild(addMoreForm);
         packingListContainer.id = 'packing-list'
 
-        document.querySelector('.add-more-btn').addEventListener('click', addMoreItems);
-        document.querySelector('.save-items-btn').addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
-        document.querySelector('.discard-items-btn').addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        let btnContainer = document.createElement('div');
+        let addMoreBtn = document.createElement('button');
+        let discardItemsBtn = document.createElement('button');
+        let saveItemsBtn = document.createElement('button');
+        discardItemsBtn.innerHTML = 'Discard Changes';
+        saveItemsBtn.innerHTML = 'Save Changes';
+        discardItemsBtn.classList.add('save-trip-btn', 'discard', 'discard-items-btn');
+        saveItemsBtn.classList.add('save-trip-btn', 'save', 'save-items-btn');
+        packingListContainer.appendChild(btnContainer);
+        btnContainer.classList.add('trip-btn-container')
+
+        btnContainer.appendChild(discardItemsBtn);
+        btnContainer.appendChild(saveItemsBtn);
+
+        addMoreBtn.addEventListener('click', addMoreItems);
+        discardItemsBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        saveItemsBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -457,8 +468,20 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             packingListContainer.style.display = 'none';
         }
 
-        let list = event.target.parentElement.parentElement;
+        try {
+            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
 
+            for (let i = 0; i < allTrips.length; i++) {
+                allTrips[i].style = "display: block;"
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+
+
+
+        let list = event.target.parentElement.parentElement;
         updateServerLists(list, tripCity, tripDates)
     }
 }
@@ -546,25 +569,39 @@ const addServerData = async (url = '', data = {}) => {
 };
 
 function discardSTVItems(todoListContainer, packingListContainer) {
-    if (todoListContainer.style.display === 'block') {
-        todoListContainer.style.display = 'none';
-        // remove discarded items
-        let children = todoListContainer.children;
-        for (let i = 0; i < children.length; i++) {
-            if (children[i].classList[0] == 'saved-trip-packing-list') {
-                children[i].remove();
+    return function (event) {
+        if (todoListContainer.style.display === 'block') {
+            todoListContainer.style.display = 'none';
+            // remove discarded items
+            let children = todoListContainer.children;
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].classList[0] == 'saved-trip-packing-list') {
+                    children[i].remove();
+                }
+            }
+        } else if (packingListContainer.style.display === 'block') {
+            packingListContainer.style.display = 'none';
+            // remove discarded items
+            let children = packingListContainer.children;
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].classList[0] == 'saved-trip-packing-list') {
+                    children[i].remove();
+                }
             }
         }
-    } else if (packingListContainer.style.display === 'block') {
-        packingListContainer.style.display = 'none';
-        // remove discarded items
-        let children = packingListContainer.children;
-        for (let i = 0; i < children.length; i++) {
-            if (children[i].classList[0] == 'saved-trip-packing-list') {
-                children[i].remove();
+
+        try {
+            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
+
+            for (let i = 0; i < allTrips.length; i++) {
+                allTrips[i].style = "display: block;"
+
             }
+        } catch (e) {
+            console.log(e)
         }
     }
+
 };
 
 function editItems(event) {

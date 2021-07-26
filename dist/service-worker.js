@@ -108,7 +108,7 @@ define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use s
 
   workbox.precacheAndRoute([{
     "url": "./index.html",
-    "revision": "db5bfe60a27fede73aa2a3bd7b7e8956"
+    "revision": "085c683686416fe57d84f034e53c432f"
   }, {
     "url": "imgs/ClipartKey_2381063.e7a12b.png",
     "revision": null
@@ -117,7 +117,7 @@ define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use s
     "revision": "57e27786ff14a0b993309c110a4dd036"
   }, {
     "url": "main.js",
-    "revision": "17d950934ebb9e185334851cd2d92268"
+    "revision": "db8cb7ec696334bc39b0218c3ddbb1da"
   }], {});
 
 });
