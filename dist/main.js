@@ -784,13 +784,16 @@ function editTripDates(event) {
 
         // refresh page
         let trips = document.querySelector('.saved-trips').children;
+        let tripsContainer = document.querySelector('.saved-trips');
         for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
 
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-        setTimeout(displayNewTrips, 1000)
+
+        tripsContainer.appendChild(loader);
+        setTimeout(displayNewTrips, 1000);
     })
 }
 
@@ -813,7 +816,7 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
     });
 }
 
-async function displayNewTrips() {
+async function displayNewTrips(loader) {
     await getUserData('/all')
 }
 
@@ -1152,7 +1155,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
     document.querySelector('#trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('#trip-days-until').innerHTML = (departDate.getDate() - currentDate.getDate() === 1) ? `1 day` : `${departDate.getDate() - currentDate.getDate()} days`;
+    document.querySelector('#trip-days-until').innerHTML = (parseInt((departDate - currentDate) / 1000 / 60 / 60 / 24) === 1) ? `1 day` : `${parseInt((departDate - currentDate) / 1000 / 60 / 60 / 24)} days`;
+
 
     // Update Forecast
     let forecast = weatherInfo.data;

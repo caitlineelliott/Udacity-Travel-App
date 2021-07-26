@@ -579,17 +579,14 @@ input::placeholder {
 .loading-animation {
   width: 100vw;
   height: 5vh;
-  opacity: 0.5; }
+  opacity: 0.5;
+  background-color: #edddd4; }
 
 @keyframes loading {
   0% {
-    background-color: #edddd4; }
-  25% {
-    background-color: #83A8A6; }
-  50% {
-    background-color: #197278; }
+    display: block; }
   100% {
-    background-color: #83A8A6; } }
+    display: none; } }
 
 /* TABLET */
 @media only screen and (min-width: 768px) {

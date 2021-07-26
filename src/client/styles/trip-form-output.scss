@@ -373,16 +373,14 @@
     width: 100vw;
     height: 5vh;
     opacity: 0.5;
-    // background-color: $background;
+    background-color: $background;
     // animation-name: loading;
-    // animation-duration: 4s;
+    // animation-duration: 2s;
 }
 
 @keyframes loading {
-    0%   {background-color: $background;}
-    25%  {background-color: $h2-color-light;}
-    50%  {background-color: $h2-color;}
-    100% {background-color: $h2-color-light;}
+    0%   {display: block;}
+    100% {display: none;}
   }
 
 /* TABLET */

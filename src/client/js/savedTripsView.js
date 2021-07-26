@@ -356,13 +356,16 @@ function editTripDates(event) {
 
         // refresh page
         let trips = document.querySelector('.saved-trips').children;
+        let tripsContainer = document.querySelector('.saved-trips');
         for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
 
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-        setTimeout(displayNewTrips, 1000)
+
+        tripsContainer.appendChild(loader);
+        setTimeout(displayNewTrips, 1000);
     })
 }
 
@@ -385,7 +388,7 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
     });
 }
 
-async function displayNewTrips() {
+async function displayNewTrips(loader) {
     await getUserData('/all')
 }
 
