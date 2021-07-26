@@ -145,6 +145,7 @@ function displayTrip(data) {
         let addMoreBtn = document.createElement('button');
         let discardItemsBtn = document.createElement('button');
         let saveItemsBtn = document.createElement('button');
+
         discardItemsBtn.innerHTML = 'Discard Changes';
         saveItemsBtn.innerHTML = 'Save Changes';
         discardItemsBtn.classList.add('save-trip-btn', 'discard', 'discard-items-btn');
@@ -482,24 +483,21 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             console.log(e)
         }
 
-
-
-        let list = event.target.parentElement.parentElement;
-        updateServerLists(list, tripCity, tripDates)
+        let items = event.target.parentElement.parentElement.parentElement.parentElement.children;
+        console.log(items)
+        updateServerLists(items, tripCity, tripDates)
     }
 }
 
-function updateServerLists(list, tripCity, tripDates) {
-    console.log(list.children);
+function updateServerLists(items, tripCity, tripDates) {
     let newPackListArr = []
     let newTodoListArr = []
-    let newArr = []
-
-    let items = list.children;
-    console.log(items)
+    let emptyList = []
 
     for (let i = 0; i < items.length; i++) {
-        if (items[i].classList[1] === 'packing') { // need to diff between pack and todo & have two procesess here
+        let flag = items[i].classList[1]
+
+        if (flag === 'packing') { // need to diff between pack and todo & have two procesess here
             let newItemRow = items[i];
             let newItem = items[i].children[1];
             let newItemText = items[i].children[1].value;
@@ -519,8 +517,9 @@ function updateServerLists(list, tripCity, tripDates) {
             packingListItem['item'] = newItemText;
             packingListItem['category'] = newCategory;
 
-            newArr.push(packingListItem);
-        } else if (items[i].classList[1] === 'todo') {
+            newPackListArr.push(packingListItem);
+
+        } else if (flag === 'todo') {
             let newItemRow = items[i];
             let newItem = items[i].children[1];
             let newItemText = items[i].children[1].value;
@@ -540,7 +539,14 @@ function updateServerLists(list, tripCity, tripDates) {
             todoListItem['item'] = newItemText;
             todoListItem['category'] = newPriority;
 
-            newArr.push(todoListItem);
+            newTodoListArr.push(todoListItem);
+        } else if (items.length < 2) {
+            if (flag === 'packing') {
+                newPackListArr.push(emptyList);
+            }
+            else if (flag === 'todo') {
+                newTodoListArr.push(emptyList);
+            }
         }
     }
 
@@ -548,7 +554,8 @@ function updateServerLists(list, tripCity, tripDates) {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
         return: tripDates.innerHTML.slice(8, 13),
-        list: newArr
+        packing: newPackListArr,
+        todo: newTodoListArr
     });
 }
 

@@ -135,13 +135,9 @@ function addListData(req, res) {
         let departServer = `${departMM}-${departDD}`
         let returnServer = `${returnMM}-${returnDD}`
 
-        // console.log(userTripData[i].city, newData.city)
-        // console.log(departServer, departDOM)
-        // console.log(returnServer, returnDOM)
-        // console.log(newData.todo.length)
-        // console.log(newData.list.length)
-        // console.log(newData.list)
-        console.log(newData.list)
+        console.log('new data', newData.list)
+        console.log('new data', newData)
+        console.log('new data', newData.list.length)
 
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             if (newData.list['category'] === 'Priority' || newData.list['category'] === 'High' || newData.list['category'] === 'Medium' || newData.list['category'] === 'Low') {
@@ -149,20 +145,6 @@ function addListData(req, res) {
             } else {
                 userTripData[i]['packingList'] = newData.list;
             }
-
-
-
-
-            // if (newData.list.length === 0) {
-            //     userTripData[i]['packingList'] = newData.list;
-            // } else if (newData.todo.length === 0) {
-            //     userTripData[i]['todoList'] = newData.todo;
-            // } else if (newData.list.length === 0 && newData.todo.length === 0) {
-            //     userTripData[i]['packingList'] = newData.list;
-            //     userTripData[i]['todoList'] = newData.todo;
-            // } else {
-            //     console.log('no data transmitted')
-            // }
         } else {
             console.log('no');
         }
