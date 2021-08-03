@@ -159,8 +159,7 @@ function displayTrip(data) {
             let itemRow = document.createElement('div');
             itemRow.classList.add('saved-trip-packing-list', 'todo');
 
-            // if (packedItems[i].toggle === true) { itemRow.classList.add('packed'); }
-            // change for todo items
+            if (todoList[i].toggle === true) { itemRow.classList.add('packed'); }
 
             let item = document.createElement('textarea');
             let category = document.createElement('div');
@@ -480,6 +479,7 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
         let itemsArr = []
 
         for (let i = 0; i < items.length; i++) {
+            // if no list items
             if (items.length < 2) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.parentElement.parentElement.id;
@@ -492,13 +492,21 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                     newItem['listType'] = 'packing'
                 }
                 itemsArr.push(newItem)
-            } else {
+            }
+            // if yes list items
+            else {
                 if (items[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {}
                     let flag = items[i].classList[1]
 
                     newItem['item'] = items[i].children[1].value;
                     newItem['category'] = items[i].children[2].innerText;
+
+                    if (items[i].classList[2] === 'packed') {
+                        newItem['toggle'] = true;
+                    } else {
+                        newItem['toggle'] = false;
+                    }
 
                     if (flag === 'todo') {
                         newItem['listType'] = 'todo'
@@ -507,6 +515,8 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                     }
                     itemsArr.push(newItem)
                 }
+
+                console.log(itemsArr)
             }
         }
         updateServerLists(itemsArr, tripCity, tripDates)
@@ -514,75 +524,6 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 }
 
 function updateServerLists(itemsArr, tripCity, tripDates) {
-    // let newList = []
-    // let item = {};
-
-    // if (items.length < 2) {
-    //     let category = event.target.parentElement.parentElement.parentElement.parentElement.id
-    //     console.log(category)
-
-    //     if (category === 'packing-list') {
-    //         console.log(newList)
-    //     }
-    //     else if (category === 'todo-list') {
-    //         todoListItem['item'] = null;
-    //         todoListItem['category'] = 'todo';
-    //         newList.push(todoListItem);
-    //         console.log(newList)
-    //     }
-
-    // } else {
-    //     for (let i = 0; i < items.length; i++) {
-    //         let flag = items[i].classList[1]
-
-    //         console.log(items[i], flag)
-
-    //         if (flag === 'packing') {
-    //             let newItemRow = items[i];
-    //             let newItem = items[i].children[1];
-    //             let newItemText = items[i].children[1].value;
-    //             let newCategory = items[i].children[2].innerText;
-
-    //             // handle packed/unpacked toggle
-    //             if (newItemRow.classList[1] === 'packed') {
-    //                 let newToggle = true;
-    //                 item['toggle'] = newToggle;
-    //             } else {
-    //                 let newToggle = false;
-    //                 item['toggle'] = newToggle;
-    //             }
-
-    //             item['item'] = newItemText;
-    //             item['category'] = newCategory;
-
-    //             newList.push(packingListItem);
-
-    //         } else if (flag === 'todo') {
-    //             let newItemRow = items[i];
-    //             let newItem = items[i].children[1];
-    //             let newItemText = items[i].children[1].value;
-    //             let newPriority = items[i].children[2].innerText;
-
-    //             // handle packed/unpacked toggle
-    //             if (newItemRow.classList[1] === 'packed') {
-    //                 let newToggle = true;
-    //                 item['toggle'] = newToggle;
-    //             } else {
-    //                 let newToggle = false;
-    //                 item['toggle'] = newToggle;
-    //             }
-
-    //             item['item'] = newItemText;
-    //             console.log(newItemText) // logs both different items here
-    //             item['category'] = newPriority;
-
-    //         }
-    //         newList.push(item);
-    //         console.log(newList) // not correct here for some reason
-    //     }
-    // }
-
-
     addServerData('/list', {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
