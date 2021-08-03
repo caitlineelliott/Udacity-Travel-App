@@ -471,11 +471,11 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
         }
 
         try {
-            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
+            let allItems = event.target.parentElement.parentElement.parentElement.parentElement.children;
 
-            for (let i = 0; i < allTrips.length; i++) {
-                allTrips[i].style = "display: block;"
-
+            for (let i = 0; i < allItems.length; i++) {
+                allItems[i].style = "display: flex;"
+                console.log(allItems[i])
             }
         } catch (e) {
             console.log(e)
