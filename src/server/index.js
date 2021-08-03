@@ -126,30 +126,41 @@ function addListData(req, res) {
     for (let i = 0; i < userTripData.length; i++) {
         let departDOM = `${newData.depart.slice(0, 2)}-${newData.depart.slice(3, 5)}`;
         let returnDOM = `${newData.return.slice(0, 2)}-${newData.return.slice(3, 5)}`;
-
         let departMM = (userTripData[i].departure.getMonth() + 1 < 10) ? `0${userTripData[i].departure.getMonth() + 1}` : `${userTripData[i].departure.getMonth() + 1}`
         let departDD = (userTripData[i].departure.getDate() + 1 < 10) ? `0${userTripData[i].departure.getDate()}` : `${userTripData[i].departure.getDate()}`
         let returnMM = (userTripData[i].arrival.getMonth() + 1 < 10) ? `0${userTripData[i].arrival.getMonth() + 1}` : `${userTripData[i].arrival.getMonth() + 1}`
         let returnDD = (userTripData[i].arrival.getDate() + 1 < 10) ? `0${userTripData[i].arrival.getDate()}` : `${userTripData[i].arrival.getDate()}`
-
         let departServer = `${departMM}-${departDD}`
         let returnServer = `${returnMM}-${returnDD}`
 
-        console.log('new data', newData.list)
-        console.log('new data', newData)
-        console.log('new data', newData.list.length)
+        let length = newData.list.length
 
+        // code for packing list & for lists with no items
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
-            if (newData.list['category'] === 'Priority' || newData.list['category'] === 'High' || newData.list['category'] === 'Medium' || newData.list['category'] === 'Low') {
-                userTripData[i]['todoList'] = newData.todo;
-            } else {
-                userTripData[i]['packingList'] = newData.list;
-            }
-        } else {
-            console.log('no');
-        }
+            let currentTrip = userTripData[i]
+            for (let i = 0; i < length; i++) {
+                if (newData.list[i]['listType'] === 'todo') {
+                    currentTrip['todoList'] = newData.list;
 
-        console.log(userTripData[i])
+                    if (newData.list[i]['item'] === null) {
+                        currentTrip['todoList'] = [];
+                    }
+
+                    console.log('new to do list', currentTrip['todoList'])
+
+
+                } else if (newData.list[i]['listType'] === 'packing') {
+                    currentTrip['packingList'] = newData.list;
+
+                    if (newData.list[i]['item'] === null) {
+                        currentTrip['packingList'] = [];
+                    }
+
+                    console.log('new packing list', currentTrip['packingList'])
+
+                }
+            }
+        }
     }
 };
 

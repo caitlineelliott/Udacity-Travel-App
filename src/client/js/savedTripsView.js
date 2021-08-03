@@ -114,7 +114,7 @@ function displayTrip(data) {
             item.innerHTML = packedItems[i].item;
             category.innerHTML = packedItems[i].category;
 
-            addItemRows(itemRow, item, category)
+            addItemRows(itemRow, item, category);
             packingListContainer.appendChild(itemRow);
         }
 
@@ -134,31 +134,24 @@ function displayTrip(data) {
                 <option class="toiletries">Toiletries</option>
                 <option class="other">Other</option>
             </select>
-            <button class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
+            <button id="add-more-packing-stv" class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
-    </div>`
+        <div class="trip-btn-container">
+            <button class="save-trip-btn discard discard-packing-btn">Discard Changes</button>
+            <button class="save-trip-btn save save-packing-btn">Save Changes</button>
+        </div>
+    </div>`;
 
         packingListContainer.appendChild(addMoreForm);
         packingListContainer.id = 'packing-list'
 
-        let btnContainer = document.createElement('div');
-        let addMoreBtn = document.createElement('button');
-        let discardItemsBtn = document.createElement('button');
-        let saveItemsBtn = document.createElement('button');
+        let addMorePack = document.querySelector('#add-more-packing-stv');
+        addMorePack.addEventListener('click', function (event) {
+            addMoreItems(event);
+        });
 
-        discardItemsBtn.innerHTML = 'Discard Changes';
-        saveItemsBtn.innerHTML = 'Save Changes';
-        discardItemsBtn.classList.add('save-trip-btn', 'discard', 'discard-items-btn');
-        saveItemsBtn.classList.add('save-trip-btn', 'save', 'save-items-btn');
-        packingListContainer.appendChild(btnContainer);
-        btnContainer.classList.add('trip-btn-container')
-
-        btnContainer.appendChild(discardItemsBtn);
-        btnContainer.appendChild(saveItemsBtn);
-
-        addMoreBtn.addEventListener('click', addMoreItems);
-        discardItemsBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
-        saveItemsBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
+        document.querySelector('.discard-packing-btn').addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        document.querySelector('.save-packing-btn').addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -484,78 +477,117 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
         }
 
         let items = event.target.parentElement.parentElement.parentElement.parentElement.children;
-        console.log(items)
-        updateServerLists(items, tripCity, tripDates)
+        let itemsArr = []
+
+        for (let i = 0; i < items.length; i++) {
+            if (items.length < 2) {
+                let newItem = {};
+                let flag = event.target.parentElement.parentElement.parentElement.parentElement.id;
+
+                newItem['item'] = null
+
+                if (flag === 'todo-list') {
+                    newItem['listType'] = 'todo'
+                } else if (flag === 'packing-list') {
+                    newItem['listType'] = 'packing'
+                }
+                itemsArr.push(newItem)
+            } else {
+                if (items[i].classList[0] === 'saved-trip-packing-list') {
+                    let newItem = {}
+                    let flag = items[i].classList[1]
+
+                    newItem['item'] = items[i].children[1].value;
+                    newItem['category'] = items[i].children[2].innerText;
+
+                    if (flag === 'todo') {
+                        newItem['listType'] = 'todo'
+                    } else if (flag === 'packing') {
+                        newItem['listType'] = 'packing'
+                    }
+                    itemsArr.push(newItem)
+                }
+            }
+        }
+        updateServerLists(itemsArr, tripCity, tripDates)
     }
 }
 
-function updateServerLists(items, tripCity, tripDates) {
-    let newPackListArr = []
-    let newTodoListArr = []
-    let emptyList = []
+function updateServerLists(itemsArr, tripCity, tripDates) {
+    // let newList = []
+    // let item = {};
 
-    for (let i = 0; i < items.length; i++) {
-        let flag = items[i].classList[1]
+    // if (items.length < 2) {
+    //     let category = event.target.parentElement.parentElement.parentElement.parentElement.id
+    //     console.log(category)
 
-        if (flag === 'packing') { // need to diff between pack and todo & have two procesess here
-            let newItemRow = items[i];
-            let newItem = items[i].children[1];
-            let newItemText = items[i].children[1].value;
-            let newCategory = items[i].children[2].innerText;
+    //     if (category === 'packing-list') {
+    //         console.log(newList)
+    //     }
+    //     else if (category === 'todo-list') {
+    //         todoListItem['item'] = null;
+    //         todoListItem['category'] = 'todo';
+    //         newList.push(todoListItem);
+    //         console.log(newList)
+    //     }
 
-            let packingListItem = {};
+    // } else {
+    //     for (let i = 0; i < items.length; i++) {
+    //         let flag = items[i].classList[1]
 
-            // handle packed/unpacked toggle
-            if (newItemRow.classList[1] === 'packed') {
-                let newToggle = true;
-                packingListItem['toggle'] = newToggle;
-            } else {
-                let newToggle = false;
-                packingListItem['toggle'] = newToggle;
-            }
+    //         console.log(items[i], flag)
 
-            packingListItem['item'] = newItemText;
-            packingListItem['category'] = newCategory;
+    //         if (flag === 'packing') {
+    //             let newItemRow = items[i];
+    //             let newItem = items[i].children[1];
+    //             let newItemText = items[i].children[1].value;
+    //             let newCategory = items[i].children[2].innerText;
 
-            newPackListArr.push(packingListItem);
+    //             // handle packed/unpacked toggle
+    //             if (newItemRow.classList[1] === 'packed') {
+    //                 let newToggle = true;
+    //                 item['toggle'] = newToggle;
+    //             } else {
+    //                 let newToggle = false;
+    //                 item['toggle'] = newToggle;
+    //             }
 
-        } else if (flag === 'todo') {
-            let newItemRow = items[i];
-            let newItem = items[i].children[1];
-            let newItemText = items[i].children[1].value;
-            let newPriority = items[i].children[2].innerText;
+    //             item['item'] = newItemText;
+    //             item['category'] = newCategory;
 
-            let todoListItem = {};
+    //             newList.push(packingListItem);
 
-            // handle packed/unpacked toggle
-            if (newItemRow.classList[1] === 'packed') {
-                let newToggle = true;
-                todoListItem['toggle'] = newToggle;
-            } else {
-                let newToggle = false;
-                todoListItem['toggle'] = newToggle;
-            }
+    //         } else if (flag === 'todo') {
+    //             let newItemRow = items[i];
+    //             let newItem = items[i].children[1];
+    //             let newItemText = items[i].children[1].value;
+    //             let newPriority = items[i].children[2].innerText;
 
-            todoListItem['item'] = newItemText;
-            todoListItem['category'] = newPriority;
+    //             // handle packed/unpacked toggle
+    //             if (newItemRow.classList[1] === 'packed') {
+    //                 let newToggle = true;
+    //                 item['toggle'] = newToggle;
+    //             } else {
+    //                 let newToggle = false;
+    //                 item['toggle'] = newToggle;
+    //             }
 
-            newTodoListArr.push(todoListItem);
-        } else if (items.length < 2) {
-            if (flag === 'packing') {
-                newPackListArr.push(emptyList);
-            }
-            else if (flag === 'todo') {
-                newTodoListArr.push(emptyList);
-            }
-        }
-    }
+    //             item['item'] = newItemText;
+    //             console.log(newItemText) // logs both different items here
+    //             item['category'] = newPriority;
+
+    //         }
+    //         newList.push(item);
+    //         console.log(newList) // not correct here for some reason
+    //     }
+    // }
+
 
     addServerData('/list', {
         city: tripCity.innerText,
         depart: tripDates.innerHTML.slice(0, 5),
         return: tripDates.innerHTML.slice(8, 13),
-        packing: newPackListArr,
-        todo: newTodoListArr
+        list: itemsArr
     });
 }
 
