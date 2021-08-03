@@ -520,11 +520,18 @@ function displayTrip(data) {
         newTripContainer.appendChild(todoListContainer);
         newTripContainer.appendChild(weatherContainer);
 
+        // handle spaces in trip names for id setting
         if (data[i].city.indexOf(' ') >= 0) {
             let newID = data[i].city.replace(/\s/g, '');
             newTripContainer.id = `${newID}-trip`;
+            tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
+            tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
+            tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
         } else {
             newTripContainer.id = `${data[i].city}-trip`;
+            tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
+            tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
+            tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
         }
 
         tripContainer.appendChild(newTripContainer)
