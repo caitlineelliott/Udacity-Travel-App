@@ -373,7 +373,8 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
 }
 
 function editTripDates(event) {
-    let btn = event.target;
+    let btn = event.target.parentElement;
+    console.log(btn)
     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
@@ -400,7 +401,6 @@ function editTripDates(event) {
 
         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
 
-        tripsContainer.appendChild(loader);
         setTimeout(displayNewTrips, 1000);
     })
 }
