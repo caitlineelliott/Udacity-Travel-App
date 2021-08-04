@@ -157,7 +157,6 @@ function addListData(req, res) {
                     }
 
                     console.log('new packing list', currentTrip['packingList'])
-
                 }
             }
         }

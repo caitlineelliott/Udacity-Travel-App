@@ -569,24 +569,52 @@ function displayTrip(data) {
                 <option class="toiletries">Toiletries</option>
                 <option class="other">Other</option>
             </select>
-            <button id="add-more-packing-stv" class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
-        <div class="trip-btn-container">
+    </div>`;
+
+        {/*
+                        <button id="add-more-packing-stv" class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
+s
+            
+            <div class="trip-btn-container">
             <button class="save-trip-btn discard discard-packing-btn">Discard Changes</button>
             <button class="save-trip-btn save save-packing-btn">Save Changes</button>
-        </div>
-    </div>`;
+        </div> */}
+
+        let addMorePackBtn = document.createElement('button');
+        addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
+        addMorePackBtn.id = 'add-more-packing-stv';
+        addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+
+        let form = addMoreForm.childNodes[1].children[1];
+        console.log(addMoreForm.childNodes[1].children[1])
+        form.appendChild(addMorePackBtn)
 
         packingListContainer.appendChild(addMoreForm);
         packingListContainer.id = 'packing-list'
 
-        let addMorePack = document.querySelector('#add-more-packing-stv');
-        addMorePack.addEventListener('click', function (event) {
+        let btnContainer = document.createElement('div');
+        btnContainer.classList.add('trip-btn-container');
+        packingListContainer.appendChild(btnContainer)
+
+        let discardPackBtn = document.createElement('button');
+        discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
+        discardPackBtn.innerHTML = 'Discard Changes';
+
+        let savePackBtn = document.createElement('div');
+        savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
+        savePackBtn.innerHTML = 'Save Changes'
+
+        btnContainer.appendChild(discardPackBtn);
+        btnContainer.appendChild(savePackBtn);
+
+        // let addMorePack = document.querySelector('#add-more-packing-stv');
+        addMorePackBtn.addEventListener('click', function (event) {
             addMoreItems(event);
         });
 
-        document.querySelector('.discard-packing-btn').addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
-        document.querySelector('.save-packing-btn').addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
+        discardPackBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
         // TO DO LIST
         let todoList = data[i].todoList;
@@ -606,8 +634,8 @@ function displayTrip(data) {
         }
 
         // ADD MORE FORM
-        let addMoreFormTodo = document.createElement('div');
-        addMoreFormTodo.innerHTML = `
+        let addMoreTodosForm = document.createElement('div');
+        addMoreTodosForm.innerHTML = `
     <div class="packing-list-btn-container">
     <p>Missing something? Add more here:</p>
         <form class="packing-list-form">
@@ -618,24 +646,42 @@ function displayTrip(data) {
                 <option class="medium">Medium</option>
                 <option class="low">Low</option>
             </select>
-            <button id='add-more-todos-stv' class="packing-list-btn-stv"><i class="fas fa-plus"></i></button>
         </form>
-        <div class="trip-btn-container">
-            <button class="save-trip-btn discard discard-todo-btn">Discard Changes</button>
-            <button class="save-trip-btn save save-todo-btn">Save Changes</button>
-        </div>
     </div>`;
 
-        todoListContainer.appendChild(addMoreFormTodo);
+        let addMoreTodoBtn = document.createElement('button');
+        addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
+        addMoreTodoBtn.id = 'add-more-packing-stv';
+        addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+
+        let todoForm = addMoreTodosForm.childNodes[1].children[1];
+        todoForm.appendChild(addMoreTodoBtn)
+
+        todoListContainer.appendChild(addMoreTodosForm);
         todoListContainer.id = 'todo-list'
 
-        let addMoreTodo = document.querySelector('#add-more-todos-stv');
-        addMoreTodo.addEventListener('click', function (event) {
+        let todoBtnContainer = document.createElement('div');
+        todoBtnContainer.classList.add('trip-btn-container');
+        todoListContainer.appendChild(todoBtnContainer)
+
+        let discardTodoBtn = document.createElement('button');
+        discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
+        discardTodoBtn.innerHTML = 'Discard Changes';
+
+        let saveTodoBtn = document.createElement('div');
+        saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
+        saveTodoBtn.innerHTML = 'Save Changes';
+
+        todoBtnContainer.appendChild(discardTodoBtn);
+        todoBtnContainer.appendChild(saveTodoBtn);
+
+        // let addMorePack = document.querySelector('#add-more-packing-stv');
+        addMoreTodoBtn.addEventListener('click', function (event) {
             addMoreItems(event);
         });
 
-        document.querySelector('.save-todo-btn').addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
-        document.querySelector('.discard-todo-btn').addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        discardTodoBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+        saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
 
         // WEATHER
         let weatherData = data[i].weather;
@@ -898,25 +944,20 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             packingListContainer.style.display = 'none';
         }
 
-        try {
-            let allItems = event.target.parentElement.parentElement.parentElement.parentElement.children;
+        let allItems = event.target.parentElement.parentElement.children;
+        console.log(allItems)
 
-            for (let i = 0; i < allItems.length; i++) {
-                allItems[i].style = "display: flex;"
-                console.log(allItems[i])
-            }
-        } catch (e) {
-            console.log(e)
-        }
-
-        let items = event.target.parentElement.parentElement.parentElement.parentElement.children;
         let itemsArr = []
 
-        for (let i = 0; i < items.length; i++) {
+        for (let i = 0; i < allItems.length; i++) {
+            allItems[i].style = "display: flex;"
+
             // if no list items
-            if (items.length < 2) {
+            if (allItems.length < 3) {
                 let newItem = {};
-                let flag = event.target.parentElement.parentElement.parentElement.parentElement.id;
+
+                let flag = event.target.parentElement.parentElement.id;
+                console.log(flag)
 
                 newItem['item'] = null
 
@@ -926,17 +967,18 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                     newItem['listType'] = 'packing'
                 }
                 itemsArr.push(newItem)
+                console.log(itemsArr)
             }
             // if yes list items
             else {
-                if (items[i].classList[0] === 'saved-trip-packing-list') {
+                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {}
-                    let flag = items[i].classList[1]
+                    let flag = allItems[i].classList[1]
 
-                    newItem['item'] = items[i].children[1].value;
-                    newItem['category'] = items[i].children[2].innerText;
+                    newItem['item'] = allItems[i].children[1].value;
+                    newItem['category'] = allItems[i].children[2].innerText;
 
-                    if (items[i].classList[2] === 'packed') {
+                    if (allItems[i].classList[2] === 'packed') {
                         newItem['toggle'] = true;
                     } else {
                         newItem['toggle'] = false;
@@ -949,10 +991,9 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                     }
                     itemsArr.push(newItem)
                 }
-
-                console.log(itemsArr)
             }
         }
+        console.log(itemsArr)
         updateServerLists(itemsArr, tripCity, tripDates)
     }
 }
@@ -1060,17 +1101,19 @@ function addMoreItems(event) {
     item.innerHTML = nextItem;
     category.innerHTML = nextCat;
 
+    console.log(nextItem, nextCat)
+
     addItemRows(itemRow, item, category)
 
     event.target.parentElement.children[0].value = '';
 
     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
         itemRow.classList.add('saved-trip-packing-list', 'todo');
-        let todoList = document.querySelector('#todo-list');
+        let todoList = event.target.parentElement.parentElement.parentElement.parentElement;
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
         itemRow.classList.add('saved-trip-packing-list', 'packing');
-        let packingList = document.querySelector('#packing-list');
+        let packingList = event.target.parentElement.parentElement.parentElement.parentElement;
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
