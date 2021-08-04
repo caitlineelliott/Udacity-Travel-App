@@ -514,6 +514,17 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 
         for (let i = 0; i < allItems.length; i++) {
 
+            // removed modified designation from STV view
+            let classes = allItems[i].classList;
+            let iterator = classes.entries();
+
+            for (let value of iterator) {
+                if (value[1] === 'modified') {
+                    console.log('we did it joe!')
+                    allItems[i].classList.remove('modified');
+                }
+            }
+
             // delete items staged for removal
             if (allItems[i].style.display === 'none') {
                 console.log(allItems[i])
@@ -547,10 +558,21 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                         newItem['item'] = allItems[i].children[1].value;
                         newItem['category'] = allItems[i].children[2].innerText;
 
-                        if (allItems[i].classList[2] === 'packed' || allItems[i].classList[3] === 'packed') {
-                            newItem['toggle'] = true;
-                        } else {
-                            newItem['toggle'] = false;
+                        console.log(allItems[i].classList.length)
+                        console.log(allItems[i].classList)
+
+
+                        // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
+                        // iterates through classes to find packed flag and toggle
+                        let classes = allItems[i].classList;
+                        let iterator = classes.entries();
+
+                        for (let value of iterator) {
+                            if (value[1] === 'packed') {
+                                newItem['toggle'] = true;
+                            } else {
+                                newItem['toggle'] = false;
+                            }
                         }
 
                         if (flag === 'todo') {
@@ -612,6 +634,17 @@ function discardSTVItems(todoListContainer, packingListContainer) {
                 if (children[i].style.display = 'none') {
                     children[i].style.display = 'flex'; // does this make alignment weird
                 }
+
+                // fix toggle modifications
+                let classes = children[i].classList;
+                let iterator = classes.entries();
+
+                for (let value of iterator) {
+                    if (value[1] === 'modified') {
+                        console.log('toggling!')
+                        children[i].classList.toggle('packed');
+                    }
+                }
             }
         } else if (packingListContainer.style.display === 'block') {
             packingListContainer.style.display = 'none';
@@ -627,6 +660,17 @@ function discardSTVItems(todoListContainer, packingListContainer) {
                 // return 'deleted' items
                 if (children[i].style.display = 'none') {
                     children[i].style.display = 'flex'; // does this make alignment weird
+                }
+
+                // fix toggle modifications
+                let classes = children[i].classList;
+                let iterator = classes.entries();
+
+                for (let value of iterator) {
+                    if (value[1] === 'modified') {
+                        console.log('toggling!')
+                        children[i].classList.toggle('packed');
+                    }
                 }
             }
         }
@@ -702,8 +746,8 @@ function addMoreItems(event) {
 }
 
 function toggleData(event) {
+    event.target.parentElement.parentElement.classList.add('modified'); // test
     event.target.parentElement.parentElement.classList.toggle('packed');
-    // add server link
 }
 
 function removeItem(event) {
