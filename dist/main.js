@@ -572,15 +572,6 @@ function displayTrip(data) {
         </form>
     </div>`;
 
-        {/*
-                        <button id="add-more-packing-stv" class="add-more-btn packing-list-btn-stv"><i class="fas fa-plus"></i></button>
-s
-            
-            <div class="trip-btn-container">
-            <button class="save-trip-btn discard discard-packing-btn">Discard Changes</button>
-            <button class="save-trip-btn save save-packing-btn">Save Changes</button>
-        </div> */}
-
         let addMorePackBtn = document.createElement('button');
         addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
         addMorePackBtn.id = 'add-more-packing-stv';
@@ -949,47 +940,56 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 
         let itemsArr = []
 
+
+
         for (let i = 0; i < allItems.length; i++) {
-            allItems[i].style = "display: flex;"
 
-            // if no list items
-            if (allItems.length < 3) {
-                let newItem = {};
+            // delete items staged for removal
+            if (allItems[i].style.display === 'none') {
+                console.log(allItems[i])
+                allItems[i].remove()
+            } else {
+                allItems[i].style = "display: flex;"
 
-                let flag = event.target.parentElement.parentElement.id;
-                console.log(flag)
+                // if no list items
+                if (allItems.length < 3) {
+                    let newItem = {};
 
-                newItem['item'] = null
+                    let flag = event.target.parentElement.parentElement.id;
+                    console.log(flag)
 
-                if (flag === 'todo-list') {
-                    newItem['listType'] = 'todo'
-                } else if (flag === 'packing-list') {
-                    newItem['listType'] = 'packing'
-                }
-                itemsArr.push(newItem)
-                console.log(itemsArr)
-            }
-            // if yes list items
-            else {
-                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
-                    let newItem = {}
-                    let flag = allItems[i].classList[1]
+                    newItem['item'] = null
 
-                    newItem['item'] = allItems[i].children[1].value;
-                    newItem['category'] = allItems[i].children[2].innerText;
-
-                    if (allItems[i].classList[2] === 'packed') {
-                        newItem['toggle'] = true;
-                    } else {
-                        newItem['toggle'] = false;
-                    }
-
-                    if (flag === 'todo') {
+                    if (flag === 'todo-list') {
                         newItem['listType'] = 'todo'
-                    } else if (flag === 'packing') {
+                    } else if (flag === 'packing-list') {
                         newItem['listType'] = 'packing'
                     }
                     itemsArr.push(newItem)
+                    console.log(itemsArr)
+                }
+                // if yes list items
+                else {
+                    if (allItems[i].classList[0] === 'saved-trip-packing-list') {
+                        let newItem = {}
+                        let flag = allItems[i].classList[1]
+
+                        newItem['item'] = allItems[i].children[1].value;
+                        newItem['category'] = allItems[i].children[2].innerText;
+
+                        if (allItems[i].classList[2] === 'packed' || allItems[i].classList[3] === 'packed') {
+                            newItem['toggle'] = true;
+                        } else {
+                            newItem['toggle'] = false;
+                        }
+
+                        if (flag === 'todo') {
+                            newItem['listType'] = 'todo'
+                        } else if (flag === 'packing') {
+                            newItem['listType'] = 'packing'
+                        }
+                        itemsArr.push(newItem)
+                    }
                 }
             }
         }
@@ -1030,20 +1030,33 @@ function discardSTVItems(todoListContainer, packingListContainer) {
     return function (event) {
         if (todoListContainer.style.display === 'block') {
             todoListContainer.style.display = 'none';
-            // remove discarded items
             let children = todoListContainer.children;
             for (let i = 0; i < children.length; i++) {
-                if (children[i].classList[0] == 'saved-trip-packing-list') {
+
+                // remove items added via add more
+                if (children[i].classList[2] == 'new-todo-item') {
                     children[i].remove();
+                }
+
+                // return 'deleted' items
+                if (children[i].style.display = 'none') {
+                    children[i].style.display = 'flex'; // does this make alignment weird
                 }
             }
         } else if (packingListContainer.style.display === 'block') {
             packingListContainer.style.display = 'none';
-            // remove discarded items
+
             let children = packingListContainer.children;
             for (let i = 0; i < children.length; i++) {
-                if (children[i].classList[0] == 'saved-trip-packing-list') {
+
+                // remove items added via add more
+                if (children[i].classList[2] == 'new-packing-item') {
                     children[i].remove();
+                }
+
+                // return 'deleted' items
+                if (children[i].style.display = 'none') {
+                    children[i].style.display = 'flex'; // does this make alignment weird
                 }
             }
         }
@@ -1108,11 +1121,11 @@ function addMoreItems(event) {
     event.target.parentElement.children[0].value = '';
 
     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
-        itemRow.classList.add('saved-trip-packing-list', 'todo');
+        itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
         let todoList = event.target.parentElement.parentElement.parentElement.parentElement;
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
-        itemRow.classList.add('saved-trip-packing-list', 'packing');
+        itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
         let packingList = event.target.parentElement.parentElement.parentElement.parentElement;
         packingList.insertBefore(itemRow, packingList.children[0])
     }
@@ -1125,7 +1138,7 @@ function toggleData(event) {
 
 function removeItem(event) {
     let item = event.target.parentElement.parentElement;
-    item.remove();
+    item.style.display = 'none';
 }
 
 
