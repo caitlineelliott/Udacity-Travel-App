@@ -173,7 +173,7 @@ s
         discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
         discardPackBtn.innerHTML = 'Discard Changes';
 
-        let savePackBtn = document.createElement('div');
+        let savePackBtn = document.createElement('button');
         savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
         savePackBtn.innerHTML = 'Save Changes'
 
@@ -240,7 +240,7 @@ s
         discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
         discardTodoBtn.innerHTML = 'Discard Changes';
 
-        let saveTodoBtn = document.createElement('div');
+        let saveTodoBtn = document.createElement('button');
         saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
         saveTodoBtn.innerHTML = 'Save Changes';
 

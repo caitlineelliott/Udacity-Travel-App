@@ -503,6 +503,9 @@ input::placeholder {
   background-color: #772e25;
   color: #edddd4; }
 
+.save {
+  color: #edddd4; }
+
 .trip-dates,
 .trip-city,
 .trip-actions {
