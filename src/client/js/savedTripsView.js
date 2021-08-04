@@ -507,6 +507,12 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             packingListContainer.style.display = 'none';
         }
 
+        // return hidden trips
+        let trips = document.querySelector('.saved-trips').children;
+        for (let i = 0; i < trips.length; i++) {
+            trips[i].style = 'display: block;'
+        }
+
         let allItems = event.target.parentElement.parentElement.children;
         console.log(allItems)
 
@@ -623,6 +629,13 @@ function discardSTVItems(todoListContainer, packingListContainer) {
         if (todoListContainer.style.display === 'block') {
             todoListContainer.style.display = 'none';
             let children = todoListContainer.children;
+
+            // return hidden trips
+            let trips = document.querySelector('.saved-trips').children;
+            for (let i = 0; i < trips.length; i++) {
+                trips[i].style = 'display: block;'
+            }
+
             for (let i = 0; i < children.length; i++) {
 
                 // remove items added via add more
