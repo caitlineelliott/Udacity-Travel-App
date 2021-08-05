@@ -929,6 +929,16 @@ function addItemRows(itemRow, item, category) {
 
 function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer) {
     return function (event) {
+
+        let allItemsContainer = event.target.parentElement.parentElement;
+        let allItems = event.target.parentElement.parentElement.children;
+
+        for (let i = 0; i < allItems.length; i++) {
+            while (allItemsContainer.children[i].style.display === 'none') {
+                allItemsContainer.children[i].remove();
+            }
+        }
+
         if (todoListContainer.style.display === 'block') {
             todoListContainer.style.display = 'none';
         } else if (packingListContainer.style.display === 'block') {
@@ -941,13 +951,12 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             trips[i].style = 'display: block;'
         }
 
-        let allItems = event.target.parentElement.parentElement.children;
-        console.log(allItems)
-
         let itemsArr = []
 
-        for (let i = 0; i < allItems.length; i++) {
 
+
+
+        for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
             let iterator = classes.entries();
@@ -959,63 +968,51 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                 }
             }
 
-            // delete items staged for removal
-            if (allItems[i].style.display === 'none') {
-                console.log(allItems[i])
-                allItems[i].remove()
-            } else {
-                allItems[i].style = "display: flex;"
+            // if no list items
+            if (allItems.length < 3) {
+                let newItem = {};
 
-                // if no list items
-                if (allItems.length < 3) {
-                    let newItem = {};
+                let flag = event.target.parentElement.parentElement.id;
+                console.log(flag)
 
-                    let flag = event.target.parentElement.parentElement.id;
-                    console.log(flag)
+                newItem['item'] = null
 
-                    newItem['item'] = null
+                if (flag === 'todo-list') {
+                    newItem['listType'] = 'todo'
+                } else if (flag === 'packing-list') {
+                    newItem['listType'] = 'packing'
+                }
+                itemsArr.push(newItem)
+                console.log(itemsArr)
+            }
+            // if yes list items
+            else {
+                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
+                    let newItem = {}
+                    let flag = allItems[i].classList[1]
 
-                    if (flag === 'todo-list') {
+                    newItem['item'] = allItems[i].children[1].value;
+                    newItem['category'] = allItems[i].children[2].innerText;
+
+                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
+                    // iterates through classes to find packed flag and toggle
+                    let classes = allItems[i].classList;
+                    let iterator = classes.entries();
+
+                    for (let value of iterator) {
+                        if (value[1] === 'packed') {
+                            newItem['toggle'] = true;
+                        } else {
+                            newItem['toggle'] = false;
+                        }
+                    }
+
+                    if (flag === 'todo') {
                         newItem['listType'] = 'todo'
-                    } else if (flag === 'packing-list') {
+                    } else if (flag === 'packing') {
                         newItem['listType'] = 'packing'
                     }
                     itemsArr.push(newItem)
-                    console.log(itemsArr)
-                }
-                // if yes list items
-                else {
-                    if (allItems[i].classList[0] === 'saved-trip-packing-list') {
-                        let newItem = {}
-                        let flag = allItems[i].classList[1]
-
-                        newItem['item'] = allItems[i].children[1].value;
-                        newItem['category'] = allItems[i].children[2].innerText;
-
-                        console.log(allItems[i].classList.length)
-                        console.log(allItems[i].classList)
-
-
-                        // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
-                        // iterates through classes to find packed flag and toggle
-                        let classes = allItems[i].classList;
-                        let iterator = classes.entries();
-
-                        for (let value of iterator) {
-                            if (value[1] === 'packed') {
-                                newItem['toggle'] = true;
-                            } else {
-                                newItem['toggle'] = false;
-                            }
-                        }
-
-                        if (flag === 'todo') {
-                            newItem['listType'] = 'todo'
-                        } else if (flag === 'packing') {
-                            newItem['listType'] = 'packing'
-                        }
-                        itemsArr.push(newItem)
-                    }
                 }
             }
         }
