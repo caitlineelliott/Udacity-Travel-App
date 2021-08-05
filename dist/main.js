@@ -933,6 +933,7 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
         let allItemsContainer = event.target.parentElement.parentElement;
         let allItems = event.target.parentElement.parentElement.children;
 
+        // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
             while (allItemsContainer.children[i].style.display === 'none') {
                 allItemsContainer.children[i].remove();
@@ -1249,7 +1250,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
     document.querySelector('#trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('#trip-days-until').innerHTML = (parseInt((departDate - currentDate) / 1000 / 60 / 60 / 24) === 1) ? `1 day` : `${parseInt((departDate - currentDate) / 1000 / 60 / 60 / 24)} days`;
+    document.querySelector('#trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
 
 
     // Update Forecast
