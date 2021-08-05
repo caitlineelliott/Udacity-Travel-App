@@ -713,7 +713,8 @@ function displayTrip(data) {
 
         if (weatherData[0] !== undefined) {
             let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
-            if (tripStart < weatherEnd && weatherEnd < tripEnd) {
+
+            if (weatherEnd < tripEnd) {
                 longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
                 longForecast.style = 'width: 80vw; margin: 20px auto; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
