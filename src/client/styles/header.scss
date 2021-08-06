@@ -1,9 +1,6 @@
 @import 'base.scss';
 
 header {
-    margin: 0;
-    padding: 0;
-
     .banner {
         width: 100vw;
         height: 30vh;
@@ -43,25 +40,18 @@ header {
     nav {
         display: flex;
         justify-content: space-evenly;
-        background-position-y: bottom;
         height: 8vh;
         background-color: #43878A;
 
         .nav-btn {
             width: 95%;
             font-size: 3.5vw;
-            padding: 0;
             margin: 10px 0;
             background-color: $background;
             color: $h1-color;
 
             &:hover {
                 opacity: 0.85;
-            }
-
-            a {
-                color: $h1-color;
-                text-decoration: none;
             }
         }
     }

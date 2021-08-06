@@ -102,8 +102,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_saveTrip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/saveTrip */ "./src/client/js/saveTrip.js");
 /* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
 /* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_output_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form-output.scss */ "./src/client/styles/trip-form-output.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
 
 
 
@@ -324,7 +325,7 @@ document.querySelector('#initial-request').addEventListener('submit', function (
 async function generate(event) {
     event.preventDefault();
 
-    const tripCity = document.querySelector('.trip-city').value
+    const tripCity = document.querySelector('.user-city').value
     let formDepart = document.querySelector('.depart-date').value;
     let formReturn = document.querySelector('.return-date').value;
     let compDepart = new Date(`${formDepart}T00:00:00`);
@@ -429,8 +430,8 @@ __webpack_require__.r(__webpack_exports__);
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
-    document.querySelector('.output').style.display = 'none';
-    document.querySelector('.container').style.display = 'none';
+    document.querySelector('.new-trip-container').style.display = 'none';
+    document.querySelector('.initial-req-container').style.display = 'none';
     document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
@@ -1218,8 +1219,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
-    document.querySelector('.container').style.display = "none"; // removes #initial-request from
-    let output = document.querySelector('.output')
+    document.querySelector('.initial-req-container').style.display = "none";
+    let output = document.querySelector('.new-trip-container')
     output.style.display = "flex";
 
     // Update Banner Img
@@ -1358,7 +1359,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         };
 
         // Save Confirmed View
-        document.querySelector('.output').style.display = "none";
+        document.querySelector('.new-trip-container').style.display = "none";
         const saveConfirmed = document.querySelector('.trip-saved-container');
         saveConfirmed.style.display = 'flex';
         saveConfirmed.innerHTML = `
@@ -1418,9 +1419,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/client/styles/trip-form-output.scss":
+/***/ "./src/client/styles/new-trip-view.scss":
+/*!**********************************************!*\
+  !*** ./src/client/styles/new-trip-view.scss ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/client/styles/saved-trips-view.scss":
 /*!*************************************************!*\
-  !*** ./src/client/styles/trip-form-output.scss ***!
+  !*** ./src/client/styles/saved-trips-view.scss ***!
   \*************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {

@@ -8,12 +8,10 @@ $h1-color: #c44536;
 $h2-color: #197278;
 $h2-color-light: #83A8A6;
 $cool-accent: #283d3b;
-$warm-accent: #772e25;
 
 body {
     margin: 0;
     padding: 0;
-    width: 100vw;
     background: $background;
     font-family: $plain-font;
 }
@@ -22,8 +20,6 @@ h1 {
     font: 20vw $fancy-font;
     color: $h1-color;
     text-shadow: 2px 3px 0 $background, 2px 4px 0 $background,  2px 5px 0 $background;
-    margin: 0 auto;
-    width: 100vw;
     text-align: center;
     line-height: 0.9em;
 }
@@ -63,6 +59,14 @@ select:hover {
 
 input::placeholder {
     color: #000;
+}
+
+// multi-view styles
+// stop pointer events for icons
+.packing-list-btn-stv > *,
+.packing-list-btn > *,
+.edit-trip-btn > * {
+    pointer-events: none;
 }
 
 /*TABLET */

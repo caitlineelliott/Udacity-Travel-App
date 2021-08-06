@@ -3,8 +3,8 @@ import { updateServer } from './saveTrip'
 import { viewSavedTrips } from './savedTripsView'
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
-    document.querySelector('.container').style.display = "none"; // removes #initial-request from
-    let output = document.querySelector('.output')
+    document.querySelector('.initial-req-container').style.display = "none";
+    let output = document.querySelector('.new-trip-container')
     output.style.display = "flex";
 
     // Update Banner Img
@@ -143,7 +143,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         };
 
         // Save Confirmed View
-        document.querySelector('.output').style.display = "none";
+        document.querySelector('.new-trip-container').style.display = "none";
         const saveConfirmed = document.querySelector('.trip-saved-container');
         saveConfirmed.style.display = 'flex';
         saveConfirmed.innerHTML = `

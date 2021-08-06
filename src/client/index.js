@@ -11,5 +11,6 @@ import { updateServer } from './js/saveTrip'
 
 import './styles/base.scss'
 import './styles/header.scss'
-import './styles/trip-form-output.scss'
 import './styles/trip-form.scss'
+import './styles/new-trip-view.scss'
+import './styles/saved-trips-view.scss'

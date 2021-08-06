@@ -26,7 +26,7 @@ document.querySelector('#initial-request').addEventListener('submit', function (
 async function generate(event) {
     event.preventDefault();
 
-    const tripCity = document.querySelector('.trip-city').value
+    const tripCity = document.querySelector('.user-city').value
     let formDepart = document.querySelector('.depart-date').value;
     let formReturn = document.querySelector('.return-date').value;
     let compDepart = new Date(`${formDepart}T00:00:00`);

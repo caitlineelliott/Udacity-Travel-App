@@ -1,8 +1,8 @@
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
 
 async function viewSavedTrips() {
-    document.querySelector('.output').style.display = 'none';
-    document.querySelector('.container').style.display = 'none';
+    document.querySelector('.new-trip-container').style.display = 'none';
+    document.querySelector('.initial-req-container').style.display = 'none';
     document.querySelector('.trip-saved-container').style.display = 'none';
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
