@@ -79,10 +79,10 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                 if (i > 4) {
                     if (tripDaysCount[i].style.cssText === "display: none;") {
                         tripDaysCount[i].style.cssText = "display: flex;"
-                        moreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
+                        showMoreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
                     } else {
                         tripDaysCount[i].style.cssText = "display: none;"
-                        moreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+                        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
                     }
                 }
             }

@@ -526,7 +526,7 @@ function displayTrip(tripData) {
         addMorePackBtn.id = 'add-more-packing-stv';
         addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        addPackingItemsForm.appendChild(addMorePackBtn)
+        formWrapper.appendChild(addMorePackBtn)
 
         packingListContainer.appendChild(addPackingItemsForm);
         packingListContainer.id = 'packing-list'
@@ -589,7 +589,7 @@ function displayTrip(tripData) {
         addMoreTodoBtn.id = 'add-more-packing-stv';
         addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        addTodosForm.appendChild(addMoreTodoBtn)
+        todoWrapper.appendChild(addMoreTodoBtn)
 
         todoListContainer.appendChild(addTodosForm);
         todoListContainer.id = 'todo-list'
@@ -1150,10 +1150,13 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                 if (i > 4) {
                     if (tripDaysCount[i].style.cssText === "display: none;") {
                         tripDaysCount[i].style.cssText = "display: flex;"
-                        moreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
+                        showMoreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
+                        console.log('more')
                     } else {
                         tripDaysCount[i].style.cssText = "display: none;"
-                        moreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+                        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+                        console.log('fewer')
+
                     }
                 }
             }

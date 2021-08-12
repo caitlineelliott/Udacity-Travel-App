@@ -133,7 +133,7 @@ function displayTrip(tripData) {
         addMorePackBtn.id = 'add-more-packing-stv';
         addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        addPackingItemsForm.appendChild(addMorePackBtn)
+        formWrapper.appendChild(addMorePackBtn)
 
         packingListContainer.appendChild(addPackingItemsForm);
         packingListContainer.id = 'packing-list'
@@ -196,7 +196,7 @@ function displayTrip(tripData) {
         addMoreTodoBtn.id = 'add-more-packing-stv';
         addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        addTodosForm.appendChild(addMoreTodoBtn)
+        todoWrapper.appendChild(addMoreTodoBtn)
 
         todoListContainer.appendChild(addTodosForm);
         todoListContainer.id = 'todo-list'
