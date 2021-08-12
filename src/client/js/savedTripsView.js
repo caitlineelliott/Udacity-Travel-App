@@ -1,4 +1,6 @@
-document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips)
+import { setWeatherDOMStructure } from './viewNewTrip'
+
+document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
 
 async function viewSavedTrips() {
     document.querySelector('.new-trip-container').style.display = 'none';
@@ -19,28 +21,19 @@ async function viewSavedTrips() {
 const getUserData = async (url) => {
     try {
         const request = await fetch(url);
-        const data = await request.json();
-        displayTrip(data);
+        const tripData = await request.json();
+        displayTrip(tripData);
     }
     catch (e) {
         console.log('DATA NOT RETREIVED FROM SERVER', e);
     }
 };
 
-function displayTrip(data) {
-    // If no trips
-    if (data.length === 0) {
-        let noTripsContainer = document.createElement('div');
-        noTripsContainer.classList.add('no-trips-container');
-        noTripsContainer.innerHTML = `
-                <h2>Uh oh!</h2>
-                <div>You have no trips booked at this time.</div>
-                <button id="book-trip" style="margin-top: 20px" onclick="location.href='index.html'">Book now!</button>`
-        document.querySelector('nav').insertAdjacentElement('afterend', noTripsContainer);
-    }
+function displayTrip(tripData) {
+    if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
 
     // Display all trips
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < tripData.length; i++) {
         let tripContainer = document.querySelector('.saved-trips');
         let newTripContainer = document.createElement('div');
         let newTripHeading = document.createElement('div');
@@ -54,16 +47,13 @@ function displayTrip(data) {
         const editTrip = document.createElement('button');
         const deleteTrip = document.createElement('button');
 
-        tripDates.innerHTML = `${data[i].displayDepart} - ${data[i].displayReturn}`;
+        tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
         tripDates.readOnly = true;
-        tripCity.innerHTML = data[i].city;
-        tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
-        tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
-        tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
+        tripCity.innerHTML = tripData[i].city;
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
 
-        editTrip.id = 'edit-trip-btn';
+        // editTrip.id = 'edit-trip-btn'; // why is this here?
 
         newTripHeading.classList.add('packing-list-row');
         tripDates.classList.add('trip-dates');
@@ -92,24 +82,24 @@ function displayTrip(data) {
         newTripContainer.appendChild(todoListContainer);
         newTripContainer.appendChild(weatherContainer);
 
-        // handle spaces in trip names for id setting
-        if (data[i].city.indexOf(' ') >= 0) {
-            let newID = data[i].city.replace(/\s/g, '');
+        // handle spaces in trip names for id/class setting
+        if (tripData[i].city.indexOf(' ') >= 0) {
+            let newID = tripData[i].city.replace(/\s/g, '');
             newTripContainer.id = `${newID}-trip`;
             tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
             tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
             tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
         } else {
-            newTripContainer.id = `${data[i].city}-trip`;
+            newTripContainer.id = `${tripData[i].city}-trip`;
             tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
             tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
             tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
         }
 
-        tripContainer.appendChild(newTripContainer)
+        tripContainer.appendChild(newTripContainer);
 
-        // PACKING LIST
-        let packedItems = data[i].packingList;
+        // ADD PACKING LIST DATA
+        let packedItems = tripData[i].packingList;
         for (let i = 0; i < packedItems.length; i++) {
             let itemRow = document.createElement('div');
             itemRow.classList.add('saved-trip-packing-list', 'packing');
@@ -125,35 +115,27 @@ function displayTrip(data) {
             packingListContainer.appendChild(itemRow);
         }
 
-        let addMoreForm = document.createElement('div');
-        addMoreForm.innerHTML = `
-    <div class="packing-list-btn-container">
-    <p>Missing something? Add more here:</p>
-        <form class="packing-list-form">
-            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="pack-list-input">
-            <select class="packing-list-btn-category">
-                <option>Category</option>
-                <option class="tops">Tops</option>
-                <option class="bottoms">Bottoms</option>
-                <option class="shoes">Shoes</option>
-                <option class="accessories">Accessories</option>
-                <option class="swimwear">Swimwear</option>
-                <option class="toiletries">Toiletries</option>
-                <option class="other">Other</option>
-            </select>
-        </form>
-    </div>`;
+        let addPackingItemsForm = document.createElement('div');
+        let rootForm = document.querySelector('.packing-list-btn-container');
+        let formWrapper = document.createElement('form');
+        let input = rootForm.parentElement.children[1].children[0].children[0];
+        let select = rootForm.parentElement.children[1].children[0].children[1];
+
+        formWrapper.classList.add('packing-list-form');
+        addPackingItemsForm.classList.add('packing-list-btn-container');
+        addPackingItemsForm.innerHTML = `<p>Missing something? Add more here:</p>`
+        addPackingItemsForm.appendChild(formWrapper)
+        formWrapper.appendChild(input);
+        formWrapper.appendChild(select);
 
         let addMorePackBtn = document.createElement('button');
         addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
         addMorePackBtn.id = 'add-more-packing-stv';
         addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        let form = addMoreForm.childNodes[1].children[1];
-        console.log(addMoreForm.childNodes[1].children[1])
-        form.appendChild(addMorePackBtn)
+        addPackingItemsForm.appendChild(addMorePackBtn)
 
-        packingListContainer.appendChild(addMoreForm);
+        packingListContainer.appendChild(addPackingItemsForm);
         packingListContainer.id = 'packing-list'
 
         let btnContainer = document.createElement('div');
@@ -180,7 +162,7 @@ function displayTrip(data) {
         savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
         // TO DO LIST
-        let todoList = data[i].todoList;
+        let todoList = tripData[i].todoList;
         for (let i = 0; i < todoList.length; i++) {
             let itemRow = document.createElement('div');
             itemRow.classList.add('saved-trip-packing-list', 'todo');
@@ -196,31 +178,27 @@ function displayTrip(data) {
             todoListContainer.appendChild(itemRow);
         }
 
-        // ADD MORE FORM
-        let addMoreTodosForm = document.createElement('div');
-        addMoreTodosForm.innerHTML = `
-    <div class="packing-list-btn-container">
-    <p>Missing something? Add more here:</p>
-        <form class="packing-list-form">
-            <input type="text" placeholder="add item" class="packing-list-btn-item-stv" id="todo-list-input">
-            <select class="packing-list-btn-category">
-                <option>Priority</option>
-                <option class="high">High</option>
-                <option class="medium">Medium</option>
-                <option class="low">Low</option>
-            </select>
-        </form>
-    </div>`;
+        let addTodosForm = document.createElement('div');
+        let rootTodoForm = document.querySelector('.todo-list-btn-container');
+        let todoWrapper = document.createElement('form');
+        let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0];
+        let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1];
+
+        todoWrapper.classList.add('packing-list-form');
+        addTodosForm.classList.add('packing-list-btn-container');
+        addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
+        addTodosForm.appendChild(todoWrapper)
+        todoWrapper.appendChild(todoInput);
+        todoWrapper.appendChild(todoSelect);
 
         let addMoreTodoBtn = document.createElement('button');
         addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
         addMoreTodoBtn.id = 'add-more-packing-stv';
         addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        let todoForm = addMoreTodosForm.childNodes[1].children[1];
-        todoForm.appendChild(addMoreTodoBtn)
+        addTodosForm.appendChild(addMoreTodoBtn)
 
-        todoListContainer.appendChild(addMoreTodosForm);
+        todoListContainer.appendChild(addTodosForm);
         todoListContainer.id = 'todo-list'
 
         let todoBtnContainer = document.createElement('div');
@@ -238,7 +216,6 @@ function displayTrip(data) {
         todoBtnContainer.appendChild(discardTodoBtn);
         todoBtnContainer.appendChild(saveTodoBtn);
 
-        // let addMorePack = document.querySelector('#add-more-packing-stv');
         addMoreTodoBtn.addEventListener('click', function (event) {
             addMoreItems(event);
         });
@@ -247,37 +224,26 @@ function displayTrip(data) {
         saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
 
         // WEATHER
-        let weatherData = data[i].weather;
+        let weatherData = tripData[i].weather;
         weatherContainer.classList.add('forecast');
-        let tripStart = new Date(data[i].departure);
-        let tripEnd = new Date(data[i].arrival);
+        let tripEnd = new Date(tripData[i].arrival);
 
         // remove old weather before trip date change
         if (weatherContainer.children.length > 0) { weatherContainer.children.remove() }
 
-        // add new weather data
+        // add new weather tripData
         for (let i = 0; i < weatherData.length; i++) {
             let newRow = document.createElement('div');
+            const tripDate = document.createElement('div');
+            const weatherIcon = document.createElement('img');
+            const weather = document.createElement('div');
             weatherContainer.appendChild(newRow);
 
-            newRow.classList.add('forecast-row');
-            newRow.style.margin = '0';
-            newRow.style.justifyContent = 'center';
-            const tripDate = document.createElement('div');
-            tripDate.classList.add('forecast-date');
+            setWeatherDOMStructure(newRow, tripDate, null, weatherIcon, weather);
+
             tripDate.innerHTML = weatherData[i].date;
-            newRow.appendChild(tripDate);
-
-            const weatherIcon = document.createElement('img');
-            weatherIcon.classList.add('forecast-icon');
             weatherIcon.src = `${weatherData[i].weatherIcon}`;
-            newRow.appendChild(weatherIcon);
-
-            const weatherHighLow = document.createElement('div');
-            weatherHighLow.classList.add('forecast-high');
-            weatherHighLow.style.width = '40vw';
-            weatherHighLow.innerHTML = weatherData[i].weather;
-            newRow.appendChild(weatherHighLow);
+            weather.innerHTML = weatherData[i].weather;
         }
 
         // long forecast
@@ -288,13 +254,12 @@ function displayTrip(data) {
 
             if (weatherEnd < tripEnd) {
                 longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                longForecast.style = 'width: 80vw; margin: 20px auto; background-color: #83A8A6; padding: 20px;';
+                longForecast.style = 'width: 80vw; margin: 20px auto 0 auto; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
             }
         } else if (weatherData[0] === undefined) {
-            console.log('ALL weather out of range');
             longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-            longForecast.style = 'width: 80vw; margin: 20px auto; background-color: #83A8A6; padding: 20px;';
+            longForecast.style = 'width: 80vw; margin: 0 auto; background-color: #83A8A6; padding: 20px;';
             weatherContainer.appendChild(longForecast);
         }
 
@@ -303,7 +268,7 @@ function displayTrip(data) {
         tripTodoList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         editTrip.addEventListener('click', editTripDates)
-        deleteTrip.addEventListener('click', removeData(data))
+        deleteTrip.addEventListener('click', removeData(tripData))
     }
 }
 
@@ -321,16 +286,11 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
                 todoListContainer.style.display = 'none';
 
                 for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) {
-                        allTrips[i].style = "display: none;"
-                    }
+                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
                 }
             } else if (packingListContainer.style.display === 'block') {
                 packingListContainer.style.display = 'none'
-
-                for (let i = 0; i < trips.length; i++) {
-                    trips[i].style = 'display: block;'
-                }
+                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
             }
         } else if (event.target.classList[1] === 'fa-clipboard-list') {
             if (todoListContainer.style.display === 'none') {
@@ -339,16 +299,11 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
                 weatherContainer.style.display = 'none';
 
                 for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) {
-                        allTrips[i].style = "display: none;"
-                    }
+                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
                 }
             } else if (todoListContainer.style.display === 'block') {
                 todoListContainer.style.display = 'none'
-
-                for (let i = 0; i < trips.length; i++) {
-                    trips[i].style.display = 'block';
-                }
+                for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
             }
         } else if (event.target.classList[1] === 'fa-sun') {
             if (weatherContainer.style.display === 'none') {
@@ -357,17 +312,12 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
                 todoListContainer.style.display = 'none';
 
                 for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) {
-                        allTrips[i].style = "display: none;"
-                    }
+                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
                 }
 
             } else if (weatherContainer.style.display === 'block') {
                 weatherContainer.style.display = 'none';
-
-                for (let i = 0; i < trips.length; i++) {
-                    trips[i].style.display = 'block';
-                }
+                for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
             }
         }
     }
@@ -375,7 +325,6 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
 
 function editTripDates(event) {
     let btn = event.target.parentElement;
-    console.log(btn)
     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
     let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
@@ -394,14 +343,12 @@ function editTripDates(event) {
 
         // refresh page
         let trips = document.querySelector('.saved-trips').children;
-        let tripsContainer = document.querySelector('.saved-trips');
         for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
 
         let newTripDates = tripDates.value;
         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-
         setTimeout(displayNewTrips, 1000);
     })
 }
@@ -425,11 +372,9 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
     });
 }
 
-async function displayNewTrips(loader) {
-    await getUserData('/all')
-}
+async function displayNewTrips() { await getUserData('/all') }
 
-function removeData(data) {
+function removeData() {
     return function (event) {
         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
@@ -438,7 +383,6 @@ function removeData(data) {
 
         tripRow.remove();
         deleteFromServer(tripCity, departDate, returnDate)
-
     }
 }
 
@@ -461,7 +405,7 @@ const deleteServerData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA DELETED FROM SERVER ${makeDateAndTime()}`);
+        console.log(`DATA DELETED FROM SERVER`);
         return await response.json();
     }
     catch {
@@ -470,7 +414,7 @@ const deleteServerData = async (url = '', data = {}) => {
 };
 
 
-// ITEM LEVE FUNCTIONS
+// ITEM LEVEL FUNCTIONS
 function addItemRows(itemRow, item, category) {
     let toggle = document.createElement('button');
     item.readOnly = true;
@@ -483,7 +427,6 @@ function addItemRows(itemRow, item, category) {
     itemRow.appendChild(editBtn);
     itemRow.appendChild(deleteBtn);
 
-    // leave off item and category here
     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
@@ -502,15 +445,12 @@ function addItemRows(itemRow, item, category) {
 
 function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer) {
     return function (event) {
-
         let allItemsContainer = event.target.parentElement.parentElement;
         let allItems = event.target.parentElement.parentElement.children;
 
         // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') {
-                allItemsContainer.children[i].remove();
-            }
+            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
         }
 
         if (todoListContainer.style.display === 'block') {
@@ -521,14 +461,9 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 
         // return hidden trips
         let trips = document.querySelector('.saved-trips').children;
-        for (let i = 0; i < trips.length; i++) {
-            trips[i].style = 'display: block;'
-        }
+        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
 
         let itemsArr = []
-
-
-
 
         for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
@@ -536,28 +471,18 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             let iterator = classes.entries();
 
             for (let value of iterator) {
-                if (value[1] === 'modified') {
-                    console.log('we did it joe!')
-                    allItems[i].classList.remove('modified');
-                }
+                if (value[1] === 'modified') { allItems[i].classList.remove('modified'); }
             }
 
             // if no list items
             if (allItems.length < 3) {
                 let newItem = {};
-
                 let flag = event.target.parentElement.parentElement.id;
-                console.log(flag)
-
                 newItem['item'] = null
 
-                if (flag === 'todo-list') {
-                    newItem['listType'] = 'todo'
-                } else if (flag === 'packing-list') {
-                    newItem['listType'] = 'packing'
-                }
+                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
+                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
                 itemsArr.push(newItem)
-                console.log(itemsArr)
             }
             // if yes list items
             else {
@@ -574,23 +499,17 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                     let iterator = classes.entries();
 
                     for (let value of iterator) {
-                        if (value[1] === 'packed') {
-                            newItem['toggle'] = true;
-                        } else {
-                            newItem['toggle'] = false;
-                        }
+                        if (value[1] === 'packed') { newItem['toggle'] = true }
+                        else { newItem['toggle'] = false; }
                     }
 
-                    if (flag === 'todo') {
-                        newItem['listType'] = 'todo'
-                    } else if (flag === 'packing') {
-                        newItem['listType'] = 'packing'
-                    }
+                    if (flag === 'todo') { newItem['listType'] = 'todo' }
+                    else if (flag === 'packing') { newItem['listType'] = 'packing' }
+
                     itemsArr.push(newItem)
                 }
             }
         }
-        console.log(itemsArr)
         updateServerLists(itemsArr, tripCity, tripDates)
     }
 }
@@ -631,31 +550,21 @@ function discardSTVItems(todoListContainer, packingListContainer) {
 
             // return hidden trips
             let trips = document.querySelector('.saved-trips').children;
-            for (let i = 0; i < trips.length; i++) {
-                trips[i].style = 'display: block;'
-            }
+            for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
 
             for (let i = 0; i < children.length; i++) {
-
                 // remove items added via add more
-                if (children[i].classList[2] == 'new-todo-item') {
-                    children[i].remove();
-                }
+                if (children[i].classList[2] == 'new-todo-item') { children[i].remove(); }
 
                 // return 'deleted' items
-                if (children[i].style.display = 'none') {
-                    children[i].style.display = 'flex'; // does this make alignment weird
-                }
+                if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
 
                 // fix toggle modifications
                 let classes = children[i].classList;
                 let iterator = classes.entries();
 
                 for (let value of iterator) {
-                    if (value[1] === 'modified') {
-                        console.log('toggling!')
-                        children[i].classList.toggle('packed');
-                    }
+                    if (value[1] === 'modified') { children[i].classList.toggle('packed'); }
                 }
             }
         } else if (packingListContainer.style.display === 'block') {
@@ -663,42 +572,27 @@ function discardSTVItems(todoListContainer, packingListContainer) {
 
             let children = packingListContainer.children;
             for (let i = 0; i < children.length; i++) {
-
                 // remove items added via add more
-                if (children[i].classList[2] == 'new-packing-item') {
-                    children[i].remove();
-                }
+                if (children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
 
                 // return 'deleted' items
-                if (children[i].style.display = 'none') {
-                    children[i].style.display = 'flex'; // does this make alignment weird
-                }
+                if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
 
                 // fix toggle modifications
                 let classes = children[i].classList;
                 let iterator = classes.entries();
 
                 for (let value of iterator) {
-                    if (value[1] === 'modified') {
-                        console.log('toggling!')
-                        children[i].classList.toggle('packed');
-                    }
+                    if (value[1] === 'modified') { children[i].classList.toggle('packed'); }
                 }
             }
         }
 
         try {
             let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
-
-            for (let i = 0; i < allTrips.length; i++) {
-                allTrips[i].style = "display: block;"
-
-            }
-        } catch (e) {
-            console.log(e)
-        }
+            for (let i = 0; i < allTrips.length; i++) { allTrips[i].style = "display: block;" }
+        } catch (e) { console.log(e) }
     }
-
 };
 
 function editItems(event) {
@@ -714,9 +608,7 @@ function editItems(event) {
 
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
     saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
-    saveBtn.addEventListener('click', function () {
-        saveEditedItem(editedItem);
-    })
+    saveBtn.addEventListener('click', function () { saveEditedItem(editedItem); })
 }
 
 function saveEditedItem(editedItem) {
@@ -740,8 +632,6 @@ function addMoreItems(event) {
     item.innerHTML = nextItem;
     category.innerHTML = nextCat;
 
-    console.log(nextItem, nextCat)
-
     addItemRows(itemRow, item, category)
 
     event.target.parentElement.children[0].value = '';
@@ -758,7 +648,7 @@ function addMoreItems(event) {
 }
 
 function toggleData(event) {
-    event.target.parentElement.parentElement.classList.add('modified'); // test
+    event.target.parentElement.parentElement.classList.add('modified');
     event.target.parentElement.parentElement.classList.toggle('packed');
 }
 

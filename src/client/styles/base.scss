@@ -65,7 +65,9 @@ input::placeholder {
 // stop pointer events for icons
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > * {
+.edit-trip-btn > *, 
+#editBtn > *, 
+#deleteBtn > * {
     pointer-events: none;
 }
 

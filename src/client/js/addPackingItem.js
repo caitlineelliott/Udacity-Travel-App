@@ -1,5 +1,3 @@
-// generates packing + todo list items on new trip view
-
 function createElements(event) {
     event.preventDefault();
 
@@ -21,7 +19,7 @@ function createElements(event) {
 
     setValues(target, blockElements, rowElements);
 
-    /* Collapse Items */
+    // Toggles each item category open/closed
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.children).forEach(function (item) {
             if (item.classList.contains('packing-list-row')) {
@@ -51,93 +49,60 @@ async function setValues(target, blockElements, rowElements) {
 
 function appendItem(target, blockElements, rowElements) {
     const categoryArr = []
+
     let appendedElements = document.querySelector(`.${target}-container`).children;
 
-    for (let i = 0; i < appendedElements.length; i++) {
-        categoryArr.push(appendedElements[i].id);
-    }
+    for (let i = 0; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
 
     if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
         document.querySelector(`.${target}-container`).appendChild(blockElements.newItemCategoryLabel);
         blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
 
     } else {
-        let extantRow = document.querySelector(`#${blockElements.newItemCategoryLabel.id}`);
-        extantRow.appendChild(blockElements.newItemRow);
+        let existingRow = document.querySelector(`#${blockElements.newItemCategoryLabel.id}`);
+        existingRow.appendChild(blockElements.newItemRow);
     }
 
     for (let i = 0; i < Object.keys(rowElements).length; i++) {
-        blockElements.newItemRow.appendChild(Object.values(rowElements)[i])
-        Object.values(rowElements)[i].id = Object.keys(rowElements)[i]
-        Object.values(rowElements)[i].classList.add('packing-item-row-segment')
+        blockElements.newItemRow.appendChild(Object.values(rowElements)[i]);
+        Object.values(rowElements)[i].id = Object.keys(rowElements)[i];
+        Object.values(rowElements)[i].classList.add('packing-item-row-segment');
     }
 
-    rowElements.deleteBtn.addEventListener('click', removeItems)
-    rowElements.editBtn.addEventListener('click', editNewItems)
+    rowElements.editBtn.addEventListener('click', editNewItems);
+    rowElements.deleteBtn.addEventListener('click', removeItems);
 }
 
 function editNewItems(event) {
-    if (event.target.id === 'editBtn') {
-        let editBtn = event.target;
-        editBtn.disabled = true;
+    let editBtn = event.target;
+    editBtn.disabled = true;
 
-        let editibleItem = event.target.previousSibling;
-        editibleItem.readOnly = false;
-        editibleItem.style = "background-color: #c44536"
+    let editibleItem = event.target.previousSibling;
+    editibleItem.readOnly = false;
+    editibleItem.style = "background-color: #c44536"
 
-        let saveBtnNTV = document.createElement('button');
-        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
-        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
-        saveBtnNTV.addEventListener('click', function () {
-            saveEditedItem(editibleItem, saveBtnNTV);
-        })
-    } else if (event.target.classList[1] === 'fa-edit') {
-        let editBtn = event.target.parentElement;
-        editBtn.disabled = true;
-
-        let editibleItem = event.target.parentElement.previousSibling;
-        editibleItem.readOnly = false;
-        editibleItem.style = "background-color: #c44536"
-
-        let saveBtnNTV = document.createElement('button');
-        saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-        saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
-        editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
-        saveBtnNTV.addEventListener('click', function () {
-            saveEditedItem(editibleItem, saveBtnNTV);
-        })
-    }
-
+    let saveBtnNTV = document.createElement('button');
+    saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
+    saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+    editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
+    saveBtnNTV.addEventListener('click', function () {
+        saveEditedItem(editBtn, editibleItem, saveBtnNTV);
+    });
 }
 
-function saveEditedItem(editibleItem, saveBtnNTV) {
-    let btn = editibleItem.parentElement.children[2];
-    btn.disabled = false;
-    editibleItem.innerHTML = editibleItem.value;
+function saveEditedItem(editBtn, editibleItem, saveBtnNTV) {
+    editBtn.disabled = false;
     editibleItem.readOnly = true;
     editibleItem.style.backgroundColor = '#83A8A6';
     saveBtnNTV.remove();
 }
 
 function removeItems(event) {
-    let item = event.target.parentElement.parentElement;
-    let itemCategory = event.target.parentElement.parentElement.parentElement;
+    let item = event.target.parentElement;
+    let itemCategory = event.target.parentElement.parentElement;
 
-    if (event.target.classList.value === 'fas fa-times') {
-        item.remove();
-        if (itemCategory.children.length < 2) {
-            itemCategory.remove()
-        }
-    } else if (event.target.classList.value === 'packing-item-row-segment') {
-        let item = event.target.parentElement;
-        let itemCategory = event.target.parentElement.parentElement;
-
-        item.remove();
-        if (itemCategory.children.length < 2) {
-            itemCategory.remove()
-        }
-    }
+    item.remove();
+    if (itemCategory.children.length < 2) { itemCategory.remove() }
 }
 
 

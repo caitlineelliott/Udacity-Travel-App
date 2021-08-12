@@ -1,7 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 const fetch = require("node-fetch");
 
-let projectData = {};
 let userTripData = [];
 
 // Express to run server and routes
@@ -38,31 +37,7 @@ function listening() {
 app.get('/all', getData);
 
 // Callback function to complete GET '/all'
-function getData(req, res) {
-    res.send(userTripData);
-};
-
-// get request for new trip dates
-function getTripDates(req, res) {
-
-    function compareData(a, b) {
-        const tripA = a.departure;
-        const tripB = b.departure;
-
-        let comparison = 0;
-        if (tripA > tripB) {
-            comparison = 1;
-        } else if (tripA < tripB) {
-            comparison = -1;
-        }
-        return comparison;
-    }
-
-    userTripData.sort(compareData);
-
-    res.send(userTripData);
-};
-
+function getData(req, res) { res.send(userTripData); };
 
 // REQUESTS & ROUTES
 
@@ -70,7 +45,6 @@ function getTripDates(req, res) {
 app.post('/api/trip', addTripData);
 app.post('/list', addListData);
 app.post('/tripdates', changeTripDates);
-// app.post('/toggle', changeItemToggle);
 
 function addTripData(req, res) {
     const newData = req.body;
@@ -93,30 +67,13 @@ function addTripData(req, res) {
         const tripB = b.departure;
 
         let comparison = 0;
-        if (tripA > tripB) {
-            comparison = 1;
-        } else if (tripA < tripB) {
-            comparison = -1;
-        }
+        if (tripA > tripB) { comparison = 1; }
+        else if (tripA < tripB) { comparison = -1; }
         return comparison;
     }
 
     userTripData.sort(compareData);
-
     res.send(userTripData);
-
-    const dateTime = () => {
-        let today = new Date();
-        let date = `${today.getMonth()}.${today.getDate()}.${today.getFullYear()}`;
-        if (today.getHours() > 12) {
-            let dateTime = `${date} at ${today.getHours() - 12}:${today.getMinutes()}:${today.getSeconds()} p.m.`;
-            return dateTime;
-        } else {
-            let dateTime = `${date} at ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} a.m.`;
-            return dateTime;
-        }
-    }
-    console.log(`DATA SUCCESSFULLY POSTED ON ${dateTime()}`);
 };
 
 // COME BACK HERE:
@@ -133,7 +90,7 @@ function addListData(req, res) {
         let departServer = `${departMM}-${departDD}`
         let returnServer = `${returnMM}-${returnDD}`
 
-        let length = newData.list.length
+        let length = newData.list.length;
 
         // code for packing list & for lists with no items
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
@@ -141,22 +98,10 @@ function addListData(req, res) {
             for (let i = 0; i < length; i++) {
                 if (newData.list[i]['listType'] === 'todo') {
                     currentTrip['todoList'] = newData.list;
-
-                    if (newData.list[i]['item'] === null) {
-                        currentTrip['todoList'] = [];
-                    }
-
-                    console.log('new to do list', currentTrip['todoList'])
-
-
+                    if (newData.list[i]['item'] === null) { currentTrip['todoList'] = []; }
                 } else if (newData.list[i]['listType'] === 'packing') {
                     currentTrip['packingList'] = newData.list;
-
-                    if (newData.list[i]['item'] === null) {
-                        currentTrip['packingList'] = [];
-                    }
-
-                    console.log('new packing list', currentTrip['packingList'])
+                    if (newData.list[i]['item'] === null) { currentTrip['packingList'] = []; }
                 }
             }
         }
@@ -184,9 +129,7 @@ async function changeTripDates(req, res) {
             let forecast = weatherInfo.data;
             let dates = [];
 
-            for (let i = 0; i < forecast.length; i++) {
-                dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`);
-            }
+            for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`); }
 
             let newWeather = []
 
@@ -209,25 +152,18 @@ async function changeTripDates(req, res) {
                 const tripB = b.departure;
 
                 let comparison = 0;
-                if (tripA > tripB) {
-                    comparison = 1;
-                } else if (tripA < tripB) {
-                    comparison = -1;
-                }
+                if (tripA > tripB) { comparison = 1; }
+                else if (tripA < tripB) { comparison = -1; }
                 return comparison;
             }
-
             userTripData.sort(compareData);
         }
-
-        console.log('NEW WEATHER?', userTripData[0].weather)
     }
 }
 
 app.get('/tripdates2', getUpdatedData);
 
 async function getUpdatedData(req, res) {
-    console.log('REVISED GET REQ', userTripData[0].weather)
     res.send(userTripData);
 };
 
@@ -240,18 +176,13 @@ function removeData(req, res) {
         // whole trip delete
         if (userTripData[i].city === newData.city && userTripData[i].displayDepart === newData.depart && userTripData[i].displayReturn === newData.return) {
             userTripData.splice(i, 1);
-        } else {
-            console.log('no');
-        }
+        } else { console.log('no'); }
     }
 }
 
-function removeItems(req, res) {
-    const newData = req.body
-}
+function removeItems(req, res) { const newData = req.body }
 
 // update weather
-
 const getGeonames = async (placename, username) => {
     try {
         const request =
