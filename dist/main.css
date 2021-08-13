@@ -542,7 +542,7 @@ input::placeholder {
         .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .packing-list-row textarea,
         .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .todo-list-row textarea {
           width: 70vw;
-          height: 6vh;
+          height: 5.7vh;
           background-color: #83A8A6;
           color: black;
           font-family: "montserrat", sans-serif;

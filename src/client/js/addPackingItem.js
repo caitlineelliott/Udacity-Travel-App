@@ -79,11 +79,11 @@ function editNewItems(event) {
 
     let editibleItem = event.target.previousSibling;
     editibleItem.readOnly = false;
-    editibleItem.style = "background-color: #c44536"
+    editibleItem.style = "background-color: #c44536; color: white"
 
     let saveBtnNTV = document.createElement('button');
     saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtnNTV.style = 'height: 6vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
+    saveBtnNTV.style = 'height: 5.7vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
     editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
     saveBtnNTV.addEventListener('click', function () {
         saveEditedItem(editBtn, editibleItem, saveBtnNTV);
@@ -93,7 +93,7 @@ function editNewItems(event) {
 function saveEditedItem(editBtn, editibleItem, saveBtnNTV) {
     editBtn.disabled = false;
     editibleItem.readOnly = true;
-    editibleItem.style.backgroundColor = '#83A8A6';
+    editibleItem.style.backgroundColor = '#83A8A6; color: black;';
     saveBtnNTV.remove();
 }
 
