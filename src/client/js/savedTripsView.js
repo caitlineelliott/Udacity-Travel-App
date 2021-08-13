@@ -333,10 +333,10 @@ function editTripDates(event) {
 
     btn.disabled = true;
     tripDates.readOnly = false;
-    tripDates.style = 'background-color: rgb(196, 69, 54); height: 6.7vh; box-sizing: border-box; padding-left: 8px; margin-left: -15px;'
+    tripDates.style = 'background-color: rgb(196, 69, 54); height: 5.7vh; box-sizing: border-box; padding: 15px 0 0 8px; margin-left: -15px;'
     tripCityContainer.style.width = "24%"
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style = 'margin: 0; height: 6.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
+    saveBtn.style = 'margin: 0; height: 5.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
     tripDates.insertAdjacentElement('afterend', saveBtn);
 
     saveBtn.addEventListener('click', async function () {
