@@ -159,9 +159,11 @@ function createElements(event) {
 
     // Toggles each item category open/closed
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
+
         Array.from(event.target.children).forEach(function (item) {
-            if (item.classList.contains('packing-list-row')) {
-                item.classList.toggle('item-display');
+            if (item.classList[0] === 'packing-list-row') {
+                if (item.style.display === 'none') { item.style.display = 'flex' }
+                else { item.style.display = 'none' }
             } else if (item.classList.contains('fa-chevron-down')) {
                 item.classList.toggle('fa-chevron-up')
             }
@@ -231,7 +233,7 @@ function editNewItems(event) {
 function saveEditedItem(editBtn, editibleItem, saveBtnNTV) {
     editBtn.disabled = false;
     editibleItem.readOnly = true;
-    editibleItem.style.backgroundColor = '#83A8A6';
+    editibleItem.style.backgroundColor = '#83A8A6; color: black;';
     saveBtnNTV.remove();
 }
 

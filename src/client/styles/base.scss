@@ -67,7 +67,8 @@ input::placeholder {
 .packing-list-btn > *,
 .edit-trip-btn > *, 
 #editBtn > *, 
-#deleteBtn > * {
+#deleteBtn > *,
+.select-categories > * {
     pointer-events: none;
 }
 
