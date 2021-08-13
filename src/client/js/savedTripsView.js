@@ -53,8 +53,6 @@ function displayTrip(tripData) {
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
 
-        // editTrip.id = 'edit-trip-btn'; // why is this here?
-
         newTripHeading.classList.add('packing-list-row');
         tripDates.classList.add('trip-dates');
         tripCity.classList.add('trip-city');
@@ -641,11 +639,11 @@ function addMoreItems(event) {
 
     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
         itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-        let todoList = event.target.parentElement.parentElement.parentElement.parentElement;
+        let todoList = event.target.parentElement.parentElement.parentElement;
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-        let packingList = event.target.parentElement.parentElement.parentElement.parentElement;
+        let packingList = event.target.parentElement.parentElement.parentElement;
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
