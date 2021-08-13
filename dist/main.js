@@ -511,8 +511,9 @@ function displayTrip(tripData) {
         let addPackingItemsForm = document.createElement('div');
         let rootForm = document.querySelector('.packing-list-btn-container');
         let formWrapper = document.createElement('form');
-        let input = rootForm.parentElement.children[1].children[0].children[0];
-        let select = rootForm.parentElement.children[1].children[0].children[1];
+        let input = rootForm.parentElement.children[1].children[0].children[0].cloneNode(true);
+        let select = rootForm.parentElement.children[1].children[0].children[1].cloneNode(true); // works but still error
+        console.log(select)
 
         formWrapper.classList.add('packing-list-form');
         addPackingItemsForm.classList.add('packing-list-btn-container');
@@ -574,8 +575,8 @@ function displayTrip(tripData) {
         let addTodosForm = document.createElement('div');
         let rootTodoForm = document.querySelector('.todo-list-btn-container');
         let todoWrapper = document.createElement('form');
-        let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0];
-        let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1];
+        let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0].cloneNode(true);
+        let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1].cloneNode(true);
 
         todoWrapper.classList.add('packing-list-form');
         addTodosForm.classList.add('packing-list-btn-container');
@@ -1151,12 +1152,9 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
                     if (tripDaysCount[i].style.cssText === "display: none;") {
                         tripDaysCount[i].style.cssText = "display: flex;"
                         showMoreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
-                        console.log('more')
                     } else {
                         tripDaysCount[i].style.cssText = "display: none;"
                         showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
-                        console.log('fewer')
-
                     }
                 }
             }
