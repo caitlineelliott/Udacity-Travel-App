@@ -43,13 +43,27 @@ select:hover {
 input::placeholder {
   color: #000; }
 
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *,
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
 #editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child {
   pointer-events: none; }
+
+.save-btn {
+  height: 5.7vh;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  width: 12vw;
+  background-color: #c44536; }
 
 /*TABLET */
 @media only screen and (min-width: 768px) {
@@ -117,13 +131,27 @@ select:hover {
 input::placeholder {
   color: #000; }
 
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *,
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
 #editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child {
   pointer-events: none; }
+
+.save-btn {
+  height: 5.7vh;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  width: 12vw;
+  background-color: #c44536; }
 
 /*TABLET */
 @media only screen and (min-width: 768px) {
@@ -285,13 +313,27 @@ select:hover {
 input::placeholder {
   color: #000; }
 
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *,
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
 #editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child {
   pointer-events: none; }
+
+.save-btn {
+  height: 5.7vh;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  width: 12vw;
+  background-color: #c44536; }
 
 /*TABLET */
 @media only screen and (min-width: 768px) {
@@ -385,13 +427,27 @@ select:hover {
 input::placeholder {
   color: #000; }
 
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *,
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
 #editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child {
   pointer-events: none; }
+
+.save-btn {
+  height: 5.7vh;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  width: 12vw;
+  background-color: #c44536; }
 
 /*TABLET */
 @media only screen and (min-width: 768px) {
@@ -629,13 +685,27 @@ select:hover {
 input::placeholder {
   color: #000; }
 
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *,
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
 #editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child {
   pointer-events: none; }
+
+.save-btn {
+  height: 5.7vh;
+  box-sizing: border-box;
+  margin: 0;
+  color: white;
+  width: 12vw;
+  background-color: #c44536; }
 
 /*TABLET */
 @media only screen and (min-width: 768px) {
@@ -712,8 +782,7 @@ input::placeholder {
   .saved-trips #packing-list .saved-trip-packing-list button,
   .saved-trips #todo-list .saved-trip-packing-list button {
     margin: 0;
-    padding: 0;
-    background: transparent; }
+    padding: 0; }
   .saved-trips #packing-list .saved-trip-packing-list *,
   .saved-trips #todo-list .saved-trip-packing-list * {
     text-align: center; }

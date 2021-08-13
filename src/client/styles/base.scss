@@ -63,13 +63,28 @@ input::placeholder {
 
 // multi-view styles
 // stop pointer events for icons
+.edit-items-ntv > *,
+.delete-items-ntv > *,
+.edit-items-stv > *,
+.delete-items-stv > *,
+.edit-trip > *,
+.delete-trip > *, // test if any below this line work?
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *, 
-#editBtn > *, 
+.edit-trip-btn > *,
+#editBtn > *,
 #deleteBtn > *,
-.select-categories > * {
+.select-categories:first-child { // does this work?
     pointer-events: none;
+}
+
+.save-btn {
+    height: 5.7vh;
+    box-sizing: border-box;
+    margin: 0;
+    color: white;
+    width: 12vw;
+    background-color: #c44536;
 }
 
 /*TABLET */

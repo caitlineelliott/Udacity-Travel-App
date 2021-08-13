@@ -11,21 +11,17 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     let bannerImg = await getHeaderPhoto(userCity);
     if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
         console.log('undefined/no background') // TODO: add custom bg here?
-    } else {
-        document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`;
     }
+    else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
 
     document.querySelector('h1').innerHTML = `${userCity}`;
 
     async function getHeaderPhoto(userCity) {
         try {
-            const request =
-                await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+            const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
             return await request.json();
         }
-        catch (e) {
-            console.log('FAILED TO FETCH GEONAMES API DATA:', e);
-        }
+        catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
     }
 
     // Update Trip Details
@@ -100,9 +96,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
         tripWeatherContainer.appendChild(longForecast);
-    } else if (tripDaysCount.length < 6) {
-        tripWeatherContainer.style = "padding-bottom: 20px;"
     }
+    else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.packing-list-btn').addEventListener('click', createElements);
@@ -169,11 +164,8 @@ function setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weathe
     weather.classList.add('forecast-high');
     newRow.appendChild(weather);
 
-    if (newTripContainer) {
-        setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr)
-    } else if (newTripContainer === undefined) {
-        return;
-    }
+    if (newTripContainer) { setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) }
+    else if (newTripContainer === undefined) { return; }
 }
 
 function setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) {

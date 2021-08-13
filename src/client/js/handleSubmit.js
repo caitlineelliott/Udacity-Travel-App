@@ -1,6 +1,5 @@
 import { viewNewTrip } from './viewNewTrip'
 
-// constrain trip date inputs on #initial-request form
 // Lines 5-12 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
 var today = new Date();
 var dd = today.getDate();
@@ -18,10 +17,8 @@ document.querySelector('.return-date').addEventListener('click', function (event
     document.querySelector('.return-date').setAttribute("min", departDate.value);
 })
 
-// generate trip data
-document.querySelector('#initial-request').addEventListener('submit', function (event) {
-    generate(event)
-});
+// Generate trip data
+document.querySelector('#initial-request').addEventListener('submit', function (event) { generate(event) });
 
 async function generate(event) {
     event.preventDefault();
@@ -44,24 +41,18 @@ async function generate(event) {
 
 const getGeonames = async (placename, username) => {
     try {
-        const request =
-            await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+        const request = await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
         return await request.json();
     }
-    catch (e) {
-        console.log('FAILED TO FETCH GEONAMES API DATA:', e);
-    }
+    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
 };
 
 const getWeatherBit = async (lat, lng) => {
     try {
-        const request =
-            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+        const request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
         return await request.json();
     }
-    catch (e) {
-        console.log('no weatherbit data :(', e);
-    }
+    catch (e) { console.log('no weatherbit data :(', e); }
 };
 
 export {

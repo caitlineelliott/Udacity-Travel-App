@@ -1,3 +1,6 @@
+import { editItems } from './modifyItems'
+import { removeData } from './modifyItems'
+import { removeItem } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
@@ -52,6 +55,9 @@ function displayTrip(tripData) {
         tripCity.innerHTML = tripData[i].city;
         editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
         deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
+
+        editTrip.classList.add('edit-trip');
+        deleteTrip.classList.add('delete-trip');
 
         newTripHeading.classList.add('packing-list-row');
         tripDates.classList.add('trip-dates');
@@ -268,8 +274,8 @@ function displayTrip(tripData) {
         tripPackingList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         tripTodoList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
-        editTrip.addEventListener('click', editTripDates)
-        deleteTrip.addEventListener('click', removeData(tripData))
+        editTrip.addEventListener('click', editItems)
+        // deleteTrip.addEventListener('click', removeData(tripData))
     }
 }
 
@@ -324,95 +330,44 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
     }
 }
 
-function editTripDates(event) {
-    let btn = event.target.parentElement;
-    let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
-    let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
-    let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
-    let saveBtn = document.createElement('button');
+// function removeData() {
+//     return function (event) {
+//         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
+//         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
+//         let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+//         let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
-    btn.disabled = true;
-    tripDates.readOnly = false;
-    tripDates.style = 'background-color: rgb(196, 69, 54); height: 5.7vh; box-sizing: border-box; padding: 15px 0 0 8px; margin-left: -15px;'
-    tripCityContainer.style.width = "24%"
-    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style = 'margin: 0; height: 5.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
-    tripDates.insertAdjacentElement('afterend', saveBtn);
+//         tripRow.remove();
+//         deleteFromServer(tripCity, departDate, returnDate)
+//     }
+// }
 
-    saveBtn.addEventListener('click', async function () {
-        saveEditedTripDates(tripDates, saveBtn);
+// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
+//     deleteServerData('/remove', {
+//         city: tripCity,
+//         depart: departDate,
+//         return: returnDate,
+//         item: itemToDelete,
+//     });
+// }
 
-        // refresh page
-        let trips = document.querySelector('.saved-trips').children;
-        for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
-
-        let newTripDates = tripDates.value;
-        let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-
-        await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-        setTimeout(displayNewTrips, 1000);
-    })
-}
-
-function saveEditedTripDates(editedItem) {
-    let editBtn = editedItem.parentElement.children[3].children[3];
-    let saveBtn = editedItem.parentElement.children[1];
-
-    editedItem.readOnly = true;
-    editedItem.style = 'background-color: transparent; padding-top: 18px;'
-    editBtn.disabled = false;
-    saveBtn.remove();
-}
-
-async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-    addServerData('/tripdates', {
-        city: tripCity,
-        depart: newTripDates.slice(0, 5),
-        return: newTripDates.slice(8, 13),
-        weatherTest: tripWeatherTestData,
-    });
-}
-
-async function displayNewTrips() { await getUserData('/all') }
-
-function removeData() {
-    return function (event) {
-        let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-        let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-        let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-        let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-
-        tripRow.remove();
-        deleteFromServer(tripCity, departDate, returnDate)
-    }
-}
-
-function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-    deleteServerData('/remove', {
-        city: tripCity,
-        depart: departDate,
-        return: returnDate,
-        item: itemToDelete,
-    });
-}
-
-const deleteServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA DELETED FROM SERVER`);
-        return await response.json();
-    }
-    catch {
-        console.log('FAILED TO DELETE DATA FROM SERVER');
-    }
-};
+// const deleteServerData = async (url = '', data = {}) => {
+//     try {
+//         const response = await fetch(url, {
+//             method: 'DELETE',
+//             credentials: 'same-origin',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(data),
+//         });
+//         console.log(`DATA DELETED FROM SERVER`);
+//         return await response.json();
+//     }
+//     catch {
+//         console.log('FAILED TO DELETE DATA FROM SERVER');
+//     }
+// };
 
 
 // ITEM LEVEL FUNCTIONS
@@ -438,6 +393,10 @@ function addItemRows(itemRow, item, category) {
     category.style = "width: 30vw; font-size: 0.9em;"
     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+
+    item.classList.add('stv-item');
+    editBtn.classList.add('edit-items-stv');
+    deleteBtn.classList.add('delete-items-stv');
 
     editBtn.addEventListener('click', editItems)
     toggle.addEventListener('click', toggleData);
@@ -596,32 +555,6 @@ function discardSTVItems(todoListContainer, packingListContainer) {
     }
 };
 
-function editItems(event) {
-    let editedItem = event.target.parentElement.parentElement.children[1];
-    let btn = event.target.parentElement;
-    let saveBtn = document.createElement('button');
-
-    editedItem.readOnly = false;
-    editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
-    editedItem.insertAdjacentElement('afterend', saveBtn);
-
-    btn.disabled = true;
-
-    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-    saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
-    saveBtn.addEventListener('click', function () { saveEditedItem(editedItem); })
-}
-
-function saveEditedItem(editedItem) {
-    let editBtn = editedItem.parentElement.children[4];
-    let saveBtn = editedItem.parentElement.children[2];
-
-    editedItem.readOnly = true;
-    editedItem.style = 'background-color: transparent; padding-top: 18px;'
-    editBtn.disabled = false;
-    saveBtn.remove();
-}
-
 function addMoreItems(event) {
     event.preventDefault();
 
@@ -653,13 +586,13 @@ function toggleData(event) {
     event.target.parentElement.parentElement.classList.toggle('packed');
 }
 
-function removeItem(event) {
-    let item = event.target.parentElement.parentElement;
-    item.style.display = 'none';
-}
+// function removeItem(event) {
+//     let item = event.target.parentElement.parentElement;
+//     item.style.display = 'none';
+// }
 
 export {
-    removeData,
+    // removeData,
     viewSavedTrips,
     getUserData
 }
