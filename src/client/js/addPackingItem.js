@@ -82,6 +82,5 @@ function appendItem(target, blockElements, rowElements) {
 
 export {
     createElements,
-    // removeItems,
     appendItem
 }
