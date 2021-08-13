@@ -644,7 +644,9 @@ function displayTrip(tripData) {
         let longForecast = document.createElement('div');
 
         if (weatherData[0] !== undefined) {
-            let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date.slice(0, 1)}-${weatherData[weatherData.length - 1].date.slice(2, 4)}-21`);
+            let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
+            console.log(weatherEnd, tripEnd)
+            console.log(weatherEnd < tripEnd)
 
             if (weatherEnd < tripEnd) {
                 longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
