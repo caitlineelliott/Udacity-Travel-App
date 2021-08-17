@@ -246,9 +246,9 @@ function displayTrip(tripData) {
             }
 
             // trip data actions
-            tripPackingList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
-            tripTodoList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
-            tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
+            tripPackingList.addEventListener('click', displayData);
+            tripTodoList.addEventListener('click', displayData);
+            tripWeather.addEventListener('click', displayData);
             editTrip.addEventListener('click', editItems);
             deleteTrip.addEventListener('click', removeItems);
         }
@@ -256,31 +256,29 @@ function displayTrip(tripData) {
 }
 
 // TRIP LEVEL FUNCTIONS
-function displayData(packingListContainer, todoListContainer, weatherContainer) {
-    return async function (event) {
-        let trips = document.querySelector('.saved-trips').children;
+function displayData(event) {
+    // return async function (event) {
+    let trips = document.querySelector('.saved-trips').children;
+    let tripBlock = event.target.parentElement.parentElement.parentElement;
+    let btn = event.target.classList[0];
 
-        // general display of data: packing, todo, weather
-        let tripBlock = event.target.parentElement.parentElement.parentElement;
-        let btn = event.target.classList[0];
+    for (let i = 1; i < tripBlock.children.length; i++) {
+        if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
+            if (tripBlock.children[i].style.display === 'none') {
+                tripBlock.children[i].style.display = 'block'
 
-        for (let i = 1; i < tripBlock.children.length; i++) {
-            if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
-                if (tripBlock.children[i].style.display === 'none') {
-                    tripBlock.children[i].style.display = 'block'
-
-                    for (let i = 0; i < trips.length; i++) {
-                        if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
-                    }
-                } else if (tripBlock.children[i].style.display === 'block') {
-                    tripBlock.children[i].style.display = 'none'
-                    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+                for (let i = 0; i < trips.length; i++) {
+                    if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
                 }
-            } else {
-                tripBlock.children[i].style.display = 'none';
+            } else if (tripBlock.children[i].style.display === 'block') {
+                tripBlock.children[i].style.display = 'none'
+                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
             }
+        } else {
+            tripBlock.children[i].style.display = 'none';
         }
     }
+    // }
 }
 
 // ITEM LEVEL FUNCTIONS
@@ -316,7 +314,7 @@ function addItemRows(itemRow, item, category) {
     deleteBtn.addEventListener('click', removeItems)
 }
 
-function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer) {
+function saveSTVItems(tripCity, tripDates) {
     return function (event) {
         let allItemsContainer = event.target.parentElement.parentElement;
         let allItems = event.target.parentElement.parentElement.children;
@@ -326,11 +324,7 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
         }
 
-        if (todoListContainer.style.display === 'block') {
-            todoListContainer.style.display = 'none';
-        } else if (packingListContainer.style.display === 'block') {
-            packingListContainer.style.display = 'none';
-        }
+        if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
         // return hidden trips
         let trips = document.querySelector('.saved-trips').children;
@@ -343,26 +337,23 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
             let classes = allItems[i].classList;
             let iterator = classes.entries();
 
-            for (let value of iterator) {
-                if (value[1] === 'modified') { allItems[i].classList.remove('modified'); }
-            }
+            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
 
             // if no list items
             if (allItems.length < 3) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.id;
-                newItem['item'] = null
+                newItem['item'] = null;
 
                 if (flag === 'todo-list') { newItem['listType'] = 'todo' }
                 else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
-                itemsArr.push(newItem)
+                itemsArr.push(newItem);
             }
             // if yes list items
             else {
                 if (allItems[i].classList[0] === 'saved-trip-packing-list') {
-                    let newItem = {}
-                    let flag = allItems[i].classList[1]
-
+                    let newItem = {};
+                    let flag = allItems[i].classList[1];
                     newItem['item'] = allItems[i].children[1].value;
                     newItem['category'] = allItems[i].children[2].innerText;
 
@@ -373,13 +364,13 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 
                     for (let value of iterator) {
                         if (value[1] === 'packed') { newItem['toggle'] = true }
-                        else { newItem['toggle'] = false; }
+                        else { newItem['toggle'] = false; };
                     }
 
                     if (flag === 'todo') { newItem['listType'] = 'todo' }
-                    else if (flag === 'packing') { newItem['listType'] = 'packing' }
+                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
 
-                    itemsArr.push(newItem)
+                    itemsArr.push(newItem);
                 }
             }
         }
@@ -389,54 +380,23 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
 
 function discardSTVItems(todoListContainer, packingListContainer) {
     return function (event) {
-        if (todoListContainer.style.display === 'block') {
-            todoListContainer.style.display = 'none';
-            let children = todoListContainer.children;
+        let allItemsContainer = event.target.parentElement.parentElement;
+        if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
-            // return hidden trips
-            let trips = document.querySelector('.saved-trips').children;
-            for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+        // return hidden trips
+        let trips = document.querySelector('.saved-trips').children;
+        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
 
-            for (let i = 0; i < children.length; i++) {
-                // remove items added via add more
-                if (children[i].classList[2] == 'new-todo-item') { children[i].remove(); }
-
-                // return 'deleted' items
-                if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
-
-                // fix toggle modifications
-                let classes = children[i].classList;
-                let iterator = classes.entries();
-
-                for (let value of iterator) {
-                    if (value[1] === 'modified') { children[i].classList.toggle('packed'); }
-                }
-            }
-        } else if (packingListContainer.style.display === 'block') {
-            packingListContainer.style.display = 'none';
-
-            let children = packingListContainer.children;
-            for (let i = 0; i < children.length; i++) {
-                // remove items added via add more
-                if (children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
-
-                // return 'deleted' items
-                if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
-
-                // fix toggle modifications
-                let classes = children[i].classList;
-                let iterator = classes.entries();
-
-                for (let value of iterator) {
-                    if (value[1] === 'modified') { children[i].classList.toggle('packed'); }
-                }
-            }
+        let children = allItemsContainer.children;
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
+            if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
+            let classes = children[i].classList;
+            let iterator = classes.entries();
+            for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
         }
-
-        try {
-            let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
-            for (let i = 0; i < allTrips.length; i++) { allTrips[i].style = "display: block;" }
-        } catch (e) { console.log(e) }
+        let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
+        for (let i = 0; i < allTrips.length; i++) { allTrips[i].style = "display: block;" }
     }
 };
 
