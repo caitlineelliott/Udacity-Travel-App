@@ -31,7 +31,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
-    let tripWeatherContainer = document.querySelector('.forecast');
+    let tripWeatherContainer = document.querySelector('.weather');
 
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {

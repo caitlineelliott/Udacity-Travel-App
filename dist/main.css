@@ -498,21 +498,21 @@ input::placeholder {
       width: 60%; }
     .new-trip-container .travel-summary .trip-details {
       width: 40%; }
-  .new-trip-container .forecast {
+  .new-trip-container .weather {
     width: 100vw;
     background: #83A8A6;
     color: white; }
-    .new-trip-container .forecast h2 {
+    .new-trip-container .weather h2 {
       margin-top: 20px;
       color: #edddd4; }
-    .new-trip-container .forecast .more-days {
+    .new-trip-container .weather .more-days {
       font-size: 0.8em;
       text-align: center;
       margin: 20px 0; }
-    .new-trip-container .forecast .more-days:hover {
+    .new-trip-container .weather .more-days:hover {
       color: #283d3b;
       cursor: pointer; }
-    .new-trip-container .forecast .long-forecast {
+    .new-trip-container .weather .long-forecast {
       width: 80vw;
       font-size: 0.8em;
       margin: 20px auto; }
@@ -833,21 +833,21 @@ input::placeholder {
       opacity: 0.5;
       width: 15vw; }
 
-.saved-trips .forecast {
+.saved-trips .weather {
   width: 100vw;
   background: #83A8A6;
   color: white; }
-  .saved-trips .forecast h2 {
+  .saved-trips .weather h2 {
     margin-top: 20px;
     color: #edddd4; }
-  .saved-trips .forecast .more-days {
+  .saved-trips .weather .more-days {
     font-size: 0.8em;
     text-align: center;
     margin: 20px 0; }
-  .saved-trips .forecast .more-days:hover {
+  .saved-trips .weather .more-days:hover {
     color: #283d3b;
     cursor: pointer; }
-  .saved-trips .forecast .long-forecast {
+  .saved-trips .weather .long-forecast {
     width: 80vw;
     font-size: 0.8em;
     margin: 20px auto; }
@@ -925,7 +925,7 @@ input::placeholder {
         padding: 0 50px; }
   #packedFlag {
     width: 23vw; }
-  .forecast,
+  .weather,
   .packing-list-form,
   .packing-list-row {
     width: 40vw; }

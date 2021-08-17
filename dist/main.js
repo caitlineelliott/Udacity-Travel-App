@@ -649,7 +649,6 @@ function displayTrip(tripData) {
 
             // WEATHER
             let weatherData = tripData[i].weather;
-            weatherContainer.classList.add('forecast');
             let tripEnd = new Date(tripData[i].arrival);
 
             // remove old weather before trip date change
@@ -710,14 +709,8 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
                 if (tripBlock.children[i].style.display === 'none') {
                     tripBlock.children[i].style.display = 'block'
 
-
                     for (let i = 0; i < trips.length; i++) {
-                        if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) {
-                            console.log(event.target.parentElement.parentElement.parentElement.id);
-                            console.log(trips[i].id);
-
-                            trips[i].style = "display: none;"
-                        }
+                        if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
                     }
                 } else if (tripBlock.children[i].style.display === 'block') {
                     tripBlock.children[i].style.display = 'none'
@@ -727,48 +720,6 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
                 tripBlock.children[i].style.display = 'none';
             }
         }
-
-        // if (event.target.classList[1] === 'fa-tshirt') {
-        //     if (packingListContainer.style.display === 'none') {
-        //         packingListContainer.style.display = 'block';
-        //         weatherContainer.style.display = 'none';
-        //         todoListContainer.style.display = 'none';
-
-        //         for (let i = 0; i < allTrips.length; i++) {
-        //             if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
-        //         }
-        //     } else if (packingListContainer.style.display === 'block') {
-        //         packingListContainer.style.display = 'none'
-        //         for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-        //     }
-        // } else if (event.target.classList[1] === 'fa-clipboard-list') {
-        //     if (todoListContainer.style.display === 'none') {
-        //         todoListContainer.style.display = 'block';
-        //         packingListContainer.style.display = 'none';
-        //         weatherContainer.style.display = 'none';
-
-        //         for (let i = 0; i < allTrips.length; i++) {
-        //             if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
-        //         }
-        //     } else if (todoListContainer.style.display === 'block') {
-        //         todoListContainer.style.display = 'none'
-        //         for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
-        //     }
-        // } else if (event.target.classList[1] === 'fa-sun') {
-        //     if (weatherContainer.style.display === 'none') {
-        //         weatherContainer.style.display = 'block';
-        //         packingListContainer.style.display = 'none';
-        //         todoListContainer.style.display = 'none';
-
-        //         for (let i = 0; i < allTrips.length; i++) {
-        //             if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
-        //         }
-
-        //     } else if (weatherContainer.style.display === 'block') {
-        //         weatherContainer.style.display = 'none';
-        //         for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
-        //     }
-        // }
     }
 }
 
@@ -1068,7 +1019,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
-    let tripWeatherContainer = document.querySelector('.forecast');
+    let tripWeatherContainer = document.querySelector('.weather');
 
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {

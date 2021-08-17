@@ -209,7 +209,6 @@ function displayTrip(tripData) {
 
             // WEATHER
             let weatherData = tripData[i].weather;
-            weatherContainer.classList.add('forecast');
             let tripEnd = new Date(tripData[i].arrival);
 
             // remove old weather before trip date change
