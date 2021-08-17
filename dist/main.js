@@ -218,38 +218,6 @@ function appendItem(target, blockElements, rowElements) {
     rowElements.deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
 }
 
-// function editNewItems(event) {
-//     let editBtn = event.target;
-//     editBtn.disabled = true;
-
-//     let editibleItem = event.target.previousSibling;
-//     editibleItem.readOnly = false;
-//     editibleItem.style = "background-color: #c44536; color: white"
-
-//     let saveBtnNTV = document.createElement('button');
-//     saveBtnNTV.innerHTML = '<i class="fas fa-save"></i>';
-//     saveBtnNTV.style = 'height: 5.7vh; box-sizing: border-box; margin: 0; color: white; width: 12vw; background-color: #c44536;'
-//     editibleItem.insertAdjacentElement('afterend', saveBtnNTV);
-//     saveBtnNTV.addEventListener('click', function () {
-//         saveEditedItem(editBtn, editibleItem, saveBtnNTV);
-//     });
-// }
-
-// function saveEditedItem(editBtn, editibleItem, saveBtnNTV) {
-//     editBtn.disabled = false;
-//     editibleItem.readOnly = true;
-//     editibleItem.style.backgroundColor = '#83A8A6; color: black;';
-//     saveBtnNTV.remove();
-// }
-
-// function removeItems(event) {
-//     let item = event.target.parentElement;
-//     let itemCategory = event.target.parentElement.parentElement;
-
-//     item.remove();
-//     if (itemCategory.children.length < 2) { itemCategory.remove() }
-// }
-
 
 
 /***/ }),
@@ -332,19 +300,17 @@ const getWeatherBit = async (lat, lng) => {
 /*!**************************************!*\
   !*** ./src/client/js/modifyItems.js ***!
   \**************************************/
-/*! exports provided: editItems */
+/*! exports provided: editItems, removeItems, toggleItems */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editItems", function() { return editItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
 /* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
-// All edit/delete functions
 
 
-
-// edit itmes - NTV packing & todo, STV packing & todo, STV trip dates
-// save & update server
 
 function editItems(event) {
     let editBtn = event.target;
@@ -368,7 +334,6 @@ function editItems(event) {
         saveBtn.style = 'height: 5vh;'
         modifyEditedItems(item, saveBtn, editBtn);
     }
-
 }
 
 function modifyEditedItems(item, saveBtn, editBtn) {
@@ -376,7 +341,6 @@ function modifyEditedItems(item, saveBtn, editBtn) {
     item.style.backgroundColor = "#c44536";
     saveBtn.classList.add('save-btn');
     item.insertAdjacentElement('afterend', saveBtn);
-
     saveBtn.addEventListener('click', function () { saveEditedItem(item, saveBtn, editBtn); })
 }
 
@@ -390,9 +354,7 @@ function saveEditedItem(item, saveBtn, editBtn, event) {
     if (item.classList.contains('trip-dates')) {
         item.style.backgroundColor = '#197278';
         item.style.color = 'white';
-
         updateTripDates(item)
-
     } else if (item.classList.contains('stv-item')) {
         item.style.color = 'black';
     }
@@ -406,41 +368,14 @@ async function updateTripDates(item) {
     let newTripDates = item.value;
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-    console.log(newTripDates, tripWeatherTestData, tripCity)
 
     await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
     setTimeout(displayNewTrips, 1000);
 }
 
-
-
-// // chanve trip dates in STV
-// function editTripDates(event) {
-//     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
-//     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
-//     let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
-
-//     
-//     tripCityContainer.style.width = "24%"
-
-//     saveBtn.addEventListener('click', async function () {
-//         saveEditedTripDates(tripDates, saveBtn);
-
-//         // refresh page
-//         let trips = document.querySelector('.saved-trips').children;
-//         for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
-
-//         let newTripDates = tripDates.value;
-//         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-
-//         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-//         setTimeout(displayNewTrips, 1000);
-//     })
-// }
-
 // // update server
 async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-    addServerData('/tripdates', {
+    Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["addServerData"])('/tripdates', {
         city: tripCity,
         depart: newTripDates.slice(0, 5),
         return: newTripDates.slice(8, 13),
@@ -448,93 +383,66 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
     });
 }
 
-const addServerData = async (url = '', data = {}) => {
+// // display new trips
+async function displayNewTrips() { await Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
+
+// // delete items - NTV packing & todo, STV packing & todo, STV trips
+function removeItems(event) {
+    if (!event.target.classList.contains('delete-trip')) {
+        let item = event.target.parentElement;
+
+        if (event.target.classList.contains('delete-items-ntv')) {
+            let itemCategory = event.target.parentElement.parentElement;
+            if (itemCategory.children.length < 3) { itemCategory.remove() }
+            item.remove();
+        } else if (event.target.classList.contains('delete-items-stv')) {
+            item.style.display = 'none';
+        }
+    } else {
+        let item = event.target.parentElement.parentElement // whole trip stv
+        let tripCity = event.target.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
+
+        item.remove()
+        deleteServerData('/remove', {
+            city: tripCity,
+            depart: departDate,
+            return: returnDate
+        });
+    }
+}
+
+function toggleItems(event) {
+    event.target.parentElement.parentElement.classList.add('modified');
+    event.target.parentElement.parentElement.classList.toggle('packed');
+}
+
+// // // delete from server
+// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
+
+// }
+
+// delete req
+const deleteServerData = async (url = '', data = {}) => {
     try {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'DELETE',
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA POSTED TO SERVER`);
+        console.log(`DATA DELETED FROM SERVER`);
         return await response.json();
     }
-    catch (e) {
-        console.log('FAILED TO POST DATA TO SERVER');
-        console.log(e)
+    catch {
+        console.log('FAILED TO DELETE DATA FROM SERVER');
     }
 };
 
-// // display new trips
-async function displayNewTrips() { await Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
 
-// // delete items - NTV packing & todo, STV packing & todo, STV trips
-// // save & update server
-
-// // delete NTV packing & todo items
-// function removeItems(event) {
-//     let item = event.target.parentElement;
-//     let itemCategory = event.target.parentElement.parentElement;
-
-//     item.remove();
-//     if (itemCategory.children.length < 2) { itemCategory.remove() }
-// }
-
-// // delete STV packing & todo items
-// function removeItem(event) {
-//     let item = event.target.parentElement.parentElement;
-//     item.style.display = 'none';
-// }
-
-// // toggle packed in STV
-// function toggleData(event) {
-//     event.target.parentElement.parentElement.classList.add('modified');
-//     event.target.parentElement.parentElement.classList.toggle('packed');
-// }
-
-// // remove trip function
-// function removeData() {
-//     return function (event) {
-//         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-//         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-//         let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-//         let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-
-//         tripRow.remove();
-//         deleteFromServer(tripCity, departDate, returnDate)
-//     }
-// }
-
-// // delete from server
-// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-//     deleteServerData('/remove', {
-//         city: tripCity,
-//         depart: departDate,
-//         return: returnDate,
-//         item: itemToDelete,
-//     });
-// }
-
-// // delete req
-// const deleteServerData = async (url = '', data = {}) => {
-//     try {
-//         const response = await fetch(url, {
-//             method: 'DELETE',
-//             credentials: 'same-origin',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(data),
-//         });
-//         console.log(`DATA DELETED FROM SERVER`);
-//         return await response.json();
-//     }
-//     catch {
-//         console.log('FAILED TO DELETE DATA FROM SERVER');
-//     }
-// };
 
 /***/ }),
 
@@ -875,6 +783,7 @@ function displayTrip(tripData) {
         tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         editTrip.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
         // deleteTrip.addEventListener('click', removeData(tripData))
+        deleteTrip.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
     }
 }
 
@@ -928,57 +837,6 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
         }
     }
 }
-
-// function editTripDates(event) {
-//     let btn = event.target.parentElement;
-//     let tripCity = event.target.parentElement.parentElement.parentElement.children[1].innerText;
-//     let tripDates = event.target.parentElement.parentElement.parentElement.firstChild;
-//     let tripCityContainer = event.target.parentElement.parentElement.parentElement.children[1];
-//     let saveBtn = document.createElement('button');
-
-//     btn.disabled = true;
-//     tripDates.readOnly = false;
-//     tripDates.style = 'background-color: rgb(196, 69, 54); height: 5.7vh; box-sizing: border-box; padding: 15px 0 0 8px; margin-left: -15px;'
-//     tripCityContainer.style.width = "24%"
-//     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-//     saveBtn.style = 'margin: 0; height: 5.7vh; width: 10%; background-color: rgb(196, 69, 54); color: rgb(255, 255, 255);'
-//     tripDates.insertAdjacentElement('afterend', saveBtn);
-
-//     saveBtn.addEventListener('click', async function () {
-//         saveEditedTripDates(tripDates, saveBtn);
-
-//         // refresh page
-//         let trips = document.querySelector('.saved-trips').children;
-//         for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
-
-//         let newTripDates = tripDates.value;
-//         let tripWeatherTestData = event.target.parentElement.parentElement.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-
-//         await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
-//         setTimeout(displayNewTrips, 1000);
-//     })
-// }
-
-// function saveEditedTripDates(editedItem) {
-//     let editBtn = editedItem.parentElement.children[3].children[3];
-//     let saveBtn = editedItem.parentElement.children[1];
-
-//     editedItem.readOnly = true;
-//     editedItem.style = 'background-color: transparent; padding-top: 18px;'
-//     editBtn.disabled = false;
-//     saveBtn.remove();
-// }
-
-// async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-//     addServerData('/tripdates', {
-//         city: tripCity,
-//         depart: newTripDates.slice(0, 5),
-//         return: newTripDates.slice(8, 13),
-//         weatherTest: tripWeatherTestData,
-//     });
-// }
-
-// async function displayNewTrips() { await getUserData('/all') }
 
 // function removeData() {
 //     return function (event) {
@@ -1049,8 +907,8 @@ function addItemRows(itemRow, item, category) {
     deleteBtn.classList.add('delete-items-stv');
 
     editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
-    toggle.addEventListener('click', toggleData);
-    deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItem"])
+    toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
+    deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
 }
 
 function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer) {
@@ -1205,32 +1063,6 @@ function discardSTVItems(todoListContainer, packingListContainer) {
     }
 };
 
-// function editItems(event) {
-//     let editedItem = event.target.parentElement.parentElement.children[1];
-//     let btn = event.target.parentElement;
-//     let saveBtn = document.createElement('button');
-
-//     editedItem.readOnly = false;
-//     editedItem.style = 'width: 50vw; background-color: #c44536; color: "#fff"; box-sizing: border-box; padding: 10px 0 0 20px; height: 5vh;';
-//     editedItem.insertAdjacentElement('afterend', saveBtn);
-
-//     btn.disabled = true;
-
-//     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
-//     saveBtn.style = 'margin: 0; padding: 0; background-color: #c44536; color: "#fff"; width: 12vw; height: 5vh;'
-//     saveBtn.addEventListener('click', function () { saveEditedItem(editedItem); })
-// }
-
-// function saveEditedItem(editedItem) {
-//     let editBtn = editedItem.parentElement.children[4];
-//     let saveBtn = editedItem.parentElement.children[2];
-
-//     editedItem.readOnly = true;
-//     editedItem.style = 'background-color: transparent; padding-top: 18px;'
-//     editBtn.disabled = false;
-//     saveBtn.remove();
-// }
-
 function addMoreItems(event) {
     event.preventDefault();
 
@@ -1256,16 +1088,6 @@ function addMoreItems(event) {
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
-
-function toggleData(event) {
-    event.target.parentElement.parentElement.classList.add('modified');
-    event.target.parentElement.parentElement.classList.toggle('packed');
-}
-
-// function removeItem(event) {
-//     let item = event.target.parentElement.parentElement;
-//     item.style.display = 'none';
-// }
 
 
 

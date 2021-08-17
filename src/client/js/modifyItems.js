@@ -62,8 +62,6 @@ async function updateTripDates(item) {
     setTimeout(displayNewTrips, 1000);
 }
 
-export { editItems }
-
 // // update server
 async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
     addServerData('/tripdates', {
@@ -78,67 +76,50 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
 async function displayNewTrips() { await getUserData('/all') }
 
 // // delete items - NTV packing & todo, STV packing & todo, STV trips
-// // save & update server
+function removeItems(event) {
+    if (!event.target.classList.contains('delete-trip')) {
+        let item = event.target.parentElement;
 
-// // delete NTV packing & todo items
-// function removeItems(event) {
-//     let item = event.target.parentElement;
-//     let itemCategory = event.target.parentElement.parentElement;
+        if (event.target.classList.contains('delete-items-ntv')) {
+            let itemCategory = event.target.parentElement.parentElement;
+            if (itemCategory.children.length < 3) { itemCategory.remove() }
+            item.remove();
+        } else if (event.target.classList.contains('delete-items-stv')) {
+            item.style.display = 'none';
+        }
+    } else {
+        let item = event.target.parentElement.parentElement // whole trip stv
+        let tripCity = event.target.parentElement.previousElementSibling.innerText;
+        let departDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
+        let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
-//     item.remove();
-//     if (itemCategory.children.length < 2) { itemCategory.remove() }
-// }
+        item.remove()
+        deleteServerData('/remove', { city: tripCity, depart: departDate, return: returnDate });
+    }
+}
 
-// // delete STV packing & todo items
-// function removeItem(event) {
-//     let item = event.target.parentElement.parentElement;
-//     item.style.display = 'none';
-// }
+function toggleItems(event) {
+    event.target.parentElement.parentElement.classList.add('modified');
+    event.target.parentElement.parentElement.classList.toggle('packed');
+}
 
-// // toggle packed in STV
-// function toggleData(event) {
-//     event.target.parentElement.parentElement.classList.add('modified');
-//     event.target.parentElement.parentElement.classList.toggle('packed');
-// }
+// delete req
+const deleteServerData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA DELETED FROM SERVER`);
+        return await response.json();
+    }
+    catch {
+        console.log('FAILED TO DELETE DATA FROM SERVER');
+    }
+};
 
-// // remove trip function
-// function removeData() {
-//     return function (event) {
-//         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-//         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-//         let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-//         let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-
-//         tripRow.remove();
-//         deleteFromServer(tripCity, departDate, returnDate)
-//     }
-// }
-
-// // delete from server
-// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-//     deleteServerData('/remove', {
-//         city: tripCity,
-//         depart: departDate,
-//         return: returnDate,
-//         item: itemToDelete,
-//     });
-// }
-
-// // delete req
-// const deleteServerData = async (url = '', data = {}) => {
-//     try {
-//         const response = await fetch(url, {
-//             method: 'DELETE',
-//             credentials: 'same-origin',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(data),
-//         });
-//         console.log(`DATA DELETED FROM SERVER`);
-//         return await response.json();
-//     }
-//     catch {
-//         console.log('FAILED TO DELETE DATA FROM SERVER');
-//     }
-// };
+export { editItems, removeItems, toggleItems }

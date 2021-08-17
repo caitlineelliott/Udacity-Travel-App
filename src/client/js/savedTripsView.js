@@ -1,6 +1,6 @@
 import { editItems } from './modifyItems'
-import { removeData } from './modifyItems'
-import { removeItem } from './modifyItems'
+import { removeItems } from './modifyItems'
+import { toggleItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
@@ -276,6 +276,7 @@ function displayTrip(tripData) {
         tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
         editTrip.addEventListener('click', editItems)
         // deleteTrip.addEventListener('click', removeData(tripData))
+        deleteTrip.addEventListener('click', removeItems)
     }
 }
 
@@ -399,8 +400,8 @@ function addItemRows(itemRow, item, category) {
     deleteBtn.classList.add('delete-items-stv');
 
     editBtn.addEventListener('click', editItems)
-    toggle.addEventListener('click', toggleData);
-    deleteBtn.addEventListener('click', removeItem)
+    toggle.addEventListener('click', toggleItems);
+    deleteBtn.addEventListener('click', removeItems)
 }
 
 function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer) {
@@ -580,16 +581,6 @@ function addMoreItems(event) {
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
-
-function toggleData(event) {
-    event.target.parentElement.parentElement.classList.add('modified');
-    event.target.parentElement.parentElement.classList.toggle('packed');
-}
-
-// function removeItem(event) {
-//     let item = event.target.parentElement.parentElement;
-//     item.style.display = 'none';
-// }
 
 export {
     // removeData,
