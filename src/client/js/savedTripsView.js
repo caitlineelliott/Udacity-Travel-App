@@ -1,16 +1,12 @@
-import { editItems } from './modifyItems'
-import { removeItems } from './modifyItems'
-import { toggleItems } from './modifyItems'
+import { editItems, removeItems, toggleItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
-import { getUserData } from './serverRequests'
-import { postData } from './serverRequests'
+import { getUserData, postData } from './serverRequests'
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
 
 async function viewSavedTrips() {
-    document.querySelector('.new-trip-container').style.display = 'none';
-    document.querySelector('.initial-req-container').style.display = 'none';
-    document.querySelector('.trip-saved-container').style.display = 'none';
+    let container = document.querySelector('main');
+    for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
@@ -25,298 +21,264 @@ async function viewSavedTrips() {
 
 function displayTrip(tripData) {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
-
-    // Display all trips
-    for (let i = 0; i < tripData.length; i++) {
+    else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
-        let newTripContainer = document.createElement('div');
-        let newTripHeading = document.createElement('div');
-        let tripDates = document.createElement('textarea');
-        let tripCity = document.createElement('div');
-        let tripActions = document.createElement('div');
+        tripContainer.style.display = 'block';
 
-        const tripPackingList = document.createElement('button');
-        const tripTodoList = document.createElement('button');
-        const tripWeather = document.createElement('button');
-        const editTrip = document.createElement('button');
-        const deleteTrip = document.createElement('button');
+        for (let i = 0; i < tripData.length; i++) {
+            let newTripContainer = document.createElement('div');
+            let newTripHeading = document.createElement('div');
+            let tripDates = document.createElement('textarea');
+            let tripCity = document.createElement('div');
+            let tripActions = document.createElement('div');
+            const tripPackingList = document.createElement('button');
+            const tripTodoList = document.createElement('button');
+            const tripWeather = document.createElement('button');
+            const editTrip = document.createElement('button');
+            const deleteTrip = document.createElement('button');
+            let packingListContainer = document.createElement('div');
+            let todoListContainer = document.createElement('div');
+            let weatherContainer = document.createElement('div');
+            tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
+            tripCity.innerHTML = tripData[i].city;
+            editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
+            deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
 
-        tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
-        tripDates.readOnly = true;
-        tripCity.innerHTML = tripData[i].city;
-        editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
-        deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
+            tripDates.readOnly = true;
+            tripPackingList.classList.add('packing-list-btn')
+            tripTodoList.classList.add('todo-list-btn')
+            tripWeather.classList.add('weather-btn')
+            editTrip.classList.add('edit-trip');
+            deleteTrip.classList.add('delete-trip');
+            packingListContainer.classList.add('packing-list')
+            todoListContainer.classList.add('todo-list')
+            weatherContainer.classList.add('weather')
+            newTripHeading.classList.add('packing-list-row');
+            tripDates.classList.add('trip-dates');
+            tripCity.classList.add('trip-city');
+            tripActions.classList.add('trip-actions');
+            packingListContainer.style.display = 'none';
+            todoListContainer.style.display = 'none';
+            weatherContainer.style.display = 'none';
 
-        editTrip.classList.add('edit-trip');
-        deleteTrip.classList.add('delete-trip');
+            // handle spaces in trip names for id/class setting
+            if (tripData[i].city.indexOf(' ') >= 0) {
+                let newID = tripData[i].city.replace(/\s/g, '');
+                newTripContainer.id = `${newID}-trip`;
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
+            } else {
+                newTripContainer.id = `${tripData[i].city}-trip`;
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
+            }
 
-        newTripHeading.classList.add('packing-list-row');
-        tripDates.classList.add('trip-dates');
-        tripCity.classList.add('trip-city');
-        tripActions.classList.add('trip-actions');
+            newTripHeading.appendChild(tripDates);
+            newTripHeading.appendChild(tripCity);
+            newTripHeading.appendChild(tripActions);
+            tripActions.appendChild(tripPackingList);
+            tripActions.appendChild(tripTodoList);
+            tripActions.appendChild(tripWeather);
+            tripActions.appendChild(editTrip);
+            tripActions.appendChild(deleteTrip);
+            newTripContainer.appendChild(newTripHeading);
+            newTripContainer.appendChild(packingListContainer);
+            newTripContainer.appendChild(todoListContainer);
+            newTripContainer.appendChild(weatherContainer);
+            tripContainer.appendChild(newTripContainer);
 
-        newTripHeading.appendChild(tripDates);
-        newTripHeading.appendChild(tripCity);
-        newTripHeading.appendChild(tripActions);
-        tripActions.appendChild(tripPackingList);
-        tripActions.appendChild(tripTodoList);
-        tripActions.appendChild(tripWeather);
-        tripActions.appendChild(editTrip);
-        tripActions.appendChild(deleteTrip);
+            // ADD PACKING LIST DATA
+            let packedItems = tripData[i].packingList;
+            for (let i = 0; i < packedItems.length; i++) {
+                let itemRow = document.createElement('div');
+                itemRow.classList.add('saved-trip-packing-list', 'packing');
 
-        let packingListContainer = document.createElement('div');
-        let todoListContainer = document.createElement('div');
-        let weatherContainer = document.createElement('div');
+                if (packedItems[i].toggle === true) { itemRow.classList.add('packed'); }
 
-        packingListContainer.style.display = 'none';
-        todoListContainer.style.display = 'none';
-        weatherContainer.style.display = 'none';
+                let item = document.createElement('textarea');
+                let category = document.createElement('div');
+                item.innerHTML = packedItems[i].item;
+                category.innerHTML = packedItems[i].category;
 
-        newTripContainer.appendChild(newTripHeading);
-        newTripContainer.appendChild(packingListContainer);
-        newTripContainer.appendChild(todoListContainer);
-        newTripContainer.appendChild(weatherContainer);
+                addItemRows(itemRow, item, category);
+                packingListContainer.appendChild(itemRow);
+            }
 
-        // handle spaces in trip names for id/class setting
-        if (tripData[i].city.indexOf(' ') >= 0) {
-            let newID = tripData[i].city.replace(/\s/g, '');
-            newTripContainer.id = `${newID}-trip`;
-            tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
-            tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
-            tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
-        } else {
-            newTripContainer.id = `${tripData[i].city}-trip`;
-            tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
-            tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
-            tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
-        }
+            let addPackingItemsForm = document.createElement('div');
+            let rootForm = document.querySelector('.packing-list-btn-container');
+            let formWrapper = document.createElement('form');
+            let input = rootForm.parentElement.children[1].children[0].children[0].cloneNode(true);
+            let select = rootForm.parentElement.children[1].children[0].children[1].cloneNode(true);
 
-        tripContainer.appendChild(newTripContainer);
+            formWrapper.classList.add('packing-list-form');
+            addPackingItemsForm.classList.add('packing-list-btn-container');
+            addPackingItemsForm.innerHTML = `<p>Missing something? Add more here:</p>`
+            addPackingItemsForm.appendChild(formWrapper)
+            formWrapper.appendChild(input);
+            formWrapper.appendChild(select);
 
-        // ADD PACKING LIST DATA
-        let packedItems = tripData[i].packingList;
-        for (let i = 0; i < packedItems.length; i++) {
-            let itemRow = document.createElement('div');
-            itemRow.classList.add('saved-trip-packing-list', 'packing');
+            let addMorePackBtn = document.createElement('button');
+            addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
+            addMorePackBtn.id = 'add-more-packing-stv';
+            addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-            if (packedItems[i].toggle === true) { itemRow.classList.add('packed'); }
+            formWrapper.appendChild(addMorePackBtn)
 
-            let item = document.createElement('textarea');
-            let category = document.createElement('div');
-            item.innerHTML = packedItems[i].item;
-            category.innerHTML = packedItems[i].category;
+            packingListContainer.appendChild(addPackingItemsForm);
+            packingListContainer.id = 'packing-list'
 
-            addItemRows(itemRow, item, category);
-            packingListContainer.appendChild(itemRow);
-        }
+            let btnContainer = document.createElement('div');
+            btnContainer.classList.add('trip-btn-container');
+            packingListContainer.appendChild(btnContainer)
 
-        let addPackingItemsForm = document.createElement('div');
-        let rootForm = document.querySelector('.packing-list-btn-container');
-        let formWrapper = document.createElement('form');
-        let input = rootForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-        let select = rootForm.parentElement.children[1].children[0].children[1].cloneNode(true); // works but still error
-        console.log(select)
+            let discardPackBtn = document.createElement('button');
+            discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
+            discardPackBtn.innerHTML = 'Discard Changes';
 
-        formWrapper.classList.add('packing-list-form');
-        addPackingItemsForm.classList.add('packing-list-btn-container');
-        addPackingItemsForm.innerHTML = `<p>Missing something? Add more here:</p>`
-        addPackingItemsForm.appendChild(formWrapper)
-        formWrapper.appendChild(input);
-        formWrapper.appendChild(select);
+            let savePackBtn = document.createElement('button');
+            savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
+            savePackBtn.innerHTML = 'Save Changes'
 
-        let addMorePackBtn = document.createElement('button');
-        addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-        addMorePackBtn.id = 'add-more-packing-stv';
-        addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+            btnContainer.appendChild(discardPackBtn);
+            btnContainer.appendChild(savePackBtn);
 
-        formWrapper.appendChild(addMorePackBtn)
+            addMorePackBtn.addEventListener('click', function (event) { addMoreItems(event); });
+            discardPackBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+            savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
-        packingListContainer.appendChild(addPackingItemsForm);
-        packingListContainer.id = 'packing-list'
+            // TO DO LIST
+            let todoList = tripData[i].todoList;
+            for (let i = 0; i < todoList.length; i++) {
+                let itemRow = document.createElement('div');
+                itemRow.classList.add('saved-trip-packing-list', 'todo');
 
-        let btnContainer = document.createElement('div');
-        btnContainer.classList.add('trip-btn-container');
-        packingListContainer.appendChild(btnContainer)
+                if (todoList[i].toggle === true) { itemRow.classList.add('packed'); }
 
-        let discardPackBtn = document.createElement('button');
-        discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
-        discardPackBtn.innerHTML = 'Discard Changes';
+                let item = document.createElement('textarea');
+                let category = document.createElement('div');
+                item.innerHTML = todoList[i].item;
+                category.innerHTML = todoList[i].category;
 
-        let savePackBtn = document.createElement('button');
-        savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
-        savePackBtn.innerHTML = 'Save Changes'
+                addItemRows(itemRow, item, category)
+                todoListContainer.appendChild(itemRow);
+            }
 
-        btnContainer.appendChild(discardPackBtn);
-        btnContainer.appendChild(savePackBtn);
+            let addTodosForm = document.createElement('div');
+            let rootTodoForm = document.querySelector('.todo-list-btn-container');
+            let todoWrapper = document.createElement('form');
+            let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0].cloneNode(true);
+            let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1].cloneNode(true);
 
-        // let addMorePack = document.querySelector('#add-more-packing-stv');
-        addMorePackBtn.addEventListener('click', function (event) {
-            addMoreItems(event);
-        });
+            todoWrapper.classList.add('packing-list-form');
+            addTodosForm.classList.add('packing-list-btn-container');
+            addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
+            addTodosForm.appendChild(todoWrapper)
+            todoWrapper.appendChild(todoInput);
+            todoWrapper.appendChild(todoSelect);
 
-        discardPackBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
-        savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
+            let addMoreTodoBtn = document.createElement('button');
+            addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
+            addMoreTodoBtn.id = 'add-more-packing-stv';
+            addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-        // TO DO LIST
-        let todoList = tripData[i].todoList;
-        for (let i = 0; i < todoList.length; i++) {
-            let itemRow = document.createElement('div');
-            itemRow.classList.add('saved-trip-packing-list', 'todo');
+            todoWrapper.appendChild(addMoreTodoBtn)
 
-            if (todoList[i].toggle === true) { itemRow.classList.add('packed'); }
+            todoListContainer.appendChild(addTodosForm);
+            todoListContainer.id = 'todo-list'
 
-            let item = document.createElement('textarea');
-            let category = document.createElement('div');
-            item.innerHTML = todoList[i].item;
-            category.innerHTML = todoList[i].category;
+            let todoBtnContainer = document.createElement('div');
+            todoBtnContainer.classList.add('trip-btn-container');
+            todoListContainer.appendChild(todoBtnContainer)
 
-            addItemRows(itemRow, item, category)
-            todoListContainer.appendChild(itemRow);
-        }
+            let discardTodoBtn = document.createElement('button');
+            discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
+            discardTodoBtn.innerHTML = 'Discard Changes';
 
-        let addTodosForm = document.createElement('div');
-        let rootTodoForm = document.querySelector('.todo-list-btn-container');
-        let todoWrapper = document.createElement('form');
-        let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-        let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1].cloneNode(true);
+            let saveTodoBtn = document.createElement('button');
+            saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
+            saveTodoBtn.innerHTML = 'Save Changes';
 
-        todoWrapper.classList.add('packing-list-form');
-        addTodosForm.classList.add('packing-list-btn-container');
-        addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
-        addTodosForm.appendChild(todoWrapper)
-        todoWrapper.appendChild(todoInput);
-        todoWrapper.appendChild(todoSelect);
+            todoBtnContainer.appendChild(discardTodoBtn);
+            todoBtnContainer.appendChild(saveTodoBtn);
 
-        let addMoreTodoBtn = document.createElement('button');
-        addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-        addMoreTodoBtn.id = 'add-more-packing-stv';
-        addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+            addMoreTodoBtn.addEventListener('click', function (event) { addMoreItems(event); });
+            discardTodoBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
+            saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
 
-        todoWrapper.appendChild(addMoreTodoBtn)
+            // WEATHER
+            let weatherData = tripData[i].weather;
+            weatherContainer.classList.add('forecast');
+            let tripEnd = new Date(tripData[i].arrival);
 
-        todoListContainer.appendChild(addTodosForm);
-        todoListContainer.id = 'todo-list'
+            // remove old weather before trip date change
+            if (weatherContainer.children.length > 0) { weatherContainer.children.remove() }
 
-        let todoBtnContainer = document.createElement('div');
-        todoBtnContainer.classList.add('trip-btn-container');
-        todoListContainer.appendChild(todoBtnContainer)
+            // add new weather tripData
+            for (let i = 0; i < weatherData.length; i++) {
+                let newRow = document.createElement('div');
+                const tripDate = document.createElement('div');
+                const weatherIcon = document.createElement('img');
+                const weather = document.createElement('div');
+                weatherContainer.appendChild(newRow);
 
-        let discardTodoBtn = document.createElement('button');
-        discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
-        discardTodoBtn.innerHTML = 'Discard Changes';
+                setWeatherDOMStructure(newRow, tripDate, null, weatherIcon, weather);
 
-        let saveTodoBtn = document.createElement('button');
-        saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
-        saveTodoBtn.innerHTML = 'Save Changes';
+                tripDate.innerHTML = weatherData[i].date;
+                weatherIcon.src = `${weatherData[i].weatherIcon}`;
+                weather.innerHTML = weatherData[i].weather;
+            }
 
-        todoBtnContainer.appendChild(discardTodoBtn);
-        todoBtnContainer.appendChild(saveTodoBtn);
+            // long forecast
+            let longForecast = document.createElement('div');
 
-        addMoreTodoBtn.addEventListener('click', function (event) {
-            addMoreItems(event);
-        });
-
-        discardTodoBtn.addEventListener('click', discardSTVItems(todoListContainer, packingListContainer));
-        saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
-
-        // WEATHER
-        let weatherData = tripData[i].weather;
-        weatherContainer.classList.add('forecast');
-        let tripEnd = new Date(tripData[i].arrival);
-
-        // remove old weather before trip date change
-        if (weatherContainer.children.length > 0) { weatherContainer.children.remove() }
-
-        // add new weather tripData
-        for (let i = 0; i < weatherData.length; i++) {
-            let newRow = document.createElement('div');
-            const tripDate = document.createElement('div');
-            const weatherIcon = document.createElement('img');
-            const weather = document.createElement('div');
-            weatherContainer.appendChild(newRow);
-
-            setWeatherDOMStructure(newRow, tripDate, null, weatherIcon, weather);
-
-            tripDate.innerHTML = weatherData[i].date;
-            weatherIcon.src = `${weatherData[i].weatherIcon}`;
-            weather.innerHTML = weatherData[i].weather;
-        }
-
-        // long forecast
-        let longForecast = document.createElement('div');
-
-        if (weatherData[0] !== undefined) {
-            let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
-            console.log(weatherEnd, tripEnd)
-            console.log(weatherEnd < tripEnd)
-
-            if (weatherEnd < tripEnd) {
-                longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                longForecast.style = 'width: 80vw; margin: 20px auto 0 auto; background-color: #83A8A6; padding: 20px;';
+            if (weatherData[0] !== undefined) {
+                let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
+                if (weatherEnd < tripEnd) {
+                    longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+                    longForecast.style = 'width: 80vw; margin: 20px auto 0 auto; background-color: #83A8A6; padding: 20px;';
+                    weatherContainer.appendChild(longForecast);
+                }
+            } else if (weatherData[0] === undefined) {
+                longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+                longForecast.style = 'width: 80vw; margin: 0 auto; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
             }
-        } else if (weatherData[0] === undefined) {
-            longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-            longForecast.style = 'width: 80vw; margin: 0 auto; background-color: #83A8A6; padding: 20px;';
-            weatherContainer.appendChild(longForecast);
-        }
 
-        // trip data actions
-        tripPackingList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
-        tripTodoList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
-        tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer))
-        editTrip.addEventListener('click', editItems)
-        // deleteTrip.addEventListener('click', removeData(tripData))
-        deleteTrip.addEventListener('click', removeItems)
+            // trip data actions
+            tripPackingList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
+            tripTodoList.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
+            tripWeather.addEventListener('click', displayData(packingListContainer, todoListContainer, weatherContainer));
+            editTrip.addEventListener('click', editItems);
+            deleteTrip.addEventListener('click', removeItems);
+        }
     }
 }
 
 // TRIP LEVEL FUNCTIONS
 function displayData(packingListContainer, todoListContainer, weatherContainer) {
     return async function (event) {
-        let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children;
         let trips = document.querySelector('.saved-trips').children;
 
         // general display of data: packing, todo, weather
-        if (event.target.classList[1] === 'fa-tshirt') {
-            if (packingListContainer.style.display === 'none') {
-                packingListContainer.style.display = 'block';
-                weatherContainer.style.display = 'none';
-                todoListContainer.style.display = 'none';
+        let tripBlock = event.target.parentElement.parentElement.parentElement;
+        let btn = event.target.classList[0];
 
-                for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
+        for (let i = 1; i < tripBlock.children.length; i++) {
+            if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
+                if (tripBlock.children[i].style.display === 'none') {
+                    tripBlock.children[i].style.display = 'block'
+
+                    for (let i = 0; i < trips.length; i++) {
+                        if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
+                    }
+                } else if (tripBlock.children[i].style.display === 'block') {
+                    tripBlock.children[i].style.display = 'none'
+                    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
                 }
-            } else if (packingListContainer.style.display === 'block') {
-                packingListContainer.style.display = 'none'
-                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-            }
-        } else if (event.target.classList[1] === 'fa-clipboard-list') {
-            if (todoListContainer.style.display === 'none') {
-                todoListContainer.style.display = 'block';
-                packingListContainer.style.display = 'none';
-                weatherContainer.style.display = 'none';
-
-                for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
-                }
-            } else if (todoListContainer.style.display === 'block') {
-                todoListContainer.style.display = 'none'
-                for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
-            }
-        } else if (event.target.classList[1] === 'fa-sun') {
-            if (weatherContainer.style.display === 'none') {
-                weatherContainer.style.display = 'block';
-                packingListContainer.style.display = 'none';
-                todoListContainer.style.display = 'none';
-
-                for (let i = 0; i < allTrips.length; i++) {
-                    if (event.target.classList[2] !== allTrips[i].id) { allTrips[i].style = "display: none;" }
-                }
-
-            } else if (weatherContainer.style.display === 'block') {
-                weatherContainer.style.display = 'none';
-                for (let i = 0; i < trips.length; i++) { trips[i].style.display = 'block'; }
+            } else {
+                tripBlock.children[i].style.display = 'none';
             }
         }
     }

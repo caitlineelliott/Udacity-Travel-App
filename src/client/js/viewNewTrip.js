@@ -1,33 +1,22 @@
 import { createElements } from './addPackingItem'
 import { viewSavedTrips } from './savedTripsView'
 import { postData } from './serverRequests'
+import { getHeaderPhoto } from './apiRequests'
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     document.querySelector('.initial-req-container').style.display = "none";
     let newTripContainer = document.querySelector('.new-trip-container');
     newTripContainer.style.display = "flex";
 
-    // Update Banner Img
+    // Update Header
     let bannerImg = await getHeaderPhoto(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
-        console.log('undefined/no background') // TODO: add custom bg here?
-    }
+    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background') }
     else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
-
     document.querySelector('h1').innerHTML = `${userCity}`;
-
-    async function getHeaderPhoto(userCity) {
-        try {
-            const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
-            return await request.json();
-        }
-        catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-    }
 
     // Update Trip Details
     const currentDate = new Date();
     const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
     document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
@@ -66,9 +55,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         showMoreDays.classList.add('more-days');
         tripWeatherContainer.appendChild(showMoreDays);
 
-        for (let i = 0; i < tripDaysCount.length; i++) {
-            if (i > 4) { tripDaysCount[i].style.display = "none"; }
-        }
+        for (let i = 0; i < tripDaysCount.length; i++) { if (i > 4) { tripDaysCount[i].style.display = "none"; } }
 
         showMoreDays.addEventListener('click', function () {
             for (let i = 0; i < tripDaysCount.length; i++) {
@@ -107,7 +94,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     document.querySelector('.save').addEventListener('click', function () {
         let packingList = []
         let todoList = []
-
         let items = document.querySelectorAll('.packing-list-row');
 
         for (let i = 0; i < items.length; i++) {
@@ -118,20 +104,12 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
             if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") {
                 todoList.push(item)
-            } else {
-                packingList.push(item)
-            }
+            } else { packingList.push(item) }
         };
 
-        // Save Confirmed View
+        // View Saved Confirmed Message
         newTripContainer.style.display = "none";
-        const saveConfirmed = document.querySelector('.trip-saved-container');
-        saveConfirmed.style.display = 'flex';
-        saveConfirmed.innerHTML = `
-                <h2>Happy trails!</h2>
-                <div>Your trip details have been saved.</div>
-                <button id="view-saved-trips" style="margin-top: 20px">View Saved Trips</button>`
-        document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
+        document.querySelector('.trip-saved-container').style.display = 'flex';
 
         let savedTripsBtn = document.querySelector('#view-saved-trips');
         savedTripsBtn.addEventListener('click', viewSavedTrips)

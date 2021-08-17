@@ -16,7 +16,7 @@ departDate.setAttribute("min", today);
 
 document.querySelector('.return-date').addEventListener('click', function (event) {
     document.querySelector('.return-date').setAttribute("min", departDate.value);
-})
+});
 
 // Generate trip data
 document.querySelector('#initial-request').addEventListener('submit', function (event) { generate(event) });

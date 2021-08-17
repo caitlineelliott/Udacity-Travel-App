@@ -14,4 +14,12 @@ const getWeatherBit = async (lat, lng) => {
     catch (e) { console.log('no weatherbit data :(', e); }
 };
 
-export { getGeonames, getWeatherBit }
+async function getHeaderPhoto(userCity) {
+    try {
+        const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+        return await request.json();
+    }
+    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
+};
+
+export { getGeonames, getWeatherBit, getHeaderPhoto }

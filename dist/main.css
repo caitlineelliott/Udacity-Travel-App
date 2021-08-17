@@ -52,6 +52,8 @@ input::placeholder {
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
+.todo-list-btn > *,
+.weather-btn > *,
 #editBtn > *,
 #deleteBtn > *,
 .select-categories:first-child {
@@ -140,6 +142,8 @@ input::placeholder {
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
+.todo-list-btn > *,
+.weather-btn > *,
 #editBtn > *,
 #deleteBtn > *,
 .select-categories:first-child {
@@ -322,6 +326,8 @@ input::placeholder {
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
+.todo-list-btn > *,
+.weather-btn > *,
 #editBtn > *,
 #deleteBtn > *,
 .select-categories:first-child {
@@ -436,6 +442,8 @@ input::placeholder {
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
+.todo-list-btn > *,
+.weather-btn > *,
 #editBtn > *,
 #deleteBtn > *,
 .select-categories:first-child {
@@ -694,6 +702,8 @@ input::placeholder {
 .packing-list-btn-stv > *,
 .packing-list-btn > *,
 .edit-trip-btn > *,
+.todo-list-btn > *,
+.weather-btn > *,
 #editBtn > *,
 #deleteBtn > *,
 .select-categories:first-child {
