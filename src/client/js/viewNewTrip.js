@@ -1,6 +1,6 @@
 import { createElements } from './addPackingItem'
-import { updateServer } from './saveTrip'
 import { viewSavedTrips } from './savedTripsView'
+import { postData } from './serverRequests'
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     document.querySelector('.initial-req-container').style.display = "none";
@@ -141,7 +141,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         bookTripBtn.innerHTML = `Book Trip`
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
 
-        updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
+        postData('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
 }
 

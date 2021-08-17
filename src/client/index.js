@@ -7,7 +7,6 @@ import { appendItem } from './js/addPackingItem'
 import { togglePacked } from './js/addPackingItem'
 import { viewSavedTrips } from './js/savedTripsView'
 import { addSavedTrip } from './js/savedTripsView'
-import { updateServer } from './js/saveTrip'
 
 import './styles/base.scss'
 import './styles/header.scss'

@@ -2,6 +2,8 @@ import { editItems } from './modifyItems'
 import { removeItems } from './modifyItems'
 import { toggleItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
+import { getUserData } from './serverRequests'
+import { postData } from './serverRequests'
 
 document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
 
@@ -21,16 +23,16 @@ async function viewSavedTrips() {
     await getUserData('/all');
 }
 
-const getUserData = async (url) => {
-    try {
-        const request = await fetch(url);
-        const tripData = await request.json();
-        displayTrip(tripData);
-    }
-    catch (e) {
-        console.log('DATA NOT RETREIVED FROM SERVER', e);
-    }
-};
+// const getUserData = async (url) => {
+//     try {
+//         const request = await fetch(url);
+//         const tripData = await request.json();
+//         displayTrip(tripData);
+//     }
+//     catch (e) {
+//         console.log('DATA NOT RETREIVED FROM SERVER', e);
+//     }
+// };
 
 function displayTrip(tripData) {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
@@ -331,46 +333,6 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
     }
 }
 
-// function removeData() {
-//     return function (event) {
-//         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-//         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-//         let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-//         let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-
-//         tripRow.remove();
-//         deleteFromServer(tripCity, departDate, returnDate)
-//     }
-// }
-
-// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-//     deleteServerData('/remove', {
-//         city: tripCity,
-//         depart: departDate,
-//         return: returnDate,
-//         item: itemToDelete,
-//     });
-// }
-
-// const deleteServerData = async (url = '', data = {}) => {
-//     try {
-//         const response = await fetch(url, {
-//             method: 'DELETE',
-//             credentials: 'same-origin',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(data),
-//         });
-//         console.log(`DATA DELETED FROM SERVER`);
-//         return await response.json();
-//     }
-//     catch {
-//         console.log('FAILED TO DELETE DATA FROM SERVER');
-//     }
-// };
-
-
 // ITEM LEVEL FUNCTIONS
 function addItemRows(itemRow, item, category) {
     let toggle = document.createElement('button');
@@ -471,37 +433,9 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                 }
             }
         }
-        updateServerLists(itemsArr, tripCity, tripDates)
+        postData('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
     }
 }
-
-function updateServerLists(itemsArr, tripCity, tripDates) {
-    addServerData('/list', {
-        city: tripCity.innerText,
-        depart: tripDates.innerHTML.slice(0, 5),
-        return: tripDates.innerHTML.slice(8, 13),
-        list: itemsArr
-    });
-}
-
-const addServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA POSTED TO SERVER`);
-        return await response.json();
-    }
-    catch (e) {
-        console.log('FAILED TO POST DATA TO SERVER');
-        console.log(e)
-    }
-};
 
 function discardSTVItems(todoListContainer, packingListContainer) {
     return function (event) {
@@ -583,7 +517,7 @@ function addMoreItems(event) {
 }
 
 export {
-    // removeData,
+    displayTrip,
     viewSavedTrips,
     getUserData
 }

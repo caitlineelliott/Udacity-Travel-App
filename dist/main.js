@@ -99,13 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
 /* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
 /* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _js_saveTrip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/saveTrip */ "./src/client/js/saveTrip.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
-/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
-
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
 
 
 
@@ -308,7 +306,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editItems", function() { return editItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
-/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 
 
 
@@ -369,13 +367,14 @@ async function updateTripDates(item) {
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
-    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
+    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) // condense?
     setTimeout(displayNewTrips, 1000);
 }
 
 // // update server
 async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-    Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["addServerData"])('/tripdates', {
+    console.log(newTripDates, tripCity, tripWeatherTestData)
+    Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["addServerData"])('/tripdates', {
         city: tripCity,
         depart: newTripDates.slice(0, 5),
         return: newTripDates.slice(8, 13),
@@ -384,7 +383,7 @@ async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) 
 }
 
 // // display new trips
-async function displayNewTrips() { await Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
+async function displayNewTrips() { await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
 
 // // delete items - NTV packing & todo, STV packing & todo, STV trips
 function removeItems(event) {
@@ -405,11 +404,7 @@ function removeItems(event) {
         let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
         item.remove()
-        deleteServerData('/remove', {
-            city: tripCity,
-            depart: departDate,
-            return: returnDate
-        });
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["deleteServerData"])('/remove', { city: tripCity, depart: departDate, return: returnDate });
     }
 }
 
@@ -417,76 +412,6 @@ function toggleItems(event) {
     event.target.parentElement.parentElement.classList.add('modified');
     event.target.parentElement.parentElement.classList.toggle('packed');
 }
-
-// // // delete from server
-// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-
-// }
-
-// delete req
-const deleteServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA DELETED FROM SERVER`);
-        return await response.json();
-    }
-    catch {
-        console.log('FAILED TO DELETE DATA FROM SERVER');
-    }
-};
-
-
-
-/***/ }),
-
-/***/ "./src/client/js/saveTrip.js":
-/*!***********************************!*\
-  !*** ./src/client/js/saveTrip.js ***!
-  \***********************************/
-/*! exports provided: updateServer, postData */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateServer", function() { return updateServer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-function updateServer(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr) {
-    postData('/api/trip', {
-        city: userCity,
-        departure: departDate,
-        displayDepart: displayDepart,
-        displayReturn: displayReturn,
-        arrival: returnDate,
-        packingList: packingList,
-        todoList: todoList,
-        weather: tripWeatherArr,
-    });
-}
-
-const postData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA SENT TO SERVER`);
-        return await response.json();
-    }
-    catch {
-        console.log('FAILED TO POST DATA TO SERVER');
-    }
-};
 
 
 
@@ -496,15 +421,20 @@ const postData = async (url = '', data = {}) => {
 /*!*****************************************!*\
   !*** ./src/client/js/savedTripsView.js ***!
   \*****************************************/
-/*! exports provided: viewSavedTrips, getUserData */
+/*! exports provided: displayTrip, viewSavedTrips, getUserData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayTrip", function() { return displayTrip; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewSavedTrips", function() { return viewSavedTrips; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
 /* harmony import */ var _modifyItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modifyItems */ "./src/client/js/modifyItems.js");
 /* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return _serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUserData"]; });
+
+
+
 
 
 
@@ -525,19 +455,19 @@ async function viewSavedTrips() {
     savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
-    await getUserData('/all');
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUserData"])('/all');
 }
 
-const getUserData = async (url) => {
-    try {
-        const request = await fetch(url);
-        const tripData = await request.json();
-        displayTrip(tripData);
-    }
-    catch (e) {
-        console.log('DATA NOT RETREIVED FROM SERVER', e);
-    }
-};
+// const getUserData = async (url) => {
+//     try {
+//         const request = await fetch(url);
+//         const tripData = await request.json();
+//         displayTrip(tripData);
+//     }
+//     catch (e) {
+//         console.log('DATA NOT RETREIVED FROM SERVER', e);
+//     }
+// };
 
 function displayTrip(tripData) {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
@@ -838,46 +768,6 @@ function displayData(packingListContainer, todoListContainer, weatherContainer) 
     }
 }
 
-// function removeData() {
-//     return function (event) {
-//         let tripRow = event.target.parentElement.parentElement.parentElement.parentElement;
-//         let tripCity = event.target.parentElement.parentElement.previousElementSibling.innerText;
-//         let departDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
-//         let returnDate = event.target.parentElement.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
-
-//         tripRow.remove();
-//         deleteFromServer(tripCity, departDate, returnDate)
-//     }
-// }
-
-// function deleteFromServer(tripCity, departDate, returnDate, itemToDelete) {
-//     deleteServerData('/remove', {
-//         city: tripCity,
-//         depart: departDate,
-//         return: returnDate,
-//         item: itemToDelete,
-//     });
-// }
-
-// const deleteServerData = async (url = '', data = {}) => {
-//     try {
-//         const response = await fetch(url, {
-//             method: 'DELETE',
-//             credentials: 'same-origin',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(data),
-//         });
-//         console.log(`DATA DELETED FROM SERVER`);
-//         return await response.json();
-//     }
-//     catch {
-//         console.log('FAILED TO DELETE DATA FROM SERVER');
-//     }
-// };
-
-
 // ITEM LEVEL FUNCTIONS
 function addItemRows(itemRow, item, category) {
     let toggle = document.createElement('button');
@@ -978,37 +868,9 @@ function saveSTVItems(tripCity, tripDates, todoListContainer, packingListContain
                 }
             }
         }
-        updateServerLists(itemsArr, tripCity, tripDates)
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
     }
 }
-
-function updateServerLists(itemsArr, tripCity, tripDates) {
-    addServerData('/list', {
-        city: tripCity.innerText,
-        depart: tripDates.innerHTML.slice(0, 5),
-        return: tripDates.innerHTML.slice(8, 13),
-        list: itemsArr
-    });
-}
-
-const addServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA POSTED TO SERVER`);
-        return await response.json();
-    }
-    catch (e) {
-        console.log('FAILED TO POST DATA TO SERVER');
-        console.log(e)
-    }
-};
 
 function discardSTVItems(todoListContainer, packingListContainer) {
     return function (event) {
@@ -1093,6 +955,83 @@ function addMoreItems(event) {
 
 /***/ }),
 
+/***/ "./src/client/js/serverRequests.js":
+/*!*****************************************!*\
+  !*** ./src/client/js/serverRequests.js ***!
+  \*****************************************/
+/*! exports provided: getUserData, postData, addServerData, deleteServerData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addServerData", function() { return addServerData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteServerData", function() { return deleteServerData; });
+/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+
+
+const getUserData = async (url) => {
+    try {
+        const request = await fetch(url);
+        const tripData = await request.json();
+        Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["displayTrip"])(tripData);
+    }
+    catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
+};
+
+const postData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA SENT TO SERVER`);
+        return await response.json();
+    }
+    catch { console.log('FAILED TO POST DATA TO SERVER'); }
+};
+
+const addServerData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA POSTED TO SERVER`);
+        return await response.json();
+    }
+    catch (e) { console.log(e) }
+};
+
+const deleteServerData = async (url = '', data = {}) => {
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        console.log(`DATA DELETED FROM SERVER`);
+        return await response.json();
+    }
+    catch { console.log('FAILED TO DELETE DATA FROM SERVER'); }
+};
+
+
+
+/***/ }),
+
 /***/ "./src/client/js/viewNewTrip.js":
 /*!**************************************!*\
   !*** ./src/client/js/viewNewTrip.js ***!
@@ -1106,8 +1045,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setWeatherDOMStructure", function() { return setWeatherDOMStructure; });
 /* harmony import */ var _addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _saveTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./saveTrip */ "./src/client/js/saveTrip.js");
-/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 
 
 
@@ -1244,14 +1183,14 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         document.querySelector('nav').insertAdjacentElement('afterend', saveConfirmed);
 
         let savedTripsBtn = document.querySelector('#view-saved-trips');
-        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
+        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
 
         let bookTripBtn = document.querySelector('.nav-saved-trips');
-        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_2__["viewSavedTrips"])
+        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
         bookTripBtn.innerHTML = `Book Trip`
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
 
-        Object(_saveTrip__WEBPACK_IMPORTED_MODULE_1__["updateServer"])(userCity, departDate, returnDate, displayDepart, displayReturn, packingList, todoList, tripWeatherArr);
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["postData"])('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
 }
 

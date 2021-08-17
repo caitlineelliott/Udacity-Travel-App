@@ -1,5 +1,5 @@
-import { getUserData } from "./savedTripsView";
-import { addServerData } from "./savedTripsView";
+import { addServerData } from "./serverRequests";
+import { getUserData, deleteServerData } from "./serverRequests";
 
 function editItems(event) {
     let editBtn = event.target;
@@ -58,12 +58,13 @@ async function updateTripDates(item) {
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
-    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData)
+    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) // condense?
     setTimeout(displayNewTrips, 1000);
 }
 
 // // update server
 async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
+    console.log(newTripDates, tripCity, tripWeatherTestData)
     addServerData('/tripdates', {
         city: tripCity,
         depart: newTripDates.slice(0, 5),
@@ -102,24 +103,5 @@ function toggleItems(event) {
     event.target.parentElement.parentElement.classList.add('modified');
     event.target.parentElement.parentElement.classList.toggle('packed');
 }
-
-// delete req
-const deleteServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA DELETED FROM SERVER`);
-        return await response.json();
-    }
-    catch {
-        console.log('FAILED TO DELETE DATA FROM SERVER');
-    }
-};
 
 export { editItems, removeItems, toggleItems }
