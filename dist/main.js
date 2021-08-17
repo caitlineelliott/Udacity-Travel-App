@@ -367,19 +367,8 @@ async function updateTripDates(item) {
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
-    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) // condense?
     setTimeout(displayNewTrips, 1000);
-}
-
-// // update server
-async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-    console.log(newTripDates, tripCity, tripWeatherTestData)
-    Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["addServerData"])('/tripdates', {
-        city: tripCity,
-        depart: newTripDates.slice(0, 5),
-        return: newTripDates.slice(8, 13),
-        weatherTest: tripWeatherTestData,
-    });
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
 }
 
 // // display new trips
@@ -959,14 +948,13 @@ function addMoreItems(event) {
 /*!*****************************************!*\
   !*** ./src/client/js/serverRequests.js ***!
   \*****************************************/
-/*! exports provided: getUserData, postData, addServerData, deleteServerData */
+/*! exports provided: getUserData, postData, deleteServerData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addServerData", function() { return addServerData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteServerData", function() { return deleteServerData; });
 /* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
 
@@ -993,23 +981,7 @@ const postData = async (url = '', data = {}) => {
         console.log(`DATA SENT TO SERVER`);
         return await response.json();
     }
-    catch { console.log('FAILED TO POST DATA TO SERVER'); }
-};
-
-const addServerData = async (url = '', data = {}) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        console.log(`DATA POSTED TO SERVER`);
-        return await response.json();
-    }
-    catch (e) { console.log(e) }
+    catch { console.log('FAILED TO POST DATA TO SERVER', e); }
 };
 
 const deleteServerData = async (url = '', data = {}) => {
@@ -1025,7 +997,7 @@ const deleteServerData = async (url = '', data = {}) => {
         console.log(`DATA DELETED FROM SERVER`);
         return await response.json();
     }
-    catch { console.log('FAILED TO DELETE DATA FROM SERVER'); }
+    catch { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
 };
 
 

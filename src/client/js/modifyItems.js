@@ -1,4 +1,4 @@
-import { addServerData } from "./serverRequests";
+import { postData } from "./serverRequests";
 import { getUserData, deleteServerData } from "./serverRequests";
 
 function editItems(event) {
@@ -58,19 +58,8 @@ async function updateTripDates(item) {
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
-    await changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) // condense?
     setTimeout(displayNewTrips, 1000);
-}
-
-// // update server
-async function changeDatesInServer(newTripDates, tripCity, tripWeatherTestData) {
-    console.log(newTripDates, tripCity, tripWeatherTestData)
-    addServerData('/tripdates', {
-        city: tripCity,
-        depart: newTripDates.slice(0, 5),
-        return: newTripDates.slice(8, 13),
-        weatherTest: tripWeatherTestData,
-    });
+    await postData('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
 }
 
 // // display new trips
