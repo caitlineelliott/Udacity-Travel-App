@@ -1,7 +1,7 @@
+let userTripData = [];
+
 // Setup empty JS object to act as endpoint for all routes
 const fetch = require("node-fetch");
-
-let userTripData = [];
 
 // Express to run server and routes
 const express = require('express');
@@ -24,12 +24,10 @@ app.use(express.static('dist'));
 
 const port = 3000;
 
-// Spin up the server
-// Callback to debug
+// Spin up the server & Callback to debug
 const server = app.listen(port, listening);
 
 function listening() {
-    console.log("server running");
     console.log(`running on localhost: ${port}`);
 };
 
@@ -65,18 +63,16 @@ function addTripData(req, res) {
     function compareData(a, b) {
         const tripA = a.departure;
         const tripB = b.departure;
-
         let comparison = 0;
+
         if (tripA > tripB) { comparison = 1; }
         else if (tripA < tripB) { comparison = -1; }
         return comparison;
     }
-
     userTripData.sort(compareData);
     res.send(userTripData);
 };
 
-// COME BACK HERE:
 function addListData(req, res) {
     const newData = req.body;
 
@@ -143,7 +139,6 @@ async function changeTripDates(req, res) {
                     newWeather.push(tripDayData);
                 }
             }
-
             userTripData[i]['weather'] = newWeather;
 
             // need to sort when changing dates
@@ -162,14 +157,9 @@ async function changeTripDates(req, res) {
 }
 
 app.get('/tripdates2', getUpdatedData);
-
-async function getUpdatedData(req, res) {
-    res.send(userTripData);
-};
+async function getUpdatedData(req, res) { res.send(userTripData); };
 
 app.delete('/remove', removeData);
-app.delete('/removeItems', removeItems);
-
 function removeData(req, res) {
     const newData = req.body;
     for (let i = 0; i < userTripData.length; i++) {
@@ -179,8 +169,6 @@ function removeData(req, res) {
         } else { console.log('no'); }
     }
 }
-
-function removeItems(req, res) { const newData = req.body }
 
 // update weather
 const getGeonames = async (placename, username) => {
