@@ -181,8 +181,4 @@ function setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather,
     tripWeatherArr.push(tripDayData);
 }
 
-export {
-    viewNewTrip,
-    getRandomNum,
-    setWeatherDOMStructure,
-}
+export { viewNewTrip, getRandomNum, setWeatherDOMStructure, }

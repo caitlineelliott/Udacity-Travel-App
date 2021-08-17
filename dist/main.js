@@ -220,19 +220,50 @@ function appendItem(target, blockElements, rowElements) {
 
 /***/ }),
 
+/***/ "./src/client/js/apiRequests.js":
+/*!**************************************!*\
+  !*** ./src/client/js/apiRequests.js ***!
+  \**************************************/
+/*! exports provided: getGeonames, getWeatherBit */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
+const getGeonames = async (placename, username) => {
+    try {
+        const request = await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+        return await request.json();
+    }
+    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
+};
+
+const getWeatherBit = async (lat, lng) => {
+    try {
+        const request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+        return await request.json();
+    }
+    catch (e) { console.log('no weatherbit data :(', e); }
+};
+
+
+
+/***/ }),
+
 /***/ "./src/client/js/handleSubmit.js":
 /*!***************************************!*\
   !*** ./src/client/js/handleSubmit.js ***!
   \***************************************/
-/*! exports provided: generate, getGeonames, getWeatherBit */
+/*! exports provided: generate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
 /* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
+
 
 
 // Lines 5-12 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
@@ -267,28 +298,12 @@ async function generate(event) {
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
 
-    const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
+    const geonamesInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott'); // put username in .env file
     const userCity = geonamesInfo.geonames[0].name;
-    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+    const weatherInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
     Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
 }
-
-const getGeonames = async (placename, username) => {
-    try {
-        const request = await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
-        return await request.json();
-    }
-    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-};
-
-const getWeatherBit = async (lat, lng) => {
-    try {
-        const request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
-        return await request.json();
-    }
-    catch (e) { console.log('no weatherbit data :(', e); }
-};
 
 
 
@@ -307,7 +322,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeItems", function() { return removeItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleItems", function() { return toggleItems; });
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
-
 
 
 function editItems(event) {
@@ -446,17 +460,6 @@ async function viewSavedTrips() {
 
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUserData"])('/all');
 }
-
-// const getUserData = async (url) => {
-//     try {
-//         const request = await fetch(url);
-//         const tripData = await request.json();
-//         displayTrip(tripData);
-//     }
-//     catch (e) {
-//         console.log('DATA NOT RETREIVED FROM SERVER', e);
-//     }
-// };
 
 function displayTrip(tripData) {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }

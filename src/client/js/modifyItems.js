@@ -1,5 +1,4 @@
-import { postData } from "./serverRequests";
-import { getUserData, deleteServerData } from "./serverRequests";
+import { postData, getUserData, deleteServerData } from "./serverRequests";
 
 function editItems(event) {
     let editBtn = event.target;

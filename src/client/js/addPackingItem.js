@@ -80,7 +80,4 @@ function appendItem(target, blockElements, rowElements) {
     rowElements.deleteBtn.addEventListener('click', removeItems);
 }
 
-export {
-    createElements,
-    appendItem
-}
+export { createElements, appendItem }

@@ -23,17 +23,6 @@ async function viewSavedTrips() {
     await getUserData('/all');
 }
 
-// const getUserData = async (url) => {
-//     try {
-//         const request = await fetch(url);
-//         const tripData = await request.json();
-//         displayTrip(tripData);
-//     }
-//     catch (e) {
-//         console.log('DATA NOT RETREIVED FROM SERVER', e);
-//     }
-// };
-
 function displayTrip(tripData) {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
 
@@ -516,8 +505,4 @@ function addMoreItems(event) {
     }
 }
 
-export {
-    displayTrip,
-    viewSavedTrips,
-    getUserData
-}
+export { displayTrip, viewSavedTrips, getUserData }
