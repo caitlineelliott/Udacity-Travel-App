@@ -19,7 +19,6 @@ const postData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA SENT TO SERVER`);
         return await response.json();
     }
     catch { console.log('FAILED TO POST DATA TO SERVER', e); }
@@ -35,7 +34,6 @@ const deleteServerData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA DELETED FROM SERVER`);
         return await response.json();
     }
     catch { console.log('FAILED TO DELETE DATA FROM SERVER', e); }

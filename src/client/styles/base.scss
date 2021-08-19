@@ -33,8 +33,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
     margin: 5px 0 20px 0;
     padding: 15px;
     box-sizing: border-box;
@@ -53,32 +52,26 @@ select:hover {
     cursor: pointer;
 }
 
-.text-input {
-    text-align: left;
-}
-
 input::placeholder {
     color: #000;
 }
 
-// multi-view styles
-// stop pointer events for icons
+// revised & checked pointer events
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *, // test if any below this line work?
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child { // does this work?
+.edit-trip > *,
+.delete-trip > *, 
+.edit-items-stv > *,
+.delete-items-stv > * {
     pointer-events: none;
 }
+
 
 .save-btn {
     height: 5.7vh;

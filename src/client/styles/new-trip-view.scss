@@ -1,14 +1,9 @@
 @import 'base.scss';
 
-
-
 .new-trip-container {
     display: none;
     padding-top: 20px;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    z-index: -1;
 
     h2 {
         margin-bottom: 0;
@@ -32,7 +27,6 @@
     }
 
     .weather {
-        width: 100vw;
         background: $h2-color-light;
         color: white;
 
@@ -49,11 +43,10 @@
 
         .more-days:hover {
             color: $cool-accent;
-            cursor:pointer;
+            cursor: pointer;
         }
 
         .long-forecast {
-            // color: $background;
             width: 80vw;
             font-size: 0.8em;
             margin: 20px auto;
@@ -61,18 +54,22 @@
     }
 
     .forecast-row,
-    .packing-list-row,
-    .todo-list-row {
+    .new-items-row {
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: center;
         height: 6vh;
+        width: 90vw;
+        margin: 0 auto;
+
+        textarea {
+            width: 1000vw;
+        }
     }
 
     .forecast-row {
         .forecast-date,
-        .forecast-high {
+        .forecast-temp {
             padding: 0 10px;
             font-size: 0.9em;
             box-sizing: border-box;
@@ -87,7 +84,7 @@
             width: 10vw;
         }
 
-        .forecast-high {
+        .forecast-temp {
             width: 40vw;
             padding-left: 30px;
         }
@@ -104,56 +101,50 @@
             margin-bottom: 20px;
         }
 
-        .packing-list-btn-container,
-        .todo-list-btn-container { // better name for form container 
-            .packing-list-form,
-            .todo-list-form {
-                display: flex;
-                flex-direction: row;
-                margin: auto 5vw;
+        .add-item-form {
+            display: flex;
+            margin: auto 5vw;
 
-                input {
-                    width: 40vw;
-                }
+            input {
+                width: 40vw;
+            }
 
-                select {
-                    opacity: 0.8;
-                    width: 35vw;
+            select {
+                opacity: 0.8;
+                width: 35vw;
+            }
+
+            button {
+                opacity: 0.5;
+                width: 15vw;
+            }
+        }
+
+        .select-categories {
+            width: 90vw;
+            margin: 0 auto 20px auto;
+
+            .new-items-row {
+                margin: 10px auto;
+
+                textarea {
+                    width: 70vw;
+                    height: 5.7vh;
+                    background-color: $h2-color-light;
+                    color: black;
+                    font-family: $plain-font;
+                    border: none;
+                    box-sizing: border-box;
+                    padding: 15px 0 0 10px;
                 }
 
                 button {
-                    opacity: 0.5;
-                    width: 15vw;
+                    width: 12vw;
+                    margin: 0;
+                    opacity: 0.8;
                 }
             }
-
-            .select-categories {
-                width: 90vw;
-                margin: 0 auto 20px auto;
-
-                .packing-list-row,
-                .todo-list-row {
-                    margin: 10px auto;
-
-                    textarea {
-                        width: 70vw;
-                        height: 5.7vh;
-                        background-color: $h2-color-light;
-                        color: black;
-                        font-family: $plain-font;
-                        border: none;
-                        box-sizing: border-box;
-                        padding: 15px 0 0 10px;
-                    }
-
-                    button {
-                        width: 12vw;
-                        margin: 0;
-                        opacity: 0.8;
-                    }
-                }
             }
-        }
     }
 
     .todo-list-container {
@@ -161,7 +152,7 @@
 
         .todo-list-btn-container { // better name for form container
            .select-categories {
-               .packing-list-row {
+               .new-items-row {
                     textarea {
                         height: 5.6vh;
                     }
@@ -169,13 +160,14 @@
            }
         }
     }
+
+    .trip-btn-container {
+        display: flex;
+    }
 }
 
-.trip-btn-container {
-    display: flex;
-}
-
-.save-trip-btn {
+.save-trip-btn,
+.discard-trip-btn {
     margin: 0 !important;
     width: 50vw;
     background: $h1-color;
@@ -187,6 +179,6 @@
     }
 }
 
-.discard {
+.discard-trip-btn {
     background-color: #772e25;
 }

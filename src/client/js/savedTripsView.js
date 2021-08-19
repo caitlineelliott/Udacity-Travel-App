@@ -2,7 +2,7 @@ import { editItems, removeItems, toggleItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
 import { getUserData, postData } from './serverRequests'
 
-document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
+document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
 async function viewSavedTrips() {
     let container = document.querySelector('main');
@@ -10,7 +10,7 @@ async function viewSavedTrips() {
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
-    let savedTripsBtn = document.querySelector('.nav-saved-trips');
+    let savedTripsBtn = document.querySelector('.main-nav-btn');
     savedTripsBtn.removeEventListener('click', viewSavedTrips)
     savedTripsBtn.innerHTML = `Book Trip`
     savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
@@ -39,6 +39,7 @@ function displayTrip(tripData) {
             let packingListContainer = document.createElement('div');
             let todoListContainer = document.createElement('div');
             let weatherContainer = document.createElement('div');
+
             tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
             tripCity.innerHTML = tripData[i].city;
             editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
@@ -53,7 +54,7 @@ function displayTrip(tripData) {
             packingListContainer.classList.add('packing-list')
             todoListContainer.classList.add('todo-list')
             weatherContainer.classList.add('weather')
-            newTripHeading.classList.add('packing-list-row');
+            newTripHeading.classList.add('new-items-row');
             tripDates.classList.add('trip-dates');
             tripCity.classList.add('trip-city');
             tripActions.classList.add('trip-actions');
@@ -106,39 +107,34 @@ function displayTrip(tripData) {
                 packingListContainer.appendChild(itemRow);
             }
 
-            let addPackingItemsForm = document.createElement('div');
-            let rootForm = document.querySelector('.packing-list-btn-container');
+            let addMoreHeading = document.createElement('p');
+            let originalContainer = document.querySelector('.packing-list-container');
             let formWrapper = document.createElement('form');
-            let input = rootForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-            let select = rootForm.parentElement.children[1].children[0].children[1].cloneNode(true);
+            let input = originalContainer.children[1].children[0].cloneNode(true);
+            let select = originalContainer.children[1].children[1].cloneNode(true);
 
-            formWrapper.classList.add('packing-list-form');
-            addPackingItemsForm.classList.add('packing-list-btn-container');
-            addPackingItemsForm.innerHTML = `<p>Missing something? Add more here:</p>`
-            addPackingItemsForm.appendChild(formWrapper)
+            formWrapper.classList.add('add-item-form');
+            addMoreHeading.innerHTML = `Missing something? Add more here:`
+            packingListContainer.appendChild(addMoreHeading);
+            packingListContainer.appendChild(formWrapper);
             formWrapper.appendChild(input);
             formWrapper.appendChild(select);
 
             let addMorePackBtn = document.createElement('button');
-            addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-            addMorePackBtn.id = 'add-more-packing-stv';
+            addMorePackBtn.classList.add('add-more-pack-btn');
             addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             formWrapper.appendChild(addMorePackBtn)
 
-            packingListContainer.appendChild(addPackingItemsForm);
-            packingListContainer.id = 'packing-list'
-
             let btnContainer = document.createElement('div');
-            btnContainer.classList.add('trip-btn-container');
             packingListContainer.appendChild(btnContainer)
 
             let discardPackBtn = document.createElement('button');
-            discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
+            discardPackBtn.classList.add('discard-trip-btn');
             discardPackBtn.innerHTML = 'Discard Changes';
 
             let savePackBtn = document.createElement('button');
-            savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
+            savePackBtn.classList.add('save-trip-btn');
             savePackBtn.innerHTML = 'Save Changes'
 
             btnContainer.appendChild(discardPackBtn);
@@ -166,38 +162,32 @@ function displayTrip(tripData) {
             }
 
             let addTodosForm = document.createElement('div');
-            let rootTodoForm = document.querySelector('.todo-list-btn-container');
+            let originalTodoContainer = document.querySelector('.todo-list-container');
             let todoWrapper = document.createElement('form');
-            let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-            let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1].cloneNode(true);
+            let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
+            let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
 
-            todoWrapper.classList.add('packing-list-form');
-            addTodosForm.classList.add('packing-list-btn-container');
+            todoWrapper.classList.add('add-item-form');
             addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
             addTodosForm.appendChild(todoWrapper)
             todoWrapper.appendChild(todoInput);
             todoWrapper.appendChild(todoSelect);
 
             let addMoreTodoBtn = document.createElement('button');
-            addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-            addMoreTodoBtn.id = 'add-more-packing-stv';
             addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             todoWrapper.appendChild(addMoreTodoBtn)
-
             todoListContainer.appendChild(addTodosForm);
-            todoListContainer.id = 'todo-list'
 
             let todoBtnContainer = document.createElement('div');
-            todoBtnContainer.classList.add('trip-btn-container');
             todoListContainer.appendChild(todoBtnContainer)
 
             let discardTodoBtn = document.createElement('button');
-            discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
+            discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
             discardTodoBtn.innerHTML = 'Discard Changes';
 
             let saveTodoBtn = document.createElement('button');
-            saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
+            saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
             saveTodoBtn.innerHTML = 'Save Changes';
 
             todoBtnContainer.appendChild(discardTodoBtn);
@@ -236,12 +226,12 @@ function displayTrip(tripData) {
                 let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
                 if (weatherEnd < tripEnd) {
                     longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                    longForecast.style = 'width: 80vw; margin: 20px auto 0 auto; background-color: #83A8A6; padding: 20px;';
+                    longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
                     weatherContainer.appendChild(longForecast);
                 }
             } else if (weatherData[0] === undefined) {
                 longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-                longForecast.style = 'width: 80vw; margin: 0 auto; background-color: #83A8A6; padding: 20px;';
+                longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
             }
 
@@ -266,7 +256,6 @@ function displayData(event) {
         if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
             if (tripBlock.children[i].style.display === 'none') {
                 tripBlock.children[i].style.display = 'block'
-
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
                 }
@@ -297,7 +286,6 @@ function addItemRows(itemRow, item, category) {
     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-    deleteBtn.id = 'delete-item-btn';
 
     toggle.style = "width: 15vw; font-size: 1em;"
     item.style = "width: 30vw; font-size: 0.9em;"
@@ -331,18 +319,16 @@ function saveSTVItems(tripCity, tripDates) {
         for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
 
         let itemsArr = []
-
         for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
             let iterator = classes.entries();
-
             for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
 
             // if no list items
             if (allItems.length < 3) {
                 let newItem = {};
-                let flag = event.target.parentElement.parentElement.id;
+                let flag = event.target.parentElement.parentElement.classList[0];
                 newItem['item'] = null;
 
                 if (flag === 'todo-list') { newItem['listType'] = 'todo' }
@@ -417,7 +403,7 @@ function addMoreItems(event) {
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-        let packingList = event.target.parentElement.parentElement.parentElement;
+        let packingList = event.target.parentElement.parentElement;
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }

@@ -5,8 +5,11 @@ function createElements(event) {
     event.preventDefault();
 
     const blockElements = {
+        "itemContainer": event.target.parentElement.parentElement,
         "newItemCategoryLabel": document.createElement('div'),
+        "itemCategory": event.target.parentElement.children[1].value,
         "newItemRow": document.createElement('div'),
+        "item": event.target.parentElement.children[0],
     }
 
     const rowElements = {
@@ -18,14 +21,12 @@ function createElements(event) {
     rowElements.newItemValue.readOnly = true;
     rowElements.newItemValue.setAttribute('style', 'resize: none; ');
 
-    let target = event.target.classList.value;
-
-    setValues(target, blockElements, rowElements);
+    setValues(event, blockElements, rowElements);
 
     // Toggles each item category open/closed
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.children).forEach(function (item) {
-            if (item.classList[0] === 'packing-list-row') {
+            if (item.classList[0] === 'new-items-row') {
                 if (item.style.display === 'none') { item.style.display = 'flex' }
                 else { item.style.display = 'none' }
             } else if (item.classList.contains('fa-chevron-down')) {
@@ -35,34 +36,34 @@ function createElements(event) {
     })
 }
 
-async function setValues(target, blockElements, rowElements) {
-    blockElements.newItemRow.classList.add('packing-list-row');
+async function setValues(event, blockElements, rowElements) {
+    blockElements.newItemRow.classList.add('new-items-row');
 
-    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
-    blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
-    blockElements.newItemCategoryLabel.classList.add('select-categories');
+    blockElements.newItemCategoryLabel.innerHTML = `${blockElements.itemCategory} <i class="fas fa-chevron-down"></i>`;
+    blockElements.newItemCategoryLabel.id = `${blockElements.itemCategory}-category`;
 
-    rowElements.newItemValue.defaultValue = document.querySelector(`.${target}-item`).value;
+    rowElements.newItemValue.defaultValue = blockElements.item.value;
     rowElements.editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     rowElements.deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
+    blockElements.newItemCategoryLabel.classList.add('select-categories');
     rowElements.editBtn.classList.add('edit-items-ntv');
     rowElements.deleteBtn.classList.add('delete-items-ntv');
 
-    document.querySelector(`.${target}-item`).value = '';
+    event.target.parentElement.children[0].value = '';
 
-    appendItem(target, blockElements, rowElements);
+    appendItem(blockElements, rowElements);
 }
 
-function appendItem(target, blockElements, rowElements) {
+function appendItem(blockElements, rowElements) {
     const categoryArr = []
+    let appendedElements = blockElements.itemContainer.children;
 
-    let appendedElements = document.querySelector(`.${target}-container`).children;
+    for (let i = 2; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
 
-    for (let i = 0; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
-
+    // Determines which category to append items under
     if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
-        document.querySelector(`.${target}-container`).appendChild(blockElements.newItemCategoryLabel);
+        blockElements.itemContainer.appendChild(blockElements.newItemCategoryLabel);
         blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
 
     } else {
@@ -72,8 +73,6 @@ function appendItem(target, blockElements, rowElements) {
 
     for (let i = 0; i < Object.keys(rowElements).length; i++) {
         blockElements.newItemRow.appendChild(Object.values(rowElements)[i]);
-        Object.values(rowElements)[i].id = Object.keys(rowElements)[i];
-        Object.values(rowElements)[i].classList.add('packing-item-row-segment');
     }
 
     rowElements.editBtn.addEventListener('click', editItems);

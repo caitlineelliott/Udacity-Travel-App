@@ -19,8 +19,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -37,26 +36,21 @@ select:hover {
   opacity: 0.8;
   cursor: pointer; }
 
-.text-input {
-  text-align: left; }
-
 input::placeholder {
   color: #000; }
 
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *,
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child {
+.edit-trip > *,
+.delete-trip > *,
+.edit-items-stv > *,
+.delete-items-stv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -109,8 +103,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -127,26 +120,21 @@ select:hover {
   opacity: 0.8;
   cursor: pointer; }
 
-.text-input {
-  text-align: left; }
-
 input::placeholder {
   color: #000; }
 
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *,
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child {
+.edit-trip > *,
+.delete-trip > *,
+.edit-items-stv > *,
+.delete-items-stv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -179,7 +167,6 @@ input::placeholder {
     flex-direction: row; } }
 
 header .banner {
-  width: 100vw;
   height: 30vh;
   display: flex;
   align-items: center;
@@ -197,7 +184,7 @@ header .postage-mark {
 
 header .home-btn {
   position: absolute;
-  top: 17px;
+  top: 16px;
   right: 15px;
   background: white;
   border-radius: 50%;
@@ -214,13 +201,13 @@ header nav {
   justify-content: space-evenly;
   height: 8vh;
   background-color: #43878A; }
-  header nav .nav-btn {
+  header nav .main-nav-btn {
     width: 95%;
     font-size: 3.5vw;
     margin: 10px 0;
     background-color: #edddd4;
     color: #c44536; }
-    header nav .nav-btn:hover {
+    header nav .main-nav-btn:hover {
       opacity: 0.85; }
 
 /* TABLET */
@@ -235,7 +222,7 @@ header nav {
       font-size: 3vw; }
   header nav {
     height: 6vh; }
-    header nav .nav-btn {
+    header nav .main-nav-btn {
       width: 30%;
       font-size: 2vw; } }
 
@@ -267,7 +254,7 @@ header nav {
       top: 0;
       left: 50%;
       width: 50vw; }
-      header nav .nav-btn {
+      header nav .main-nav-btn {
         width: 20%;
         font-size: 1vw;
         margin: 10px 20px; } }
@@ -293,8 +280,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -311,26 +297,21 @@ select:hover {
   opacity: 0.8;
   cursor: pointer; }
 
-.text-input {
-  text-align: left; }
-
 input::placeholder {
   color: #000; }
 
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *,
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child {
+.edit-trip > *,
+.delete-trip > *,
+.edit-items-stv > *,
+.delete-items-stv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -371,7 +352,6 @@ input::placeholder {
   flex-direction: column; }
 
 .form-label {
-  font-family: "montserrat", sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   color: #c44536; }
@@ -409,8 +389,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -427,26 +406,21 @@ select:hover {
   opacity: 0.8;
   cursor: pointer; }
 
-.text-input {
-  text-align: left; }
-
 input::placeholder {
   color: #000; }
 
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *,
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child {
+.edit-trip > *,
+.delete-trip > *,
+.edit-items-stv > *,
+.delete-items-stv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -481,10 +455,7 @@ input::placeholder {
 .new-trip-container {
   display: none;
   padding-top: 20px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: -1; }
+  flex-direction: column; }
   .new-trip-container h2 {
     margin-bottom: 0; }
   .new-trip-container .travel-summary {
@@ -499,7 +470,6 @@ input::placeholder {
     .new-trip-container .travel-summary .trip-details {
       width: 40%; }
   .new-trip-container .weather {
-    width: 100vw;
     background: #83A8A6;
     color: white; }
     .new-trip-container .weather h2 {
@@ -517,15 +487,18 @@ input::placeholder {
       font-size: 0.8em;
       margin: 20px auto; }
   .new-trip-container .forecast-row,
-  .new-trip-container .packing-list-row,
-  .new-trip-container .todo-list-row {
+  .new-trip-container .new-items-row {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 6vh; }
+    height: 6vh;
+    width: 90vw;
+    margin: 0 auto; }
+    .new-trip-container .forecast-row textarea,
+    .new-trip-container .new-items-row textarea {
+      width: 1000vw; }
   .new-trip-container .forecast-row .forecast-date,
-  .new-trip-container .forecast-row .forecast-high {
+  .new-trip-container .forecast-row .forecast-temp {
     padding: 0 10px;
     font-size: 0.9em;
     box-sizing: border-box; }
@@ -534,7 +507,7 @@ input::placeholder {
     padding-left: 20px; }
   .new-trip-container .forecast-row .forecast-icon {
     width: 10vw; }
-  .new-trip-container .forecast-row .forecast-high {
+  .new-trip-container .forecast-row .forecast-temp {
     width: 40vw;
     padding-left: 30px; }
   .new-trip-container .packing-list-container,
@@ -546,69 +519,30 @@ input::placeholder {
     .new-trip-container .todo-list-container h2 {
       color: #edddd4;
       margin-bottom: 20px; }
-    .new-trip-container .packing-list-container .packing-list-btn-container .packing-list-form,
-    .new-trip-container .packing-list-container .packing-list-btn-container .todo-list-form,
-    .new-trip-container .packing-list-container .todo-list-btn-container .packing-list-form,
-    .new-trip-container .packing-list-container .todo-list-btn-container .todo-list-form,
-    .new-trip-container .todo-list-container .packing-list-btn-container .packing-list-form,
-    .new-trip-container .todo-list-container .packing-list-btn-container .todo-list-form,
-    .new-trip-container .todo-list-container .todo-list-btn-container .packing-list-form,
-    .new-trip-container .todo-list-container .todo-list-btn-container .todo-list-form {
+    .new-trip-container .packing-list-container .add-item-form,
+    .new-trip-container .todo-list-container .add-item-form {
       display: flex;
-      flex-direction: row;
       margin: auto 5vw; }
-      .new-trip-container .packing-list-container .packing-list-btn-container .packing-list-form input,
-      .new-trip-container .packing-list-container .packing-list-btn-container .todo-list-form input,
-      .new-trip-container .packing-list-container .todo-list-btn-container .packing-list-form input,
-      .new-trip-container .packing-list-container .todo-list-btn-container .todo-list-form input,
-      .new-trip-container .todo-list-container .packing-list-btn-container .packing-list-form input,
-      .new-trip-container .todo-list-container .packing-list-btn-container .todo-list-form input,
-      .new-trip-container .todo-list-container .todo-list-btn-container .packing-list-form input,
-      .new-trip-container .todo-list-container .todo-list-btn-container .todo-list-form input {
+      .new-trip-container .packing-list-container .add-item-form input,
+      .new-trip-container .todo-list-container .add-item-form input {
         width: 40vw; }
-      .new-trip-container .packing-list-container .packing-list-btn-container .packing-list-form select,
-      .new-trip-container .packing-list-container .packing-list-btn-container .todo-list-form select,
-      .new-trip-container .packing-list-container .todo-list-btn-container .packing-list-form select,
-      .new-trip-container .packing-list-container .todo-list-btn-container .todo-list-form select,
-      .new-trip-container .todo-list-container .packing-list-btn-container .packing-list-form select,
-      .new-trip-container .todo-list-container .packing-list-btn-container .todo-list-form select,
-      .new-trip-container .todo-list-container .todo-list-btn-container .packing-list-form select,
-      .new-trip-container .todo-list-container .todo-list-btn-container .todo-list-form select {
+      .new-trip-container .packing-list-container .add-item-form select,
+      .new-trip-container .todo-list-container .add-item-form select {
         opacity: 0.8;
         width: 35vw; }
-      .new-trip-container .packing-list-container .packing-list-btn-container .packing-list-form button,
-      .new-trip-container .packing-list-container .packing-list-btn-container .todo-list-form button,
-      .new-trip-container .packing-list-container .todo-list-btn-container .packing-list-form button,
-      .new-trip-container .packing-list-container .todo-list-btn-container .todo-list-form button,
-      .new-trip-container .todo-list-container .packing-list-btn-container .packing-list-form button,
-      .new-trip-container .todo-list-container .packing-list-btn-container .todo-list-form button,
-      .new-trip-container .todo-list-container .todo-list-btn-container .packing-list-form button,
-      .new-trip-container .todo-list-container .todo-list-btn-container .todo-list-form button {
+      .new-trip-container .packing-list-container .add-item-form button,
+      .new-trip-container .todo-list-container .add-item-form button {
         opacity: 0.5;
         width: 15vw; }
-    .new-trip-container .packing-list-container .packing-list-btn-container .select-categories,
-    .new-trip-container .packing-list-container .todo-list-btn-container .select-categories,
-    .new-trip-container .todo-list-container .packing-list-btn-container .select-categories,
-    .new-trip-container .todo-list-container .todo-list-btn-container .select-categories {
+    .new-trip-container .packing-list-container .select-categories,
+    .new-trip-container .todo-list-container .select-categories {
       width: 90vw;
       margin: 0 auto 20px auto; }
-      .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .packing-list-row,
-      .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .todo-list-row,
-      .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .packing-list-row,
-      .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .todo-list-row,
-      .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .packing-list-row,
-      .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .todo-list-row,
-      .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .packing-list-row,
-      .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .todo-list-row {
+      .new-trip-container .packing-list-container .select-categories .new-items-row,
+      .new-trip-container .todo-list-container .select-categories .new-items-row {
         margin: 10px auto; }
-        .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .packing-list-row textarea,
-        .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .todo-list-row textarea,
-        .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .packing-list-row textarea,
-        .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .todo-list-row textarea,
-        .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .packing-list-row textarea,
-        .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .todo-list-row textarea,
-        .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .packing-list-row textarea,
-        .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .todo-list-row textarea {
+        .new-trip-container .packing-list-container .select-categories .new-items-row textarea,
+        .new-trip-container .todo-list-container .select-categories .new-items-row textarea {
           width: 70vw;
           height: 5.7vh;
           background-color: #83A8A6;
@@ -617,35 +551,30 @@ input::placeholder {
           border: none;
           box-sizing: border-box;
           padding: 15px 0 0 10px; }
-        .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .packing-list-row button,
-        .new-trip-container .packing-list-container .packing-list-btn-container .select-categories .todo-list-row button,
-        .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .packing-list-row button,
-        .new-trip-container .packing-list-container .todo-list-btn-container .select-categories .todo-list-row button,
-        .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .packing-list-row button,
-        .new-trip-container .todo-list-container .packing-list-btn-container .select-categories .todo-list-row button,
-        .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .packing-list-row button,
-        .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .todo-list-row button {
+        .new-trip-container .packing-list-container .select-categories .new-items-row button,
+        .new-trip-container .todo-list-container .select-categories .new-items-row button {
           width: 12vw;
           margin: 0;
           opacity: 0.8; }
   .new-trip-container .todo-list-container {
     background-color: #197278; }
-    .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .packing-list-row textarea {
+    .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .new-items-row textarea {
       height: 5.6vh; }
+  .new-trip-container .trip-btn-container {
+    display: flex; }
 
-.trip-btn-container {
-  display: flex; }
-
-.save-trip-btn {
+.save-trip-btn,
+.discard-trip-btn {
   margin: 0 !important;
   width: 50vw;
   background: #c44536;
   color: white; }
-  .save-trip-btn a {
+  .save-trip-btn a,
+  .discard-trip-btn a {
     color: #edddd4;
     text-decoration: none; }
 
-.discard {
+.discard-trip-btn {
   background-color: #772e25; }
 
 body {
@@ -669,8 +598,7 @@ h2 {
 
 input,
 button,
-select,
-.text-input {
+select {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -687,26 +615,21 @@ select:hover {
   opacity: 0.8;
   cursor: pointer; }
 
-.text-input {
-  text-align: left; }
-
 input::placeholder {
   color: #000; }
 
+.add-more-pack-btn > *,
+.add-more-todo-btn > *,
+.more-days > *,
 .edit-items-ntv > *,
 .delete-items-ntv > *,
-.edit-items-stv > *,
-.delete-items-stv > *,
-.edit-trip > *,
-.delete-trip > *,
-.packing-list-btn-stv > *,
 .packing-list-btn > *,
-.edit-trip-btn > *,
 .todo-list-btn > *,
 .weather-btn > *,
-#editBtn > *,
-#deleteBtn > *,
-.select-categories:first-child {
+.edit-trip > *,
+.delete-trip > *,
+.edit-items-stv > *,
+.delete-items-stv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -738,8 +661,7 @@ input::placeholder {
     display: flex;
     flex-direction: row; } }
 
-.saved-trips .packing-list-row {
-  width: 100vw;
+.saved-trips .new-items-row {
   height: 7vh;
   font-size: 0.9em;
   margin: 0;
@@ -750,7 +672,7 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: center; }
-  .saved-trips .packing-list-row .trip-dates {
+  .saved-trips .new-items-row .trip-dates {
     width: 28%;
     padding-top: 22px;
     background-color: transparent;
@@ -759,14 +681,13 @@ input::placeholder {
     font-size: 1em;
     color: white;
     text-align: center; }
-  .saved-trips .packing-list-row .trip-city {
+  .saved-trips .new-items-row .trip-city {
     width: 33%;
     text-align: center; }
-  .saved-trips .packing-list-row .trip-actions {
+  .saved-trips .new-items-row .trip-actions {
     width: 34%;
-    display: flex;
-    text-align: center; }
-  .saved-trips .packing-list-row .trip-actions > * {
+    display: flex; }
+  .saved-trips .new-items-row .trip-actions > * {
     padding: 5px;
     padding: 5px;
     color: white;
@@ -774,64 +695,54 @@ input::placeholder {
     font-size: 2vh;
     margin: 0; }
 
-.saved-trips #packing-list .saved-trip-packing-list,
-.saved-trips #todo-list .saved-trip-packing-list {
+.saved-trips .packing-list .saved-trip-packing-list,
+.saved-trips .todo-list .saved-trip-packing-list {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   height: 5vh;
   background: #83A8A6; }
-  .saved-trips #packing-list .saved-trip-packing-list textarea,
-  .saved-trips #todo-list .saved-trip-packing-list textarea {
+  .saved-trips .packing-list .saved-trip-packing-list textarea,
+  .saved-trips .todo-list .saved-trip-packing-list textarea {
     width: 30vw;
     border: none;
     font-size: 0.9em;
     background: transparent;
     font-family: "montserrat", sans-serif;
     padding-top: 18px; }
-  .saved-trips #packing-list .saved-trip-packing-list button,
-  .saved-trips #todo-list .saved-trip-packing-list button {
+  .saved-trips .packing-list .saved-trip-packing-list button,
+  .saved-trips .todo-list .saved-trip-packing-list button {
     margin: 0;
     padding: 0; }
-  .saved-trips #packing-list .saved-trip-packing-list *,
-  .saved-trips #todo-list .saved-trip-packing-list * {
+  .saved-trips .packing-list .saved-trip-packing-list *,
+  .saved-trips .todo-list .saved-trip-packing-list * {
     text-align: center; }
 
-.saved-trips #packing-list .packing-list-btn-container,
-.saved-trips #todo-list .packing-list-btn-container {
-  margin-top: 20px; }
-  .saved-trips #packing-list .packing-list-btn-container p,
-  .saved-trips #todo-list .packing-list-btn-container p {
-    font-size: 0.9em;
-    text-align: center; }
-  .saved-trips #packing-list .packing-list-btn-container .packing-list-form,
-  .saved-trips #packing-list .packing-list-btn-container .todo-list-form,
-  .saved-trips #todo-list .packing-list-btn-container .packing-list-form,
-  .saved-trips #todo-list .packing-list-btn-container .todo-list-form {
-    display: flex;
+.saved-trips .packing-list p,
+.saved-trips .todo-list p {
+  font-size: 0.9em;
+  text-align: center;
+  margin: 20px;
+  display: block; }
+
+.saved-trips .packing-list .add-item-form,
+.saved-trips .todo-list .add-item-form {
+  display: flex;
+  margin: 0; }
+  .saved-trips .packing-list .add-item-form *,
+  .saved-trips .todo-list .add-item-form * {
     margin: 0; }
-    .saved-trips #packing-list .packing-list-btn-container .packing-list-form *,
-    .saved-trips #packing-list .packing-list-btn-container .todo-list-form *,
-    .saved-trips #todo-list .packing-list-btn-container .packing-list-form *,
-    .saved-trips #todo-list .packing-list-btn-container .todo-list-form * {
-      margin-bottom: 0; }
-    .saved-trips #packing-list .packing-list-btn-container .packing-list-form input,
-    .saved-trips #packing-list .packing-list-btn-container .todo-list-form input,
-    .saved-trips #todo-list .packing-list-btn-container .packing-list-form input,
-    .saved-trips #todo-list .packing-list-btn-container .todo-list-form input {
-      width: 50vw; }
-    .saved-trips #packing-list .packing-list-btn-container .packing-list-form select,
-    .saved-trips #packing-list .packing-list-btn-container .todo-list-form select,
-    .saved-trips #todo-list .packing-list-btn-container .packing-list-form select,
-    .saved-trips #todo-list .packing-list-btn-container .todo-list-form select {
-      opacity: 0.8;
-      width: 35vw; }
-    .saved-trips #packing-list .packing-list-btn-container .packing-list-form button,
-    .saved-trips #packing-list .packing-list-btn-container .todo-list-form button,
-    .saved-trips #todo-list .packing-list-btn-container .packing-list-form button,
-    .saved-trips #todo-list .packing-list-btn-container .todo-list-form button {
-      opacity: 0.5;
-      width: 15vw; }
+  .saved-trips .packing-list .add-item-form input,
+  .saved-trips .todo-list .add-item-form input {
+    width: 50vw; }
+  .saved-trips .packing-list .add-item-form select,
+  .saved-trips .todo-list .add-item-form select {
+    opacity: 0.8;
+    width: 35vw; }
+  .saved-trips .packing-list .add-item-form button,
+  .saved-trips .todo-list .add-item-form button {
+    opacity: 0.5;
+    width: 15vw; }
 
 .saved-trips .weather {
   width: 100vw;
@@ -853,8 +764,7 @@ input::placeholder {
     margin: 20px auto; }
 
 .saved-trips .forecast-row,
-.saved-trips .packing-list-row,
-.saved-trips .todo-list-row {
+.saved-trips .new-items-row {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -862,7 +772,7 @@ input::placeholder {
   height: 6vh; }
 
 .saved-trips .forecast-row .forecast-date,
-.saved-trips .forecast-row .forecast-high {
+.saved-trips .forecast-row .forecast-temp {
   padding: 0 10px;
   font-size: 0.9em;
   box-sizing: border-box; }
@@ -874,12 +784,20 @@ input::placeholder {
 .saved-trips .forecast-row .forecast-icon {
   width: 10vw; }
 
-.saved-trips .forecast-row .forecast-high {
+.saved-trips .forecast-row .forecast-temp {
   width: 40vw;
   padding-left: 30px; }
 
 .packed {
   opacity: 0.5; }
+
+.trip-saved-container,
+.no-trips-container {
+  height: 62vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none; }
 
 /* TABLET */
 @media only screen and (min-width: 768px) {
@@ -889,7 +807,7 @@ input::placeholder {
       font-size: 2.5vw;
       width: 60%; }
     .output .forecast-row .forecast-date,
-    .output .forecast-row .forecast-high {
+    .output .forecast-row .forecast-temp {
       padding: 0 10px;
       font-size: 3vw;
       color: white; }
@@ -912,7 +830,7 @@ input::placeholder {
       width: 30vw; }
       .output .forecast-row .forecast-date,
       .output .forecast-row .forecast-icon,
-      .output .forecast-row .forecast-high {
+      .output .forecast-row .forecast-temp {
         font-size: 1em; }
       .output .forecast-row .forecast-date {
         width: 12vw;
@@ -920,14 +838,14 @@ input::placeholder {
       .output .forecast-row .forecast-icon {
         width: 2vw;
         box-sizing: border-box; }
-      .output .forecast-row .forecast-high {
+      .output .forecast-row .forecast-temp {
         width: 23vw;
         padding: 0 50px; }
   #packedFlag {
     width: 23vw; }
   .weather,
-  .packing-list-form,
-  .packing-list-row {
+  .add-item-form,
+  .new-items-row {
     width: 40vw; }
   .forecast-icon {
     width: 3vw; }
@@ -935,7 +853,7 @@ input::placeholder {
     position: absolute;
     left: 50%;
     top: 6vh; }
-    .saved-trips .packing-list-row {
+    .saved-trips .new-items-row {
       width: 50vw; } }
 
 .saved-trips-item {
@@ -943,17 +861,6 @@ input::placeholder {
 
 .saved-trips-category {
   width: 40vw !important; }
-
-.trip-saved-container,
-.no-trips-container {
-  height: 62vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
-
-.no-trips-container {
-  display: none; }
 
 
 /*# sourceMappingURL=main.css.map*/

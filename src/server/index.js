@@ -87,7 +87,6 @@ function addListData(req, res) {
         let returnServer = `${returnMM}-${returnDD}`
 
         let length = newData.list.length;
-
         // code for packing list & for lists with no items
         if (userTripData[i].city === newData.city && departServer === departDOM && returnServer === returnDOM) {
             let currentTrip = userTripData[i]
@@ -124,11 +123,9 @@ async function changeTripDates(req, res) {
 
             let forecast = weatherInfo.data;
             let dates = [];
-
             for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`); }
 
             let newWeather = []
-
             for (let i = 0; i < dates.length; i++) {
                 if (dates[i] >= newDepart && dates[i] <= newReturn) {
                     let tripDayData = {}
@@ -139,13 +136,13 @@ async function changeTripDates(req, res) {
                     newWeather.push(tripDayData);
                 }
             }
+
             userTripData[i]['weather'] = newWeather;
 
             // need to sort when changing dates
             function compareData(a, b) {
                 const tripA = a.departure;
                 const tripB = b.departure;
-
                 let comparison = 0;
                 if (tripA > tripB) { comparison = 1; }
                 else if (tripA < tripB) { comparison = -1; }
@@ -155,9 +152,6 @@ async function changeTripDates(req, res) {
         }
     }
 }
-
-app.get('/tripdates2', getUpdatedData);
-async function getUpdatedData(req, res) { res.send(userTripData); };
 
 app.delete('/remove', removeData);
 function removeData(req, res) {

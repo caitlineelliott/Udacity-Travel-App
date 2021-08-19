@@ -1,8 +1,7 @@
 @import 'base.scss';
 
 .saved-trips {
-    .packing-list-row {
-        width: 100vw;
+    .new-items-row {
         height: 7vh;
         font-size: 0.9em;
         margin: 0;
@@ -33,7 +32,6 @@
         .trip-actions {
             width: 34%;
             display: flex;
-            text-align: center;
         }
 
         .trip-actions > * {
@@ -46,8 +44,8 @@
         }
     }
 
-    #packing-list,
-    #todo-list {
+    .packing-list,
+    .todo-list {
         .saved-trip-packing-list {
             display: flex;
             justify-content: space-evenly;
@@ -74,36 +72,33 @@
             }
         }
 
-        .packing-list-btn-container { // better name for form container
-            margin-top: 20px;
+        p {
+            font-size: 0.9em;
+            text-align: center;
+            margin: 20px;
+            display: block;
+        }
 
-            p {
-                font-size: 0.9em;
-                text-align: center;
+        .add-item-form {
+            display: flex;
+            margin: 0;
+
+            * {
+                margin: 0;
             }
 
-            .packing-list-form,
-            .todo-list-form {
-                display: flex;
-                margin: 0;
+            input {
+                width: 50vw;
+            }
 
-                * {
-                    margin-bottom: 0;
-                }
+            select {
+                opacity: 0.8;
+                width: 35vw;
+            }
 
-                input {
-                    width: 50vw;
-                }
-
-                select {
-                    opacity: 0.8;
-                    width: 35vw;
-                }
-
-                button {
-                    opacity: 0.5;
-                    width: 15vw;
-                }
+            button {
+                opacity: 0.5;
+                width: 15vw;
             }
         }
     }
@@ -137,8 +132,7 @@
     }
 
     .forecast-row,
-    .packing-list-row,
-    .todo-list-row {
+    .new-items-row {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -148,7 +142,7 @@
 
     .forecast-row {
         .forecast-date,
-        .forecast-high {
+        .forecast-temp {
             padding: 0 10px;
             font-size: 0.9em;
             box-sizing: border-box;
@@ -163,7 +157,7 @@
             width: 10vw;
         }
 
-        .forecast-high {
+        .forecast-temp {
             width: 40vw;
             padding-left: 30px;
         }
@@ -172,6 +166,15 @@
 
 .packed {
     opacity: 0.5;
+}
+
+.trip-saved-container,
+.no-trips-container {
+    height: 62vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
 }
 
 /* TABLET */
@@ -186,7 +189,7 @@
 
     .forecast-row {
         .forecast-date,
-        .forecast-high {
+        .forecast-temp {
             padding: 0 10px;
             font-size: 3vw;
             color: white;
@@ -220,7 +223,7 @@
             width: 30vw;
             .forecast-date,
             .forecast-icon,
-            .forecast-high {
+            .forecast-temp {
                 font-size: 1em;
             }
 
@@ -234,7 +237,7 @@
                 box-sizing: border-box;
             }
 
-            .forecast-high {
+            .forecast-temp {
                 width: 23vw;
                 padding: 0 50px;
             }
@@ -245,8 +248,8 @@
     }
 
     .weather,
-    .packing-list-form,
-    .packing-list-row {
+    .add-item-form,
+    .new-items-row {
         width: 40vw;
     }
 
@@ -258,7 +261,7 @@
         position: absolute;
             left: 50%;
             top: 6vh;
-        .packing-list-row {
+        .new-items-row {
             width: 50vw;
         }
     }
@@ -270,17 +273,4 @@
     }
     .saved-trips-category {
         width: 40vw !important;
-    }
-
-    .trip-saved-container,
-    .no-trips-container {
-        height: 62vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .no-trips-container {
-        display: none;
     }

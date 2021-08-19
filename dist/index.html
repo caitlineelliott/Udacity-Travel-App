@@ -18,41 +18,40 @@
 <body>
     <header>
         <div class="banner">
-            <h1 class='title'>NextTrek</h1>
+            <h1>NextTrek</h1>
         </div>
 
         <img class="postage-mark" src="imgs/ClipartKey_2381063.e7a12b.png">
         <div class="home-btn"><a href="index.html"><i class="fas fa-home"></i></a></div>
 
         <nav>
-            <button class="nav-btn nav-saved-trips">View Saved Trips</button>
+            <button class="main-nav-btn">View Saved Trips</button>
         </nav>
     </header>
     <main>
         <div class="initial-req-container">
             <h2> Enter your travel dates: </h2>
-            <form id="initial-request" action="#" tabindex="0">
+            <form id="initial-request-form" action="#" tabindex="0">
                 <label for="destination">
                     <span class="form-label">Destination:</span>
-                    <input type="text" placeholder="City" class="user-city text-input" name="destination"
-                        required="required" />
+                    <input type="text" placeholder="City" class="user-city" name="destination" required="required" />
                 </label>
                 <label for="trip-start">
                     <span class="form-label">Departing:</span>
-                    <input type="date" class="depart-date date-input" name="trip-start" required="required" />
+                    <input type="date" class="depart-date" name="trip-start" required="required" />
                 </label>
                 <label for="trip-end">
                     <span class="form-label">Returning:</span>
-                    <input type="date" class="return-date date-input" name="trip-end" required />
+                    <input type="date" class="return-date" name=" trip-end" required />
                 </label>
-                <input type="submit" class="submit-btn" />
+                <input type="submit" />
             </form>
         </div>
 
         <div class="no-trips-container">
             <h2>Uh oh!</h2>
             <div>You have no trips booked at this time.</div>
-            <button id="book-trip" style="margin-top: 20px" onclick="location.href='index.html'">Book now!</button>`
+            <button style="margin-top: 20px" onclick="location.href='index.html'">Book now!</button>`
         </div>
 
         <div class="new-trip-container">
@@ -60,15 +59,15 @@
             <div class="travel-summary">
                 <p>Here are some details about your trip:</p>
                 <div class="form-label">Departure Date:</div>
-                <div class="trip-details" id="depart-date"></div>
+                <div class="trip-details depart-date-output"></div>
                 <div class="form-label">Arrival Date:</div>
-                <div class="trip-details" id="arrive-date"></div>
+                <div class="trip-details return-date-ouput"></div>
                 <div class="form-label">Trip Days:</div>
-                <div class="trip-details" id="trip-days-count"></div>
+                <div class="trip-details trip-days-count"></div>
                 <div class="form-label">Trip Nights:</div>
-                <div class="trip-details" id="trip-nights-count"></div>
+                <div class="trip-details trip-nights-count"></div>
                 <div class="form-label">Trip Starts In:</div>
-                <div class="trip-details" id="trip-days-until"></div>
+                <div class="trip-details trip-days-until"></div>
             </div>
 
             <div class="weather">
@@ -76,43 +75,39 @@
             </div>
             <div class="packing-list-container">
                 <h2>Packing List</h2>
-                <div class="packing-list-btn-container">
-                    <form class="packing-list-form">
-                        <input type="text" placeholder="add item" class="packing-list-btn-item" id="pack-list-input">
-                        <select class="packing-list-btn-category">
-                            <option>Category</option>
-                            <option class="tops">Tops</option>
-                            <option class="bottoms">Bottoms</option>
-                            <option class="shoes">Shoes</option>
-                            <option class="accessories">Accessories</option>
-                            <option class="swimwear">Swimwear</option>
-                            <option class="toiletries">Toiletries</option>
-                            <option class="other">Other</option>
-                        </select>
-                        <button onclick="" class="packing-list-btn"><i class="fas fa-plus"></i></button>
-                    </form>
-                </div>
+                <form class="add-item-form">
+                    <input type="text" placeholder="add item">
+                    <select>
+                        <option>Category</option>
+                        <option>Tops</option>
+                        <option>Bottoms</option>
+                        <option>Shoes</option>
+                        <option>Accessories</option>
+                        <option>Swimwear</option>
+                        <option>Toiletries</option>
+                        <option>Other</option>
+                    </select>
+                    <button onclick="" class="add-more-pack-btn"><i class="fas fa-plus"></i></button>
+                </form>
             </div>
 
             <div class="todo-list-container">
                 <h2>To Do List</h2>
-                <div class="todo-list-btn-container">
-                    <form class="packing-list-form">
-                        <input type="text" placeholder="add item" class="todo-list-btn-item" id="todo-list-input">
-                        <select class="todo-list-btn-category">
-                            <option>Priority</option>
-                            <option class="low">Low</option>
-                            <option class="medium">Medium</option>
-                            <option class="high">High</option>
-                        </select>
-                        <button class="todo-list-btn"><i class="fas fa-plus"></i></button>
-                    </form>
-                </div>
+                <form class="add-item-form">
+                    <input type="text" placeholder="add item">
+                    <select>
+                        <option>Priority</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                    <button class="add-more-todo-btn"><i class="fas fa-plus"></i></button>
+                </form>
             </div>
 
             <div class="trip-btn-container">
-                <button class="save-trip-btn discard"><a href="index.html">Discard Trip</a></button>
-                <button class="save-trip-btn save">Save Trip</button>
+                <button class="discard-trip-btn"><a href="index.html">Discard Trip</a></button>
+                <button class="save-trip-btn">Save Trip</button>
             </div>
         </div>
 

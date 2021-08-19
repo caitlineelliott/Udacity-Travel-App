@@ -95,14 +95,22 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
-/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
-/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
+/* harmony import */ var _js_apiRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
+/* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
+/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+
+
+
+
 
 
 
@@ -134,8 +142,11 @@ function createElements(event) {
     event.preventDefault();
 
     const blockElements = {
+        "itemContainer": event.target.parentElement.parentElement,
         "newItemCategoryLabel": document.createElement('div'),
+        "itemCategory": event.target.parentElement.children[1].value,
         "newItemRow": document.createElement('div'),
+        "item": event.target.parentElement.children[0],
     }
 
     const rowElements = {
@@ -147,14 +158,12 @@ function createElements(event) {
     rowElements.newItemValue.readOnly = true;
     rowElements.newItemValue.setAttribute('style', 'resize: none; ');
 
-    let target = event.target.classList.value;
-
-    setValues(target, blockElements, rowElements);
+    setValues(event, blockElements, rowElements);
 
     // Toggles each item category open/closed
     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.children).forEach(function (item) {
-            if (item.classList[0] === 'packing-list-row') {
+            if (item.classList[0] === 'new-items-row') {
                 if (item.style.display === 'none') { item.style.display = 'flex' }
                 else { item.style.display = 'none' }
             } else if (item.classList.contains('fa-chevron-down')) {
@@ -164,34 +173,34 @@ function createElements(event) {
     })
 }
 
-async function setValues(target, blockElements, rowElements) {
-    blockElements.newItemRow.classList.add('packing-list-row');
+async function setValues(event, blockElements, rowElements) {
+    blockElements.newItemRow.classList.add('new-items-row');
 
-    blockElements.newItemCategoryLabel.innerHTML = `${document.querySelector(`.${target}-category`).value} <i class="fas fa-chevron-down"></i>`;
-    blockElements.newItemCategoryLabel.id = document.querySelector(`.${target}-category`).value;
-    blockElements.newItemCategoryLabel.classList.add('select-categories');
+    blockElements.newItemCategoryLabel.innerHTML = `${blockElements.itemCategory} <i class="fas fa-chevron-down"></i>`;
+    blockElements.newItemCategoryLabel.id = `${blockElements.itemCategory}-category`;
 
-    rowElements.newItemValue.defaultValue = document.querySelector(`.${target}-item`).value;
+    rowElements.newItemValue.defaultValue = blockElements.item.value;
     rowElements.editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     rowElements.deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
+    blockElements.newItemCategoryLabel.classList.add('select-categories');
     rowElements.editBtn.classList.add('edit-items-ntv');
     rowElements.deleteBtn.classList.add('delete-items-ntv');
 
-    document.querySelector(`.${target}-item`).value = '';
+    event.target.parentElement.children[0].value = '';
 
-    appendItem(target, blockElements, rowElements);
+    appendItem(blockElements, rowElements);
 }
 
-function appendItem(target, blockElements, rowElements) {
+function appendItem(blockElements, rowElements) {
     const categoryArr = []
+    let appendedElements = blockElements.itemContainer.children;
 
-    let appendedElements = document.querySelector(`.${target}-container`).children;
+    for (let i = 2; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
 
-    for (let i = 0; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
-
+    // Determines which category to append items under
     if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
-        document.querySelector(`.${target}-container`).appendChild(blockElements.newItemCategoryLabel);
+        blockElements.itemContainer.appendChild(blockElements.newItemCategoryLabel);
         blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
 
     } else {
@@ -201,8 +210,6 @@ function appendItem(target, blockElements, rowElements) {
 
     for (let i = 0; i < Object.keys(rowElements).length; i++) {
         blockElements.newItemRow.appendChild(Object.values(rowElements)[i]);
-        Object.values(rowElements)[i].id = Object.keys(rowElements)[i];
-        Object.values(rowElements)[i].classList.add('packing-item-row-segment');
     }
 
     rowElements.editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"]);
@@ -281,12 +288,12 @@ today = yyyy + '-' + mm + '-' + dd;
 let departDate = document.querySelector('.depart-date');
 departDate.setAttribute("min", today);
 
-document.querySelector('.return-date').addEventListener('click', function (event) {
+document.querySelector('.return-date').addEventListener('click', function () {
     document.querySelector('.return-date').setAttribute("min", departDate.value);
 });
 
 // Generate trip data
-document.querySelector('#initial-request').addEventListener('submit', function (event) { generate(event) });
+document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event) });
 
 async function generate(event) {
     event.preventDefault();
@@ -329,7 +336,6 @@ __webpack_require__.r(__webpack_exports__);
 function editItems(event) {
     let editBtn = event.target;
     editBtn.disabled = true;
-
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
 
@@ -361,17 +367,14 @@ function modifyEditedItems(item, saveBtn, editBtn) {
 function saveEditedItem(item, saveBtn, editBtn, event) {
     item.readOnly = true;
     item.style.backgroundColor = '#83A8A6';
-    saveBtn.remove();
     editBtn.disabled = false;
-    console.log(item)
+    saveBtn.remove();
 
     if (item.classList.contains('trip-dates')) {
         item.style.backgroundColor = '#197278';
         item.style.color = 'white';
         updateTripDates(item)
-    } else if (item.classList.contains('stv-item')) {
-        item.style.color = 'black';
-    }
+    } else if (item.classList.contains('stv-item')) { item.style.color = 'black'; }
 }
 
 async function updateTripDates(item) {
@@ -387,14 +390,13 @@ async function updateTripDates(item) {
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
 }
 
-// // display new trips
+// display new trips
 async function displayNewTrips() { await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
 
-// // delete items - NTV packing & todo, STV packing & todo, STV trips
+// delete items - NTV packing & todo, STV packing & todo, STV trips
 function removeItems(event) {
     if (!event.target.classList.contains('delete-trip')) {
         let item = event.target.parentElement;
-
         if (event.target.classList.contains('delete-items-ntv')) {
             let itemCategory = event.target.parentElement.parentElement;
             if (itemCategory.children.length < 3) { itemCategory.remove() }
@@ -403,7 +405,7 @@ function removeItems(event) {
             item.style.display = 'none';
         }
     } else {
-        let item = event.target.parentElement.parentElement // whole trip stv
+        let item = event.target.parentElement.parentElement
         let tripCity = event.target.parentElement.previousElementSibling.innerText;
         let departDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
         let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
@@ -426,7 +428,7 @@ function toggleItems(event) {
 /*!*****************************************!*\
   !*** ./src/client/js/savedTripsView.js ***!
   \*****************************************/
-/*! exports provided: displayTrip, viewSavedTrips, getUserData */
+/*! exports provided: displayTrip, viewSavedTrips */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -436,13 +438,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modifyItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modifyItems */ "./src/client/js/modifyItems.js");
 /* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return _serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUserData"]; });
 
 
 
 
-
-document.querySelector('.nav-saved-trips').addEventListener('click', viewSavedTrips);
+document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
 async function viewSavedTrips() {
     let container = document.querySelector('main');
@@ -450,7 +450,7 @@ async function viewSavedTrips() {
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
-    let savedTripsBtn = document.querySelector('.nav-saved-trips');
+    let savedTripsBtn = document.querySelector('.main-nav-btn');
     savedTripsBtn.removeEventListener('click', viewSavedTrips)
     savedTripsBtn.innerHTML = `Book Trip`
     savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
@@ -479,6 +479,7 @@ function displayTrip(tripData) {
             let packingListContainer = document.createElement('div');
             let todoListContainer = document.createElement('div');
             let weatherContainer = document.createElement('div');
+
             tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
             tripCity.innerHTML = tripData[i].city;
             editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
@@ -493,7 +494,7 @@ function displayTrip(tripData) {
             packingListContainer.classList.add('packing-list')
             todoListContainer.classList.add('todo-list')
             weatherContainer.classList.add('weather')
-            newTripHeading.classList.add('packing-list-row');
+            newTripHeading.classList.add('new-items-row');
             tripDates.classList.add('trip-dates');
             tripCity.classList.add('trip-city');
             tripActions.classList.add('trip-actions');
@@ -546,39 +547,34 @@ function displayTrip(tripData) {
                 packingListContainer.appendChild(itemRow);
             }
 
-            let addPackingItemsForm = document.createElement('div');
-            let rootForm = document.querySelector('.packing-list-btn-container');
+            let addMoreHeading = document.createElement('p');
+            let originalContainer = document.querySelector('.packing-list-container');
             let formWrapper = document.createElement('form');
-            let input = rootForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-            let select = rootForm.parentElement.children[1].children[0].children[1].cloneNode(true);
+            let input = originalContainer.children[1].children[0].cloneNode(true);
+            let select = originalContainer.children[1].children[1].cloneNode(true);
 
-            formWrapper.classList.add('packing-list-form');
-            addPackingItemsForm.classList.add('packing-list-btn-container');
-            addPackingItemsForm.innerHTML = `<p>Missing something? Add more here:</p>`
-            addPackingItemsForm.appendChild(formWrapper)
+            formWrapper.classList.add('add-item-form');
+            addMoreHeading.innerHTML = `Missing something? Add more here:`
+            packingListContainer.appendChild(addMoreHeading);
+            packingListContainer.appendChild(formWrapper);
             formWrapper.appendChild(input);
             formWrapper.appendChild(select);
 
             let addMorePackBtn = document.createElement('button');
-            addMorePackBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-            addMorePackBtn.id = 'add-more-packing-stv';
+            addMorePackBtn.classList.add('add-more-pack-btn');
             addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             formWrapper.appendChild(addMorePackBtn)
 
-            packingListContainer.appendChild(addPackingItemsForm);
-            packingListContainer.id = 'packing-list'
-
             let btnContainer = document.createElement('div');
-            btnContainer.classList.add('trip-btn-container');
             packingListContainer.appendChild(btnContainer)
 
             let discardPackBtn = document.createElement('button');
-            discardPackBtn.classList.add('save-trip-btn', 'discard', 'discard-packing-btn');
+            discardPackBtn.classList.add('discard-trip-btn');
             discardPackBtn.innerHTML = 'Discard Changes';
 
             let savePackBtn = document.createElement('button');
-            savePackBtn.classList.add('save-trip-btn', 'save', 'save-packing-btn');
+            savePackBtn.classList.add('save-trip-btn');
             savePackBtn.innerHTML = 'Save Changes'
 
             btnContainer.appendChild(discardPackBtn);
@@ -606,38 +602,32 @@ function displayTrip(tripData) {
             }
 
             let addTodosForm = document.createElement('div');
-            let rootTodoForm = document.querySelector('.todo-list-btn-container');
+            let originalTodoContainer = document.querySelector('.todo-list-container');
             let todoWrapper = document.createElement('form');
-            let todoInput = rootTodoForm.parentElement.children[1].children[0].children[0].cloneNode(true);
-            let todoSelect = rootTodoForm.parentElement.children[1].children[0].children[1].cloneNode(true);
+            let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
+            let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
 
-            todoWrapper.classList.add('packing-list-form');
-            addTodosForm.classList.add('packing-list-btn-container');
+            todoWrapper.classList.add('add-item-form');
             addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
             addTodosForm.appendChild(todoWrapper)
             todoWrapper.appendChild(todoInput);
             todoWrapper.appendChild(todoSelect);
 
             let addMoreTodoBtn = document.createElement('button');
-            addMoreTodoBtn.classList.add('add-more-btn', 'packing-list-btn-stv');
-            addMoreTodoBtn.id = 'add-more-packing-stv';
             addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             todoWrapper.appendChild(addMoreTodoBtn)
-
             todoListContainer.appendChild(addTodosForm);
-            todoListContainer.id = 'todo-list'
 
             let todoBtnContainer = document.createElement('div');
-            todoBtnContainer.classList.add('trip-btn-container');
             todoListContainer.appendChild(todoBtnContainer)
 
             let discardTodoBtn = document.createElement('button');
-            discardTodoBtn.classList.add('save-trip-btn', 'discard', 'discard-todo-btn');
+            discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
             discardTodoBtn.innerHTML = 'Discard Changes';
 
             let saveTodoBtn = document.createElement('button');
-            saveTodoBtn.classList.add('save-trip-btn', 'save', 'save-todo-btn');
+            saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
             saveTodoBtn.innerHTML = 'Save Changes';
 
             todoBtnContainer.appendChild(discardTodoBtn);
@@ -676,12 +666,12 @@ function displayTrip(tripData) {
                 let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
                 if (weatherEnd < tripEnd) {
                     longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                    longForecast.style = 'width: 80vw; margin: 20px auto 0 auto; background-color: #83A8A6; padding: 20px;';
+                    longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
                     weatherContainer.appendChild(longForecast);
                 }
             } else if (weatherData[0] === undefined) {
                 longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-                longForecast.style = 'width: 80vw; margin: 0 auto; background-color: #83A8A6; padding: 20px;';
+                longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
                 weatherContainer.appendChild(longForecast);
             }
 
@@ -706,7 +696,6 @@ function displayData(event) {
         if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
             if (tripBlock.children[i].style.display === 'none') {
                 tripBlock.children[i].style.display = 'block'
-
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
                 }
@@ -737,7 +726,6 @@ function addItemRows(itemRow, item, category) {
     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-    deleteBtn.id = 'delete-item-btn';
 
     toggle.style = "width: 15vw; font-size: 1em;"
     item.style = "width: 30vw; font-size: 0.9em;"
@@ -771,18 +759,16 @@ function saveSTVItems(tripCity, tripDates) {
         for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
 
         let itemsArr = []
-
         for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
             let iterator = classes.entries();
-
             for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
 
             // if no list items
             if (allItems.length < 3) {
                 let newItem = {};
-                let flag = event.target.parentElement.parentElement.id;
+                let flag = event.target.parentElement.parentElement.classList[0];
                 newItem['item'] = null;
 
                 if (flag === 'todo-list') { newItem['listType'] = 'todo' }
@@ -834,8 +820,6 @@ function discardSTVItems(event) {
         let iterator = classes.entries();
         for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
     }
-    let allTrips = event.target.parentElement.parentElement.parentElement.parentElement.children;
-    for (let i = 0; i < allTrips.length; i++) { allTrips[i].style = "display: block;" }
 };
 
 function addMoreItems(event) {
@@ -859,7 +843,7 @@ function addMoreItems(event) {
         todoList.insertBefore(itemRow, todoList.children[0])
     } else {
         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-        let packingList = event.target.parentElement.parentElement.parentElement;
+        let packingList = event.target.parentElement.parentElement;
         packingList.insertBefore(itemRow, packingList.children[0])
     }
 }
@@ -902,7 +886,6 @@ const postData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA SENT TO SERVER`);
         return await response.json();
     }
     catch { console.log('FAILED TO POST DATA TO SERVER', e); }
@@ -918,7 +901,6 @@ const deleteServerData = async (url = '', data = {}) => {
             },
             body: JSON.stringify(data),
         });
-        console.log(`DATA DELETED FROM SERVER`);
         return await response.json();
     }
     catch { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
@@ -963,33 +945,30 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     // Update Trip Details
     const currentDate = new Date();
     const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
-    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('#trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('#trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
+    document.querySelector('.depart-date-output').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    document.querySelector('.return-date-ouput').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    document.querySelector('.trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('.trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
+    document.querySelector('.trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
 
     // Update Forecast
     let forecast = weatherInfo.data;
     let dates = [];
-
     for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime} 00:00:00`); }
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let tripWeatherContainer = document.querySelector('.weather');
-
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
-            tripWeatherContainer.appendChild(newRow);
-
             let tripDates = dates[i];
             let tripWeather = forecast[i];
             const tripDate = document.createElement('div');
             const weatherIcon = document.createElement('img');
             const weather = document.createElement('div');
 
+            tripWeatherContainer.appendChild(newRow);
             setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr);
         }
     }
@@ -1033,14 +1012,14 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
-    document.querySelector('.packing-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]);
-    document.querySelector('.todo-list-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]);
+    document.querySelector('.add-more-pack-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]);
+    document.querySelector('.add-more-todo-btn').addEventListener('click', _addPackingItem__WEBPACK_IMPORTED_MODULE_0__["createElements"]);
 
     // Save Trip function
-    document.querySelector('.save').addEventListener('click', function () {
+    document.querySelector('.save-trip-btn').addEventListener('click', function () {
         let packingList = []
         let todoList = []
-        let items = document.querySelectorAll('.packing-list-row');
+        let items = document.querySelectorAll('.new-items-row');
 
         for (let i = 0; i < items.length; i++) {
             let item = {}
@@ -1060,7 +1039,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         let savedTripsBtn = document.querySelector('#view-saved-trips');
         savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
 
-        let bookTripBtn = document.querySelector('.nav-saved-trips');
+        let bookTripBtn = document.querySelector('.main-nav-btn');
         bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
         bookTripBtn.innerHTML = `Book Trip`
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
@@ -1085,7 +1064,7 @@ function setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weathe
     weatherIcon.classList.add('forecast-icon');
     newRow.appendChild(weatherIcon);
 
-    weather.classList.add('forecast-high');
+    weather.classList.add('forecast-temp');
     newRow.appendChild(weather);
 
     if (newTripContainer) { setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) }

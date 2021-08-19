@@ -17,33 +17,30 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     // Update Trip Details
     const currentDate = new Date();
     const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    document.querySelector('#depart-date').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
-    document.querySelector('#arrive-date').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('#trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('#trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('#trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
+    document.querySelector('.depart-date-output').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    document.querySelector('.return-date-ouput').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    document.querySelector('.trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    document.querySelector('.trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
+    document.querySelector('.trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
 
     // Update Forecast
     let forecast = weatherInfo.data;
     let dates = [];
-
     for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime} 00:00:00`); }
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let tripWeatherContainer = document.querySelector('.weather');
-
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let newRow = document.createElement('div');
-            tripWeatherContainer.appendChild(newRow);
-
             let tripDates = dates[i];
             let tripWeather = forecast[i];
             const tripDate = document.createElement('div');
             const weatherIcon = document.createElement('img');
             const weather = document.createElement('div');
 
+            tripWeatherContainer.appendChild(newRow);
             setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr);
         }
     }
@@ -87,14 +84,14 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
-    document.querySelector('.packing-list-btn').addEventListener('click', createElements);
-    document.querySelector('.todo-list-btn').addEventListener('click', createElements);
+    document.querySelector('.add-more-pack-btn').addEventListener('click', createElements);
+    document.querySelector('.add-more-todo-btn').addEventListener('click', createElements);
 
     // Save Trip function
-    document.querySelector('.save').addEventListener('click', function () {
+    document.querySelector('.save-trip-btn').addEventListener('click', function () {
         let packingList = []
         let todoList = []
-        let items = document.querySelectorAll('.packing-list-row');
+        let items = document.querySelectorAll('.new-items-row');
 
         for (let i = 0; i < items.length; i++) {
             let item = {}
@@ -114,7 +111,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         let savedTripsBtn = document.querySelector('#view-saved-trips');
         savedTripsBtn.addEventListener('click', viewSavedTrips)
 
-        let bookTripBtn = document.querySelector('.nav-saved-trips');
+        let bookTripBtn = document.querySelector('.main-nav-btn');
         bookTripBtn.removeEventListener('click', viewSavedTrips)
         bookTripBtn.innerHTML = `Book Trip`
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
@@ -139,7 +136,7 @@ function setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weathe
     weatherIcon.classList.add('forecast-icon');
     newRow.appendChild(weatherIcon);
 
-    weather.classList.add('forecast-high');
+    weather.classList.add('forecast-temp');
     newRow.appendChild(weather);
 
     if (newTripContainer) { setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) }

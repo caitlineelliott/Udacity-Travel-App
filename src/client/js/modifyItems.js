@@ -3,7 +3,6 @@ import { postData, getUserData, deleteServerData } from "./serverRequests";
 function editItems(event) {
     let editBtn = event.target;
     editBtn.disabled = true;
-
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
 
@@ -35,17 +34,14 @@ function modifyEditedItems(item, saveBtn, editBtn) {
 function saveEditedItem(item, saveBtn, editBtn, event) {
     item.readOnly = true;
     item.style.backgroundColor = '#83A8A6';
-    saveBtn.remove();
     editBtn.disabled = false;
-    console.log(item)
+    saveBtn.remove();
 
     if (item.classList.contains('trip-dates')) {
         item.style.backgroundColor = '#197278';
         item.style.color = 'white';
         updateTripDates(item)
-    } else if (item.classList.contains('stv-item')) {
-        item.style.color = 'black';
-    }
+    } else if (item.classList.contains('stv-item')) { item.style.color = 'black'; }
 }
 
 async function updateTripDates(item) {
@@ -61,14 +57,13 @@ async function updateTripDates(item) {
     await postData('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
 }
 
-// // display new trips
+// display new trips
 async function displayNewTrips() { await getUserData('/all') }
 
-// // delete items - NTV packing & todo, STV packing & todo, STV trips
+// delete items - NTV packing & todo, STV packing & todo, STV trips
 function removeItems(event) {
     if (!event.target.classList.contains('delete-trip')) {
         let item = event.target.parentElement;
-
         if (event.target.classList.contains('delete-items-ntv')) {
             let itemCategory = event.target.parentElement.parentElement;
             if (itemCategory.children.length < 3) { itemCategory.remove() }
@@ -77,7 +72,7 @@ function removeItems(event) {
             item.style.display = 'none';
         }
     } else {
-        let item = event.target.parentElement.parentElement // whole trip stv
+        let item = event.target.parentElement.parentElement
         let tripCity = event.target.parentElement.previousElementSibling.innerText;
         let departDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
         let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);

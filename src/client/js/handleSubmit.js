@@ -14,12 +14,12 @@ today = yyyy + '-' + mm + '-' + dd;
 let departDate = document.querySelector('.depart-date');
 departDate.setAttribute("min", today);
 
-document.querySelector('.return-date').addEventListener('click', function (event) {
+document.querySelector('.return-date').addEventListener('click', function () {
     document.querySelector('.return-date').setAttribute("min", departDate.value);
 });
 
 // Generate trip data
-document.querySelector('#initial-request').addEventListener('submit', function (event) { generate(event) });
+document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event) });
 
 async function generate(event) {
     event.preventDefault();
