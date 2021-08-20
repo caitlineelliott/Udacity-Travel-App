@@ -68,7 +68,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *, 
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
     pointer-events: none;
 }
 

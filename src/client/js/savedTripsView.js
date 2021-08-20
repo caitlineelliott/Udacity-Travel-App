@@ -1,6 +1,7 @@
 import { editItems, removeItems, toggleItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
 import { getUserData, postData } from './serverRequests'
+import { appendItems, appendExistingItems, appendNewItems } from './appendItems'
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
@@ -102,8 +103,9 @@ function displayTrip(tripData) {
                 let category = document.createElement('div');
                 item.innerHTML = packedItems[i].item;
                 category.innerHTML = packedItems[i].category;
+                console.log(category)
 
-                addItemRows(itemRow, item, category);
+                appendItems(itemRow, item, category);
                 packingListContainer.appendChild(itemRow);
             }
 
@@ -121,7 +123,7 @@ function displayTrip(tripData) {
             formWrapper.appendChild(select);
 
             let addMorePackBtn = document.createElement('button');
-            addMorePackBtn.classList.add('add-more-pack-btn');
+            addMorePackBtn.classList.add('add-more-pack-btn-stv');
             addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             formWrapper.appendChild(addMorePackBtn)
@@ -140,7 +142,7 @@ function displayTrip(tripData) {
             btnContainer.appendChild(discardPackBtn);
             btnContainer.appendChild(savePackBtn);
 
-            addMorePackBtn.addEventListener('click', function (event) { addMoreItems(event); });
+            addMorePackBtn.addEventListener('click', appendItems(null, null, null));
             discardPackBtn.addEventListener('click', discardSTVItems);
             savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
@@ -157,7 +159,7 @@ function displayTrip(tripData) {
                 item.innerHTML = todoList[i].item;
                 category.innerHTML = todoList[i].category;
 
-                addItemRows(itemRow, item, category)
+                appendItems(itemRow, item, category)
                 todoListContainer.appendChild(itemRow);
             }
 
@@ -174,6 +176,7 @@ function displayTrip(tripData) {
             todoWrapper.appendChild(todoSelect);
 
             let addMoreTodoBtn = document.createElement('button');
+            addMoreTodoBtn.classList.add('add-more-todo-btn-stv');
             addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
             todoWrapper.appendChild(addMoreTodoBtn)
@@ -193,7 +196,7 @@ function displayTrip(tripData) {
             todoBtnContainer.appendChild(discardTodoBtn);
             todoBtnContainer.appendChild(saveTodoBtn);
 
-            addMoreTodoBtn.addEventListener('click', function (event) { addMoreItems(event); });
+            addMoreTodoBtn.addEventListener('click', appendItems(null, null, null));
             discardTodoBtn.addEventListener('click', discardSTVItems);
             saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
 
@@ -267,40 +270,39 @@ function displayData(event) {
             tripBlock.children[i].style.display = 'none';
         }
     }
-    // }
 }
 
 // ITEM LEVEL FUNCTIONS
-function addItemRows(itemRow, item, category) {
-    let toggle = document.createElement('button');
-    item.readOnly = true;
-    let editBtn = document.createElement('button');
-    let deleteBtn = document.createElement('button');
+// function addItemRows(itemRow, item, category) {
+//     let toggle = document.createElement('button');
+//     item.readOnly = true;
+//     let editBtn = document.createElement('button');
+//     let deleteBtn = document.createElement('button');
 
-    itemRow.appendChild(toggle);
-    itemRow.appendChild(item)
-    itemRow.appendChild(category);
-    itemRow.appendChild(editBtn);
-    itemRow.appendChild(deleteBtn);
+//     itemRow.appendChild(toggle);
+//     itemRow.appendChild(item)
+//     itemRow.appendChild(category);
+//     itemRow.appendChild(editBtn);
+//     itemRow.appendChild(deleteBtn);
 
-    toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-    editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-    deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
+//     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
+//     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
+//     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
-    toggle.style = "width: 15vw; font-size: 1em;"
-    item.style = "width: 30vw; font-size: 0.9em;"
-    category.style = "width: 30vw; font-size: 0.9em;"
-    editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
-    deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+//     toggle.style = "width: 15vw; font-size: 1em;"
+//     item.style = "width: 30vw; font-size: 0.9em;"
+//     category.style = "width: 30vw; font-size: 0.9em;"
+//     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
+//     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
 
-    item.classList.add('stv-item');
-    editBtn.classList.add('edit-items-stv');
-    deleteBtn.classList.add('delete-items-stv');
+//     item.classList.add('stv-item');
+//     editBtn.classList.add('edit-items-stv');
+//     deleteBtn.classList.add('delete-items-stv');
 
-    editBtn.addEventListener('click', editItems)
-    toggle.addEventListener('click', toggleItems);
-    deleteBtn.addEventListener('click', removeItems)
-}
+//     editBtn.addEventListener('click', editItems)
+//     toggle.addEventListener('click', toggleItems);
+//     deleteBtn.addEventListener('click', removeItems)
+// }
 
 function saveSTVItems(tripCity, tripDates) {
     return function (event) {
@@ -382,30 +384,30 @@ function discardSTVItems(event) {
     }
 };
 
-function addMoreItems(event) {
-    event.preventDefault();
+// function addMoreItems(event) {
+//     event.preventDefault();
 
-    let itemRow = document.createElement('div');
-    let item = document.createElement('textarea');
-    let category = document.createElement('div');
-    let nextItem = event.target.parentElement.children[0].value;
-    let nextCat = event.target.parentElement.children[1].value;
-    item.innerHTML = nextItem;
-    category.innerHTML = nextCat;
+//     let itemRow = document.createElement('div');
+//     let item = document.createElement('textarea');
+//     let category = document.createElement('div');
+//     let nextItem = event.target.parentElement.children[0].value;
+//     let nextCat = event.target.parentElement.children[1].value;
+//     item.innerHTML = nextItem;
+//     category.innerHTML = nextCat;
 
-    addItemRows(itemRow, item, category)
+//     addItemRows(itemRow, item, category)
 
-    event.target.parentElement.children[0].value = '';
+//     event.target.parentElement.children[0].value = '';
 
-    if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
-        itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-        let todoList = event.target.parentElement.parentElement.parentElement;
-        todoList.insertBefore(itemRow, todoList.children[0])
-    } else {
-        itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-        let packingList = event.target.parentElement.parentElement;
-        packingList.insertBefore(itemRow, packingList.children[0])
-    }
-}
+//     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
+//         itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
+//         let todoList = event.target.parentElement.parentElement.parentElement;
+//         todoList.insertBefore(itemRow, todoList.children[0])
+//     } else {
+//         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
+//         let packingList = event.target.parentElement.parentElement;
+//         packingList.insertBefore(itemRow, packingList.children[0])
+//     }
+// }
 
 export { displayTrip, viewSavedTrips }

@@ -2,6 +2,7 @@ import { createElements } from './addPackingItem'
 import { viewSavedTrips } from './savedTripsView'
 import { postData } from './serverRequests'
 import { getHeaderPhoto } from './apiRequests'
+import { appendItems } from './appendItems'
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     document.querySelector('.initial-req-container').style.display = "none";
@@ -84,8 +85,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
-    document.querySelector('.add-more-pack-btn').addEventListener('click', createElements);
-    document.querySelector('.add-more-todo-btn').addEventListener('click', createElements);
+    document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', appendItems(null, null, null));
+    document.querySelector('.add-more-todo-btn-ntv').addEventListener('click', appendItems(null, null, null));
 
     // Save Trip function
     document.querySelector('.save-trip-btn').addEventListener('click', function () {

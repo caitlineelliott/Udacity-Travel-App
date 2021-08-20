@@ -1,5 +1,21 @@
 @import 'base.scss';
 
+// move in hierarchy later
+.stv-item,
+.stv-category {
+    width: 30vw;
+    font-size: 0.9em;
+}
+
+.edit-items-stv,
+.delete-items-stv,
+.toggle {
+    width: 15vw;
+    font-size: 1em;
+    background: transparent;
+}
+///
+
 .saved-trips {
     .new-items-row {
         height: 7vh;
@@ -265,12 +281,12 @@
             width: 50vw;
         }
     }
-
     }
 
     .saved-trips-item {
         width: 48vw;
     }
+
     .saved-trips-category {
         width: 40vw !important;
     }

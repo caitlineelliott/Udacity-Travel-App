@@ -50,7 +50,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *,
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -134,7 +138,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *,
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -311,7 +319,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *,
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -420,7 +432,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *,
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -629,7 +645,11 @@ input::placeholder {
 .edit-trip > *,
 .delete-trip > *,
 .edit-items-stv > *,
-.delete-items-stv > * {
+.delete-items-stv > *,
+.add-more-pack-btn-stv > *,
+.add-more-todo-btn-stv > *,
+.add-more-pack-btn-ntv > *,
+.add-more-todo-btn-ntv > * {
   pointer-events: none; }
 
 .save-btn {
@@ -660,6 +680,18 @@ input::placeholder {
   body {
     display: flex;
     flex-direction: row; } }
+
+.stv-item,
+.stv-category {
+  width: 30vw;
+  font-size: 0.9em; }
+
+.edit-items-stv,
+.delete-items-stv,
+.toggle {
+  width: 15vw;
+  font-size: 1em;
+  background: transparent; }
 
 .saved-trips .new-items-row {
   height: 7vh;
