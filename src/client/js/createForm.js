@@ -41,7 +41,7 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
 }
 
-// forms not working with items alreayd added??
+// forms not working with items already added??
 
 function discardSTVItems(event) {
     let allItemsContainer = event.target.parentElement.parentElement;

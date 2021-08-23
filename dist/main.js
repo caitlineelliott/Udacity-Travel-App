@@ -225,7 +225,6 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
         itemRow.classList.add('new-items-row');
-
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)
@@ -352,6 +351,8 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
     saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
 }
+
+// forms not working with items already added??
 
 function discardSTVItems(event) {
     let allItemsContainer = event.target.parentElement.parentElement;
@@ -747,81 +748,6 @@ function displayTrip(tripData) {
 
             Object(_createForm__WEBPACK_IMPORTED_MODULE_4__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer)
 
-            // packWrapper.appendChild(input);
-            // packWrapper.appendChild(packSelect);
-            // todoWrapper.appendChild(input.cloneNode(true));
-            // todoWrapper.appendChild(todoSelect);
-
-            // createForm(packWrapper, todoWrapper, packingListContainer, todoListContainer, tripCity, tripDates);
-
-            // formWrapper.classList.add('add-item-form');
-            // addMoreHeading.innerHTML = `Missing something? Add more here:`
-            // packingListContainer.appendChild(addMoreHeading);
-            // packingListContainer.appendChild(formWrapper);
-            // formWrapper.appendChild(input);
-            // formWrapper.appendChild(select);
-
-            // let addMorePackBtn = document.createElement('button');
-            // addMorePackBtn.classList.add('add-more-pack-btn-stv');
-            // addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-
-            // formWrapper.appendChild(addMorePackBtn)
-
-            // let btnContainer = document.createElement('div');
-            // packingListContainer.appendChild(btnContainer)
-
-            // let discardPackBtn = document.createElement('button');
-            // discardPackBtn.classList.add('discard-trip-btn');
-            // discardPackBtn.innerHTML = 'Discard Changes';
-
-            // let savePackBtn = document.createElement('button');
-            // savePackBtn.classList.add('save-trip-btn');
-            // savePackBtn.innerHTML = 'Save Changes'
-
-            // btnContainer.appendChild(discardPackBtn);
-            // btnContainer.appendChild(savePackBtn);
-
-            // addMorePackBtn.addEventListener('click', appendItems(null, null, null));
-            // discardPackBtn.addEventListener('click', discardSTVItems);
-            // savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
-
-            // let addTodosForm = document.createElement('div');
-            // let originalTodoContainer = document.querySelector('.todo-list-container');
-            // let todoWrapper = document.createElement('form');
-            // let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
-            // let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
-
-            // todoWrapper.classList.add('add-item-form');
-            // addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
-            // addTodosForm.appendChild(todoWrapper)
-            // todoWrapper.appendChild(todoInput);
-            // todoWrapper.appendChild(todoSelect);
-
-            // let addMoreTodoBtn = document.createElement('button');
-            // addMoreTodoBtn.classList.add('add-more-todo-btn-stv');
-            // addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-
-            // todoWrapper.appendChild(addMoreTodoBtn)
-            // todoListContainer.appendChild(addTodosForm);
-
-            // let todoBtnContainer = document.createElement('div');
-            // todoListContainer.appendChild(todoBtnContainer)
-
-            // let discardTodoBtn = document.createElement('button');
-            // discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
-            // discardTodoBtn.innerHTML = 'Discard Changes';
-
-            // let saveTodoBtn = document.createElement('button');
-            // saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
-            // saveTodoBtn.innerHTML = 'Save Changes';
-
-            // todoBtnContainer.appendChild(discardTodoBtn);
-            // todoBtnContainer.appendChild(saveTodoBtn);
-
-            // addMoreTodoBtn.addEventListener('click', appendItems(null, null, null));
-            // discardTodoBtn.addEventListener('click', discardSTVItems);
-            // saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
-
             // WEATHER
             let weatherData = tripData[i].weather;
             let tripEnd = new Date(tripData[i].arrival);
@@ -860,7 +786,6 @@ function displayTrip(tripData) {
                 weatherContainer.appendChild(longForecast);
             }
 
-            // trip data actions
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);
             tripWeather.addEventListener('click', displayData);
@@ -872,7 +797,6 @@ function displayTrip(tripData) {
 
 // TRIP LEVEL FUNCTIONS
 function displayData(event) {
-    // return async function (event) {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
     let btn = event.target.classList[0];
@@ -1045,7 +969,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     // Handle forecast longer than weather api data
     let longForecast = document.createElement('div');
-
     if (departDate > dates[15]) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`

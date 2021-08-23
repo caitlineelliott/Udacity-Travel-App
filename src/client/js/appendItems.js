@@ -49,7 +49,6 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
         itemRow.classList.add('new-items-row');
-
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)

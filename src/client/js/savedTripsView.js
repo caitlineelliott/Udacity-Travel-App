@@ -166,7 +166,6 @@ function displayTrip(tripData) {
                 weatherContainer.appendChild(longForecast);
             }
 
-            // trip data actions
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);
             tripWeather.addEventListener('click', displayData);
@@ -178,7 +177,6 @@ function displayTrip(tripData) {
 
 // TRIP LEVEL FUNCTIONS
 function displayData(event) {
-    // return async function (event) {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
     let btn = event.target.classList[0];

@@ -71,7 +71,6 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     // Handle forecast longer than weather api data
     let longForecast = document.createElement('div');
-
     if (departDate > dates[15]) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`

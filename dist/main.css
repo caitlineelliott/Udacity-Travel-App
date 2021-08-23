@@ -69,7 +69,7 @@ input::placeholder {
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 15vw; }
-  h3 {
+  h2 {
     font-size: 6vw; } }
 
 /* DESKTOP */
@@ -157,7 +157,7 @@ input::placeholder {
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 15vw; }
-  h3 {
+  h2 {
     font-size: 6vw; } }
 
 /* DESKTOP */
@@ -229,10 +229,11 @@ header nav {
     header .home-btn a {
       font-size: 3vw; }
   header nav {
-    height: 6vh; }
+    height: 7vh; }
     header nav .main-nav-btn {
-      width: 30%;
-      font-size: 2vw; } }
+      width: 98vw;
+      font-size: 2.5vw;
+      line-height: 3vw; } }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
@@ -338,7 +339,7 @@ input::placeholder {
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 15vw; }
-  h3 {
+  h2 {
     font-size: 6vw; } }
 
 /* DESKTOP */
@@ -367,6 +368,16 @@ input::placeholder {
   font-weight: bold;
   text-transform: uppercase;
   color: #c44536; }
+
+/* TABLET */
+@media only screen and (min-width: 768px) {
+  #initial-request-form {
+    width: 80vw; }
+    #initial-request-form .form-label {
+      font-size: 2.5vw; }
+    #initial-request-form input {
+      height: 6.5vh;
+      font-size: 2.5vw; } }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
@@ -451,7 +462,7 @@ input::placeholder {
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 15vw; }
-  h3 {
+  h2 {
     font-size: 6vw; } }
 
 /* DESKTOP */
@@ -594,6 +605,32 @@ input::placeholder {
 .discard-trip-btn {
   background-color: #772e25; }
 
+/* TABLET */
+@media only screen and (min-width: 768px) {
+  .new-trip-container .travel-summary {
+    font-size: 2.5vw;
+    width: 70vw;
+    margin: 0 auto 20px auto; }
+    .new-trip-container .travel-summary p {
+      width: 100%; }
+    .new-trip-container .travel-summary .form-label,
+    .new-trip-container .travel-summary .trip-details {
+      width: 34vw; }
+  .new-trip-container .forecast-row {
+    width: 45vw; }
+    .new-trip-container .forecast-row .forecast-temp,
+    .new-trip-container .forecast-row .forecast-date {
+      font-size: 2.5vw; }
+    .new-trip-container .forecast-row .forecast-icon {
+      width: 6vw; }
+  .new-trip-container .weather .more-days {
+    font-size: 2.5vw; }
+  .new-trip-container .add-item-form input,
+  .new-trip-container .add-item-form select,
+  .new-trip-container .add-item-form button {
+    height: 6vh;
+    font-size: 2.5vw; } }
+
 body {
   margin: 0;
   padding: 0;
@@ -665,7 +702,7 @@ input::placeholder {
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 15vw; }
-  h3 {
+  h2 {
     font-size: 6vw; } }
 
 /* DESKTOP */
