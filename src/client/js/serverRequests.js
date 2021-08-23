@@ -4,7 +4,7 @@ const getUserData = async (url) => {
     try {
         const request = await fetch(url);
         const tripData = await request.json();
-        displayTrip(tripData);
+        displayTrip(tripData, event);
     }
     catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
 };

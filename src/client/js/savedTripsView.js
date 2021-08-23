@@ -1,11 +1,12 @@
-import { editItems, removeItems, toggleItems } from './modifyItems'
+import { editItems, removeItems } from './modifyItems'
 import { setWeatherDOMStructure } from './viewNewTrip'
 import { getUserData, postData } from './serverRequests'
-import { appendItems, appendExistingItems, appendNewItems } from './appendItems'
+import { appendItems } from './appendItems'
+import { createForm } from './createForm'
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
-async function viewSavedTrips() {
+async function viewSavedTrips(event) {
     let container = document.querySelector('main');
     for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
 
@@ -103,48 +104,10 @@ function displayTrip(tripData) {
                 let category = document.createElement('div');
                 item.innerHTML = packedItems[i].item;
                 category.innerHTML = packedItems[i].category;
-                console.log(category)
 
                 appendItems(itemRow, item, category);
                 packingListContainer.appendChild(itemRow);
             }
-
-            let addMoreHeading = document.createElement('p');
-            let originalContainer = document.querySelector('.packing-list-container');
-            let formWrapper = document.createElement('form');
-            let input = originalContainer.children[1].children[0].cloneNode(true);
-            let select = originalContainer.children[1].children[1].cloneNode(true);
-
-            formWrapper.classList.add('add-item-form');
-            addMoreHeading.innerHTML = `Missing something? Add more here:`
-            packingListContainer.appendChild(addMoreHeading);
-            packingListContainer.appendChild(formWrapper);
-            formWrapper.appendChild(input);
-            formWrapper.appendChild(select);
-
-            let addMorePackBtn = document.createElement('button');
-            addMorePackBtn.classList.add('add-more-pack-btn-stv');
-            addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-
-            formWrapper.appendChild(addMorePackBtn)
-
-            let btnContainer = document.createElement('div');
-            packingListContainer.appendChild(btnContainer)
-
-            let discardPackBtn = document.createElement('button');
-            discardPackBtn.classList.add('discard-trip-btn');
-            discardPackBtn.innerHTML = 'Discard Changes';
-
-            let savePackBtn = document.createElement('button');
-            savePackBtn.classList.add('save-trip-btn');
-            savePackBtn.innerHTML = 'Save Changes'
-
-            btnContainer.appendChild(discardPackBtn);
-            btnContainer.appendChild(savePackBtn);
-
-            addMorePackBtn.addEventListener('click', appendItems(null, null, null));
-            discardPackBtn.addEventListener('click', discardSTVItems);
-            savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
             // TO DO LIST
             let todoList = tripData[i].todoList;
@@ -163,42 +126,7 @@ function displayTrip(tripData) {
                 todoListContainer.appendChild(itemRow);
             }
 
-            let addTodosForm = document.createElement('div');
-            let originalTodoContainer = document.querySelector('.todo-list-container');
-            let todoWrapper = document.createElement('form');
-            let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
-            let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
-
-            todoWrapper.classList.add('add-item-form');
-            addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
-            addTodosForm.appendChild(todoWrapper)
-            todoWrapper.appendChild(todoInput);
-            todoWrapper.appendChild(todoSelect);
-
-            let addMoreTodoBtn = document.createElement('button');
-            addMoreTodoBtn.classList.add('add-more-todo-btn-stv');
-            addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-
-            todoWrapper.appendChild(addMoreTodoBtn)
-            todoListContainer.appendChild(addTodosForm);
-
-            let todoBtnContainer = document.createElement('div');
-            todoListContainer.appendChild(todoBtnContainer)
-
-            let discardTodoBtn = document.createElement('button');
-            discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
-            discardTodoBtn.innerHTML = 'Discard Changes';
-
-            let saveTodoBtn = document.createElement('button');
-            saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
-            saveTodoBtn.innerHTML = 'Save Changes';
-
-            todoBtnContainer.appendChild(discardTodoBtn);
-            todoBtnContainer.appendChild(saveTodoBtn);
-
-            addMoreTodoBtn.addEventListener('click', appendItems(null, null, null));
-            discardTodoBtn.addEventListener('click', discardSTVItems);
-            saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
+            createForm(tripCity, tripDates, packingListContainer, todoListContainer)
 
             // WEATHER
             let weatherData = tripData[i].weather;
@@ -271,143 +199,5 @@ function displayData(event) {
         }
     }
 }
-
-// ITEM LEVEL FUNCTIONS
-// function addItemRows(itemRow, item, category) {
-//     let toggle = document.createElement('button');
-//     item.readOnly = true;
-//     let editBtn = document.createElement('button');
-//     let deleteBtn = document.createElement('button');
-
-//     itemRow.appendChild(toggle);
-//     itemRow.appendChild(item)
-//     itemRow.appendChild(category);
-//     itemRow.appendChild(editBtn);
-//     itemRow.appendChild(deleteBtn);
-
-//     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-//     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-//     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-
-//     toggle.style = "width: 15vw; font-size: 1em;"
-//     item.style = "width: 30vw; font-size: 0.9em;"
-//     category.style = "width: 30vw; font-size: 0.9em;"
-//     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
-//     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
-
-//     item.classList.add('stv-item');
-//     editBtn.classList.add('edit-items-stv');
-//     deleteBtn.classList.add('delete-items-stv');
-
-//     editBtn.addEventListener('click', editItems)
-//     toggle.addEventListener('click', toggleItems);
-//     deleteBtn.addEventListener('click', removeItems)
-// }
-
-function saveSTVItems(tripCity, tripDates) {
-    return function (event) {
-        let allItemsContainer = event.target.parentElement.parentElement;
-        let allItems = event.target.parentElement.parentElement.children;
-
-        // delete items staged for removal
-        for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
-        }
-
-        if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
-
-        // return hidden trips
-        let trips = document.querySelector('.saved-trips').children;
-        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-
-        let itemsArr = []
-        for (let i = 0; i < allItems.length; i++) {
-            // removed modified designation from STV view
-            let classes = allItems[i].classList;
-            let iterator = classes.entries();
-            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
-
-            // if no list items
-            if (allItems.length < 3) {
-                let newItem = {};
-                let flag = event.target.parentElement.parentElement.classList[0];
-                newItem['item'] = null;
-
-                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
-                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
-                itemsArr.push(newItem);
-            }
-            // if yes list items
-            else {
-                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
-                    let newItem = {};
-                    let flag = allItems[i].classList[1];
-                    newItem['item'] = allItems[i].children[1].value;
-                    newItem['category'] = allItems[i].children[2].innerText;
-
-                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
-                    // iterates through classes to find packed flag and toggle
-                    let classes = allItems[i].classList;
-                    let iterator = classes.entries();
-
-                    for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem['toggle'] = true }
-                        else { newItem['toggle'] = false; };
-                    }
-
-                    if (flag === 'todo') { newItem['listType'] = 'todo' }
-                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
-
-                    itemsArr.push(newItem);
-                }
-            }
-        }
-        postData('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
-    }
-}
-
-function discardSTVItems(event) {
-    let allItemsContainer = event.target.parentElement.parentElement;
-    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
-
-    // return hidden trips
-    let trips = document.querySelector('.saved-trips').children;
-    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-
-    let children = allItemsContainer.children;
-    for (let i = 0; i < children.length; i++) {
-        if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
-        if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
-        let classes = children[i].classList;
-        let iterator = classes.entries();
-        for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
-    }
-};
-
-// function addMoreItems(event) {
-//     event.preventDefault();
-
-//     let itemRow = document.createElement('div');
-//     let item = document.createElement('textarea');
-//     let category = document.createElement('div');
-//     let nextItem = event.target.parentElement.children[0].value;
-//     let nextCat = event.target.parentElement.children[1].value;
-//     item.innerHTML = nextItem;
-//     category.innerHTML = nextCat;
-
-//     addItemRows(itemRow, item, category)
-
-//     event.target.parentElement.children[0].value = '';
-
-//     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
-//         itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-//         let todoList = event.target.parentElement.parentElement.parentElement;
-//         todoList.insertBefore(itemRow, todoList.children[0])
-//     } else {
-//         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-//         let packingList = event.target.parentElement.parentElement;
-//         packingList.insertBefore(itemRow, packingList.children[0])
-//     }
-// }
 
 export { displayTrip, viewSavedTrips }

@@ -44,12 +44,12 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     category.innerHTML = event.target.parentElement.children[1].value;
     categoryLabel.innerHTML = `${category.innerHTML} <i class="fas fa-chevron-down"></i>`;
 
-    itemRow.classList.add('new-items-row');
-
     // split function basedn on ntv or stv
     let target = event.target.classList[0];
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
+        itemRow.classList.add('new-items-row');
+
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)
@@ -72,10 +72,9 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         }
     } else if (newTarget === 'stv') {
         styleItems(itemRow, item, category, toggle, editBtn, deleteBtn);
-
         if (category.innerText === 'Priority' || category.innerText === 'High' || category.innerText === 'Medium' || category.innerText === 'Low') {
             itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-            let todoList = event.target.parentElement.parentElement.parentElement;
+            let todoList = event.target.parentElement.parentElement;
             todoList.insertBefore(itemRow, todoList.children[0])
         } else {
             itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');

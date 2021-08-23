@@ -95,18 +95,17 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _js_apiRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/apiRequests */ "./src/client/js/apiRequests.js");
-/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
-/* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
-/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
-/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
-/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+/* harmony import */ var _js_apiRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
+/* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
+/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
 
 
 
@@ -119,102 +118,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-/***/ }),
-
-/***/ "./src/client/js/addPackingItem.js":
-/*!*****************************************!*\
-  !*** ./src/client/js/addPackingItem.js ***!
-  \*****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modifyItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modifyItems */ "./src/client/js/modifyItems.js");
-
-
-
-// function createElements(event) {
-//     event.preventDefault();
-
-//     const blockElements = {
-//         "itemContainer": event.target.parentElement.parentElement,
-//         "newItemCategoryLabel": document.createElement('div'),
-//         "itemCategory": event.target.parentElement.children[1].value,
-//         "newItemRow": document.createElement('div'),
-//         "item": event.target.parentElement.children[0],
-//     }
-
-//     const rowElements = {
-//         "newItemValue": document.createElement('textarea'),
-//         "editBtn": document.createElement('button'),
-//         "deleteBtn": document.createElement('button'),
-//     }
-
-//     rowElements.newItemValue.readOnly = true;
-//     rowElements.newItemValue.setAttribute('style', 'resize: none; ');
-
-//     setValues(event, blockElements, rowElements);
-
-//     // Toggles each item category open/closed
-//     blockElements.newItemCategoryLabel.addEventListener('click', function (event) {
-//         Array.from(event.target.children).forEach(function (item) {
-//             if (item.classList[0] === 'new-items-row') {
-//                 if (item.style.display === 'none') { item.style.display = 'flex' }
-//                 else { item.style.display = 'none' }
-//             } else if (item.classList.contains('fa-chevron-down')) {
-//                 item.classList.toggle('fa-chevron-up')
-//             }
-//         })
-//     })
-// }
-
-// async function setValues(event, blockElements, rowElements) {
-//     blockElements.newItemRow.classList.add('new-items-row');
-
-//     blockElements.newItemCategoryLabel.innerHTML = `${blockElements.itemCategory} <i class="fas fa-chevron-down"></i>`;
-//     blockElements.newItemCategoryLabel.id = `${blockElements.itemCategory}-category`;
-
-//     rowElements.newItemValue.defaultValue = blockElements.item.value;
-//     rowElements.editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-//     rowElements.deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-
-//     blockElements.newItemCategoryLabel.classList.add('select-categories');
-//     rowElements.editBtn.classList.add('edit-items-ntv');
-//     rowElements.deleteBtn.classList.add('delete-items-ntv');
-
-//     event.target.parentElement.children[0].value = '';
-
-//     appendItem(blockElements, rowElements);
-// }
-
-// function appendItem(blockElements, rowElements) {
-//     const categoryArr = []
-//     let appendedElements = blockElements.itemContainer.children;
-
-//     for (let i = 2; i < appendedElements.length; i++) { categoryArr.push(appendedElements[i].id); }
-
-//     // Determines which category to append items under
-//     if (!categoryArr.includes(blockElements.newItemCategoryLabel.id)) {
-//         blockElements.itemContainer.appendChild(blockElements.newItemCategoryLabel);
-//         blockElements.newItemCategoryLabel.appendChild(blockElements.newItemRow);
-
-//     } else {
-//         let existingRow = document.querySelector(`#${blockElements.newItemCategoryLabel.id}`);
-//         existingRow.appendChild(blockElements.newItemRow);
-//     }
-
-//     for (let i = 0; i < Object.keys(rowElements).length; i++) {
-//         blockElements.newItemRow.appendChild(Object.values(rowElements)[i]);
-//     }
-
-//     rowElements.editBtn.addEventListener('click', editItems);
-//     rowElements.deleteBtn.addEventListener('click', removeItems);
-// }
-//
-// export { createElements, appendItem }
 
 /***/ }),
 
@@ -317,12 +220,12 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     category.innerHTML = event.target.parentElement.children[1].value;
     categoryLabel.innerHTML = `${category.innerHTML} <i class="fas fa-chevron-down"></i>`;
 
-    itemRow.classList.add('new-items-row');
-
     // split function basedn on ntv or stv
     let target = event.target.classList[0];
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
+        itemRow.classList.add('new-items-row');
+
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)
@@ -340,15 +243,14 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
             itemContainer.appendChild(categoryLabel);
             categoryLabel.appendChild(itemRow)
         } else {
-            let existingRow = document.querySelector(`#${categoryLabel.id}`); // only works on first instance?
+            let existingRow = document.querySelector(`#${categoryLabel.id}`);
             existingRow.appendChild(itemRow);
         }
     } else if (newTarget === 'stv') {
         styleItems(itemRow, item, category, toggle, editBtn, deleteBtn);
-
         if (category.innerText === 'Priority' || category.innerText === 'High' || category.innerText === 'Medium' || category.innerText === 'Low') {
             itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-            let todoList = event.target.parentElement.parentElement.parentElement;
+            let todoList = event.target.parentElement.parentElement;
             todoList.insertBefore(itemRow, todoList.children[0])
         } else {
             itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
@@ -356,8 +258,9 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
             packingList.insertBefore(itemRow, packingList.children[0])
         }
         toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
-        event.target.parentElement.children[0].value = '';
     }
+
+    event.target.parentElement.children[0].value = '';
 
     // Toggles each item category open/closed
     categoryLabel.addEventListener('click', function (event) {
@@ -388,6 +291,146 @@ function styleItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
     itemRow.appendChild(category);
     itemRow.appendChild(editBtn);
     itemRow.appendChild(deleteBtn);
+}
+
+
+
+/***/ }),
+
+/***/ "./src/client/js/createForm.js":
+/*!*************************************!*\
+  !*** ./src/client/js/createForm.js ***!
+  \*************************************/
+/*! exports provided: createForm, discardSTVItems */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createForm", function() { return createForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "discardSTVItems", function() { return discardSTVItems; });
+/* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
+
+
+
+function createForm(tripCity, tripDates, packingListContainer, todoListContainer) {
+    let packingContainer = document.querySelector('.packing-list-container');
+    let todoContainer = document.querySelector('.todo-list-container');
+    let packForm = packingContainer.children[1].cloneNode(true);
+    let todoForm = todoContainer.children[1].cloneNode(true);
+    let addPackBtn = packForm.children[2];
+    let addTodoBtn = todoForm.children[2];
+    let addMoreHeading = document.createElement('p');
+    let btnContainer = document.querySelector('.trip-btn-container').cloneNode(true);
+
+    addPackBtn.classList.remove('add-more-pack-btn-ntv');
+    addTodoBtn.classList.remove('add-more-todo-btn-ntv');
+    addTodoBtn.classList.add('add-more-todo-btn-stv');
+    addPackBtn.classList.add('add-more-pack-btn-stv');
+
+    addMoreHeading.innerHTML = `Missing something? Add more here:`;
+    btnContainer.children[0].innerHTML = 'Discard Changes';
+    btnContainer.children[1].innerHTML = 'Save Changes';
+
+    packingListContainer.appendChild(addMoreHeading);
+    packingListContainer.appendChild(packForm);
+    packingListContainer.appendChild(btnContainer);
+
+    todoListContainer.appendChild(addMoreHeading.cloneNode(true));
+    todoListContainer.appendChild(todoForm)
+    todoListContainer.appendChild(btnContainer.cloneNode(true));
+
+    let discardPackBtn = packingListContainer.children[2].children[0];
+    let discardTodoBtn = todoListContainer.children[2].children[0];
+    let savePackBtn = packingListContainer.children[2].children[1];
+    let saveTodoBtn = todoListContainer.children[2].children[1];
+
+    addPackBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
+    addTodoBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
+    discardPackBtn.addEventListener('click', discardSTVItems);
+    discardTodoBtn.addEventListener('click', discardSTVItems);
+    savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
+    saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
+}
+
+function discardSTVItems(event) {
+    let allItemsContainer = event.target.parentElement.parentElement;
+    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
+
+    // return hidden trips
+    let trips = document.querySelector('.saved-trips').children;
+    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+
+    let children = allItemsContainer.children;
+    for (let i = 0; i < children.length; i++) {
+        if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
+        if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
+        let classes = children[i].classList;
+        let iterator = classes.entries();
+        for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
+    }
+};
+
+function saveSTVItems(tripCity, tripDates) {
+    return function (event) {
+        let allItemsContainer = event.target.parentElement.parentElement;
+        let allItems = event.target.parentElement.parentElement.children;
+
+        // delete items staged for removal
+        for (let i = 0; i < allItems.length; i++) {
+            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
+        }
+
+        if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
+
+        // return hidden trips
+        let trips = document.querySelector('.saved-trips').children;
+        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+
+        let itemsArr = []
+        for (let i = 0; i < allItems.length; i++) {
+            // removed modified designation from STV view
+            let classes = allItems[i].classList;
+            let iterator = classes.entries();
+            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
+
+            // if no list items
+            if (allItems.length < 3) {
+                let newItem = {};
+                let flag = event.target.parentElement.parentElement.classList[0];
+                newItem['item'] = null;
+
+                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
+                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
+                itemsArr.push(newItem);
+            }
+            // if yes list items
+            else {
+                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
+                    let newItem = {};
+                    let flag = allItems[i].classList[1];
+                    newItem['item'] = allItems[i].children[1].value;
+                    newItem['category'] = allItems[i].children[2].innerText;
+
+                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
+                    // iterates through classes to find packed flag and toggle
+                    let classes = allItems[i].classList;
+                    let iterator = classes.entries();
+
+                    for (let value of iterator) {
+                        if (value[1] === 'packed') { newItem['toggle'] = true }
+                        else { newItem['toggle'] = false; };
+                    }
+
+                    if (flag === 'todo') { newItem['listType'] = 'todo' }
+                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
+
+                    itemsArr.push(newItem);
+                }
+            }
+        }
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
+    }
 }
 
 
@@ -573,6 +616,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 /* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
+/* harmony import */ var _createForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createForm */ "./src/client/js/createForm.js");
+
 
 
 
@@ -580,7 +625,7 @@ __webpack_require__.r(__webpack_exports__);
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
-async function viewSavedTrips() {
+async function viewSavedTrips(event) {
     let container = document.querySelector('main');
     for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
 
@@ -678,48 +723,10 @@ function displayTrip(tripData) {
                 let category = document.createElement('div');
                 item.innerHTML = packedItems[i].item;
                 category.innerHTML = packedItems[i].category;
-                console.log(category)
 
                 Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(itemRow, item, category);
                 packingListContainer.appendChild(itemRow);
             }
-
-            let addMoreHeading = document.createElement('p');
-            let originalContainer = document.querySelector('.packing-list-container');
-            let formWrapper = document.createElement('form');
-            let input = originalContainer.children[1].children[0].cloneNode(true);
-            let select = originalContainer.children[1].children[1].cloneNode(true);
-
-            formWrapper.classList.add('add-item-form');
-            addMoreHeading.innerHTML = `Missing something? Add more here:`
-            packingListContainer.appendChild(addMoreHeading);
-            packingListContainer.appendChild(formWrapper);
-            formWrapper.appendChild(input);
-            formWrapper.appendChild(select);
-
-            let addMorePackBtn = document.createElement('button');
-            addMorePackBtn.classList.add('add-more-pack-btn-stv');
-            addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
-
-            formWrapper.appendChild(addMorePackBtn)
-
-            let btnContainer = document.createElement('div');
-            packingListContainer.appendChild(btnContainer)
-
-            let discardPackBtn = document.createElement('button');
-            discardPackBtn.classList.add('discard-trip-btn');
-            discardPackBtn.innerHTML = 'Discard Changes';
-
-            let savePackBtn = document.createElement('button');
-            savePackBtn.classList.add('save-trip-btn');
-            savePackBtn.innerHTML = 'Save Changes'
-
-            btnContainer.appendChild(discardPackBtn);
-            btnContainer.appendChild(savePackBtn);
-
-            addMorePackBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
-            discardPackBtn.addEventListener('click', discardSTVItems);
-            savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
 
             // TO DO LIST
             let todoList = tripData[i].todoList;
@@ -738,42 +745,82 @@ function displayTrip(tripData) {
                 todoListContainer.appendChild(itemRow);
             }
 
-            let addTodosForm = document.createElement('div');
-            let originalTodoContainer = document.querySelector('.todo-list-container');
-            let todoWrapper = document.createElement('form');
-            let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
-            let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
+            Object(_createForm__WEBPACK_IMPORTED_MODULE_4__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer)
 
-            todoWrapper.classList.add('add-item-form');
-            addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
-            addTodosForm.appendChild(todoWrapper)
-            todoWrapper.appendChild(todoInput);
-            todoWrapper.appendChild(todoSelect);
+            // packWrapper.appendChild(input);
+            // packWrapper.appendChild(packSelect);
+            // todoWrapper.appendChild(input.cloneNode(true));
+            // todoWrapper.appendChild(todoSelect);
 
-            let addMoreTodoBtn = document.createElement('button');
-            addMoreTodoBtn.classList.add('add-more-todo-btn-stv');
-            addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+            // createForm(packWrapper, todoWrapper, packingListContainer, todoListContainer, tripCity, tripDates);
 
-            todoWrapper.appendChild(addMoreTodoBtn)
-            todoListContainer.appendChild(addTodosForm);
+            // formWrapper.classList.add('add-item-form');
+            // addMoreHeading.innerHTML = `Missing something? Add more here:`
+            // packingListContainer.appendChild(addMoreHeading);
+            // packingListContainer.appendChild(formWrapper);
+            // formWrapper.appendChild(input);
+            // formWrapper.appendChild(select);
 
-            let todoBtnContainer = document.createElement('div');
-            todoListContainer.appendChild(todoBtnContainer)
+            // let addMorePackBtn = document.createElement('button');
+            // addMorePackBtn.classList.add('add-more-pack-btn-stv');
+            // addMorePackBtn.innerHTML = `<i class="fas fa-plus"></i>`;
 
-            let discardTodoBtn = document.createElement('button');
-            discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
-            discardTodoBtn.innerHTML = 'Discard Changes';
+            // formWrapper.appendChild(addMorePackBtn)
 
-            let saveTodoBtn = document.createElement('button');
-            saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
-            saveTodoBtn.innerHTML = 'Save Changes';
+            // let btnContainer = document.createElement('div');
+            // packingListContainer.appendChild(btnContainer)
 
-            todoBtnContainer.appendChild(discardTodoBtn);
-            todoBtnContainer.appendChild(saveTodoBtn);
+            // let discardPackBtn = document.createElement('button');
+            // discardPackBtn.classList.add('discard-trip-btn');
+            // discardPackBtn.innerHTML = 'Discard Changes';
 
-            addMoreTodoBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
-            discardTodoBtn.addEventListener('click', discardSTVItems);
-            saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
+            // let savePackBtn = document.createElement('button');
+            // savePackBtn.classList.add('save-trip-btn');
+            // savePackBtn.innerHTML = 'Save Changes'
+
+            // btnContainer.appendChild(discardPackBtn);
+            // btnContainer.appendChild(savePackBtn);
+
+            // addMorePackBtn.addEventListener('click', appendItems(null, null, null));
+            // discardPackBtn.addEventListener('click', discardSTVItems);
+            // savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer))
+
+            // let addTodosForm = document.createElement('div');
+            // let originalTodoContainer = document.querySelector('.todo-list-container');
+            // let todoWrapper = document.createElement('form');
+            // let todoInput = originalTodoContainer.children[1].children[0].cloneNode(true);
+            // let todoSelect = originalTodoContainer.children[1].children[1].cloneNode(true);
+
+            // todoWrapper.classList.add('add-item-form');
+            // addTodosForm.innerHTML = `<p>Missing something? Add more here:</p>`
+            // addTodosForm.appendChild(todoWrapper)
+            // todoWrapper.appendChild(todoInput);
+            // todoWrapper.appendChild(todoSelect);
+
+            // let addMoreTodoBtn = document.createElement('button');
+            // addMoreTodoBtn.classList.add('add-more-todo-btn-stv');
+            // addMoreTodoBtn.innerHTML = `<i class="fas fa-plus"></i>`;
+
+            // todoWrapper.appendChild(addMoreTodoBtn)
+            // todoListContainer.appendChild(addTodosForm);
+
+            // let todoBtnContainer = document.createElement('div');
+            // todoListContainer.appendChild(todoBtnContainer)
+
+            // let discardTodoBtn = document.createElement('button');
+            // discardTodoBtn.classList.add('discard-trip-btn', 'discard-todo-btn');
+            // discardTodoBtn.innerHTML = 'Discard Changes';
+
+            // let saveTodoBtn = document.createElement('button');
+            // saveTodoBtn.classList.add('save-trip-btn', 'save-todo-btn');
+            // saveTodoBtn.innerHTML = 'Save Changes';
+
+            // todoBtnContainer.appendChild(discardTodoBtn);
+            // todoBtnContainer.appendChild(saveTodoBtn);
+
+            // addMoreTodoBtn.addEventListener('click', appendItems(null, null, null));
+            // discardTodoBtn.addEventListener('click', discardSTVItems);
+            // saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates, todoListContainer, packingListContainer));
 
             // WEATHER
             let weatherData = tripData[i].weather;
@@ -847,144 +894,6 @@ function displayData(event) {
     }
 }
 
-// ITEM LEVEL FUNCTIONS
-// function addItemRows(itemRow, item, category) {
-//     let toggle = document.createElement('button');
-//     item.readOnly = true;
-//     let editBtn = document.createElement('button');
-//     let deleteBtn = document.createElement('button');
-
-//     itemRow.appendChild(toggle);
-//     itemRow.appendChild(item)
-//     itemRow.appendChild(category);
-//     itemRow.appendChild(editBtn);
-//     itemRow.appendChild(deleteBtn);
-
-//     toggle.innerHTML = `<i class= "far fa-check-square"></i>`;
-//     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
-//     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
-
-//     toggle.style = "width: 15vw; font-size: 1em;"
-//     item.style = "width: 30vw; font-size: 0.9em;"
-//     category.style = "width: 30vw; font-size: 0.9em;"
-//     editBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
-//     deleteBtn.style = "width: 15vw; font-size: 1em; background: transparent;"
-
-//     item.classList.add('stv-item');
-//     editBtn.classList.add('edit-items-stv');
-//     deleteBtn.classList.add('delete-items-stv');
-
-//     editBtn.addEventListener('click', editItems)
-//     toggle.addEventListener('click', toggleItems);
-//     deleteBtn.addEventListener('click', removeItems)
-// }
-
-function saveSTVItems(tripCity, tripDates) {
-    return function (event) {
-        let allItemsContainer = event.target.parentElement.parentElement;
-        let allItems = event.target.parentElement.parentElement.children;
-
-        // delete items staged for removal
-        for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
-        }
-
-        if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
-
-        // return hidden trips
-        let trips = document.querySelector('.saved-trips').children;
-        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-
-        let itemsArr = []
-        for (let i = 0; i < allItems.length; i++) {
-            // removed modified designation from STV view
-            let classes = allItems[i].classList;
-            let iterator = classes.entries();
-            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
-
-            // if no list items
-            if (allItems.length < 3) {
-                let newItem = {};
-                let flag = event.target.parentElement.parentElement.classList[0];
-                newItem['item'] = null;
-
-                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
-                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
-                itemsArr.push(newItem);
-            }
-            // if yes list items
-            else {
-                if (allItems[i].classList[0] === 'saved-trip-packing-list') {
-                    let newItem = {};
-                    let flag = allItems[i].classList[1];
-                    newItem['item'] = allItems[i].children[1].value;
-                    newItem['category'] = allItems[i].children[2].innerText;
-
-                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
-                    // iterates through classes to find packed flag and toggle
-                    let classes = allItems[i].classList;
-                    let iterator = classes.entries();
-
-                    for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem['toggle'] = true }
-                        else { newItem['toggle'] = false; };
-                    }
-
-                    if (flag === 'todo') { newItem['listType'] = 'todo' }
-                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
-
-                    itemsArr.push(newItem);
-                }
-            }
-        }
-        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
-    }
-}
-
-function discardSTVItems(event) {
-    let allItemsContainer = event.target.parentElement.parentElement;
-    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
-
-    // return hidden trips
-    let trips = document.querySelector('.saved-trips').children;
-    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
-
-    let children = allItemsContainer.children;
-    for (let i = 0; i < children.length; i++) {
-        if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
-        if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
-        let classes = children[i].classList;
-        let iterator = classes.entries();
-        for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
-    }
-};
-
-// function addMoreItems(event) {
-//     event.preventDefault();
-
-//     let itemRow = document.createElement('div');
-//     let item = document.createElement('textarea');
-//     let category = document.createElement('div');
-//     let nextItem = event.target.parentElement.children[0].value;
-//     let nextCat = event.target.parentElement.children[1].value;
-//     item.innerHTML = nextItem;
-//     category.innerHTML = nextCat;
-
-//     addItemRows(itemRow, item, category)
-
-//     event.target.parentElement.children[0].value = '';
-
-//     if (nextCat === 'Priority' || nextCat === 'High' || nextCat === 'Medium' || nextCat === 'Low') {
-//         itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
-//         let todoList = event.target.parentElement.parentElement.parentElement;
-//         todoList.insertBefore(itemRow, todoList.children[0])
-//     } else {
-//         itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
-//         let packingList = event.target.parentElement.parentElement;
-//         packingList.insertBefore(itemRow, packingList.children[0])
-//     }
-// }
-
 
 
 /***/ }),
@@ -1008,7 +917,7 @@ const getUserData = async (url) => {
     try {
         const request = await fetch(url);
         const tripData = await request.json();
-        Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["displayTrip"])(tripData);
+        Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["displayTrip"])(tripData, event);
     }
     catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
 };
@@ -1059,12 +968,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewNewTrip", function() { return viewNewTrip; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setWeatherDOMStructure", function() { return setWeatherDOMStructure; });
-/* harmony import */ var _addPackingItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPackingItem */ "./src/client/js/addPackingItem.js");
-/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
-/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
-/* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
-
+/* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
 
 
 
@@ -1076,7 +983,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     newTripContainer.style.display = "flex";
 
     // Update Header
-    let bannerImg = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_3__["getHeaderPhoto"])(userCity);
+    let bannerImg = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_2__["getHeaderPhoto"])(userCity);
     if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background') }
     else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
     document.querySelector('h1').innerHTML = `${userCity}`;
@@ -1151,8 +1058,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
-    document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_4__["appendItems"])(null, null, null));
-    document.querySelector('.add-more-todo-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_4__["appendItems"])(null, null, null));
+    document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
+    document.querySelector('.add-more-todo-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
 
     // Save Trip function
     document.querySelector('.save-trip-btn').addEventListener('click', function () {
@@ -1176,14 +1083,14 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         document.querySelector('.trip-saved-container').style.display = 'flex';
 
         let savedTripsBtn = document.querySelector('#view-saved-trips');
-        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
+        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"])
 
         let bookTripBtn = document.querySelector('.main-nav-btn');
-        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_1__["viewSavedTrips"])
+        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"])
         bookTripBtn.innerHTML = `Book Trip`
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
 
-        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["postData"])('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
 }
 

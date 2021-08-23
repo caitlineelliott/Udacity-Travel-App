@@ -576,8 +576,9 @@ input::placeholder {
     background-color: #197278; }
     .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .new-items-row textarea {
       height: 5.6vh; }
-  .new-trip-container .trip-btn-container {
-    display: flex; }
+
+.trip-btn-container {
+  display: flex; }
 
 .save-trip-btn,
 .discard-trip-btn {
