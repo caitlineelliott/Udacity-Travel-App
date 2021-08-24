@@ -321,6 +321,7 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     let addTodoBtn = todoForm.children[2];
     let addMoreHeading = document.createElement('p');
     let btnContainer = document.querySelector('.trip-btn-container').cloneNode(true);
+    let todoBtnContainer = btnContainer.cloneNode(true);
 
     addPackBtn.classList.remove('add-more-pack-btn-ntv');
     addTodoBtn.classList.remove('add-more-todo-btn-ntv');
@@ -337,12 +338,15 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
 
     todoListContainer.appendChild(addMoreHeading.cloneNode(true));
     todoListContainer.appendChild(todoForm)
-    todoListContainer.appendChild(btnContainer.cloneNode(true));
+    todoListContainer.appendChild(todoBtnContainer);
 
-    let discardPackBtn = packingListContainer.children[2].children[0];
-    let discardTodoBtn = todoListContainer.children[2].children[0];
-    let savePackBtn = packingListContainer.children[2].children[1];
-    let saveTodoBtn = todoListContainer.children[2].children[1];
+    let discardPackBtn = btnContainer.children[0]
+    let discardTodoBtn = todoBtnContainer.children[0]
+    let savePackBtn = btnContainer.children[1]
+    let saveTodoBtn = todoBtnContainer.children[1];
+
+    console.log(discardPackBtn, discardTodoBtn)
+    console.log(savePackBtn, saveTodoBtn)
 
     addPackBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
     addTodoBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
