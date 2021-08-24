@@ -699,7 +699,7 @@ __webpack_require__.r(__webpack_exports__);
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
-async function viewSavedTrips(event) {
+async function viewSavedTrips() {
     let container = document.querySelector('main');
     for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
 
@@ -819,7 +819,7 @@ function displayTrip(tripData) {
                 todoListContainer.appendChild(itemRow);
             }
 
-            Object(_createForm__WEBPACK_IMPORTED_MODULE_3__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer)
+            Object(_createForm__WEBPACK_IMPORTED_MODULE_3__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer);
 
             // WEATHER
             let weatherData = tripData[i].weather;
@@ -834,7 +834,7 @@ function displayTrip(tripData) {
                 Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
             }
 
-            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount')
+            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount');
 
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);
@@ -845,7 +845,6 @@ function displayTrip(tripData) {
     }
 }
 
-// TRIP LEVEL FUNCTIONS
 function displayData(event) {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
@@ -1032,9 +1031,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             item["category"] = items[i].parentNode.id;
             item["toggleStatus"] = false;
 
-            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") {
-                todoList.push(item)
-            } else { packingList.push(item) }
+            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") { todoList.push(item) }
+            else { packingList.push(item) }
         };
 
         // View Saved Confirmed Message

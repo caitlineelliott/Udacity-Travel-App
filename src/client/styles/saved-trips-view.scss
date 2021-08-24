@@ -195,33 +195,45 @@
 
 /* TABLET */
 @media only screen and (min-width: 768px) {
-.output {
-    font-size: 2.5vw;
+    .trip-saved-container {
+        .no-trips-container {
+            font-size: 2.5vw;
+        }
 
-    .travel-summary {
+        #view-saved-trips {
+            width: 40vw;
+            font-size: 2.5vw;
+        }
+    }
+    .saved-trips {
         font-size: 2.5vw;
-        width: 60%;
-    }
 
-    .forecast-row {
-        .forecast-date,
-        .forecast-temp {
-            padding: 0 10px;
-            font-size: 3vw;
-            color: white;
+        .packing-list,
+        .todo-list {
+            .add-item-form {
+                input,
+                select,
+                button {
+                    font-size: 2.5vw;
+                }
+            }
         }
 
-        .forecast-icon {
-            width: 8vw;
-            box-sizing: border-box;
+        .weather {
+            display: flex !important;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .forecast-row {
+                width: 50vw;
+            }
         }
     }
 
-}
+    .save-btn {
+        font-size: 2.25vw;
+    }
 
-#packedFlag {
-    width: 23vw;
-}
 }
 
 /* DESKTOP */

@@ -623,13 +623,26 @@ input::placeholder {
       font-size: 2.5vw; }
     .new-trip-container .forecast-row .forecast-icon {
       width: 6vw; }
-  .new-trip-container .weather .more-days {
-    font-size: 2.5vw; }
+  .new-trip-container .weather {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; }
+    .new-trip-container .weather h2 {
+      width: 100vw; }
+    .new-trip-container .weather .more-days {
+      font-size: 2.5vw;
+      width: 100vw; }
+    .new-trip-container .weather .long-forecast {
+      font-size: 2.5vw; }
   .new-trip-container .add-item-form input,
   .new-trip-container .add-item-form select,
   .new-trip-container .add-item-form button {
     height: 6vh;
-    font-size: 2.5vw; } }
+    font-size: 2.5vw; }
+  .discard-trip-btn,
+  .save-trip-btn {
+    font-size: 2.5vw;
+    height: 7vh; } }
 
 body {
   margin: 0;
@@ -871,21 +884,26 @@ input::placeholder {
 
 /* TABLET */
 @media only screen and (min-width: 768px) {
-  .output {
+  .trip-saved-container .no-trips-container {
     font-size: 2.5vw; }
-    .output .travel-summary {
-      font-size: 2.5vw;
-      width: 60%; }
-    .output .forecast-row .forecast-date,
-    .output .forecast-row .forecast-temp {
-      padding: 0 10px;
-      font-size: 3vw;
-      color: white; }
-    .output .forecast-row .forecast-icon {
-      width: 8vw;
-      box-sizing: border-box; }
-  #packedFlag {
-    width: 23vw; } }
+  .trip-saved-container #view-saved-trips {
+    width: 40vw;
+    font-size: 2.5vw; }
+  .saved-trips {
+    font-size: 2.5vw; }
+    .saved-trips .packing-list .add-item-form input,
+    .saved-trips .packing-list .add-item-form select,
+    .saved-trips .packing-list .add-item-form button,
+    .saved-trips .todo-list .add-item-form input,
+    .saved-trips .todo-list .add-item-form select,
+    .saved-trips .todo-list .add-item-form button {
+      font-size: 2.5vw; }
+    .saved-trips .weather {
+      display: flex !important;
+      flex-direction: row;
+      flex-wrap: wrap; }
+      .saved-trips .weather .forecast-row {
+        width: 45vw; } }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {

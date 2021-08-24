@@ -214,7 +214,19 @@
         }
 
         .weather {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            h2 {
+                width: 100vw;
+            }
             .more-days {
+                font-size: 2.5vw;
+                width: 100vw;
+            }
+
+            .long-forecast {
                 font-size: 2.5vw;
             }
         }
@@ -227,5 +239,11 @@
                 font-size: 2.5vw;
             }
         }
+    }
+
+    .discard-trip-btn,
+    .save-trip-btn {
+        font-size: 2.5vw;
+        height: 7vh;
     }
 }

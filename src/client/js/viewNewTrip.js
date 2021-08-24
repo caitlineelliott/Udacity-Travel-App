@@ -84,9 +84,8 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             item["category"] = items[i].parentNode.id;
             item["toggleStatus"] = false;
 
-            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") {
-                todoList.push(item)
-            } else { packingList.push(item) }
+            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") { todoList.push(item) }
+            else { packingList.push(item) }
         };
 
         // View Saved Confirmed Message

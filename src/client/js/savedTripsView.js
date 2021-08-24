@@ -7,7 +7,7 @@ import { displayWeather, displayLongForecast } from './displayWeather'
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
-async function viewSavedTrips(event) {
+async function viewSavedTrips() {
     let container = document.querySelector('main');
     for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
 
@@ -127,7 +127,7 @@ function displayTrip(tripData) {
                 todoListContainer.appendChild(itemRow);
             }
 
-            createForm(tripCity, tripDates, packingListContainer, todoListContainer)
+            createForm(tripCity, tripDates, packingListContainer, todoListContainer);
 
             // WEATHER
             let weatherData = tripData[i].weather;
@@ -142,7 +142,7 @@ function displayTrip(tripData) {
                 displayWeather(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
             }
 
-            displayLongForecast(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount')
+            displayLongForecast(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount');
 
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);
@@ -153,7 +153,6 @@ function displayTrip(tripData) {
     }
 }
 
-// TRIP LEVEL FUNCTIONS
 function displayData(event) {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
