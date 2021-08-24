@@ -1,8 +1,9 @@
 import { editItems, removeItems } from './modifyItems'
-import { setWeatherDOMStructure } from './viewNewTrip'
+// import { setWeatherDOMStructure } from './viewNewTrip'
 import { getUserData, postData } from './serverRequests'
 import { appendItems } from './appendItems'
 import { createForm } from './createForm'
+import { displayWeather, displayLongForecast } from './displayWeather'
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
@@ -137,34 +138,11 @@ function displayTrip(tripData) {
 
             // add new weather tripData
             for (let i = 0; i < weatherData.length; i++) {
-                let newRow = document.createElement('div');
-                const tripDate = document.createElement('div');
-                const weatherIcon = document.createElement('img');
-                const weather = document.createElement('div');
-                weatherContainer.appendChild(newRow);
-
-                setWeatherDOMStructure(newRow, tripDate, null, weatherIcon, weather);
-
-                tripDate.innerHTML = weatherData[i].date;
-                weatherIcon.src = `${weatherData[i].weatherIcon}`;
-                weather.innerHTML = weatherData[i].weather;
+                let loopWeather = weatherData[i]
+                displayWeather(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
             }
 
-            // long forecast
-            let longForecast = document.createElement('div');
-
-            if (weatherData[0] !== undefined) {
-                let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
-                if (weatherEnd < tripEnd) {
-                    longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                    longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
-                    weatherContainer.appendChild(longForecast);
-                }
-            } else if (weatherData[0] === undefined) {
-                longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-                longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
-                weatherContainer.appendChild(longForecast);
-            }
+            displayLongForecast(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount')
 
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);

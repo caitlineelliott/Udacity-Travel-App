@@ -2,6 +2,7 @@ import { viewSavedTrips } from './savedTripsView'
 import { postData } from './serverRequests'
 import { getHeaderPhoto } from './apiRequests'
 import { appendItems } from './appendItems'
+import { displayWeather, displayLongForecast } from './displayWeather'
 
 async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
     document.querySelector('.initial-req-container').style.display = "none";
@@ -30,27 +31,21 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
-    let tripWeatherContainer = document.querySelector('.weather');
+    let weatherContainer = document.querySelector('.weather');
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
-            let newRow = document.createElement('div');
-            let tripDates = dates[i];
-            let tripWeather = forecast[i];
-            const tripDate = document.createElement('div');
-            const weatherIcon = document.createElement('img');
-            const weather = document.createElement('div');
-
-            tripWeatherContainer.appendChild(newRow);
-            setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr);
+            let loopDates = dates[i];
+            let loopForecast = forecast[i]
+            displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr)
         }
     }
 
     // Handle long forecast display
-    if (tripWeatherContainer.childElementCount > 5) {
+    if (weatherContainer.childElementCount > 5) {
         let showMoreDays = document.createElement('div');
         showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
         showMoreDays.classList.add('more-days');
-        tripWeatherContainer.appendChild(showMoreDays);
+        weatherContainer.appendChild(showMoreDays);
 
         for (let i = 0; i < tripDaysCount.length; i++) { if (i > 4) { tripDaysCount[i].style.display = "none"; } }
 
@@ -69,18 +64,9 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         });
     }
 
-    // Handle forecast longer than weather api data
-    let longForecast = document.createElement('div');
-    if (departDate > dates[15]) {
-        longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-        tripWeatherContainer.appendChild(longForecast);
-    } else if (returnDate > dates[15]) {
-        longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
-        tripWeatherContainer.appendChild(longForecast);
-    }
-    else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
+    let lastDay = dates[15];
+    let weatherData = [2];
+    displayLongForecast(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount)
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', appendItems(null, null, null));
@@ -127,32 +113,4 @@ function getRandomNum(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr) {
-    newRow.classList.add('forecast-row');
-    tripDate.classList.add('forecast-date');
-    newRow.appendChild(tripDate);
-
-    weatherIcon.classList.add('forecast-icon');
-    newRow.appendChild(weatherIcon);
-
-    weather.classList.add('forecast-temp');
-    newRow.appendChild(weather);
-
-    if (newTripContainer) { setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) }
-    else if (newTripContainer === undefined) { return; }
-}
-
-function setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) {
-    tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
-    weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;
-    weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
-
-    tripDaysCount.push(newRow);
-    let tripDayData = {}
-    tripDayData['date'] = tripDate.innerHTML;
-    tripDayData['weatherIcon'] = weatherIcon.src;
-    tripDayData['weather'] = weather.innerHTML;
-    tripWeatherArr.push(tripDayData);
-}
-
-export { viewNewTrip, getRandomNum, setWeatherDOMStructure }
+export { viewNewTrip, getRandomNum }

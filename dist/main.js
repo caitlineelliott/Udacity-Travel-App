@@ -240,7 +240,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         // Determines which category to append items under
         if (!categoryArr.includes(categoryLabel.id)) {
             itemContainer.appendChild(categoryLabel);
-            categoryLabel.appendChild(itemRow)
+            categoryLabel.appendChild(itemRow);
         } else {
             let existingRow = document.querySelector(`#${categoryLabel.id}`);
             existingRow.appendChild(itemRow);
@@ -322,6 +322,10 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     let addMoreHeading = document.createElement('p');
     let btnContainer = document.querySelector('.trip-btn-container').cloneNode(true);
     let todoBtnContainer = btnContainer.cloneNode(true);
+    let discardPackBtn = btnContainer.children[0]
+    let discardTodoBtn = todoBtnContainer.children[0]
+    let savePackBtn = btnContainer.children[1]
+    let saveTodoBtn = todoBtnContainer.children[1];
 
     addPackBtn.classList.remove('add-more-pack-btn-ntv');
     addTodoBtn.classList.remove('add-more-todo-btn-ntv');
@@ -340,14 +344,6 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     todoListContainer.appendChild(todoForm)
     todoListContainer.appendChild(todoBtnContainer);
 
-    let discardPackBtn = btnContainer.children[0]
-    let discardTodoBtn = todoBtnContainer.children[0]
-    let savePackBtn = btnContainer.children[1]
-    let saveTodoBtn = todoBtnContainer.children[1];
-
-    console.log(discardPackBtn, discardTodoBtn)
-    console.log(savePackBtn, saveTodoBtn)
-
     addPackBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
     addTodoBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
     discardPackBtn.addEventListener('click', discardSTVItems);
@@ -355,8 +351,6 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
     saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
 }
-
-// forms not working with items already added??
 
 function discardSTVItems(event) {
     let allItemsContainer = event.target.parentElement.parentElement;
@@ -435,6 +429,80 @@ function saveSTVItems(tripCity, tripDates) {
             }
         }
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
+    }
+}
+
+
+
+/***/ }),
+
+/***/ "./src/client/js/displayWeather.js":
+/*!*****************************************!*\
+  !*** ./src/client/js/displayWeather.js ***!
+  \*****************************************/
+/*! exports provided: displayWeather, displayLongForecast */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayWeather", function() { return displayWeather; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayLongForecast", function() { return displayLongForecast; });
+function displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr, loopWeather) {
+    let newRow = document.createElement('div');
+    const tripDate = document.createElement('div');
+    const weatherIcon = document.createElement('img');
+    const weather = document.createElement('div');
+
+    newRow.classList.add('forecast-row');
+    tripDate.classList.add('forecast-date');
+    weatherIcon.classList.add('forecast-icon');
+    weather.classList.add('forecast-temp');
+
+    newRow.appendChild(tripDate);
+    newRow.appendChild(weatherIcon);
+    newRow.appendChild(weather);
+
+    weatherContainer.appendChild(newRow);
+
+    if (newTripContainer) {
+        let tripDates = loopDates;
+        let tripWeather = loopForecast;
+
+        tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
+        weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;
+        weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
+
+        tripDaysCount.push(newRow);
+        let tripDayData = {}
+        tripDayData['date'] = tripDate.innerHTML;
+        tripDayData['weatherIcon'] = weatherIcon.src;
+        tripDayData['weather'] = weather.innerHTML;
+        tripWeatherArr.push(tripDayData);
+    }
+    else if (newTripContainer === undefined) {
+        tripDate.innerHTML = loopWeather.date;
+        weatherIcon.src = `${loopWeather.weatherIcon}`;
+        weather.innerHTML = loopWeather.weather;
+    }
+}
+
+function displayLongForecast(departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) {
+    let longForecast = document.createElement('div');
+
+    if (departDate > lastDay || weatherData[0] === undefined) {
+        longForecast.classList.add('long-forecast');
+        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+        weatherContainer.appendChild(longForecast);
+    } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
+        longForecast.classList.add('long-forecast');
+        longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+        weatherContainer.appendChild(longForecast);
+    }
+
+    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;" }
+    if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
+        weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
+
     }
 }
 
@@ -618,11 +686,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayTrip", function() { return displayTrip; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewSavedTrips", function() { return viewSavedTrips; });
 /* harmony import */ var _modifyItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modifyItems */ "./src/client/js/modifyItems.js");
-/* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
-/* harmony import */ var _createForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createForm */ "./src/client/js/createForm.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
+/* harmony import */ var _createForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./createForm */ "./src/client/js/createForm.js");
+/* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
 
+// import { setWeatherDOMStructure } from './viewNewTrip'
 
 
 
@@ -642,7 +711,7 @@ async function viewSavedTrips(event) {
     savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
-    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUserData"])('/all');
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["getUserData"])('/all');
 }
 
 function displayTrip(tripData) {
@@ -729,7 +798,7 @@ function displayTrip(tripData) {
                 item.innerHTML = packedItems[i].item;
                 category.innerHTML = packedItems[i].category;
 
-                Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(itemRow, item, category);
+                Object(_appendItems__WEBPACK_IMPORTED_MODULE_2__["appendItems"])(itemRow, item, category);
                 packingListContainer.appendChild(itemRow);
             }
 
@@ -746,11 +815,11 @@ function displayTrip(tripData) {
                 item.innerHTML = todoList[i].item;
                 category.innerHTML = todoList[i].category;
 
-                Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(itemRow, item, category)
+                Object(_appendItems__WEBPACK_IMPORTED_MODULE_2__["appendItems"])(itemRow, item, category)
                 todoListContainer.appendChild(itemRow);
             }
 
-            Object(_createForm__WEBPACK_IMPORTED_MODULE_4__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer)
+            Object(_createForm__WEBPACK_IMPORTED_MODULE_3__["createForm"])(tripCity, tripDates, packingListContainer, todoListContainer)
 
             // WEATHER
             let weatherData = tripData[i].weather;
@@ -761,34 +830,11 @@ function displayTrip(tripData) {
 
             // add new weather tripData
             for (let i = 0; i < weatherData.length; i++) {
-                let newRow = document.createElement('div');
-                const tripDate = document.createElement('div');
-                const weatherIcon = document.createElement('img');
-                const weather = document.createElement('div');
-                weatherContainer.appendChild(newRow);
-
-                Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_1__["setWeatherDOMStructure"])(newRow, tripDate, null, weatherIcon, weather);
-
-                tripDate.innerHTML = weatherData[i].date;
-                weatherIcon.src = `${weatherData[i].weatherIcon}`;
-                weather.innerHTML = weatherData[i].weather;
+                let loopWeather = weatherData[i]
+                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
             }
 
-            // long forecast
-            let longForecast = document.createElement('div');
-
-            if (weatherData[0] !== undefined) {
-                let weatherEnd = new Date(`${weatherData[weatherData.length - 1].date}/2021`);
-                if (weatherEnd < tripEnd) {
-                    longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
-                    longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
-                    weatherContainer.appendChild(longForecast);
-                }
-            } else if (weatherData[0] === undefined) {
-                longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-                longForecast.style = 'width: 80vw; margin: 0 auto; font-size: 0.9em; background-color: #83A8A6; padding: 20px;';
-                weatherContainer.appendChild(longForecast);
-            }
+            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount')
 
             tripPackingList.addEventListener('click', displayData);
             tripTodoList.addEventListener('click', displayData);
@@ -888,18 +934,19 @@ const deleteServerData = async (url = '', data = {}) => {
 /*!**************************************!*\
   !*** ./src/client/js/viewNewTrip.js ***!
   \**************************************/
-/*! exports provided: viewNewTrip, getRandomNum, setWeatherDOMStructure */
+/*! exports provided: viewNewTrip, getRandomNum */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "viewNewTrip", function() { return viewNewTrip; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRandomNum", function() { return getRandomNum; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setWeatherDOMStructure", function() { return setWeatherDOMStructure; });
 /* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 /* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
 /* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
+/* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
+
 
 
 
@@ -932,27 +979,21 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
-    let tripWeatherContainer = document.querySelector('.weather');
+    let weatherContainer = document.querySelector('.weather');
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
-            let newRow = document.createElement('div');
-            let tripDates = dates[i];
-            let tripWeather = forecast[i];
-            const tripDate = document.createElement('div');
-            const weatherIcon = document.createElement('img');
-            const weather = document.createElement('div');
-
-            tripWeatherContainer.appendChild(newRow);
-            setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr);
+            let loopDates = dates[i];
+            let loopForecast = forecast[i]
+            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr)
         }
     }
 
     // Handle long forecast display
-    if (tripWeatherContainer.childElementCount > 5) {
+    if (weatherContainer.childElementCount > 5) {
         let showMoreDays = document.createElement('div');
         showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
         showMoreDays.classList.add('more-days');
-        tripWeatherContainer.appendChild(showMoreDays);
+        weatherContainer.appendChild(showMoreDays);
 
         for (let i = 0; i < tripDaysCount.length; i++) { if (i > 4) { tripDaysCount[i].style.display = "none"; } }
 
@@ -971,18 +1012,9 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
         });
     }
 
-    // Handle forecast longer than weather api data
-    let longForecast = document.createElement('div');
-    if (departDate > dates[15]) {
-        longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
-        tripWeatherContainer.appendChild(longForecast);
-    } else if (returnDate > dates[15]) {
-        longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `The forecast for ${(((((returnDate.getTime() - dates[15]) / 1000) / 60) / 60) / 24)} day(s) of your trip is outside the range of our weather app.`
-        tripWeatherContainer.appendChild(longForecast);
-    }
-    else if (tripDaysCount.length < 6) { tripWeatherContainer.style = "padding-bottom: 20px;" }
+    let lastDay = dates[15];
+    let weatherData = [2];
+    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount)
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
@@ -1027,34 +1059,6 @@ function getRandomNum(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function setWeatherDOMStructure(newRow, tripDate, tripDates, weatherIcon, weather, tripWeather, newTripContainer, tripDaysCount, tripWeatherArr) {
-    newRow.classList.add('forecast-row');
-    tripDate.classList.add('forecast-date');
-    newRow.appendChild(tripDate);
-
-    weatherIcon.classList.add('forecast-icon');
-    newRow.appendChild(weatherIcon);
-
-    weather.classList.add('forecast-temp');
-    newRow.appendChild(weather);
-
-    if (newTripContainer) { setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) }
-    else if (newTripContainer === undefined) { return; }
-}
-
-function setWeatherValues(newRow, tripDate, tripDates, weatherIcon, tripWeather, weather, tripDaysCount, tripWeatherArr) {
-    tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
-    weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;
-    weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
-
-    tripDaysCount.push(newRow);
-    let tripDayData = {}
-    tripDayData['date'] = tripDate.innerHTML;
-    tripDayData['weatherIcon'] = weatherIcon.src;
-    tripDayData['weather'] = weather.innerHTML;
-    tripWeatherArr.push(tripDayData);
 }
 
 

@@ -64,7 +64,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         // Determines which category to append items under
         if (!categoryArr.includes(categoryLabel.id)) {
             itemContainer.appendChild(categoryLabel);
-            categoryLabel.appendChild(itemRow)
+            categoryLabel.appendChild(itemRow);
         } else {
             let existingRow = document.querySelector(`#${categoryLabel.id}`);
             existingRow.appendChild(itemRow);
