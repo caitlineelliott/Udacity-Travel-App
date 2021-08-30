@@ -33,18 +33,24 @@
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
-    .container {
-        height: 100vh;
-        width: 50vw;
-        padding: 0;
-    }
+   .initial-req-container {
+       position: fixed;
+       top: 15vh;
+       left: 50vw;
+       width: 50vw;
+       height: 80vh;
+       padding: 0;
 
-    form {
-        width: 45vw;
-        margin: 0 auto;
-    }
+       #initial-request-form {
+           width: 45vw;
 
-    .form-label {
-        display: block;
-    }
+           .form-label {
+               font-size: 1.25vw;
+           }
+
+           input {
+               font-size: 1vw;
+           }
+       }
+   }
 }

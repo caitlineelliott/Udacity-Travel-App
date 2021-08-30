@@ -247,3 +247,84 @@
         height: 7vh;
     }
 }
+
+/* DESKTOP */
+@media only screen and (min-width: 1024px) {
+    .new-trip-container {
+        position: absolute;
+        top: 15vh;
+        left: 48.5vw;
+        width: 50vw;
+        box-sizing: border-box;
+        padding: 0;
+
+        .travel-summary {
+            font-size: 1.25vw;
+            width: 40vw;
+
+            .form-label {
+                width: 60%;
+            }
+
+            .trip-details {
+                width: 40%;
+            }
+        }
+
+        .weather {
+            width: 50vw;
+
+            .forecast-row {
+                .forecast-date,
+                .forecast-temp {
+                    font-size: 1.25vw;
+                }
+
+                .forecast-date {
+                    width: 8vw;
+                }
+
+                .forecast-temp {
+                    width: 15vw;
+                }
+
+                .forecast-icon {
+                    width: 3vw;
+                }
+            }
+
+            .more-days,
+            .long-forecast {
+                font-size: 1.25vw;
+            }
+
+            .long-forecast {
+                width: 40vw;
+            }
+        }
+
+        .add-item-form {
+            input,
+            select,
+            button {
+                font-size: 1vw;
+                height: 7vh;
+            }
+
+            input {
+                width: 20vw;
+            }
+            select {
+                width: 15vw;
+            }
+            button {
+                width: 5vw;
+            }
+        }
+
+        .discard-trip-btn,
+        .save-trip-btn {
+            font-size: 1.2vw;
+        }
+    }
+ }

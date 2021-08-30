@@ -238,35 +238,40 @@ header nav {
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
   header {
-    width: 50%; }
+    width: 50%;
+    z-index: 100; }
     header .postage-mark {
       position: fixed;
       width: 10vw;
-      left: 39%;
-      z-index: 101; }
+      left: 39%; }
     header .home-btn {
+      position: fixed;
       top: 16px;
       left: 46.2%;
       height: 3vw;
-      width: 3vw;
-      z-index: 102; }
+      width: 3vw; }
       header .home-btn a {
         font-size: 1.5vw; }
     header .banner {
       height: 100vh;
       width: 50vw;
+      box-sizing: border-box;
       position: fixed;
-      z-index: 100; }
+      background-position: center; }
     header nav {
       justify-content: center;
       position: fixed;
       top: 0;
       left: 50%;
-      width: 50vw; }
+      width: 50vw;
+      height: 10vh;
+      box-sizing: border-box;
+      z-index: -1; }
       header nav .main-nav-btn {
-        width: 20%;
+        width: 96%;
         font-size: 1vw;
-        margin: 10px 20px; } }
+        height: 7vh;
+        line-height: 1em; } }
 
 body {
   margin: 0;
@@ -381,15 +386,19 @@ input::placeholder {
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
-  .container {
-    height: 100vh;
+  .initial-req-container {
+    position: fixed;
+    top: 15vh;
+    left: 50vw;
     width: 50vw;
+    height: 80vh;
     padding: 0; }
-  form {
-    width: 45vw;
-    margin: 0 auto; }
-  .form-label {
-    display: block; } }
+    .initial-req-container #initial-request-form {
+      width: 45vw; }
+      .initial-req-container #initial-request-form .form-label {
+        font-size: 1.25vw; }
+      .initial-req-container #initial-request-form input {
+        font-size: 1vw; } }
 
 body {
   margin: 0;
@@ -643,6 +652,53 @@ input::placeholder {
   .save-trip-btn {
     font-size: 2.5vw;
     height: 7vh; } }
+
+/* DESKTOP */
+@media only screen and (min-width: 1024px) {
+  .new-trip-container {
+    position: absolute;
+    top: 15vh;
+    left: 48.5vw;
+    width: 50vw;
+    box-sizing: border-box;
+    padding: 0; }
+    .new-trip-container .travel-summary {
+      font-size: 1.25vw;
+      width: 40vw; }
+      .new-trip-container .travel-summary .form-label {
+        width: 60%; }
+      .new-trip-container .travel-summary .trip-details {
+        width: 40%; }
+    .new-trip-container .weather {
+      width: 50vw; }
+      .new-trip-container .weather .forecast-row .forecast-date,
+      .new-trip-container .weather .forecast-row .forecast-temp {
+        font-size: 1.25vw; }
+      .new-trip-container .weather .forecast-row .forecast-date {
+        width: 8vw; }
+      .new-trip-container .weather .forecast-row .forecast-temp {
+        width: 15vw; }
+      .new-trip-container .weather .forecast-row .forecast-icon {
+        width: 3vw; }
+      .new-trip-container .weather .more-days,
+      .new-trip-container .weather .long-forecast {
+        font-size: 1.25vw; }
+      .new-trip-container .weather .long-forecast {
+        width: 40vw; }
+    .new-trip-container .add-item-form input,
+    .new-trip-container .add-item-form select,
+    .new-trip-container .add-item-form button {
+      font-size: 1vw;
+      height: 7vh; }
+    .new-trip-container .add-item-form input {
+      width: 20vw; }
+    .new-trip-container .add-item-form select {
+      width: 15vw; }
+    .new-trip-container .add-item-form button {
+      width: 5vw; }
+    .new-trip-container .discard-trip-btn,
+    .new-trip-container .save-trip-btn {
+      font-size: 1.2vw; } }
 
 body {
   margin: 0;
@@ -904,7 +960,6 @@ input::placeholder {
         height: 7vh; }
       .saved-trips .packing-list .saved-trip-packing-list,
       .saved-trips .todo-list .saved-trip-packing-list {
-        font-size: 2.5vw;
         height: 7vh; }
         .saved-trips .packing-list .saved-trip-packing-list textarea,
         .saved-trips .todo-list .saved-trip-packing-list textarea {
@@ -920,48 +975,75 @@ input::placeholder {
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
-  .output {
-    font-size: 1em;
-    width: 45vw;
-    margin-top: 10vh; }
-    .output .travel-summary {
-      font-size: 1em;
-      width: 30vw; }
-    .output .forecast-row {
-      width: 30vw; }
-      .output .forecast-row .forecast-date,
-      .output .forecast-row .forecast-icon,
-      .output .forecast-row .forecast-temp {
-        font-size: 1em; }
-      .output .forecast-row .forecast-date {
-        width: 12vw;
-        padding: 0 25px; }
-      .output .forecast-row .forecast-icon {
-        width: 2vw;
-        box-sizing: border-box; }
-      .output .forecast-row .forecast-temp {
-        width: 23vw;
-        padding: 0 50px; }
-  #packedFlag {
-    width: 23vw; }
-  .weather,
-  .add-item-form,
-  .new-items-row {
-    width: 40vw; }
-  .forecast-icon {
-    width: 3vw; }
-  .saved-trips {
+  .trip-saved-container,
+  .no-trips-container {
     position: absolute;
-    left: 50%;
-    top: 6vh; }
+    top: 15vh;
+    left: 50vw;
+    width: 50vw;
+    padding: 0; }
+    .trip-saved-container button,
+    .trip-saved-container #view-saved-trips,
+    .no-trips-container button,
+    .no-trips-container #view-saved-trips {
+      width: 25vw;
+      font-size: 1vw; }
+  .saved-trips {
+    font-size: 1.5vw;
+    position: absolute;
+    top: 10vh; }
     .saved-trips .new-items-row {
-      width: 50vw; } }
-
-.saved-trips-item {
-  width: 48vw; }
-
-.saved-trips-category {
-  width: 40vw !important; }
+      width: 50vw;
+      height: 8vh; }
+      .saved-trips .new-items-row .trip-actions > * {
+        font-size: 1.25vw; }
+    .saved-trips .packing-list,
+    .saved-trips .todo-list {
+      font-size: 1.5vw; }
+      .saved-trips .packing-list .add-item-form input,
+      .saved-trips .packing-list .add-item-form select,
+      .saved-trips .packing-list .add-item-form button,
+      .saved-trips .todo-list .add-item-form input,
+      .saved-trips .todo-list .add-item-form select,
+      .saved-trips .todo-list .add-item-form button {
+        font-size: 1.25vw; }
+      .saved-trips .packing-list .add-item-form input,
+      .saved-trips .todo-list .add-item-form input {
+        width: 25vw; }
+      .saved-trips .packing-list .add-item-form select,
+      .saved-trips .todo-list .add-item-form select {
+        width: 20vw; }
+      .saved-trips .packing-list .add-item-form button,
+      .saved-trips .todo-list .add-item-form button {
+        width: 5vw; }
+      .saved-trips .packing-list .save-trip-btn,
+      .saved-trips .packing-list .discard-trip-btn,
+      .saved-trips .todo-list .save-trip-btn,
+      .saved-trips .todo-list .discard-trip-btn {
+        width: 25vw;
+        font-size: 1.25vw; }
+      .saved-trips .packing-list .saved-trip-packing-list button,
+      .saved-trips .todo-list .saved-trip-packing-list button {
+        width: 5vw; }
+      .saved-trips .packing-list .saved-trip-packing-list textarea,
+      .saved-trips .packing-list .saved-trip-packing-list .stv-category,
+      .saved-trips .todo-list .saved-trip-packing-list textarea,
+      .saved-trips .todo-list .saved-trip-packing-list .stv-category {
+        width: 15vw; }
+    .saved-trips .weather {
+      width: 50vw; }
+      .saved-trips .weather .forecast-row {
+        width: 30vw;
+        margin: 0 auto; }
+        .saved-trips .weather .forecast-row .forecast-date {
+          width: 10vw;
+          text-align: center; }
+        .saved-trips .weather .forecast-row .forecast-temp {
+          width: 18vw; }
+        .saved-trips .weather .forecast-row .forecast-icon {
+          width: 3vw; }
+      .saved-trips .weather .long-forecast {
+        width: 40vw; } }
 
 
 /*# sourceMappingURL=main.css.map*/

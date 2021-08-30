@@ -249,67 +249,112 @@
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
-    .output {
-        font-size: 1em;
-        width: 45vw;
-        margin-top: 10vh;
-        .travel-summary {
-            font-size: 1em;
-            width: 30vw;
+    .trip-saved-container,
+    .no-trips-container {
+        position: absolute;
+        top: 15vh;
+        left: 50vw;
+        width: 50vw;
+        padding: 0;
+
+        button, 
+        #view-saved-trips {
+            width: 25vw;
+            font-size: 1vw;
         }
-
-        .forecast-row {
-            width: 30vw;
-            .forecast-date,
-            .forecast-icon,
-            .forecast-temp {
-                font-size: 1em;
-            }
-
-            .forecast-date {
-                width: 12vw;
-                padding: 0 25px;
-            }
-
-            .forecast-icon {
-                width: 2vw;
-                box-sizing: border-box;
-            }
-
-            .forecast-temp {
-                width: 23vw;
-                padding: 0 50px;
-            }
-        }
-    }
-    #packedFlag {
-        width: 23vw;
-    }
-
-    .weather,
-    .add-item-form,
-    .new-items-row {
-        width: 40vw;
-    }
-
-    .forecast-icon {
-        width: 3vw;
     }
 
     .saved-trips {
+        font-size: 1.5vw;
         position: absolute;
-            left: 50%;
-            top: 6vh;
+        top: 10vh;
+
         .new-items-row {
             width: 50vw;
+            height: 8vh;
+
+            textarea {
+                height: 5vh;
+                padding-top: 15px;
+            }
+
+            .trip-actions > * {
+                font-size: 1.25vw;
+            }
+        }
+
+        .packing-list,
+        .todo-list {
+            font-size: 1.5vw;
+
+            .add-item-form {
+                input, 
+                select,
+                button {
+                    font-size: 1.25vw;
+                }
+
+                input {
+                    width: 25vw;
+                }
+    
+                select {
+                    width: 20vw;
+                }
+    
+                button {
+                    width: 5vw;
+                }
+            }
+
+            .save-trip-btn, 
+            .discard-trip-btn {
+                width: 25vw;
+                font-size: 1.25vw;
+            }
+
+            .saved-trip-packing-list {
+                button {
+                    width: 5vw
+                }
+
+                textarea, 
+                .stv-category {
+                    width: 15vw;
+                }
+
+                textarea {
+                    height: 5vh;
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        .weather {
+            width: 50vw;
+            padding-top: 10px;
+
+            .forecast-row {
+                width: 30vw;
+                margin: 0 auto;
+
+                .forecast-date {
+                    width: 10vw;
+                    text-align: center;
+                }
+
+                .forecast-temp {
+                    width: 18vw;
+                }
+
+                .forecast-icon {
+                    width: 3vw;
+                }
+            }
+
+            .long-forecast {
+                width: 40vw;
+            }
         }
     }
-    }
-
-    .saved-trips-item {
-        width: 48vw;
-    }
-
-    .saved-trips-category {
-        width: 40vw !important;
-    }
+}

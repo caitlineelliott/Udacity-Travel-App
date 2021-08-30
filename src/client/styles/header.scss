@@ -89,20 +89,20 @@ header {
 @media only screen and (min-width: 1024px) {
     header {
         width: 50%;
+        z-index: 100;
 
         .postage-mark {
             position: fixed;
             width: 10vw;
             left: 39%;
-            z-index: 101;
         }
 
         .home-btn {
+            position: fixed;
             top: 16px;
             left: 46.2%;
             height: 3vw;
             width: 3vw;
-            z-index: 102;
             a {
                 font-size: 1.5vw;
             }
@@ -111,9 +111,9 @@ header {
         .banner {
             height: 100vh;
             width: 50vw;
+            box-sizing: border-box;
             position: fixed;
-            z-index: 100;
-
+            background-position: center;
         }
 
         nav {
@@ -122,11 +122,15 @@ header {
             top: 0;
             left: 50%;
             width: 50vw;
+            height: 10vh;
+            box-sizing: border-box;
+            z-index: -1;
 
             .main-nav-btn {
-                width: 20%;
+                width: 96%;
                 font-size: 1vw;
-                margin: 10px 20px;
+                height: 7vh;
+                line-height: 1em;
             }
         }
     }
