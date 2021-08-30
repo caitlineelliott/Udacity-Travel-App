@@ -502,7 +502,6 @@ function displayLongForecast(departDate, returnDate, lastDay, weatherData, tripE
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;" }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
-
     }
 }
 
@@ -850,14 +849,18 @@ function displayData(event) {
     let tripBlock = event.target.parentElement.parentElement.parentElement;
     let btn = event.target.classList[0];
 
+    console.log(tripBlock, tripBlock.children)
+
     for (let i = 1; i < tripBlock.children.length; i++) {
         if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
             if (tripBlock.children[i].style.display === 'none') {
-                tripBlock.children[i].style.display = 'block'
+                if (tripBlock.children[i].classList[0] === 'weather') {
+                    tripBlock.children[i].style.display = 'flex'
+                } else { tripBlock.children[i].style.display = 'block'; }
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
                 }
-            } else if (tripBlock.children[i].style.display === 'block') {
+            } else if (tripBlock.children[i].style.display === 'block' || tripBlock.children[i].style.display === 'flex') {
                 tripBlock.children[i].style.display = 'none'
                 for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
             }

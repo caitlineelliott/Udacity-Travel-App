@@ -891,19 +891,32 @@ input::placeholder {
     font-size: 2.5vw; }
   .saved-trips {
     font-size: 2.5vw; }
-    .saved-trips .packing-list .add-item-form input,
-    .saved-trips .packing-list .add-item-form select,
-    .saved-trips .packing-list .add-item-form button,
-    .saved-trips .todo-list .add-item-form input,
-    .saved-trips .todo-list .add-item-form select,
-    .saved-trips .todo-list .add-item-form button {
-      font-size: 2.5vw; }
+    .saved-trips .packing-list,
+    .saved-trips .todo-list {
+      font-size: 3vw; }
+      .saved-trips .packing-list .add-item-form input,
+      .saved-trips .packing-list .add-item-form select,
+      .saved-trips .packing-list .add-item-form button,
+      .saved-trips .todo-list .add-item-form input,
+      .saved-trips .todo-list .add-item-form select,
+      .saved-trips .todo-list .add-item-form button {
+        font-size: 2.5vw;
+        height: 7vh; }
+      .saved-trips .packing-list .saved-trip-packing-list,
+      .saved-trips .todo-list .saved-trip-packing-list {
+        font-size: 2.5vw;
+        height: 7vh; }
+        .saved-trips .packing-list .saved-trip-packing-list textarea,
+        .saved-trips .todo-list .saved-trip-packing-list textarea {
+          padding-top: 25px; }
     .saved-trips .weather {
-      display: flex !important;
+      display: flex;
       flex-direction: row;
       flex-wrap: wrap; }
       .saved-trips .weather .forecast-row {
-        width: 45vw; } }
+        width: 50vw; }
+  .save-btn {
+    font-size: 2.25vw; } }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {

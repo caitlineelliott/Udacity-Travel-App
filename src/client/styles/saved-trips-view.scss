@@ -210,17 +210,28 @@
 
         .packing-list,
         .todo-list {
+            font-size: 3vw;
+
             .add-item-form {
                 input,
                 select,
                 button {
                     font-size: 2.5vw;
+                    height: 7vh;
+                }
+            }
+
+            .saved-trip-packing-list {
+                height: 7vh;
+
+                textarea {
+                    padding-top: 25px;
                 }
             }
         }
 
         .weather {
-            display: flex !important;
+            display: flex;
             flex-direction: row;
             flex-wrap: wrap;
 
