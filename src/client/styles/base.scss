@@ -25,11 +25,13 @@ h2 {
     font: 8vw $fancy-font;
     color: $h2-color;
     margin: 0 0 20px 0;
+    text-align: center;
 }
 
 input,
 button,
-select {
+select,
+textarea {
     margin: 5px 0 20px 0;
     padding: 15px;
     box-sizing: border-box;

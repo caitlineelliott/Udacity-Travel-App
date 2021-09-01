@@ -11,11 +11,13 @@ h1 {
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  text-align: center; }
 
 input,
 button,
-select {
+select,
+textarea {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -76,11 +78,13 @@ h1 {
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  text-align: center; }
 
 input,
 button,
-select {
+select,
+textarea {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -240,11 +244,13 @@ h1 {
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  text-align: center; }
 
 input,
 button,
-select {
+select,
+textarea {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -344,11 +350,13 @@ h1 {
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  text-align: center; }
 
 input,
 button,
-select {
+select,
+textarea {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -438,6 +446,15 @@ button > * {
     height: 6vh;
     width: 90vw;
     margin: 0 auto; }
+    .new-trip-container .forecast-row textarea,
+    .new-trip-container .new-items-row textarea {
+      width: 70vw;
+      padding: 14px 7px 0 7px; }
+    .new-trip-container .forecast-row button,
+    .new-trip-container .new-items-row button {
+      width: 12vw; }
+  .new-trip-container .new-items-row {
+    margin-top: 20px; }
   .new-trip-container .forecast-row .forecast-date,
   .new-trip-container .forecast-row .forecast-temp {
     padding: 0 10px;
@@ -631,11 +648,13 @@ h1 {
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  text-align: center; }
 
 input,
 button,
-select {
+select,
+textarea {
   margin: 5px 0 20px 0;
   padding: 15px;
   box-sizing: border-box;
@@ -886,7 +905,8 @@ button > * {
   .saved-trips {
     font-size: 1.5vw;
     position: absolute;
-    top: 10vh; }
+    top: 10vh;
+    left: 50vw; }
     .saved-trips .new-items-row {
       width: 50vw;
       height: 8vh; }
