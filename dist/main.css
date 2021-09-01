@@ -262,7 +262,7 @@ header nav {
       justify-content: center;
       position: fixed;
       top: 0;
-      left: 50%;
+      left: 50vw;
       width: 50vw;
       height: 10vh;
       box-sizing: border-box;
@@ -656,21 +656,18 @@ input::placeholder {
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
   .new-trip-container {
+    width: 49vw;
     position: absolute;
-    top: 15vh;
-    left: 48.5vw;
-    width: 50vw;
-    box-sizing: border-box;
-    padding: 0; }
+    top: 10vh; }
     .new-trip-container .travel-summary {
-      font-size: 1.25vw;
-      width: 40vw; }
+      width: 40vw;
+      font-size: 1.25vw; }
       .new-trip-container .travel-summary .form-label {
         width: 60%; }
       .new-trip-container .travel-summary .trip-details {
         width: 40%; }
     .new-trip-container .weather {
-      width: 50vw; }
+      width: 49.4vw; }
       .new-trip-container .weather .forecast-row .forecast-date,
       .new-trip-container .weather .forecast-row .forecast-temp {
         font-size: 1.25vw; }
@@ -685,20 +682,32 @@ input::placeholder {
         font-size: 1.25vw; }
       .new-trip-container .weather .long-forecast {
         width: 40vw; }
-    .new-trip-container .add-item-form input,
-    .new-trip-container .add-item-form select,
-    .new-trip-container .add-item-form button {
-      font-size: 1vw;
-      height: 7vh; }
-    .new-trip-container .add-item-form input {
-      width: 20vw; }
-    .new-trip-container .add-item-form select {
-      width: 15vw; }
-    .new-trip-container .add-item-form button {
-      width: 5vw; }
-    .new-trip-container .discard-trip-btn,
-    .new-trip-container .save-trip-btn {
-      font-size: 1.2vw; } }
+    .new-trip-container .packing-list-container,
+    .new-trip-container .todo-list-container {
+      width: 49.4vw; }
+      .new-trip-container .packing-list-container .add-item-form input,
+      .new-trip-container .packing-list-container .add-item-form select,
+      .new-trip-container .packing-list-container .add-item-form button,
+      .new-trip-container .todo-list-container .add-item-form input,
+      .new-trip-container .todo-list-container .add-item-form select,
+      .new-trip-container .todo-list-container .add-item-form button {
+        font-size: 1vw;
+        height: 7vh; }
+      .new-trip-container .packing-list-container .add-item-form input,
+      .new-trip-container .todo-list-container .add-item-form input {
+        width: 20vw; }
+      .new-trip-container .packing-list-container .add-item-form select,
+      .new-trip-container .todo-list-container .add-item-form select {
+        width: 15vw; }
+      .new-trip-container .packing-list-container .add-item-form button,
+      .new-trip-container .todo-list-container .add-item-form button {
+        width: 5vw; }
+    .new-trip-container .trip-btn-container {
+      width: 49.4vw; }
+      .new-trip-container .trip-btn-container .discard-trip-btn,
+      .new-trip-container .trip-btn-container .save-trip-btn {
+        font-size: 1.2vw;
+        width: 50%; } }
 
 body {
   margin: 0;
@@ -995,6 +1004,9 @@ input::placeholder {
     .saved-trips .new-items-row {
       width: 50vw;
       height: 8vh; }
+      .saved-trips .new-items-row textarea {
+        height: 5vh;
+        padding-top: 15px; }
       .saved-trips .new-items-row .trip-actions > * {
         font-size: 1.25vw; }
     .saved-trips .packing-list,
@@ -1030,8 +1042,13 @@ input::placeholder {
       .saved-trips .todo-list .saved-trip-packing-list textarea,
       .saved-trips .todo-list .saved-trip-packing-list .stv-category {
         width: 15vw; }
+      .saved-trips .packing-list .saved-trip-packing-list textarea,
+      .saved-trips .todo-list .saved-trip-packing-list textarea {
+        height: 5vh;
+        padding-top: 10px; }
     .saved-trips .weather {
-      width: 50vw; }
+      width: 50vw;
+      padding-top: 10px; }
       .saved-trips .weather .forecast-row {
         width: 30vw;
         margin: 0 auto; }

@@ -251,16 +251,13 @@
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
     .new-trip-container {
+        width: 49vw;
         position: absolute;
-        top: 15vh;
-        left: 48.5vw;
-        width: 50vw;
-        box-sizing: border-box;
-        padding: 0;
+        top: 10vh;
 
         .travel-summary {
-            font-size: 1.25vw;
             width: 40vw;
+            font-size: 1.25vw;
 
             .form-label {
                 width: 60%;
@@ -272,7 +269,7 @@
         }
 
         .weather {
-            width: 50vw;
+            width: 49.4vw;
 
             .forecast-row {
                 .forecast-date,
@@ -303,28 +300,37 @@
             }
         }
 
-        .add-item-form {
-            input,
-            select,
-            button {
-                font-size: 1vw;
-                height: 7vh;
-            }
+        .packing-list-container,
+        .todo-list-container {
+            width: 49.4vw;
 
-            input {
-                width: 20vw;
-            }
-            select {
-                width: 15vw;
-            }
-            button {
-                width: 5vw;
+            .add-item-form {
+                input,
+                select,
+                button {
+                    font-size: 1vw;
+                    height: 7vh;
+                }
+                input {
+                    width: 20vw;
+                }
+                select {
+                    width: 15vw;
+                }
+                button {
+                    width: 5vw;
+                }
             }
         }
 
-        .discard-trip-btn,
+        .trip-btn-container {
+            width: 49.4vw;
+
+            .discard-trip-btn,
         .save-trip-btn {
             font-size: 1.2vw;
+            width: 50%;
+        }
         }
     }
  }
