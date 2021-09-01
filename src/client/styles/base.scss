@@ -11,7 +11,6 @@ $cool-accent: #283d3b;
 
 body {
     margin: 0;
-    padding: 0;
     background: $background;
     font-family: $plain-font;
 }
@@ -20,15 +19,12 @@ h1 {
     font: 20vw $fancy-font;
     color: $h1-color;
     text-shadow: 2px 3px 0 $background, 2px 4px 0 $background,  2px 5px 0 $background;
-    text-align: center;
-    line-height: 0.9em;
 }
 
 h2 {
     font: 8vw $fancy-font;
     color: $h2-color;
     margin: 0 0 20px 0;
-    text-align: center;
 }
 
 input,

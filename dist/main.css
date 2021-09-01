@@ -1,21 +1,17 @@
 body {
   margin: 0;
-  padding: 0;
   background: #edddd4;
   font-family: "montserrat", sans-serif; }
 
 h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
-  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  text-align: center;
-  line-height: 0.9em; }
+  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4; }
 
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0;
-  text-align: center; }
+  margin: 0 0 20px 0; }
 
 input,
 button,
@@ -64,31 +60,23 @@ button > * {
   h2 {
     font-size: 3vw; }
   input,
-  button,
-  .trip-city {
-    width: 45vw; }
-  body {
-    display: flex;
-    flex-direction: row; } }
+  button {
+    width: 45vw; } }
 
 body {
   margin: 0;
-  padding: 0;
   background: #edddd4;
   font-family: "montserrat", sans-serif; }
 
 h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
-  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  text-align: center;
-  line-height: 0.9em; }
+  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4; }
 
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0;
-  text-align: center; }
+  margin: 0 0 20px 0; }
 
 input,
 button,
@@ -137,12 +125,8 @@ button > * {
   h2 {
     font-size: 3vw; }
   input,
-  button,
-  .trip-city {
-    width: 45vw; }
-  body {
-    display: flex;
-    flex-direction: row; } }
+  button {
+    width: 45vw; } }
 
 header .banner {
   height: 30vh;
@@ -245,22 +229,18 @@ header nav {
 
 body {
   margin: 0;
-  padding: 0;
   background: #edddd4;
   font-family: "montserrat", sans-serif; }
 
 h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
-  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  text-align: center;
-  line-height: 0.9em; }
+  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4; }
 
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0;
-  text-align: center; }
+  margin: 0 0 20px 0; }
 
 input,
 button,
@@ -309,12 +289,8 @@ button > * {
   h2 {
     font-size: 3vw; }
   input,
-  button,
-  .trip-city {
-    width: 45vw; }
-  body {
-    display: flex;
-    flex-direction: row; } }
+  button {
+    width: 45vw; } }
 
 .initial-req-container {
   height: 62vh;
@@ -357,22 +333,18 @@ button > * {
 
 body {
   margin: 0;
-  padding: 0;
   background: #edddd4;
   font-family: "montserrat", sans-serif; }
 
 h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
-  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  text-align: center;
-  line-height: 0.9em; }
+  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4; }
 
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0;
-  text-align: center; }
+  margin: 0 0 20px 0; }
 
 input,
 button,
@@ -421,12 +393,8 @@ button > * {
   h2 {
     font-size: 3vw; }
   input,
-  button,
-  .trip-city {
-    width: 45vw; }
-  body {
-    display: flex;
-    flex-direction: row; } }
+  button {
+    width: 45vw; } }
 
 .new-trip-container {
   display: none;
@@ -470,9 +438,6 @@ button > * {
     height: 6vh;
     width: 90vw;
     margin: 0 auto; }
-    .new-trip-container .forecast-row textarea,
-    .new-trip-container .new-items-row textarea {
-      width: 1000vw; }
   .new-trip-container .forecast-row .forecast-date,
   .new-trip-container .forecast-row .forecast-temp {
     padding: 0 10px;
@@ -596,12 +561,16 @@ button > * {
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
   .new-trip-container {
-    width: 49vw;
+    width: 49.4vw;
     position: absolute;
-    top: 10vh; }
+    top: 10vh;
+    left: 49.4vw; }
+    .new-trip-container h2 {
+      text-align: center; }
     .new-trip-container .travel-summary {
       width: 40vw;
-      font-size: 1.25vw; }
+      font-size: 1.25vw;
+      background-color: #edddd4; }
       .new-trip-container .travel-summary .form-label {
         width: 60%; }
       .new-trip-container .travel-summary .trip-details {
@@ -651,22 +620,18 @@ button > * {
 
 body {
   margin: 0;
-  padding: 0;
   background: #edddd4;
   font-family: "montserrat", sans-serif; }
 
 h1 {
   font: 20vw "lobster", serif;
   color: #c44536;
-  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4;
-  text-align: center;
-  line-height: 0.9em; }
+  text-shadow: 2px 3px 0 #edddd4, 2px 4px 0 #edddd4, 2px 5px 0 #edddd4; }
 
 h2 {
   font: 8vw "lobster", serif;
   color: #197278;
-  margin: 0 0 20px 0;
-  text-align: center; }
+  margin: 0 0 20px 0; }
 
 input,
 button,
@@ -715,12 +680,8 @@ button > * {
   h2 {
     font-size: 3vw; }
   input,
-  button,
-  .trip-city {
-    width: 45vw; }
-  body {
-    display: flex;
-    flex-direction: row; } }
+  button {
+    width: 45vw; } }
 
 .stv-item,
 .stv-category {

@@ -247,13 +247,19 @@
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
     .new-trip-container {
-        width: 49vw;
+        width: 49.4vw;
         position: absolute;
         top: 10vh;
+        left: 49.4vw;
+
+        h2 {
+            text-align: center;
+        }
 
         .travel-summary {
             width: 40vw;
             font-size: 1.25vw;
+            background-color: $background;
 
             .form-label {
                 width: 60%;
