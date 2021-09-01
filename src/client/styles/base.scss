@@ -56,26 +56,9 @@ input::placeholder {
     color: #000;
 }
 
-// revised & checked pointer events
-.add-more-pack-btn > *,
-.add-more-todo-btn > *,
-.more-days > *,
-.edit-items-ntv > *,
-.delete-items-ntv > *,
-.packing-list-btn > *,
-.todo-list-btn > *,
-.weather-btn > *,
-.edit-trip > *,
-.delete-trip > *, 
-.edit-items-stv > *,
-.delete-items-stv > *,
-.add-more-pack-btn-stv > *,
-.add-more-todo-btn-stv > *,
-.add-more-pack-btn-ntv > *,
-.add-more-todo-btn-ntv > * {
+button > * {
     pointer-events: none;
 }
-
 
 .save-btn {
     height: 5.7vh;
@@ -108,13 +91,7 @@ input::placeholder {
     }
 
     input,
-    button,
-    .trip-city {
+    button {
         width: 45vw;
-    }
-
-    body {
-        display: flex;
-        flex-direction: row;
     }
 }
