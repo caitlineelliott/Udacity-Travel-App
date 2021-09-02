@@ -187,7 +187,6 @@ function appendItems(itemRow, item, category) {
 
     editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
-    toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
@@ -415,6 +414,8 @@ function saveSTVItems(tripCity, tripDates) {
                     let flag = allItems[i].classList[1];
                     newItem['item'] = allItems[i].children[1].value;
                     newItem['category'] = allItems[i].children[2].innerText;
+
+                    console.log(flag)
 
                     // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
                     // iterates through classes to find packed flag and toggle
