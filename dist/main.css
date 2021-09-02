@@ -724,8 +724,8 @@ button > * {
   align-items: center;
   justify-content: center; }
   .saved-trips .new-items-row .trip-dates {
-    width: 35%;
-    padding-top: 32px;
+    width: 25%;
+    padding: 2px 0 0 0;
     margin: 0;
     background-color: transparent;
     border: none;

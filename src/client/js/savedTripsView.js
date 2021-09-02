@@ -1,28 +1,28 @@
-import { editItems, removeItems } from './modifyItems'
+import { editItems, removeItems } from './modifyItems';
 // import { setWeatherDOMStructure } from './viewNewTrip'
-import { getUserData, postData } from './serverRequests'
-import { appendItems } from './appendItems'
-import { createForm } from './createForm'
-import { displayWeather, displayLongForecast } from './displayWeather'
+import { getUserData } from './serverRequests';
+import { appendItems } from './appendItems';
+import { createForm } from './createForm';
+import { displayWeather, displayLongForecast } from './displayWeather';
 
 document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
-async function viewSavedTrips() {
+const viewSavedTrips = async () => {
     let container = document.querySelector('main');
-    for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
+    for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none'; }
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
     let savedTripsBtn = document.querySelector('.main-nav-btn');
-    savedTripsBtn.removeEventListener('click', viewSavedTrips)
-    savedTripsBtn.innerHTML = `Book Trip`
-    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
+    savedTripsBtn.removeEventListener('click', viewSavedTrips);
+    savedTripsBtn.innerHTML = `Book Trip`;
+    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"');
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
     await getUserData('/all');
-}
+};
 
-function displayTrip(tripData) {
+const displayTrip = (tripData) => {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
     else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -45,18 +45,18 @@ function displayTrip(tripData) {
 
             tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
             tripCity.innerHTML = tripData[i].city;
-            editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
-            deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
+            editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`;
+            deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`;
 
             tripDates.readOnly = true;
-            tripPackingList.classList.add('packing-list-btn')
-            tripTodoList.classList.add('todo-list-btn')
-            tripWeather.classList.add('weather-btn')
+            tripPackingList.classList.add('packing-list-btn');
+            tripTodoList.classList.add('todo-list-btn');
+            tripWeather.classList.add('weather-btn');
             editTrip.classList.add('edit-trip');
             deleteTrip.classList.add('delete-trip');
-            packingListContainer.classList.add('packing-list')
-            todoListContainer.classList.add('todo-list')
-            weatherContainer.classList.add('weather')
+            packingListContainer.classList.add('packing-list');
+            todoListContainer.classList.add('todo-list');
+            weatherContainer.classList.add('weather');
             newTripHeading.classList.add('new-items-row');
             tripDates.classList.add('trip-dates');
             tripCity.classList.add('trip-city');
@@ -69,14 +69,14 @@ function displayTrip(tripData) {
             if (tripData[i].city.indexOf(' ') >= 0) {
                 let newID = tripData[i].city.replace(/\s/g, '');
                 newTripContainer.id = `${newID}-trip`;
-                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
-                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
-                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`;
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`;
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`;
             } else {
                 newTripContainer.id = `${tripData[i].city}-trip`;
-                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
-                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
-                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`;
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`;
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`;
             }
 
             newTripHeading.appendChild(tripDates);
@@ -123,7 +123,7 @@ function displayTrip(tripData) {
                 item.innerHTML = todoList[i].item;
                 category.innerHTML = todoList[i].category;
 
-                appendItems(itemRow, item, category)
+                appendItems(itemRow, item, category);
                 todoListContainer.appendChild(itemRow);
             }
 
@@ -134,12 +134,12 @@ function displayTrip(tripData) {
             let tripEnd = new Date(tripData[i].arrival);
 
             // remove old weather before trip date change
-            if (weatherContainer.children.length > 0) { weatherContainer.children.remove() }
+            if (weatherContainer.children.length > 0) { weatherContainer.children.remove(); }
 
             // add new weather tripData
             for (let i = 0; i < weatherData.length; i++) {
-                let loopWeather = weatherData[i]
-                displayWeather(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
+                let loopWeather = weatherData[i];
+                displayWeather(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather);
             }
 
             displayLongForecast(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount');
@@ -151,32 +151,30 @@ function displayTrip(tripData) {
             deleteTrip.addEventListener('click', removeItems);
         }
     }
-}
+};
 
-function displayData(event) {
+const displayData = (event) => {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
     let btn = event.target.classList[0];
-
-    console.log(tripBlock, tripBlock.children)
 
     for (let i = 1; i < tripBlock.children.length; i++) {
         if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
             if (tripBlock.children[i].style.display === 'none') {
                 if (tripBlock.children[i].classList[0] === 'weather') {
-                    tripBlock.children[i].style.display = 'flex'
+                    tripBlock.children[i].style.display = 'flex';
                 } else { tripBlock.children[i].style.display = 'block'; }
                 for (let i = 0; i < trips.length; i++) {
-                    if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
+                    if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;"; }
                 }
             } else if (tripBlock.children[i].style.display === 'block' || tripBlock.children[i].style.display === 'flex') {
-                tripBlock.children[i].style.display = 'none'
-                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+                tripBlock.children[i].style.display = 'none';
+                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
             }
         } else {
             tripBlock.children[i].style.display = 'none';
         }
     }
-}
+};
 
-export { displayTrip, viewSavedTrips }
+export { displayTrip, viewSavedTrips };

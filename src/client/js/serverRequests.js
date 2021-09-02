@@ -1,4 +1,4 @@
-import { displayTrip } from './savedTripsView'
+import { displayTrip } from './savedTripsView';
 
 const getUserData = async (url) => {
     try {
@@ -21,7 +21,7 @@ const postData = async (url = '', data = {}) => {
         });
         return await response.json();
     }
-    catch { console.log('FAILED TO POST DATA TO SERVER', e); }
+    catch (e) { console.log('FAILED TO POST DATA TO SERVER', e); }
 };
 
 const deleteServerData = async (url = '', data = {}) => {
@@ -36,7 +36,7 @@ const deleteServerData = async (url = '', data = {}) => {
         });
         return await response.json();
     }
-    catch { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
+    catch (e) { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
 };
 
-export { getUserData, postData, deleteServerData }
+export { getUserData, postData, deleteServerData };

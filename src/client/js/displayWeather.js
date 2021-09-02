@@ -1,4 +1,4 @@
-function displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr, loopWeather) {
+const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr, loopWeather) => {
     let newRow = document.createElement('div');
     const tripDate = document.createElement('div');
     const weatherIcon = document.createElement('img');
@@ -24,10 +24,10 @@ function displayWeather(weatherContainer, newTripContainer, loopDates, loopForec
         weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
 
         tripDaysCount.push(newRow);
-        let tripDayData = {}
-        tripDayData['date'] = tripDate.innerHTML;
-        tripDayData['weatherIcon'] = weatherIcon.src;
-        tripDayData['weather'] = weather.innerHTML;
+        let tripDayData = {};
+        tripDayData.date = tripDate.innerHTML;
+        tripDayData.weatherIcon = weatherIcon.src;
+        tripDayData.weather = weather.innerHTML;
         tripWeatherArr.push(tripDayData);
     }
     else if (newTripContainer === undefined) {
@@ -35,25 +35,25 @@ function displayWeather(weatherContainer, newTripContainer, loopDates, loopForec
         weatherIcon.src = `${loopWeather.weatherIcon}`;
         weather.innerHTML = loopWeather.weather;
     }
-}
+};
 
-function displayLongForecast(departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) {
+const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
 
     if (departDate > lastDay || weatherData[0] === undefined) {
         longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
         weatherContainer.appendChild(longForecast);
     } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
         longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+        longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
         weatherContainer.appendChild(longForecast);
     }
 
-    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;" }
+    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
     }
-}
+};
 
-export { displayWeather, displayLongForecast }
+export { displayWeather, displayLongForecast };

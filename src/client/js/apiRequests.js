@@ -20,6 +20,7 @@ async function getHeaderPhoto(userCity) {
         return await request.json();
     }
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-};
+}
 
-export { getGeonames, getWeatherBit, getHeaderPhoto }
+
+export { getGeonames, getWeatherBit, getHeaderPhoto };

@@ -1,7 +1,8 @@
+
 import { appendItems } from "./appendItems";
 import { postData } from "./serverRequests";
 
-function createForm(tripCity, tripDates, packingListContainer, todoListContainer) {
+const createForm = (tripCity, tripDates, packingListContainer, todoListContainer) => {
     let packingContainer = document.querySelector('.packing-list-container');
     let todoContainer = document.querySelector('.todo-list-container');
     let packForm = packingContainer.children[1].cloneNode(true);
@@ -11,9 +12,9 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     let addMoreHeading = document.createElement('p');
     let btnContainer = document.querySelector('.trip-btn-container').cloneNode(true);
     let todoBtnContainer = btnContainer.cloneNode(true);
-    let discardPackBtn = btnContainer.children[0]
-    let discardTodoBtn = todoBtnContainer.children[0]
-    let savePackBtn = btnContainer.children[1]
+    let discardPackBtn = btnContainer.children[0];
+    let discardTodoBtn = todoBtnContainer.children[0];
+    let savePackBtn = btnContainer.children[1];
     let saveTodoBtn = todoBtnContainer.children[1];
 
     addPackBtn.classList.remove('add-more-pack-btn-ntv');
@@ -32,7 +33,7 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     packingListContainer.appendChild(btnContainer);
 
     todoListContainer.appendChild(addMoreHeading.cloneNode(true));
-    todoListContainer.appendChild(todoForm)
+    todoListContainer.appendChild(todoForm);
     todoListContainer.appendChild(todoBtnContainer);
 
     addPackBtn.addEventListener('click', appendItems(null, null, null));
@@ -41,27 +42,27 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     discardTodoBtn.addEventListener('click', discardSTVItems);
     savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
     saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
-}
+};
 
-function discardSTVItems(event) {
+const discardSTVItems = (event) => {
     let allItemsContainer = event.target.parentElement.parentElement;
     if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;
-    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
     let children = allItemsContainer.children;
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
-        if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
+        if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
         let iterator = classes.entries();
         for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
     }
 };
 
-function saveSTVItems(tripCity, tripDates) {
+const saveSTVItems = (tripCity, tripDates) => {
     return function (event) {
         let allItemsContainer = event.target.parentElement.parentElement;
         let allItems = event.target.parentElement.parentElement.children;
@@ -75,9 +76,9 @@ function saveSTVItems(tripCity, tripDates) {
 
         // return hidden trips
         let trips = document.querySelector('.saved-trips').children;
-        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
-        let itemsArr = []
+        let itemsArr = [];
         for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
@@ -88,10 +89,10 @@ function saveSTVItems(tripCity, tripDates) {
             if (allItems.length < 3) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.classList[0];
-                newItem['item'] = null;
+                newItem.item = null;
 
-                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
-                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
+                if (flag === 'todo-list') { newItem.listType = 'todo'; }
+                else if (flag === 'packing-list') { newItem.listType = 'packing'; }
                 itemsArr.push(newItem);
             }
             // if yes list items
@@ -99,8 +100,8 @@ function saveSTVItems(tripCity, tripDates) {
                 if (allItems[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {};
                     let flag = allItems[i].classList[1];
-                    newItem['item'] = allItems[i].children[1].value;
-                    newItem['category'] = allItems[i].children[2].innerText;
+                    newItem.item = allItems[i].children[1].value;
+                    newItem.category = allItems[i].children[2].innerText;
 
                     // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
                     // iterates through classes to find packed flag and toggle
@@ -108,19 +109,19 @@ function saveSTVItems(tripCity, tripDates) {
                     let iterator = classes.entries();
 
                     for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem['toggle'] = true }
-                        else { newItem['toggle'] = false; };
+                        if (value[1] === 'packed') { newItem.toggle = true; }
+                        else { newItem.toggle = false; }
                     }
 
-                    if (flag === 'todo') { newItem['listType'] = 'todo' }
-                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
+                    if (flag === 'todo') { newItem.listType = 'todo'; }
+                    else if (flag === 'packing') { newItem.listType = 'packing'; }
 
                     itemsArr.push(newItem);
                 }
             }
         }
         postData('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
-    }
-}
+    };
+};
 
-export { createForm, discardSTVItems }
+export { createForm, discardSTVItems };

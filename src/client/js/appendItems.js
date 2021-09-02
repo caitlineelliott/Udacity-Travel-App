@@ -1,6 +1,6 @@
 import { editItems, removeItems, toggleItems } from "./modifyItems";
 
-function appendItems(itemRow, item, category) {
+const appendItems = (itemRow, item, category) => {
     let toggle = document.createElement('button');
     let editBtn = document.createElement('button');
     let deleteBtn = document.createElement('button');
@@ -9,8 +9,8 @@ function appendItems(itemRow, item, category) {
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
-    editBtn.addEventListener('click', editItems)
-    deleteBtn.addEventListener('click', removeItems)
+    editBtn.addEventListener('click', editItems);
+    deleteBtn.addEventListener('click', removeItems);
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
@@ -25,15 +25,15 @@ function appendItems(itemRow, item, category) {
         editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
         deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
-        editBtn.addEventListener('click', editItems)
-        deleteBtn.addEventListener('click', removeItems)
-        toggle.addEventListener('click', toggleItems)
+        editBtn.addEventListener('click', editItems);
+        deleteBtn.addEventListener('click', removeItems);
+        toggle.addEventListener('click', toggleItems);
 
         if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
-    }
-}
+    };
+};
 
-function appendNewItems(event, toggle, editBtn, deleteBtn) {
+const appendNewItems = (event, toggle, editBtn, deleteBtn) => {
     event.preventDefault();
 
     let itemRow = document.createElement('div');
@@ -41,7 +41,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let category = document.createElement('div');
     let categoryLabel = document.createElement('div');
 
-    item.innerHTML = event.target.parentElement.children[0].value;;
+    item.innerHTML = event.target.parentElement.children[0].value;
     category.innerHTML = event.target.parentElement.children[1].value;
     categoryLabel.innerHTML = `<div class="select-categories">${category.innerHTML} <i class="fas fa-chevron-down"></i></div>`;
 
@@ -52,14 +52,14 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         itemRow.classList.add('new-items-row');
         editBtn.classList.add('edit-items-ntv');
         deleteBtn.classList.add('delete-items-ntv');
-        categoryLabel.id = `${category.innerHTML}`
-        categoryLabel.classList.add('category-group')
+        categoryLabel.id = `${category.innerHTML}`;
+        categoryLabel.classList.add('category-group');
 
-        itemRow.appendChild(item)
+        itemRow.appendChild(item);
         itemRow.appendChild(editBtn);
         itemRow.appendChild(deleteBtn);
 
-        const categoryArr = []
+        const categoryArr = [];
         let appendedElements = event.target.parentElement.parentElement.children;
         let itemContainer = event.target.parentElement.parentElement;
 
@@ -78,11 +78,11 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         if (category.innerText === 'Priority' || category.innerText === 'High' || category.innerText === 'Medium' || category.innerText === 'Low') {
             itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
             let todoList = event.target.parentElement.parentElement;
-            todoList.insertBefore(itemRow, todoList.children[0])
+            todoList.insertBefore(itemRow, todoList.children[0]);
         } else {
             itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
             let packingList = event.target.parentElement.parentElement;
-            packingList.insertBefore(itemRow, packingList.children[0])
+            packingList.insertBefore(itemRow, packingList.children[0]);
         }
     }
 
@@ -92,20 +92,20 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     categoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.parentElement.children).forEach(function (item) {
             if (item.classList[0] === 'new-items-row') {
-                if (item.style.display === 'none') { item.style.display = 'flex' }
-                else { item.style.display = 'none' }
+                if (item.style.display === 'none') { item.style.display = 'flex'; }
+                else { item.style.display = 'none'; }
             } else if (item.lastChild.classList.contains('fa-chevron-down')) {
                 item.lastChild.classList.toggle('fa-chevron-up');
             }
-        })
-    })
-}
+        });
+    });
+};
 
-function appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
-    styleItems(itemRow, item, category, toggle, editBtn, deleteBtn)
-}
+const appendExistingItems = (itemRow, item, category, toggle, editBtn, deleteBtn) => {
+    styleItems(itemRow, item, category, toggle, editBtn, deleteBtn);
+};
 
-function styleItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
+const styleItems = (itemRow, item, category, toggle, editBtn, deleteBtn) => {
     toggle.classList.add('toggle');
     item.classList.add('stv-item');
     category.classList.add('stv-category');
@@ -113,10 +113,10 @@ function styleItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
     deleteBtn.classList.add('delete-items-stv');
 
     itemRow.appendChild(toggle);
-    itemRow.appendChild(item)
+    itemRow.appendChild(item);
     itemRow.appendChild(category);
     itemRow.appendChild(editBtn);
     itemRow.appendChild(deleteBtn);
-}
+};
 
-export { appendItems, appendNewItems, appendExistingItems }
+export { appendItems, appendNewItems, appendExistingItems };
