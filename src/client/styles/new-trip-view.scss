@@ -4,6 +4,10 @@
 .select-categories:hover {
     cursor: pointer;
 }
+
+.category-group {
+    margin-bottom: 10px;
+}
 ///
 
 .new-trip-container {
@@ -73,10 +77,6 @@
         button {
             width: 12vw;
         }
-    }
-
-    .new-items-row {
-        margin-top: 20px;
     }
 
     .forecast-row {

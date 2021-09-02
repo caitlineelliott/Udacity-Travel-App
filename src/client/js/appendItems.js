@@ -53,6 +53,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         editBtn.classList.add('edit-items-ntv');
         deleteBtn.classList.add('delete-items-ntv');
         categoryLabel.id = `${category.innerHTML}`
+        categoryLabel.classList.add('category-group')
 
         itemRow.appendChild(item)
         itemRow.appendChild(editBtn);

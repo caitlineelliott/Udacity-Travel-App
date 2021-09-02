@@ -229,6 +229,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         editBtn.classList.add('edit-items-ntv');
         deleteBtn.classList.add('delete-items-ntv');
         categoryLabel.id = `${category.innerHTML}`
+        categoryLabel.classList.add('category-group')
 
         itemRow.appendChild(item)
         itemRow.appendChild(editBtn);
@@ -414,8 +415,6 @@ function saveSTVItems(tripCity, tripDates) {
                     let flag = allItems[i].classList[1];
                     newItem['item'] = allItems[i].children[1].value;
                     newItem['category'] = allItems[i].children[2].innerText;
-
-                    console.log(flag)
 
                     // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
                     // iterates through classes to find packed flag and toggle

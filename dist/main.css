@@ -403,6 +403,9 @@ button > * {
 .select-categories:hover {
   cursor: pointer; }
 
+.category-group {
+  margin-bottom: 10px; }
+
 .new-trip-container {
   display: none;
   padding-top: 20px;
@@ -416,10 +419,9 @@ button > * {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap; }
-    .new-trip-container .travel-summary .form-label {
-      width: 60%; }
+    .new-trip-container .travel-summary .form-label,
     .new-trip-container .travel-summary .trip-details {
-      width: 40%; }
+      width: 50%; }
   .new-trip-container .weather {
     background: #83A8A6;
     color: white; }
@@ -452,8 +454,6 @@ button > * {
     .new-trip-container .forecast-row button,
     .new-trip-container .new-items-row button {
       width: 12vw; }
-  .new-trip-container .new-items-row {
-    margin-top: 20px; }
   .new-trip-container .forecast-row .forecast-date,
   .new-trip-container .forecast-row .forecast-temp {
     padding: 0 10px;
