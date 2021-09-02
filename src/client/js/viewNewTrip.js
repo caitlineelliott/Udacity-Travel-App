@@ -72,6 +72,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', appendItems(null, null, null));
     document.querySelector('.add-more-todo-btn-ntv').addEventListener('click', appendItems(null, null, null));
 
+    // Discard trip
+    document.querySelector('.discard-trip-btn').addEventListener('click', function () {
+        window.location = 'index.html'
+    })
+
     // Save Trip function
     document.querySelector('.save-trip-btn').addEventListener('click', function () {
         let packingList = []
