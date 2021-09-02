@@ -30,8 +30,9 @@
         justify-content: center;
 
         .trip-dates {
-            width: 28%;
-            padding-top: 22px;
+            width: 35%;
+            padding-top: 32px;
+            margin: 0;
             background-color: transparent;
             border: none;
             font-family: $plain-font;
@@ -75,7 +76,8 @@
                 font-size: 0.9em;
                 background: transparent;
                 font-family: $plain-font;
-                padding-top: 18px;
+                padding-top: 32px;
+                margin: 0;
             }
 
             button {

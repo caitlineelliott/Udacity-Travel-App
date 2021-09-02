@@ -724,8 +724,9 @@ button > * {
   align-items: center;
   justify-content: center; }
   .saved-trips .new-items-row .trip-dates {
-    width: 28%;
-    padding-top: 22px;
+    width: 35%;
+    padding-top: 23px;
+    margin: 0;
     background-color: transparent;
     border: none;
     font-family: "montserrat", sans-serif;
