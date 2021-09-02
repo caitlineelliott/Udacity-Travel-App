@@ -23,12 +23,9 @@
         flex-direction: row;
         flex-wrap: wrap;
 
-        .form-label {
-            width: 60%;
-        }
-
+        .form-label,
         .trip-details {
-            width: 40%;
+            width: 50%;
         }
     }
 
