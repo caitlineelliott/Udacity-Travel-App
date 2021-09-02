@@ -188,7 +188,7 @@ function appendItems(itemRow, item, category) {
     editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
 
-    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); }
+    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
     return function (event) {
         event.preventDefault();
@@ -204,7 +204,7 @@ function appendItems(itemRow, item, category) {
         editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
         deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
 
-        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); }
+        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
     }
 }
 
@@ -225,6 +225,8 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
         itemRow.classList.add('new-items-row');
+        editBtn.classList.add('edit-items-ntv');
+        deleteBtn.classList.add('delete-items-ntv');
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)
@@ -587,6 +589,8 @@ function editItems(event) {
     editBtn.disabled = true;
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+
+    console.log(event.target)
 
     if (event.target.classList.contains('edit-items-ntv')) {
         let item = event.target.previousSibling;

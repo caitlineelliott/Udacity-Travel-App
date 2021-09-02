@@ -12,7 +12,7 @@ function appendItems(itemRow, item, category) {
     editBtn.addEventListener('click', editItems)
     deleteBtn.addEventListener('click', removeItems)
 
-    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); }
+    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
     return function (event) {
         event.preventDefault();
@@ -28,7 +28,7 @@ function appendItems(itemRow, item, category) {
         editBtn.addEventListener('click', editItems)
         deleteBtn.addEventListener('click', removeItems)
 
-        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); }
+        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
     }
 }
 
@@ -49,6 +49,8 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let newTarget = target.substring(target.length - 3);
     if (newTarget === 'ntv') {
         itemRow.classList.add('new-items-row');
+        editBtn.classList.add('edit-items-ntv');
+        deleteBtn.classList.add('delete-items-ntv');
         categoryLabel.id = `${category.innerHTML}`
 
         itemRow.appendChild(item)

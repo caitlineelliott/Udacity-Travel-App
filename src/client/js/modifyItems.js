@@ -6,6 +6,8 @@ function editItems(event) {
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
 
+    console.log(event.target)
+
     if (event.target.classList.contains('edit-items-ntv')) {
         let item = event.target.previousSibling;
         item.style = 'color: white;'
