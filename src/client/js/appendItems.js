@@ -42,7 +42,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
 
     item.innerHTML = event.target.parentElement.children[0].value;;
     category.innerHTML = event.target.parentElement.children[1].value;
-    categoryLabel.innerHTML = `${category.innerHTML} <i class="fas fa-chevron-down"></i>`;
+    categoryLabel.innerHTML = `<div class="select-categories">${category.innerHTML} <i class="fas fa-chevron-down"></i></div>`;
 
     // split function basedn on ntv or stv
     let target = event.target.classList[0];
@@ -89,12 +89,12 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
 
     // Toggles each item category open/closed
     categoryLabel.addEventListener('click', function (event) {
-        Array.from(event.target.children).forEach(function (item) {
+        Array.from(event.target.parentElement.children).forEach(function (item) {
             if (item.classList[0] === 'new-items-row') {
                 if (item.style.display === 'none') { item.style.display = 'flex' }
                 else { item.style.display = 'none' }
-            } else if (item.classList.contains('fa-chevron-down')) {
-                item.classList.toggle('fa-chevron-up')
+            } else if (item.lastChild.classList.contains('fa-chevron-down')) {
+                item.lastChild.classList.toggle('fa-chevron-up');
             }
         })
     })

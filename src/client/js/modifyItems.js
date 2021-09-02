@@ -43,7 +43,7 @@ function saveEditedItem(item, saveBtn, editBtn, event) {
         item.style.backgroundColor = '#197278';
         item.style.color = 'white';
         updateTripDates(item)
-    } else if (item.classList.contains('stv-item')) { item.style.color = 'black'; }
+    } else { item.style.color = 'black'; }
 }
 
 async function updateTripDates(item) {

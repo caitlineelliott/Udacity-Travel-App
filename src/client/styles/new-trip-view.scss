@@ -1,5 +1,11 @@
 @import 'base.scss';
 
+///
+.select-categories:hover {
+    cursor: pointer;
+}
+///
+
 .new-trip-container {
     display: none;
     padding-top: 20px;
