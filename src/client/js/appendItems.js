@@ -27,6 +27,7 @@ function appendItems(itemRow, item, category) {
 
         editBtn.addEventListener('click', editItems)
         deleteBtn.addEventListener('click', removeItems)
+        toggle.addEventListener('click', toggleItems)
 
         if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
     }
@@ -82,7 +83,6 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
             let packingList = event.target.parentElement.parentElement;
             packingList.insertBefore(itemRow, packingList.children[0])
         }
-        toggle.addEventListener('click', toggleItems);
     }
 
     event.target.parentElement.children[0].value = '';

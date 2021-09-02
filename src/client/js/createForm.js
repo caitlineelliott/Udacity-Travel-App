@@ -22,8 +22,10 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     addPackBtn.classList.add('add-more-pack-btn-stv');
 
     addMoreHeading.innerHTML = `Missing something? Add more here:`;
-    btnContainer.children[0].innerHTML = 'Discard Changes';
-    btnContainer.children[1].innerHTML = 'Save Changes';
+    discardPackBtn.innerHTML = 'Discard Changes';
+    discardTodoBtn.innerHTML = 'Discard Changes';
+    savePackBtn.innerHTML = 'Save Changes';
+    saveTodoBtn.innerHTML = 'Save Changes';
 
     packingListContainer.appendChild(addMoreHeading);
     packingListContainer.appendChild(packForm);

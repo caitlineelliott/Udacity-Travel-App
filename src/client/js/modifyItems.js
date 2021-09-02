@@ -85,8 +85,9 @@ function removeItems(event) {
 }
 
 function toggleItems(event) {
-    event.target.parentElement.parentElement.classList.add('modified');
-    event.target.parentElement.parentElement.classList.toggle('packed');
+    console.log(event.target)
+    event.target.parentElement.classList.add('modified');
+    event.target.parentElement.classList.toggle('packed');
 }
 
 export { editItems, removeItems, toggleItems }

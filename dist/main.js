@@ -187,6 +187,7 @@ function appendItems(itemRow, item, category) {
 
     editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
+    toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
@@ -203,6 +204,7 @@ function appendItems(itemRow, item, category) {
 
         editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
         deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
+        toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"])
 
         if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
     }
@@ -258,7 +260,6 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
             let packingList = event.target.parentElement.parentElement;
             packingList.insertBefore(itemRow, packingList.children[0])
         }
-        toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
     }
 
     event.target.parentElement.children[0].value = '';
@@ -335,8 +336,10 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     addPackBtn.classList.add('add-more-pack-btn-stv');
 
     addMoreHeading.innerHTML = `Missing something? Add more here:`;
-    btnContainer.children[0].innerHTML = 'Discard Changes';
-    btnContainer.children[1].innerHTML = 'Save Changes';
+    discardPackBtn.innerHTML = 'Discard Changes';
+    discardTodoBtn.innerHTML = 'Discard Changes';
+    savePackBtn.innerHTML = 'Save Changes';
+    saveTodoBtn.innerHTML = 'Save Changes';
 
     packingListContainer.appendChild(addMoreHeading);
     packingListContainer.appendChild(packForm);
@@ -669,8 +672,9 @@ function removeItems(event) {
 }
 
 function toggleItems(event) {
-    event.target.parentElement.parentElement.classList.add('modified');
-    event.target.parentElement.parentElement.classList.toggle('packed');
+    console.log(event.target)
+    event.target.parentElement.classList.add('modified');
+    event.target.parentElement.classList.toggle('packed');
 }
 
 
