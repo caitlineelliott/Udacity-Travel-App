@@ -601,13 +601,13 @@ function editItems(event) {
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
-        item.style = 'box-sizing: border-box; padding: 15px 0 0 8px; width: 30vw; color: black; height: 5.7vh';
-        saveBtn.style = 'padding: 0; height: 5.7vh; color: black;';
+        item.style = 'box-sizing: border-box; padding: 15px 0 0 8px; color: black; height: 5.7vh';
+        saveBtn.style = 'padding: 0; height: 5.7vh; color: black; margin: 0';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];
         item.style = "box-sizing: border-box; padding: 10px; height: 5vh; color: white;"
-        saveBtn.style = 'height: 5vh;'
+        saveBtn.style = 'height: 5vh'
         modifyEditedItems(item, saveBtn, editBtn);
     }
 }
