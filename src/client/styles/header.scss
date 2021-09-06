@@ -124,10 +124,11 @@ header {
             width: 50vw;
             height: 10vh;
             box-sizing: border-box;
-            z-index: -1;
+            z-index: 1;
+            overflow: hidden;;
 
             .main-nav-btn {
-                width: 96%;
+                width: 90%;
                 font-size: 1vw;
                 height: 7vh;
                 line-height: 1em;

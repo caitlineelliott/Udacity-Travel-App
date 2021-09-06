@@ -222,9 +222,10 @@ header nav {
       width: 50vw;
       height: 10vh;
       box-sizing: border-box;
-      z-index: -1; }
+      z-index: 1;
+      overflow: hidden; }
       header nav .main-nav-btn {
-        width: 96%;
+        width: 90%;
         font-size: 1vw;
         height: 7vh;
         line-height: 1em; } }
@@ -569,14 +570,12 @@ button > * {
   .new-trip-container .add-item-form button {
     height: 6vh;
     font-size: 2.5vw; }
-  .new-trip-container .new-items-row {
+  .new-trip-container .new-items-row textarea,
+  .new-trip-container .new-items-row button {
+    height: 6vh;
     font-size: 2.5vw; }
-    .new-trip-container .new-items-row textarea,
-    .new-trip-container .new-items-row button {
-      height: 6vh;
-      font-size: 2.5vw; }
-    .new-trip-container .new-items-row textarea {
-      padding-top: 18px; }
+  .new-trip-container .new-items-row textarea {
+    padding-top: 18px; }
   .discard-trip-btn,
   .save-trip-btn {
     font-size: 2.5vw;
@@ -588,7 +587,9 @@ button > * {
     width: 49.4vw;
     position: absolute;
     top: 10vh;
-    left: 49.4vw; }
+    left: 49.4vw;
+    background-color: #edddd4;
+    z-index: -1; }
     .new-trip-container h2 {
       text-align: center; }
     .new-trip-container .travel-summary {
@@ -635,6 +636,21 @@ button > * {
       .new-trip-container .packing-list-container .add-item-form button,
       .new-trip-container .todo-list-container .add-item-form button {
         width: 5vw; }
+      .new-trip-container .packing-list-container .select-categories,
+      .new-trip-container .todo-list-container .select-categories {
+        width: 40vw; }
+      .new-trip-container .packing-list-container .new-items-row,
+      .new-trip-container .todo-list-container .new-items-row {
+        width: 40vw; }
+        .new-trip-container .packing-list-container .new-items-row textarea,
+        .new-trip-container .todo-list-container .new-items-row textarea {
+          width: 30vw;
+          font-size: 1vw;
+          padding-top: 14px; }
+        .new-trip-container .packing-list-container .new-items-row button,
+        .new-trip-container .todo-list-container .new-items-row button {
+          width: 5vw;
+          font-size: 1vw; }
     .new-trip-container .trip-btn-container {
       width: 49.4vw; }
       .new-trip-container .trip-btn-container .discard-trip-btn,
@@ -922,22 +938,26 @@ button > * {
     left: 50vw; }
     .saved-trips .new-items-row {
       width: 50vw;
-      height: 8vh; }
+      height: 8vh;
+      font-size: 1vw; }
       .saved-trips .new-items-row textarea {
-        height: 5vh;
+        height: 8vh;
         padding-top: 15px; }
       .saved-trips .new-items-row .trip-actions > * {
         font-size: 1.25vw; }
     .saved-trips .packing-list,
     .saved-trips .todo-list {
       font-size: 1.5vw; }
+      .saved-trips .packing-list p,
+      .saved-trips .todo-list p {
+        font-size: 1.1vw; }
       .saved-trips .packing-list .add-item-form input,
       .saved-trips .packing-list .add-item-form select,
       .saved-trips .packing-list .add-item-form button,
       .saved-trips .todo-list .add-item-form input,
       .saved-trips .todo-list .add-item-form select,
       .saved-trips .todo-list .add-item-form button {
-        font-size: 1.25vw; }
+        font-size: 1.1vw; }
       .saved-trips .packing-list .add-item-form input,
       .saved-trips .todo-list .add-item-form input {
         width: 25vw; }
@@ -952,19 +972,22 @@ button > * {
       .saved-trips .todo-list .save-trip-btn,
       .saved-trips .todo-list .discard-trip-btn {
         width: 25vw;
+        font-size: 1.1vw; }
+      .saved-trips .packing-list .saved-trip-packing-list,
+      .saved-trips .todo-list .saved-trip-packing-list {
         font-size: 1.25vw; }
-      .saved-trips .packing-list .saved-trip-packing-list button,
-      .saved-trips .todo-list .saved-trip-packing-list button {
-        width: 5vw; }
-      .saved-trips .packing-list .saved-trip-packing-list textarea,
-      .saved-trips .packing-list .saved-trip-packing-list .stv-category,
-      .saved-trips .todo-list .saved-trip-packing-list textarea,
-      .saved-trips .todo-list .saved-trip-packing-list .stv-category {
-        width: 15vw; }
-      .saved-trips .packing-list .saved-trip-packing-list textarea,
-      .saved-trips .todo-list .saved-trip-packing-list textarea {
-        height: 5vh;
-        padding-top: 10px; }
+        .saved-trips .packing-list .saved-trip-packing-list button,
+        .saved-trips .todo-list .saved-trip-packing-list button {
+          width: 5vw; }
+        .saved-trips .packing-list .saved-trip-packing-list textarea,
+        .saved-trips .packing-list .saved-trip-packing-list .stv-category,
+        .saved-trips .todo-list .saved-trip-packing-list textarea,
+        .saved-trips .todo-list .saved-trip-packing-list .stv-category {
+          width: 15vw; }
+        .saved-trips .packing-list .saved-trip-packing-list textarea,
+        .saved-trips .todo-list .saved-trip-packing-list textarea {
+          height: 7vh;
+          padding-top: 14px; }
     .saved-trips .weather {
       width: 50vw;
       padding-top: 10px; }
@@ -979,7 +1002,8 @@ button > * {
         .saved-trips .weather .forecast-row .forecast-icon {
           width: 3vw; }
       .saved-trips .weather .long-forecast {
-        width: 40vw; } }
+        width: 40vw;
+        font-size: 1.25vw; } }
 
 
 /*# sourceMappingURL=main.css.map*/

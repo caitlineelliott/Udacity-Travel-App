@@ -279,6 +279,8 @@
         position: absolute;
         top: 10vh;
         left: 49.4vw;
+        background-color: $background;
+        z-index: -1;
 
         h2 {
             text-align: center;
@@ -349,6 +351,23 @@
                 }
                 button {
                     width: 5vw;
+                }
+            }
+
+            .select-categories {
+                width: 40vw;
+            }
+
+            .new-items-row {
+                width: 40vw;
+                textarea {
+                    width: 30vw;
+                    font-size: 1vw;
+                    padding-top: 14px;
+                }
+                button {
+                    width: 5vw;
+                    font-size: 1vw;
                 }
             }
         }

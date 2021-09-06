@@ -12,8 +12,8 @@ const editItems = (event) => {
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
-        item.style = 'box-sizing: border-box; padding: 15px 0 0 8px; color: black; height: 5.7vh';
-        saveBtn.style = 'padding: 0; height: 5.7vh; color: black; margin: 0';
+        item.style = 'box-sizing: border-box; padding: 20px 0 0 8px; color: black; height: 8vh';
+        saveBtn.style = 'padding: 0; height: 8vh; font-size: 1.25vw; color: black; margin: 0';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];

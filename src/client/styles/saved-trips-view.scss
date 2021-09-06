@@ -282,10 +282,10 @@
         .new-items-row {
             width: 50vw;
             height: 8vh;
-            font-size: 2.5vw;
+            font-size: 1vw;
 
             textarea {
-                height: 5vh;
+                height: 8vh;
                 padding-top: 15px;
             }
 
@@ -298,11 +298,15 @@
         .todo-list {
             font-size: 1.5vw;
 
+            p {
+                font-size: 1.1vw;
+            }
+
             .add-item-form {
                 input, 
                 select,
                 button {
-                    font-size: 1.25vw;
+                    font-size: 1.1vw;
                 }
 
                 input {
@@ -321,10 +325,11 @@
             .save-trip-btn, 
             .discard-trip-btn {
                 width: 25vw;
-                font-size: 1.25vw;
+                font-size: 1.1vw;
             }
 
             .saved-trip-packing-list {
+                font-size: 1.25vw;
                 button {
                     width: 5vw
                 }
@@ -335,8 +340,8 @@
                 }
 
                 textarea {
-                    height: 5vh;
-                    padding-top: 10px;
+                    height: 7vh;
+                    padding-top: 14px;
                 }
             }
         }
@@ -365,6 +370,7 @@
 
             .long-forecast {
                 width: 40vw;
+                font-size: 1.25vw;
             }
         }
     }
