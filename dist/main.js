@@ -155,7 +155,8 @@ async function getHeaderPhoto(userCity) {
         return await request.json();
     }
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-};
+}
+
 
 
 
@@ -176,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modifyItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modifyItems */ "./src/client/js/modifyItems.js");
 
 
-function appendItems(itemRow, item, category) {
+const appendItems = (itemRow, item, category) => {
     let toggle = document.createElement('button');
     let editBtn = document.createElement('button');
     let deleteBtn = document.createElement('button');
@@ -185,8 +186,8 @@ function appendItems(itemRow, item, category) {
     editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
     deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
-    editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
-    deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
+    editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"]);
+    deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
@@ -201,15 +202,15 @@ function appendItems(itemRow, item, category) {
         editBtn.innerHTML = '<i class= "fas fa-edit"></i>';
         deleteBtn.innerHTML = '<i class= "fas fa-times"></i>';
 
-        editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"])
-        deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"])
-        toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"])
+        editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"]);
+        deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
+        toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
         if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
-    }
-}
+    };
+};
 
-function appendNewItems(event, toggle, editBtn, deleteBtn) {
+const appendNewItems = (event, toggle, editBtn, deleteBtn) => {
     event.preventDefault();
 
     let itemRow = document.createElement('div');
@@ -217,7 +218,7 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     let category = document.createElement('div');
     let categoryLabel = document.createElement('div');
 
-    item.innerHTML = event.target.parentElement.children[0].value;;
+    item.innerHTML = event.target.parentElement.children[0].value;
     category.innerHTML = event.target.parentElement.children[1].value;
     categoryLabel.innerHTML = `<div class="select-categories">${category.innerHTML} <i class="fas fa-chevron-down"></i></div>`;
 
@@ -228,14 +229,14 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         itemRow.classList.add('new-items-row');
         editBtn.classList.add('edit-items-ntv');
         deleteBtn.classList.add('delete-items-ntv');
-        categoryLabel.id = `${category.innerHTML}`
-        categoryLabel.classList.add('category-group')
+        categoryLabel.id = `${category.innerHTML}`;
+        categoryLabel.classList.add('category-group');
 
-        itemRow.appendChild(item)
+        itemRow.appendChild(item);
         itemRow.appendChild(editBtn);
         itemRow.appendChild(deleteBtn);
 
-        const categoryArr = []
+        const categoryArr = [];
         let appendedElements = event.target.parentElement.parentElement.children;
         let itemContainer = event.target.parentElement.parentElement;
 
@@ -254,11 +255,11 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
         if (category.innerText === 'Priority' || category.innerText === 'High' || category.innerText === 'Medium' || category.innerText === 'Low') {
             itemRow.classList.add('saved-trip-packing-list', 'todo', 'new-todo-item');
             let todoList = event.target.parentElement.parentElement;
-            todoList.insertBefore(itemRow, todoList.children[0])
+            todoList.insertBefore(itemRow, todoList.children[0]);
         } else {
             itemRow.classList.add('saved-trip-packing-list', 'packing', 'new-packing-item');
             let packingList = event.target.parentElement.parentElement;
-            packingList.insertBefore(itemRow, packingList.children[0])
+            packingList.insertBefore(itemRow, packingList.children[0]);
         }
     }
 
@@ -268,20 +269,20 @@ function appendNewItems(event, toggle, editBtn, deleteBtn) {
     categoryLabel.addEventListener('click', function (event) {
         Array.from(event.target.parentElement.children).forEach(function (item) {
             if (item.classList[0] === 'new-items-row') {
-                if (item.style.display === 'none') { item.style.display = 'flex' }
-                else { item.style.display = 'none' }
+                if (item.style.display === 'none') { item.style.display = 'flex'; }
+                else { item.style.display = 'none'; }
             } else if (item.lastChild.classList.contains('fa-chevron-down')) {
                 item.lastChild.classList.toggle('fa-chevron-up');
             }
-        })
-    })
-}
+        });
+    });
+};
 
-function appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
-    styleItems(itemRow, item, category, toggle, editBtn, deleteBtn)
-}
+const appendExistingItems = (itemRow, item, category, toggle, editBtn, deleteBtn) => {
+    styleItems(itemRow, item, category, toggle, editBtn, deleteBtn);
+};
 
-function styleItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
+const styleItems = (itemRow, item, category, toggle, editBtn, deleteBtn) => {
     toggle.classList.add('toggle');
     item.classList.add('stv-item');
     category.classList.add('stv-category');
@@ -289,11 +290,11 @@ function styleItems(itemRow, item, category, toggle, editBtn, deleteBtn) {
     deleteBtn.classList.add('delete-items-stv');
 
     itemRow.appendChild(toggle);
-    itemRow.appendChild(item)
+    itemRow.appendChild(item);
     itemRow.appendChild(category);
     itemRow.appendChild(editBtn);
     itemRow.appendChild(deleteBtn);
-}
+};
 
 
 
@@ -315,7 +316,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function createForm(tripCity, tripDates, packingListContainer, todoListContainer) {
+
+const createForm = (tripCity, tripDates, packingListContainer, todoListContainer) => {
     let packingContainer = document.querySelector('.packing-list-container');
     let todoContainer = document.querySelector('.todo-list-container');
     let packForm = packingContainer.children[1].cloneNode(true);
@@ -325,9 +327,9 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     let addMoreHeading = document.createElement('p');
     let btnContainer = document.querySelector('.trip-btn-container').cloneNode(true);
     let todoBtnContainer = btnContainer.cloneNode(true);
-    let discardPackBtn = btnContainer.children[0]
-    let discardTodoBtn = todoBtnContainer.children[0]
-    let savePackBtn = btnContainer.children[1]
+    let discardPackBtn = btnContainer.children[0];
+    let discardTodoBtn = todoBtnContainer.children[0];
+    let savePackBtn = btnContainer.children[1];
     let saveTodoBtn = todoBtnContainer.children[1];
 
     addPackBtn.classList.remove('add-more-pack-btn-ntv');
@@ -346,7 +348,7 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     packingListContainer.appendChild(btnContainer);
 
     todoListContainer.appendChild(addMoreHeading.cloneNode(true));
-    todoListContainer.appendChild(todoForm)
+    todoListContainer.appendChild(todoForm);
     todoListContainer.appendChild(todoBtnContainer);
 
     addPackBtn.addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_0__["appendItems"])(null, null, null));
@@ -355,27 +357,27 @@ function createForm(tripCity, tripDates, packingListContainer, todoListContainer
     discardTodoBtn.addEventListener('click', discardSTVItems);
     savePackBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
     saveTodoBtn.addEventListener('click', saveSTVItems(tripCity, tripDates));
-}
+};
 
-function discardSTVItems(event) {
+const discardSTVItems = (event) => {
     let allItemsContainer = event.target.parentElement.parentElement;
     if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;
-    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+    for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
     let children = allItemsContainer.children;
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
-        if (children[i].style.display = 'none') { children[i].style.display = 'flex'; }
+        if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
         let iterator = classes.entries();
         for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
     }
 };
 
-function saveSTVItems(tripCity, tripDates) {
+const saveSTVItems = (tripCity, tripDates) => {
     return function (event) {
         let allItemsContainer = event.target.parentElement.parentElement;
         let allItems = event.target.parentElement.parentElement.children;
@@ -389,9 +391,9 @@ function saveSTVItems(tripCity, tripDates) {
 
         // return hidden trips
         let trips = document.querySelector('.saved-trips').children;
-        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+        for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
-        let itemsArr = []
+        let itemsArr = [];
         for (let i = 0; i < allItems.length; i++) {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
@@ -402,10 +404,10 @@ function saveSTVItems(tripCity, tripDates) {
             if (allItems.length < 3) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.classList[0];
-                newItem['item'] = null;
+                newItem.item = null;
 
-                if (flag === 'todo-list') { newItem['listType'] = 'todo' }
-                else if (flag === 'packing-list') { newItem['listType'] = 'packing' }
+                if (flag === 'todo-list') { newItem.listType = 'todo'; }
+                else if (flag === 'packing-list') { newItem.listType = 'packing'; }
                 itemsArr.push(newItem);
             }
             // if yes list items
@@ -413,8 +415,8 @@ function saveSTVItems(tripCity, tripDates) {
                 if (allItems[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {};
                     let flag = allItems[i].classList[1];
-                    newItem['item'] = allItems[i].children[1].value;
-                    newItem['category'] = allItems[i].children[2].innerText;
+                    newItem.item = allItems[i].children[1].value;
+                    newItem.category = allItems[i].children[2].innerText;
 
                     // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
                     // iterates through classes to find packed flag and toggle
@@ -422,20 +424,20 @@ function saveSTVItems(tripCity, tripDates) {
                     let iterator = classes.entries();
 
                     for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem['toggle'] = true }
-                        else { newItem['toggle'] = false; };
+                        if (value[1] === 'packed') { newItem.toggle = true; }
+                        else { newItem.toggle = false; }
                     }
 
-                    if (flag === 'todo') { newItem['listType'] = 'todo' }
-                    else if (flag === 'packing') { newItem['listType'] = 'packing' };
+                    if (flag === 'todo') { newItem.listType = 'todo'; }
+                    else if (flag === 'packing') { newItem.listType = 'packing'; }
 
                     itemsArr.push(newItem);
                 }
             }
         }
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
-    }
-}
+    };
+};
 
 
 
@@ -452,7 +454,7 @@ function saveSTVItems(tripCity, tripDates) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayWeather", function() { return displayWeather; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displayLongForecast", function() { return displayLongForecast; });
-function displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr, loopWeather) {
+const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr, loopWeather) => {
     let newRow = document.createElement('div');
     const tripDate = document.createElement('div');
     const weatherIcon = document.createElement('img');
@@ -478,10 +480,10 @@ function displayWeather(weatherContainer, newTripContainer, loopDates, loopForec
         weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
 
         tripDaysCount.push(newRow);
-        let tripDayData = {}
-        tripDayData['date'] = tripDate.innerHTML;
-        tripDayData['weatherIcon'] = weatherIcon.src;
-        tripDayData['weather'] = weather.innerHTML;
+        let tripDayData = {};
+        tripDayData.date = tripDate.innerHTML;
+        tripDayData.weatherIcon = weatherIcon.src;
+        tripDayData.weather = weather.innerHTML;
         tripWeatherArr.push(tripDayData);
     }
     else if (newTripContainer === undefined) {
@@ -489,26 +491,26 @@ function displayWeather(weatherContainer, newTripContainer, loopDates, loopForec
         weatherIcon.src = `${loopWeather.weatherIcon}`;
         weather.innerHTML = loopWeather.weather;
     }
-}
+};
 
-function displayLongForecast(departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) {
+const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
 
     if (departDate > lastDay || weatherData[0] === undefined) {
         longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`
+        longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
         weatherContainer.appendChild(longForecast);
     } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
         longForecast.classList.add('long-forecast');
-        longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`
+        longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
         weatherContainer.appendChild(longForecast);
     }
 
-    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;" }
+    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
     }
-}
+};
 
 
 
@@ -535,8 +537,8 @@ var dd = today.getDate();
 var mm = today.getMonth() + 1;
 var yyyy = today.getFullYear();
 
-if (dd < 10) { dd = '0' + dd }
-if (mm < 10) { mm = '0' + mm }
+if (dd < 10) { dd = '0' + dd; }
+if (mm < 10) { mm = '0' + mm; }
 today = yyyy + '-' + mm + '-' + dd;
 
 let departDate = document.querySelector('.depart-date');
@@ -547,26 +549,26 @@ document.querySelector('.return-date').addEventListener('click', function () {
 });
 
 // Generate trip data
-document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event) });
+document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event); });
 
-async function generate(event) {
+const generate = async (event) => {
     event.preventDefault();
 
-    const tripCity = document.querySelector('.user-city').value
+    const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
 
     const departDate = new Date(`${formDepart} 00:00:00`);
     const returnDate = new Date(`${formReturn} 00:00:00`);
-    const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`
-    const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`
+    const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`;
+    const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`;
 
     const geonamesInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott'); // put username in .env file
     const userCity = geonamesInfo.geonames[0].name;
     const weatherInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
     Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
-}
+};
 
 
 
@@ -587,17 +589,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 
 
-function editItems(event) {
+const editItems = (event) => {
     let editBtn = event.target;
     editBtn.disabled = true;
     let saveBtn = document.createElement('button');
     saveBtn.innerHTML = '<i class="fas fa-save"></i>';
 
-    console.log(event.target)
-
     if (event.target.classList.contains('edit-items-ntv')) {
         let item = event.target.previousSibling;
-        item.style = 'color: white;'
+        item.style = 'color: white;';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
@@ -606,21 +606,21 @@ function editItems(event) {
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];
-        item.style = "box-sizing: border-box; padding: 10px; height: 5vh; color: white;"
-        saveBtn.style = 'height: 5vh'
+        item.style = "box-sizing: border-box; padding: 18px 10px 10px 10px; height: 7vh; color: white;";
+        saveBtn.style = 'height: 7vh';
         modifyEditedItems(item, saveBtn, editBtn);
     }
-}
+};
 
-function modifyEditedItems(item, saveBtn, editBtn) {
+const modifyEditedItems = (item, saveBtn, editBtn) => {
     item.readOnly = false;
     item.style.backgroundColor = "#c44536";
     saveBtn.classList.add('save-btn');
     item.insertAdjacentElement('afterend', saveBtn);
-    saveBtn.addEventListener('click', function () { saveEditedItem(item, saveBtn, editBtn); })
-}
+    saveBtn.addEventListener('click', function () { saveEditedItem(item, saveBtn, editBtn); });
+};
 
-function saveEditedItem(item, saveBtn, editBtn, event) {
+const saveEditedItem = (item, saveBtn, editBtn) => {
     item.readOnly = true;
     item.style.backgroundColor = '#83A8A6';
     editBtn.disabled = false;
@@ -629,11 +629,11 @@ function saveEditedItem(item, saveBtn, editBtn, event) {
     if (item.classList.contains('trip-dates')) {
         item.style.backgroundColor = '#197278';
         item.style.color = 'white';
-        updateTripDates(item)
+        updateTripDates(item);
     } else { item.style.color = 'black'; }
-}
+};
 
-async function updateTripDates(item) {
+const updateTripDates = async (item) => {
     // remove old trips from DOM
     let trips = document.querySelector('.saved-trips').children;
     for (let i = trips.length - 1; i >= 0; i--) { trips[i].remove(); }
@@ -644,38 +644,37 @@ async function updateTripDates(item) {
 
     setTimeout(displayNewTrips, 1000);
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
-}
+};
 
 // display new trips
-async function displayNewTrips() { await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all') }
+const displayNewTrips = async () => { await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["getUserData"])('/all'); };
 
 // delete items - NTV packing & todo, STV packing & todo, STV trips
-function removeItems(event) {
+const removeItems = (event) => {
     if (!event.target.classList.contains('delete-trip')) {
         let item = event.target.parentElement;
         if (event.target.classList.contains('delete-items-ntv')) {
             let itemCategory = event.target.parentElement.parentElement;
-            if (itemCategory.children.length < 3) { itemCategory.remove() }
+            if (itemCategory.children.length < 3) { itemCategory.remove(); }
             item.remove();
         } else if (event.target.classList.contains('delete-items-stv')) {
             item.style.display = 'none';
         }
     } else {
-        let item = event.target.parentElement.parentElement
+        let item = event.target.parentElement.parentElement;
         let tripCity = event.target.parentElement.previousElementSibling.innerText;
         let departDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(0, 5);
         let returnDate = event.target.parentElement.parentElement.firstChild.innerHTML.slice(8, 13);
 
-        item.remove()
+        item.remove();
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["deleteServerData"])('/remove', { city: tripCity, depart: departDate, return: returnDate });
     }
-}
+};
 
-function toggleItems(event) {
-    console.log(event.target)
+const toggleItems = (event) => {
     event.target.parentElement.classList.add('modified');
     event.target.parentElement.classList.toggle('packed');
-}
+};
 
 
 
@@ -698,30 +697,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./createForm */ "./src/client/js/createForm.js");
 /* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
 
-// import { setWeatherDOMStructure } from './viewNewTrip'
 
 
 
 
 
-document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
-
-async function viewSavedTrips() {
+const viewSavedTrips = async () => {
     let container = document.querySelector('main');
-    for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none' }
+    for (let i = 0; i < container.children.length; i++) { container.children[i].style.display = 'none'; }
 
     document.querySelector('h1').innerHTML = 'Saved Trips';
 
     let savedTripsBtn = document.querySelector('.main-nav-btn');
-    savedTripsBtn.removeEventListener('click', viewSavedTrips)
-    savedTripsBtn.innerHTML = `Book Trip`
-    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"')
+    savedTripsBtn.removeEventListener('click', viewSavedTrips);
+    savedTripsBtn.innerHTML = `Book Trip`;
+    savedTripsBtn.setAttribute("onclick", 'location.href="index.html"');
     document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=933&q=80')`;
 
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["getUserData"])('/all');
-}
+};
 
-function displayTrip(tripData) {
+document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
+
+const displayTrip = (tripData) => {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
     else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -744,18 +742,18 @@ function displayTrip(tripData) {
 
             tripDates.innerHTML = `${tripData[i].displayDepart} - ${tripData[i].displayReturn}`;
             tripCity.innerHTML = tripData[i].city;
-            editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`
-            deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`
+            editTrip.innerHTML = `<i id="edit" class="fas fa-edit"></i>`;
+            deleteTrip.innerHTML = `<i id="delete" class="fas fa-times"></i>`;
 
             tripDates.readOnly = true;
-            tripPackingList.classList.add('packing-list-btn')
-            tripTodoList.classList.add('todo-list-btn')
-            tripWeather.classList.add('weather-btn')
+            tripPackingList.classList.add('packing-list-btn');
+            tripTodoList.classList.add('todo-list-btn');
+            tripWeather.classList.add('weather-btn');
             editTrip.classList.add('edit-trip');
             deleteTrip.classList.add('delete-trip');
-            packingListContainer.classList.add('packing-list')
-            todoListContainer.classList.add('todo-list')
-            weatherContainer.classList.add('weather')
+            packingListContainer.classList.add('packing-list');
+            todoListContainer.classList.add('todo-list');
+            weatherContainer.classList.add('weather');
             newTripHeading.classList.add('new-items-row');
             tripDates.classList.add('trip-dates');
             tripCity.classList.add('trip-city');
@@ -768,14 +766,14 @@ function displayTrip(tripData) {
             if (tripData[i].city.indexOf(' ') >= 0) {
                 let newID = tripData[i].city.replace(/\s/g, '');
                 newTripContainer.id = `${newID}-trip`;
-                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`
-                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`
-                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${newID}-trip"></i>`;
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${newID}-trip"></i>`;
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${newID}-trip"></i>`;
             } else {
                 newTripContainer.id = `${tripData[i].city}-trip`;
-                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`
-                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`
-                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`
+                tripPackingList.innerHTML = `<i id="packing" class="fas fa-tshirt ${tripCity.innerHTML}-trip"></i>`;
+                tripTodoList.innerHTML = `<i id="todo" class="fas fa-clipboard-list ${tripCity.innerHTML}-trip"></i>`;
+                tripWeather.innerHTML = `<i id="weather" class="fas fa-sun ${tripCity.innerHTML}-trip"></i>`;
             }
 
             newTripHeading.appendChild(tripDates);
@@ -822,7 +820,7 @@ function displayTrip(tripData) {
                 item.innerHTML = todoList[i].item;
                 category.innerHTML = todoList[i].category;
 
-                Object(_appendItems__WEBPACK_IMPORTED_MODULE_2__["appendItems"])(itemRow, item, category)
+                Object(_appendItems__WEBPACK_IMPORTED_MODULE_2__["appendItems"])(itemRow, item, category);
                 todoListContainer.appendChild(itemRow);
             }
 
@@ -833,12 +831,12 @@ function displayTrip(tripData) {
             let tripEnd = new Date(tripData[i].arrival);
 
             // remove old weather before trip date change
-            if (weatherContainer.children.length > 0) { weatherContainer.children.remove() }
+            if (weatherContainer.children.length > 0) { weatherContainer.children.remove(); }
 
             // add new weather tripData
             for (let i = 0; i < weatherData.length; i++) {
-                let loopWeather = weatherData[i]
-                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather)
+                let loopWeather = weatherData[i];
+                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, undefined, undefined, undefined, undefined, undefined, loopWeather);
             }
 
             Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(null, 2, 1, weatherData, tripEnd, weatherContainer, 'tripDaysCount');
@@ -850,33 +848,31 @@ function displayTrip(tripData) {
             deleteTrip.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
         }
     }
-}
+};
 
-function displayData(event) {
+const displayData = (event) => {
     let trips = document.querySelector('.saved-trips').children;
     let tripBlock = event.target.parentElement.parentElement.parentElement;
     let btn = event.target.classList[0];
-
-    console.log(tripBlock, tripBlock.children)
 
     for (let i = 1; i < tripBlock.children.length; i++) {
         if (tripBlock.children[i].classList.contains(btn.slice(0, -4))) {
             if (tripBlock.children[i].style.display === 'none') {
                 if (tripBlock.children[i].classList[0] === 'weather') {
-                    tripBlock.children[i].style.display = 'flex'
+                    tripBlock.children[i].style.display = 'flex';
                 } else { tripBlock.children[i].style.display = 'block'; }
                 for (let i = 0; i < trips.length; i++) {
-                    if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;" }
+                    if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;"; }
                 }
             } else if (tripBlock.children[i].style.display === 'block' || tripBlock.children[i].style.display === 'flex') {
-                tripBlock.children[i].style.display = 'none'
-                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;' }
+                tripBlock.children[i].style.display = 'none';
+                for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
             }
         } else {
             tripBlock.children[i].style.display = 'none';
         }
     }
-}
+};
 
 
 
@@ -918,7 +914,7 @@ const postData = async (url = '', data = {}) => {
         });
         return await response.json();
     }
-    catch { console.log('FAILED TO POST DATA TO SERVER', e); }
+    catch (e) { console.log('FAILED TO POST DATA TO SERVER', e); }
 };
 
 const deleteServerData = async (url = '', data = {}) => {
@@ -933,8 +929,9 @@ const deleteServerData = async (url = '', data = {}) => {
         });
         return await response.json();
     }
-    catch { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
+    catch (e) { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
 };
+
 
 
 
@@ -962,20 +959,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-async function viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) {
+const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) => {
     document.querySelector('.initial-req-container').style.display = "none";
     let newTripContainer = document.querySelector('.new-trip-container');
     newTripContainer.style.display = "flex";
 
     // Update Header
     let bannerImg = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_2__["getHeaderPhoto"])(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background') }
+    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background'); }
     else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
     document.querySelector('h1').innerHTML = `${userCity}`;
 
     // Update Trip Details
     const currentDate = new Date();
-    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     document.querySelector('.depart-date-output').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     document.querySelector('.return-date-ouput').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
     document.querySelector('.trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
@@ -993,15 +990,15 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let loopDates = dates[i];
-            let loopForecast = forecast[i]
-            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr)
+            let loopForecast = forecast[i];
+            Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
         }
     }
 
     // Handle long forecast display
     if (weatherContainer.childElementCount > 5) {
         let showMoreDays = document.createElement('div');
-        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`;
         showMoreDays.classList.add('more-days');
         weatherContainer.appendChild(showMoreDays);
 
@@ -1011,11 +1008,11 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
             for (let i = 0; i < tripDaysCount.length; i++) {
                 if (i > 4) {
                     if (tripDaysCount[i].style.cssText === "display: none;") {
-                        tripDaysCount[i].style.cssText = "display: flex;"
-                        showMoreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`
+                        tripDaysCount[i].style.cssText = "display: flex;";
+                        showMoreDays.innerHTML = `Show fewer days <i class="fas fa-chevron-up"></i>`;
                     } else {
-                        tripDaysCount[i].style.cssText = "display: none;"
-                        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`
+                        tripDaysCount[i].style.cssText = "display: none;";
+                        showMoreDays.innerHTML = `Show more days <i class="fas fa-chevron-down"></i>`;
                     }
                 }
             }
@@ -1024,7 +1021,7 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     let lastDay = dates[15];
     let weatherData = [2];
-    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount)
+    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
@@ -1032,48 +1029,48 @@ async function viewNewTrip(userCity, departDate, returnDate, displayDepart, disp
 
     // Discard trip
     document.querySelector('.discard-trip-btn').addEventListener('click', function () {
-        window.location = 'index.html'
-    })
+        window.location = 'index.html';
+    });
 
     // Save Trip function
     document.querySelector('.save-trip-btn').addEventListener('click', function () {
-        let packingList = []
-        let todoList = []
+        let packingList = [];
+        let todoList = [];
         let items = document.querySelectorAll('.new-items-row');
 
         for (let i = 0; i < items.length; i++) {
-            let item = {}
-            item["item"] = items[i].firstElementChild.innerHTML;
-            item["category"] = items[i].parentNode.id;
-            item["toggleStatus"] = false;
+            let item = {};
+            item.item = items[i].firstElementChild.innerHTML;
+            item.category = items[i].parentNode.id;
+            item.toggleStats = false;
 
-            if (item["category"] === "High" || item["category"] === "Medium" || item["category"] === "Low" || item["category"] === "Priority") { todoList.push(item) }
-            else { packingList.push(item) }
-        };
+            if (item.category === "High" || item.category === "Medium" || item.category === "Low" || item.category === "Priority") { todoList.push(item); }
+            else { packingList.push(item); }
+        }
 
         // View Saved Confirmed Message
         newTripContainer.style.display = "none";
         document.querySelector('.trip-saved-container').style.display = 'flex';
 
         let savedTripsBtn = document.querySelector('#view-saved-trips');
-        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"])
+        savedTripsBtn.addEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"]);
 
         let bookTripBtn = document.querySelector('.main-nav-btn');
-        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"])
-        bookTripBtn.innerHTML = `Book Trip`
-        bookTripBtn.setAttribute("onclick", 'location.href="index.html"')
+        bookTripBtn.removeEventListener('click', _savedTripsView__WEBPACK_IMPORTED_MODULE_0__["viewSavedTrips"]);
+        bookTripBtn.innerHTML = `Book Trip`;
+        bookTripBtn.setAttribute("onclick", 'location.href="index.html"');
 
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
-}
+};
 
 // Helper Functions
 // NEED TO CITE - From MDN
-function getRandomNum(min, max) {
+const getRandomNum = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
-}
+};
 
 
 

@@ -24,22 +24,18 @@ app.use(express.static('dist'));
 const port = 3000;
 
 // Spin up the server & Callback to debug
-app.listen(port, listening);
 const listening = () => { console.log(`running on localhost: ${port}`); };
+app.listen(port, listening);
 
 // Initialize all route with a callback function
-app.get('/all', getData);
-
 // Callback function to complete GET '/all'
 const getData = (req, res) => { res.send(userTripData); };
+app.get('/all', getData);
+
 
 // REQUESTS & ROUTES
 
 // Post Route
-app.post('/api/trip', addTripData);
-app.post('/list', addListData);
-app.post('/tripdates', changeTripDates);
-
 const addTripData = (req, res) => {
     const newData = req.body;
 
@@ -149,7 +145,11 @@ const changeTripDates = async (req, res) => {
     }
 };
 
-app.delete('/remove', removeData);
+
+app.post('/api/trip', addTripData);
+app.post('/list', addListData);
+app.post('/tripdates', changeTripDates);
+
 const removeData = (req, res) => {
     const newData = req.body;
     for (let i = 0; i < userTripData.length; i++) {
@@ -159,6 +159,8 @@ const removeData = (req, res) => {
         } else { console.log('no'); }
     }
 };
+
+app.delete('/remove', removeData);
 
 // update weather
 const getGeonames = async (placename, username) => {

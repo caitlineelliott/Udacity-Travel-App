@@ -1,11 +1,8 @@
 import { editItems, removeItems } from './modifyItems';
-// import { setWeatherDOMStructure } from './viewNewTrip'
 import { getUserData } from './serverRequests';
 import { appendItems } from './appendItems';
 import { createForm } from './createForm';
 import { displayWeather, displayLongForecast } from './displayWeather';
-
-document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
 const viewSavedTrips = async () => {
     let container = document.querySelector('main');
@@ -21,6 +18,8 @@ const viewSavedTrips = async () => {
 
     await getUserData('/all');
 };
+
+document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
 
 const displayTrip = (tripData) => {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }

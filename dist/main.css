@@ -569,6 +569,14 @@ button > * {
   .new-trip-container .add-item-form button {
     height: 6vh;
     font-size: 2.5vw; }
+  .new-trip-container .new-items-row {
+    font-size: 2.5vw; }
+    .new-trip-container .new-items-row textarea,
+    .new-trip-container .new-items-row button {
+      height: 6vh;
+      font-size: 2.5vw; }
+    .new-trip-container .new-items-row textarea {
+      padding-top: 18px; }
   .discard-trip-btn,
   .save-trip-btn {
     font-size: 2.5vw;
@@ -725,7 +733,7 @@ button > * {
   justify-content: center; }
   .saved-trips .new-items-row .trip-dates {
     width: 25%;
-    padding: 2px 0 0 0;
+    padding: 22px 0 0 0;
     margin: 0;
     background-color: transparent;
     border: none;
@@ -878,13 +886,17 @@ button > * {
         height: 7vh; }
         .saved-trips .packing-list .saved-trip-packing-list textarea,
         .saved-trips .todo-list .saved-trip-packing-list textarea {
-          padding-top: 25px; }
+          padding-top: 36px; }
     .saved-trips .weather {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+      padding: 10px 0; }
       .saved-trips .weather .forecast-row {
-        width: 50vw; }
+        width: 45vw;
+        margin: 0 auto; }
+      .saved-trips .weather .long-forecast {
+        font-size: 2.5vw; }
   .save-btn {
     font-size: 2.25vw; } }
 

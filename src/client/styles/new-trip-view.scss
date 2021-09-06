@@ -251,6 +251,18 @@
                 font-size: 2.5vw;
             }
         }
+
+        .new-items-row {
+            textarea,
+            button {
+                height: 6vh;
+                font-size: 2.5vw;
+            }
+
+            textarea {
+                padding-top: 18px;
+            }
+        }
     }
 
     .discard-trip-btn,
