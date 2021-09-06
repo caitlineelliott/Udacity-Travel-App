@@ -109,8 +109,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     });
 };
 
-// Helper Functions
-// NEED TO CITE - From MDN
+// Lines 113-117 modified from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomNum = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
