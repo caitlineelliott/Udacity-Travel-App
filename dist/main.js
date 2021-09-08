@@ -987,7 +987,9 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
 
     // Update Header
     let bannerImg = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_2__["getHeaderPhoto"])(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background'); }
+    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
+        document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`;
+    }
     else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
     document.querySelector('h1').innerHTML = `${userCity}`;
 
@@ -1021,7 +1023,9 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
             let loopForecast = forecast[i];
             console.log(loopDates)
             Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
-        } else if (dates[i] < departDate && dates[i] < returnDate) {
+        }
+        // TODO: need to figure out how to initiate both current + future forecast without overlap
+        else if (dates[i] < departDate && dates[i] < returnDate) {
             console.log(dates[0])
 
             let today = new Date();

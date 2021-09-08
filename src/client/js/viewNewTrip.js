@@ -11,7 +11,9 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
 
     // Update Header
     let bannerImg = await getHeaderPhoto(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) { console.log('undefined/no background'); }
+    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
+        document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`;
+    }
     else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
     document.querySelector('h1').innerHTML = `${userCity}`;
 
