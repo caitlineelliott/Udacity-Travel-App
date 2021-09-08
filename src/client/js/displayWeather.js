@@ -15,15 +15,25 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
     weatherContainer.appendChild(newRow);
 
+    console.log(loopDates)
+
     if (newTripContainer) {
         let tripDates = loopDates;
         let tripWeather = loopForecast;
+
+        console.log(loopDates)
 
         tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;
         weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
 
         tripDaysCount.push(newRow);
+
+        if (loopForecast.app_temp) {
+            weatherContainer.firstElementChild.innerHTML = 'Current Weather';
+            weather.innerHTML = `${loopForecast.app_temp}°F`;
+        }
+
         let tripDayData = {};
         tripDayData.date = tripDate.innerHTML;
         tripDayData.weatherIcon = weatherIcon.src;
@@ -45,9 +55,10 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
         weatherContainer.appendChild(longForecast);
     } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
+        // console.log(returnDate, lastDay, weatherData[0])
+
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
-        weatherContainer.appendChild(longForecast);
     }
 
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }

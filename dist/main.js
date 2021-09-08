@@ -141,10 +141,18 @@ const getGeonames = async (placename, username) => {
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
 };
 
-const getWeatherBit = async (lat, lng) => {
+const getWeatherBit = async (lat, lng, newForecastDate, departDate) => {
     try {
-        const request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
-        return await request.json();
+        console.log(departDate, newForecastDate)
+        if (departDate > newForecastDate) {
+            console.log('long')
+            let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            return await request.json();
+        } else {
+            console.log('current')
+            let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            return await request.json();
+        }
     }
     catch (e) { console.log('no weatherbit data :(', e); }
 };
@@ -471,15 +479,25 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
     weatherContainer.appendChild(newRow);
 
+    console.log(loopDates)
+
     if (newTripContainer) {
         let tripDates = loopDates;
         let tripWeather = loopForecast;
+
+        console.log(loopDates)
 
         tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;
         weather.innerHTML = `${tripWeather.high_temp}°F / ${tripWeather.low_temp}°F`;
 
         tripDaysCount.push(newRow);
+
+        if (loopForecast.app_temp) {
+            weatherContainer.firstElementChild.innerHTML = 'Current Weather';
+            weather.innerHTML = `${loopForecast.app_temp}°F`;
+        }
+
         let tripDayData = {};
         tripDayData.date = tripDate.innerHTML;
         tripDayData.weatherIcon = weatherIcon.src;
@@ -501,9 +519,10 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
         weatherContainer.appendChild(longForecast);
     } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
+        // console.log(returnDate, lastDay, weatherData[0])
+
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
-        weatherContainer.appendChild(longForecast);
     }
 
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
@@ -539,10 +558,10 @@ var yyyy = today.getFullYear();
 
 if (dd < 10) { dd = '0' + dd; }
 if (mm < 10) { mm = '0' + mm; }
-today = yyyy + '-' + mm + '-' + dd;
+let currentDate = yyyy + '-' + mm + '-' + dd;
 
 let departDate = document.querySelector('.depart-date');
-departDate.setAttribute("min", today);
+departDate.setAttribute("min", currentDate);
 
 document.querySelector('.return-date').addEventListener('click', function () {
     document.querySelector('.return-date').setAttribute("min", departDate.value);
@@ -565,7 +584,9 @@ const generate = async (event) => {
 
     const geonamesInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott'); // put username in .env file
     const userCity = geonamesInfo.geonames[0].name;
-    const weatherInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    console.log(newForecastDate)
+    const weatherInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, departDate);
 
     Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
 };
@@ -982,16 +1003,34 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     // Update Forecast
     let forecast = weatherInfo.data;
     let dates = [];
-    for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime} 00:00:00`); }
+    for (let i = 0; i < forecast.length; i++) {
+        if (forecast[i].datetime.length > 10) {
+            dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)} 00:00:00`);
+        } else {
+            dates[i] = new Date(`${forecast[i].datetime} 00:00:00`);
+        }
+    }
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let loopDates = dates[i];
             let loopForecast = forecast[i];
+            console.log(loopDates)
             Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+        } else if (dates[i] < departDate && dates[i] < returnDate) {
+            console.log(dates[0])
+
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (dates[0].getTime() === today.getTime()) {
+                loopDates = dates[0];
+                loopForecast = forecast[0];
+                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+            }
         }
     }
 
@@ -1064,8 +1103,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     });
 };
 
-// Helper Functions
-// NEED TO CITE - From MDN
+// Lines 113-117 modified from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomNum = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);

@@ -27,16 +27,36 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     // Update Forecast
     let forecast = weatherInfo.data;
     let dates = [];
-    for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime} 00:00:00`); }
+    for (let i = 0; i < forecast.length; i++) {
+        if (forecast[i].datetime.length > 10) {
+            dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)} 00:00:00`);
+        } else {
+            dates[i] = new Date(`${forecast[i].datetime} 00:00:00`);
+        }
+    }
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let loopDates = dates[i];
             let loopForecast = forecast[i];
+            console.log(loopDates)
             displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+        }
+        // TODO: need to figure out how to initiate both current + future forecast without overlap
+        else if (dates[i] < departDate && dates[i] < returnDate) {
+            console.log(dates[0])
+
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (dates[0].getTime() === today.getTime()) {
+                loopDates = dates[0];
+                loopForecast = forecast[0];
+                displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+            }
         }
     }
 

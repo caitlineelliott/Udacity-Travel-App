@@ -9,10 +9,10 @@ var yyyy = today.getFullYear();
 
 if (dd < 10) { dd = '0' + dd; }
 if (mm < 10) { mm = '0' + mm; }
-today = yyyy + '-' + mm + '-' + dd;
+let currentDate = yyyy + '-' + mm + '-' + dd;
 
 let departDate = document.querySelector('.depart-date');
-departDate.setAttribute("min", today);
+departDate.setAttribute("min", currentDate);
 
 document.querySelector('.return-date').addEventListener('click', function () {
     document.querySelector('.return-date').setAttribute("min", departDate.value);
@@ -35,7 +35,9 @@ const generate = async (event) => {
 
     const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
     const userCity = geonamesInfo.geonames[0].name;
-    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    console.log(newForecastDate)
+    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, departDate);
 
     viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
 };
