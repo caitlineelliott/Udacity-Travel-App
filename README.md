@@ -20,21 +20,12 @@ The project will include a simple form where you enter the location you are trav
 
 ## Additional Functionality I Added
 * For trips more than a week from the current date, display the forecast for multiple days.
-* Incorporated icons into the forecast
+* Incorporated icons into the forecast.
+* Added end dates to display the length of trips.
 * Allow the user to add packing list and todo list items for their trip.
 * Allow the user to edit packing list and todo list items.
 * Allow the user to delete packing list and todo list items.
 * Allow the user to save multiple trips.
 * Allow the user to edit trip dates.
 * Allow the user to delete trips.
-* Incorp
-
-* Add end date and display length of trip.
-* Allow the user to remove the trip.
-* Allow user to edit the trip dates
-* Instead of just pulling a single day forecast, pull the forecast for multiple days.
-* Incorporate icons into forecast.
-* Allow the user to add a todo list and/or packing list for their trip.
-* Allow the user to add additional trips (this may take some heavy reworking, but is worth the challenge).
-* Automatically sort additional trips by countdown.
-
+* Automatically sort trips by start date.
