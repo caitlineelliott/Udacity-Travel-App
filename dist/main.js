@@ -458,20 +458,21 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
 const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
+    console.log(typeof returnDate, typeof lastDay)
 
-    if (departDate > lastDay || weatherData[0] === undefined) {
+    if (departDate > lastDay) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
-        weatherContainer.appendChild(longForecast);
-    } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
-        // console.log(returnDate, lastDay, weatherData[0])
-
+    } else if (returnDate > lastDay) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
     }
 
+    weatherContainer.appendChild(longForecast);
+
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
+        console.log(weatherContainer)
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
     }
 };
@@ -964,11 +965,9 @@ const viewNewTrip = async (newTrip) => {
 
     for (let i = 0; i < dates.length; i++) {
         if (newTrip[0].whichWeather !== undefined) {
-            console.log(dates[i])
-            if (departDate >= dates[i] || returnDate <= dates[i]) {
+            if (dates[i] >= departDate && dates[i] <= returnDate) {
                 let loopDates = dates[i];
                 let loopForecast = forecast[i];
-                console.log(loopDates, loopForecast)
                 Object(_displayWeather__WEBPACK_IMPORTED_MODULE_3__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
             }
         }
@@ -1009,7 +1008,7 @@ const viewNewTrip = async (newTrip) => {
 
     let lastDay = dates[15];
     let weatherData = [2];
-    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_3__["displayLongForecast"])(newTrip[0].departDate, newTrip[0].returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
+    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_3__["displayLongForecast"])(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_2__["appendItems"])(null, null, null));

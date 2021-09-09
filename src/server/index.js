@@ -39,6 +39,7 @@ app.get('/all', getData);
 
 const getUnsavedTrip = (req, res) => {
     res.send(unsavedTripData);
+    unsavedTripData = []
 };
 app.get('/api/unsaved', getUnsavedTrip);
 

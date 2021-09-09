@@ -45,20 +45,21 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
 const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
+    console.log(typeof returnDate, typeof lastDay)
 
-    if (departDate > lastDay || weatherData[0] === undefined) {
+    if (departDate > lastDay) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `Unfortunately, your trip dates are outside the range of our weather app and we are unable to provide a forecast at this time.`;
-        weatherContainer.appendChild(longForecast);
-    } else if (returnDate > lastDay && weatherData[0] !== undefined) { // figure out new metric?
-        // console.log(returnDate, lastDay, weatherData[0])
-
+    } else if (returnDate > lastDay) {
         longForecast.classList.add('long-forecast');
         longForecast.innerHTML = `The forecast for some of your trip dates is outside the range of our weather app.`;
     }
 
+    weatherContainer.appendChild(longForecast);
+
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
+        console.log(weatherContainer)
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
     }
 };

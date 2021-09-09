@@ -36,11 +36,9 @@ const viewNewTrip = async (newTrip) => {
 
     for (let i = 0; i < dates.length; i++) {
         if (newTrip[0].whichWeather !== undefined) {
-            console.log(dates[i])
-            if (departDate >= dates[i] || returnDate <= dates[i]) {
+            if (dates[i] >= departDate && dates[i] <= returnDate) {
                 let loopDates = dates[i];
                 let loopForecast = forecast[i];
-                console.log(loopDates, loopForecast)
                 displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
             }
         }
@@ -81,7 +79,7 @@ const viewNewTrip = async (newTrip) => {
 
     let lastDay = dates[15];
     let weatherData = [2];
-    displayLongForecast(newTrip[0].departDate, newTrip[0].returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
+    displayLongForecast(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', appendItems(null, null, null));
