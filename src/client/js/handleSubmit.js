@@ -1,5 +1,7 @@
 import { viewNewTrip } from './viewNewTrip';
 import { getGeonames, getWeatherBit } from './apiRequests';
+import { getUserData, postData, getUnsavedTrip } from './serverRequests';
+import { displayLongForecast } from './displayWeather';
 
 // Lines 5-12 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
 var today = new Date();
@@ -27,19 +29,13 @@ const generate = async (event) => {
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
-
     const departDate = new Date(`${formDepart} 00:00:00`);
     const returnDate = new Date(`${formReturn} 00:00:00`);
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`;
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`;
 
-    const geonamesInfo = await getGeonames(tripCity, 'ceelliott'); // put username in .env file
-    const userCity = geonamesInfo.geonames[0].name;
-    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-    console.log(newForecastDate)
-    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, departDate);
-
-    viewNewTrip(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
+    await postData('/api', { city: tripCity, departDate: departDate, returnDate: returnDate, displayDepart: displayDepart, displayReturn: displayReturn });
+    await getUnsavedTrip('/api/unsaved');
 };
 
 export { generate };

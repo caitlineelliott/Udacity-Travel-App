@@ -4,30 +4,27 @@ import { getHeaderPhoto } from './apiRequests';
 import { appendItems } from './appendItems';
 import { displayWeather, displayLongForecast } from './displayWeather';
 
-const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) => {
+const viewNewTrip = async (newTrip) => {
     document.querySelector('.initial-req-container').style.display = "none";
     let newTripContainer = document.querySelector('.new-trip-container');
     newTripContainer.style.display = "flex";
 
     // Update Header
-    let bannerImg = await getHeaderPhoto(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
+    if (newTrip[0].urlStatus === undefined) {
         document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`;
     }
-    else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
-    document.querySelector('h1').innerHTML = `${userCity}`;
+    else { document.querySelector('.banner').style.backgroundImage = `url('${newTrip[0].bannerURL}')`; }
+    document.querySelector('h1').innerHTML = `${newTrip[0].userCity}`;
 
     // Update Trip Details
-    const currentDate = new Date();
-    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    document.querySelector('.depart-date-output').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
-    document.querySelector('.return-date-ouput').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('.trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('.trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('.trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
+    document.querySelector('.depart-date-output').innerHTML = newTrip[0].textDepart;
+    document.querySelector('.return-date-ouput').innerHTML = newTrip[0].textReturn;
+    document.querySelector('.trip-days-count').innerHTML = newTrip[0].tripDaysCount;
+    document.querySelector('.trip-nights-count').innerHTML = newTrip[0].tripNightsCount;
+    document.querySelector('.trip-days-until').innerHTML = newTrip[0].tripDaysUntil;
 
     // Update Forecast
-    let forecast = weatherInfo.data;
+    let forecast = newTrip[0].weatherInfo.data;
     let dates = [];
     for (let i = 0; i < forecast.length; i++) {
         if (forecast[i].datetime.length > 10) {
@@ -41,23 +38,24 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
 
+    let departDate = new Date(newTrip[0].departDate)
+    let returnDate = new Date(newTrip[0].returnDate)
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let loopDates = dates[i];
             let loopForecast = forecast[i];
-            console.log(loopDates)
+
             displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
         }
         // TODO: need to figure out how to initiate both current + future forecast without overlap
         else if (dates[i] < departDate && dates[i] < returnDate) {
-            console.log(dates[0])
-
             let today = new Date();
             today.setHours(0, 0, 0, 0);
             if (dates[0].getTime() === today.getTime()) {
-                loopDates = dates[0];
-                loopForecast = forecast[0];
-                displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+                let date = dates[0];
+                let dateWeather = forecast[0];
+                displayWeather(weatherContainer, newTripContainer, date, dateWeather, tripDaysCount, tripWeatherArr);
             }
         }
     }
@@ -88,7 +86,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
 
     let lastDay = dates[15];
     let weatherData = [2];
-    displayLongForecast(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
+    displayLongForecast(newTrip[0].departDate, newTrip[0].returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', appendItems(null, null, null));
@@ -127,7 +125,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
         bookTripBtn.innerHTML = `Book Trip`;
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"');
 
-        postData('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
+        postData('/api/trip', { city: newTrip[0].userCity, departure: newTrip[0].departDate, displayDepart: newTrip[0].displayDepart, displayReturn: newTrip[0].displayReturn, arrival: newTrip[0].returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
 };
 

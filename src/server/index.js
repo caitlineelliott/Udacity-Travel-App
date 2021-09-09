@@ -1,4 +1,8 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 let userTripData = [];
+let unsavedTripData = [];
 
 // Setup empty JS object to act as endpoint for all routes
 const fetch = require("node-fetch");
@@ -16,6 +20,7 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
+const { response } = require('express');
 app.use(cors());
 
 // Initialize the main project folder
@@ -31,6 +36,12 @@ app.listen(port, listening);
 // Callback function to complete GET '/all'
 const getData = (req, res) => { res.send(userTripData); };
 app.get('/all', getData);
+
+const getUnsavedTrip = (req, res) => {
+    console.log(unsavedTripData)
+    res.send(unsavedTripData);
+};
+app.get('/api/unsaved', getUnsavedTrip);
 
 
 // REQUESTS & ROUTES
@@ -120,7 +131,7 @@ const changeTripDates = async (req, res) => {
             let newReturn = userTripData[i].arrival;
 
             let tripCity = newData.city;
-            const geonamesInfo = await getGeonames(tripCity, 'ceelliott');
+            const geonamesInfo = await getGeonames(tripCity, process.env.API_ID);
             let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
 
             let forecast = weatherInfo.data;
@@ -145,10 +156,61 @@ const changeTripDates = async (req, res) => {
     }
 };
 
+const getAPIData = async (req, res) => {
+    // get weather info from apis
+    let today = new Date();
+    const geonamesInfo = await getGeonames(req.body.city, process.env.API_ID);
+    const userCity = geonamesInfo.geonames[0].name;
+    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, req.body.departDate);
+
+    // Update Header
+    let bannerImg = await getHeaderPhoto(userCity);
+
+
+    // Update Trip Details
+    const currentDate = new Date();
+    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let departDate = new Date(req.body.departDate);
+    let returnDate = new Date(req.body.returnDate);
+
+    let textDepart = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
+    let textReturn = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
+    let tripDaysCount = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
+    let tripNightsCount = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
+    let tripDaysUntil = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
+
+    let apiData = {};
+    apiData.userCity = userCity;
+    apiData.urlStatus = bannerImg.hits.length;
+    apiData.bannerURL = ` ${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}`;
+    apiData.weatherInfo = weatherInfo;
+
+    apiData.departDate = req.body.departDate;
+    apiData.returnDate = req.body.returnDate;
+    apiData.displayDepart = req.body.displayDepart;
+    apiData.displayReturn = req.body.displayReturn;
+    apiData.textDepart = textDepart;
+    apiData.textReturn = textReturn;
+    apiData.tripDaysCount = tripDaysCount;
+    apiData.tripNightsCount = tripNightsCount;
+    apiData.tripDaysUntil = tripDaysUntil;
+
+    unsavedTripData.push(apiData)
+    res.send(unsavedTripData);
+}
+
+// Lines 113-117 modified from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+const getRandomNum = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 app.post('/api/trip', addTripData);
 app.post('/list', addListData);
 app.post('/tripdates', changeTripDates);
+app.post('/api', getAPIData);
 
 const removeData = (req, res) => {
     const newData = req.body;
@@ -180,3 +242,11 @@ const getWeatherBit = async (lat, lng) => {
     }
     catch (e) { console.log('no weatherbit data :(', e); }
 };
+
+async function getHeaderPhoto(userCity) {
+    try {
+        const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+        return await request.json();
+    }
+    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
+}

@@ -96,6 +96,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_apiRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _js_apiRequests__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_apiRequests__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
 /* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
 /* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
@@ -125,48 +126,43 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************!*\
   !*** ./src/client/js/apiRequests.js ***!
   \**************************************/
-/*! exports provided: getGeonames, getWeatherBit, getHeaderPhoto */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGeonames", function() { return getGeonames; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherBit", function() { return getWeatherBit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHeaderPhoto", function() { return getHeaderPhoto; });
-const getGeonames = async (placename, username) => {
-    try {
-        const request = await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
-        return await request.json();
-    }
-    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-};
+// const getGeonames = async (placename, username) => {
+//     try {
+//         const request = await fetch(`http://api.geonames.org/searchJSON?q=${placename}&maxRows=1&username=${username}`);
+//         return await request.json();
+//     }
+//     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
+// };
 
-const getWeatherBit = async (lat, lng, newForecastDate, departDate) => {
-    try {
-        console.log(departDate, newForecastDate)
-        if (departDate > newForecastDate) {
-            console.log('long')
-            let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
-            return await request.json();
-        } else {
-            console.log('current')
-            let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
-            return await request.json();
-        }
-    }
-    catch (e) { console.log('no weatherbit data :(', e); }
-};
+// const getWeatherBit = async (lat, lng, newForecastDate, departDate) => {
+//     try {
+//         console.log(departDate, newForecastDate)
+//         if (departDate > newForecastDate) {
+//             console.log('long')
+//             let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+//             return await request.json();
+//         } else {
+//             console.log('current')
+//             let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+//             return await request.json();
+//         }
+//     }
+//     catch (e) { console.log('no weatherbit data :(', e); }
+// };
 
-async function getHeaderPhoto(userCity) {
-    try {
-        const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
-        return await request.json();
-    }
-    catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
-}
+// async function getHeaderPhoto(userCity) {
+//     try {
+//         const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+//         return await request.json();
+//     }
+//     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
+// }
 
 
-
+// export { getGeonames, getWeatherBit, getHeaderPhoto };
 
 /***/ }),
 
@@ -547,6 +543,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
 /* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
 /* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apiRequests__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
+
+
 
 
 
@@ -576,19 +577,13 @@ const generate = async (event) => {
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
-
     const departDate = new Date(`${formDepart} 00:00:00`);
     const returnDate = new Date(`${formReturn} 00:00:00`);
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`;
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`;
 
-    const geonamesInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getGeonames"])(tripCity, 'ceelliott'); // put username in .env file
-    const userCity = geonamesInfo.geonames[0].name;
-    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-    console.log(newForecastDate)
-    const weatherInfo = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_1__["getWeatherBit"])(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, departDate);
-
-    Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_0__["viewNewTrip"])(userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo);
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["postData"])('/api', { city: tripCity, departDate: departDate, returnDate: returnDate, displayDepart: displayDepart, displayReturn: displayReturn });
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_2__["getUnsavedTrip"])('/api/unsaved');
 };
 
 
@@ -903,7 +898,7 @@ const displayData = (event) => {
 /*!*****************************************!*\
   !*** ./src/client/js/serverRequests.js ***!
   \*****************************************/
-/*! exports provided: getUserData, postData, deleteServerData */
+/*! exports provided: getUserData, postData, deleteServerData, getUnsavedTrip */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -911,14 +906,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserData", function() { return getUserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteServerData", function() { return deleteServerData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUnsavedTrip", function() { return getUnsavedTrip; });
 /* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
 
+
+
+const getUnsavedTrip = async (url) => {
+    try {
+        const request = await fetch(url);
+        const newTrip = await request.json();
+        Object(_viewNewTrip__WEBPACK_IMPORTED_MODULE_1__["viewNewTrip"])(newTrip)
+    }
+    catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
+};
 
 const getUserData = async (url) => {
     try {
         const request = await fetch(url);
         const tripData = await request.json();
-        Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["displayTrip"])(tripData, event);
+        Object(_savedTripsView__WEBPACK_IMPORTED_MODULE_0__["displayTrip"])(tripData);
     }
     catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
 };
@@ -972,6 +979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _savedTripsView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./savedTripsView */ "./src/client/js/savedTripsView.js");
 /* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 /* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiRequests */ "./src/client/js/apiRequests.js");
+/* harmony import */ var _apiRequests__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_apiRequests__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _appendItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appendItems */ "./src/client/js/appendItems.js");
 /* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
 
@@ -980,30 +988,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, displayReturn, weatherInfo) => {
+const viewNewTrip = async (newTrip) => {
     document.querySelector('.initial-req-container').style.display = "none";
     let newTripContainer = document.querySelector('.new-trip-container');
     newTripContainer.style.display = "flex";
 
     // Update Header
-    let bannerImg = await Object(_apiRequests__WEBPACK_IMPORTED_MODULE_2__["getHeaderPhoto"])(userCity);
-    if (bannerImg.hits[getRandomNum(0, bannerImg.hits.length)] === undefined) {
+    if (newTrip[0].urlStatus === undefined) {
         document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`;
     }
-    else { document.querySelector('.banner').style.backgroundImage = `url('${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}')`; }
-    document.querySelector('h1').innerHTML = `${userCity}`;
+    else { document.querySelector('.banner').style.backgroundImage = `url('${newTrip[0].bannerURL}')`; }
+    document.querySelector('h1').innerHTML = `${newTrip[0].userCity}`;
 
     // Update Trip Details
-    const currentDate = new Date();
-    const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    document.querySelector('.depart-date-output').innerHTML = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
-    document.querySelector('.return-date-ouput').innerHTML = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    document.querySelector('.trip-days-count').innerHTML = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    document.querySelector('.trip-nights-count').innerHTML = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
-    document.querySelector('.trip-days-until').innerHTML = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
+    document.querySelector('.depart-date-output').innerHTML = newTrip[0].textDepart;
+    document.querySelector('.return-date-ouput').innerHTML = newTrip[0].textReturn;
+    document.querySelector('.trip-days-count').innerHTML = newTrip[0].tripDaysCount;
+    document.querySelector('.trip-nights-count').innerHTML = newTrip[0].tripNightsCount;
+    document.querySelector('.trip-days-until').innerHTML = newTrip[0].tripDaysUntil;
 
     // Update Forecast
-    let forecast = weatherInfo.data;
+    let forecast = newTrip[0].weatherInfo.data;
     let dates = [];
     for (let i = 0; i < forecast.length; i++) {
         if (forecast[i].datetime.length > 10) {
@@ -1017,23 +1022,24 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
 
+    let departDate = new Date(newTrip[0].departDate)
+    let returnDate = new Date(newTrip[0].returnDate)
+
     for (let i = 0; i < dates.length; i++) {
         if (dates[i] >= departDate && dates[i] <= returnDate) {
             let loopDates = dates[i];
             let loopForecast = forecast[i];
-            console.log(loopDates)
+
             Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
         }
         // TODO: need to figure out how to initiate both current + future forecast without overlap
         else if (dates[i] < departDate && dates[i] < returnDate) {
-            console.log(dates[0])
-
             let today = new Date();
             today.setHours(0, 0, 0, 0);
             if (dates[0].getTime() === today.getTime()) {
-                loopDates = dates[0];
-                loopForecast = forecast[0];
-                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+                let date = dates[0];
+                let dateWeather = forecast[0];
+                Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayWeather"])(weatherContainer, newTripContainer, date, dateWeather, tripDaysCount, tripWeatherArr);
             }
         }
     }
@@ -1064,7 +1070,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
 
     let lastDay = dates[15];
     let weatherData = [2];
-    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(departDate, returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
+    Object(_displayWeather__WEBPACK_IMPORTED_MODULE_4__["displayLongForecast"])(newTrip[0].departDate, newTrip[0].returnDate, lastDay, weatherData, null, weatherContainer, tripDaysCount);
 
     // Packing & Todo Add Item Form Listeners - executed in addPackingItem.js
     document.querySelector('.add-more-pack-btn-ntv').addEventListener('click', Object(_appendItems__WEBPACK_IMPORTED_MODULE_3__["appendItems"])(null, null, null));
@@ -1103,7 +1109,7 @@ const viewNewTrip = async (userCity, departDate, returnDate, displayDepart, disp
         bookTripBtn.innerHTML = `Book Trip`;
         bookTripBtn.setAttribute("onclick", 'location.href="index.html"');
 
-        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/api/trip', { city: userCity, departure: departDate, displayDepart: displayDepart, displayReturn: displayReturn, arrival: returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
+        Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/api/trip', { city: newTrip[0].userCity, departure: newTrip[0].departDate, displayDepart: newTrip[0].displayDepart, displayReturn: newTrip[0].displayReturn, arrival: newTrip[0].returnDate, packingList: packingList, todoList: todoList, weather: tripWeatherArr, });
     });
 };
 

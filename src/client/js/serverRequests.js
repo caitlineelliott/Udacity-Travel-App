@@ -1,10 +1,20 @@
 import { displayTrip } from './savedTripsView';
+import { viewNewTrip } from './viewNewTrip';
+
+const getUnsavedTrip = async (url) => {
+    try {
+        const request = await fetch(url);
+        const newTrip = await request.json();
+        viewNewTrip(newTrip)
+    }
+    catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
+};
 
 const getUserData = async (url) => {
     try {
         const request = await fetch(url);
         const tripData = await request.json();
-        displayTrip(tripData, event);
+        displayTrip(tripData);
     }
     catch (e) { console.log('DATA NOT RETREIVED FROM SERVER', e); }
 };
@@ -39,4 +49,4 @@ const deleteServerData = async (url = '', data = {}) => {
     catch (e) { console.log('FAILED TO DELETE DATA FROM SERVER', e); }
 };
 
-export { getUserData, postData, deleteServerData };
+export { getUserData, postData, deleteServerData, getUnsavedTrip };
