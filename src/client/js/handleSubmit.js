@@ -1,5 +1,4 @@
 import { viewNewTrip } from './viewNewTrip';
-import { getGeonames, getWeatherBit } from './apiRequests';
 import { getUserData, postData, getUnsavedTrip } from './serverRequests';
 import { displayLongForecast } from './displayWeather';
 

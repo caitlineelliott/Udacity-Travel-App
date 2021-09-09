@@ -1,6 +1,5 @@
 import { viewSavedTrips } from './savedTripsView';
 import { postData } from './serverRequests';
-import { getHeaderPhoto } from './apiRequests';
 import { appendItems } from './appendItems';
 import { displayWeather, displayLongForecast } from './displayWeather';
 
@@ -10,9 +9,7 @@ const viewNewTrip = async (newTrip) => {
     newTripContainer.style.display = "flex";
 
     // Update Header
-    if (newTrip[0].urlStatus === undefined) {
-        document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`;
-    }
+    if (newTrip[0].urlStatus === undefined) { document.querySelector('.banner').style.backgroundImage = `url('https://images.unsplash.com/photo-1550318817-ddbecc4d078d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')`; }
     else { document.querySelector('.banner').style.backgroundImage = `url('${newTrip[0].bannerURL}')`; }
     document.querySelector('h1').innerHTML = `${newTrip[0].userCity}`;
 
@@ -27,29 +24,27 @@ const viewNewTrip = async (newTrip) => {
     let forecast = newTrip[0].weatherInfo.data;
     let dates = [];
     for (let i = 0; i < forecast.length; i++) {
-        if (forecast[i].datetime.length > 10) {
-            dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)} 00:00:00`);
-        } else {
-            dates[i] = new Date(`${forecast[i].datetime} 00:00:00`);
-        }
+        if (forecast[i].datetime.length > 10) { dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)} 00:00:00`); }
+        else { dates[i] = new Date(`${forecast[i].datetime} 00:00:00`); }
     }
 
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
-
     let departDate = new Date(newTrip[0].departDate)
     let returnDate = new Date(newTrip[0].returnDate)
 
     for (let i = 0; i < dates.length; i++) {
-        if (dates[i] >= departDate && dates[i] <= returnDate) {
-            let loopDates = dates[i];
-            let loopForecast = forecast[i];
-
-            displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+        if (newTrip[0].whichWeather !== undefined) {
+            console.log(dates[i])
+            if (departDate >= dates[i] || returnDate <= dates[i]) {
+                let loopDates = dates[i];
+                let loopForecast = forecast[i];
+                console.log(loopDates, loopForecast)
+                displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
+            }
         }
-        // TODO: need to figure out how to initiate both current + future forecast without overlap
-        else if (dates[i] < departDate && dates[i] < returnDate) {
+        else if (newTrip[0].whichWeather === undefined) {
             let today = new Date();
             today.setHours(0, 0, 0, 0);
             if (dates[0].getTime() === today.getTime()) {

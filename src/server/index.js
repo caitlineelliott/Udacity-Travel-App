@@ -38,7 +38,6 @@ const getData = (req, res) => { res.send(userTripData); };
 app.get('/all', getData);
 
 const getUnsavedTrip = (req, res) => {
-    console.log(unsavedTripData)
     res.send(unsavedTripData);
 };
 app.get('/api/unsaved', getUnsavedTrip);
@@ -161,18 +160,18 @@ const getAPIData = async (req, res) => {
     let today = new Date();
     const geonamesInfo = await getGeonames(req.body.city, process.env.API_ID);
     const userCity = geonamesInfo.geonames[0].name;
-    const newForecastDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newForecastDate, req.body.departDate);
+    const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, req.body.departDate, today);
+    let weatherAPI = weatherInfo.city_name;
+    console.log(weatherAPI)
 
     // Update Header
     let bannerImg = await getHeaderPhoto(userCity);
 
-
     // Update Trip Details
     const currentDate = new Date();
     const monthNames = ['January', 'Februrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let departDate = new Date(req.body.departDate);
-    let returnDate = new Date(req.body.returnDate);
+    let departDate = new Date(`${req.body.departDate}`);
+    let returnDate = new Date(`${req.body.returnDate}`);
 
     let textDepart = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     let textReturn = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
@@ -185,7 +184,7 @@ const getAPIData = async (req, res) => {
     apiData.urlStatus = bannerImg.hits.length;
     apiData.bannerURL = ` ${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}`;
     apiData.weatherInfo = weatherInfo;
-
+    apiData.whichWeather = weatherAPI;
     apiData.departDate = req.body.departDate;
     apiData.returnDate = req.body.returnDate;
     apiData.displayDepart = req.body.displayDepart;
@@ -234,11 +233,19 @@ const getGeonames = async (placename, username) => {
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
 };
 
-const getWeatherBit = async (lat, lng) => {
+const getWeatherBit = async (lat, lng, departDate, today) => {
     try {
-        const request =
-            await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
-        return await request.json();
+        let currentDate = new Date(today.setDate(today.getDate() + 7));
+        let depart = new Date(departDate)
+        currentDate.setHours(0, 0, 0, 0)
+
+        if (depart > currentDate) {
+            let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            return await request.json();
+        } else {
+            let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            return await request.json();
+        }
     }
     catch (e) { console.log('no weatherbit data :(', e); }
 };

@@ -15,13 +15,9 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
     weatherContainer.appendChild(newRow);
 
-    console.log(loopDates)
-
     if (newTripContainer) {
         let tripDates = loopDates;
         let tripWeather = loopForecast;
-
-        console.log(loopDates)
 
         tripDate.innerHTML = `${tripDates.getMonth() + 1} /${tripDates.getDate()}`;
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${tripWeather.weather.icon}.png`;

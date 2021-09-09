@@ -1,4 +1,3 @@
-import { getGeonames, getWeatherBit, getHeaderPhoto } from './js/apiRequests';
 import { generate } from './js/handleSubmit';
 import { editItems, removeItems, toggleItems } from './js/modifyItems';
 import { displayTrip, viewSavedTrips } from './js/savedTripsView';
