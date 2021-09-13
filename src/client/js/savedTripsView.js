@@ -19,7 +19,10 @@ const viewSavedTrips = async () => {
     await getUserData('/all');
 };
 
-document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
+});
+
 
 const displayTrip = (tripData) => {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }

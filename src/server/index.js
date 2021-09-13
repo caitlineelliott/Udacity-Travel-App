@@ -29,8 +29,11 @@ app.use(express.static('dist'));
 const port = 3000;
 
 // Spin up the server & Callback to debug
-const listening = () => { console.log(`running on localhost: ${port}`); };
-app.listen(port, listening);
+app.listen(port, serverRunning)
+
+function serverRunning() {
+    console.log('app is listening')
+};
 
 // Initialize all route with a callback function
 // Callback function to complete GET '/all'
@@ -156,6 +159,14 @@ const changeTripDates = async (req, res) => {
     }
 };
 
+// GET ROUTE
+
+// Jest Test
+app.get('/jest', async (req, res) => {
+    res.json({ msg: 'passed' })
+})
+
+
 const getAPIData = async (req, res) => {
     // get weather info from apis
     let today = new Date();
@@ -258,3 +269,5 @@ async function getHeaderPhoto(userCity) {
     }
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }
 }
+
+module.exports = app

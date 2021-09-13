@@ -100,11 +100,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
 /* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
 /* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
-/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+/* harmony import */ var _js_listenForServer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/listenForServer */ "./src/client/js/listenForServer.js");
+/* harmony import */ var _js_listenForServer__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_listenForServer__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+
 
 
 
@@ -508,16 +511,18 @@ if (dd < 10) { dd = '0' + dd; }
 if (mm < 10) { mm = '0' + mm; }
 let currentDate = yyyy + '-' + mm + '-' + dd;
 
-let departDate = document.querySelector('.depart-date');
-departDate.setAttribute("min", currentDate);
+document.addEventListener('DOMContentLoaded', function () {
+    let departDate = document.querySelector('.depart-date');
+    departDate.setAttribute("min", currentDate);
 
-document.querySelector('.return-date').addEventListener('click', function () {
-    document.querySelector('.return-date').setAttribute("min", departDate.value);
+    document.querySelector('.return-date').addEventListener('click', function () {
+        document.querySelector('.return-date').setAttribute("min", departDate.value);
+    });
+
+    document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event); });
 });
 
 // Generate trip data
-document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event); });
-
 const generate = async (event) => {
     event.preventDefault();
 
@@ -534,6 +539,18 @@ const generate = async (event) => {
 };
 
 
+
+/***/ }),
+
+/***/ "./src/client/js/listenForServer.js":
+/*!******************************************!*\
+  !*** ./src/client/js/listenForServer.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const listening = (port) => { console.log(`running on localhost: ${port}`); };
+module.exports = listening;
 
 /***/ }),
 
@@ -680,7 +697,10 @@ const viewSavedTrips = async () => {
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["getUserData"])('/all');
 };
 
-document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.main-nav-btn').addEventListener('click', viewSavedTrips);
+});
+
 
 const displayTrip = (tripData) => {
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }

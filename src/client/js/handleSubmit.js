@@ -12,16 +12,18 @@ if (dd < 10) { dd = '0' + dd; }
 if (mm < 10) { mm = '0' + mm; }
 let currentDate = yyyy + '-' + mm + '-' + dd;
 
-let departDate = document.querySelector('.depart-date');
-departDate.setAttribute("min", currentDate);
+document.addEventListener('DOMContentLoaded', function () {
+    let departDate = document.querySelector('.depart-date');
+    departDate.setAttribute("min", currentDate);
 
-document.querySelector('.return-date').addEventListener('click', function () {
-    document.querySelector('.return-date').setAttribute("min", departDate.value);
+    document.querySelector('.return-date').addEventListener('click', function () {
+        document.querySelector('.return-date').setAttribute("min", departDate.value);
+    });
+
+    document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event); });
 });
 
 // Generate trip data
-document.querySelector('#initial-request-form').addEventListener('submit', function (event) { generate(event); });
-
 const generate = async (event) => {
     event.preventDefault();
 
