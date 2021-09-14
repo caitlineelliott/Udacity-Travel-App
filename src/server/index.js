@@ -173,8 +173,15 @@ const getAPIData = async (req, res) => {
     const geonamesInfo = await getGeonames(req.body.city, process.env.API_ID);
     const userCity = geonamesInfo.geonames[0].name;
     const weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, req.body.departDate, today);
-    let weatherAPI = weatherInfo.city_name;
-    console.log(weatherAPI)
+
+    let apiData = {};
+    if (weatherInfo.city_name !== undefined) {
+        let weatherAPI = weatherInfo.city_name;
+        apiData.whichWeather = weatherAPI;
+    } else {
+        let weatherAPI = null;
+        apiData.whichWeather = weatherAPI;
+    }
 
     // Update Header
     let bannerImg = await getHeaderPhoto(userCity);
@@ -191,12 +198,10 @@ const getAPIData = async (req, res) => {
     let tripNightsCount = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
     let tripDaysUntil = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
 
-    let apiData = {};
     apiData.userCity = userCity;
     apiData.urlStatus = bannerImg.hits.length;
     apiData.bannerURL = ` ${bannerImg.hits[getRandomNum(0, bannerImg.hits.length)].largeImageURL}`;
     apiData.weatherInfo = weatherInfo;
-    apiData.whichWeather = weatherAPI;
     apiData.departDate = req.body.departDate;
     apiData.returnDate = req.body.returnDate;
     apiData.displayDepart = req.body.displayDepart;

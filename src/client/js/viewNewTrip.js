@@ -35,14 +35,14 @@ const viewNewTrip = async (newTrip) => {
     let returnDate = new Date(newTrip[0].returnDate)
 
     for (let i = 0; i < dates.length; i++) {
-        if (newTrip[0].whichWeather !== undefined) {
+        if (newTrip[0].whichWeather !== null) {
             if (dates[i] >= departDate && dates[i] <= returnDate) {
                 let loopDates = dates[i];
                 let loopForecast = forecast[i];
                 displayWeather(weatherContainer, newTripContainer, loopDates, loopForecast, tripDaysCount, tripWeatherArr);
             }
         }
-        else if (newTrip[0].whichWeather === undefined) {
+        else if (newTrip[0].whichWeather === null) {
             let today = new Date();
             today.setHours(0, 0, 0, 0);
             if (dates[0].getTime() === today.getTime()) {

@@ -3,7 +3,6 @@ import { editItems, removeItems, toggleItems } from './js/modifyItems';
 import { displayTrip, viewSavedTrips } from './js/savedTripsView';
 import { getUserData, postData, deleteServerData } from './js/serverRequests';
 import { viewNewTrip, getRandomNum, setWeatherDOMStructure } from './js/viewNewTrip';
-import { listening } from './js/listenForServer';
 
 import './styles/base.scss';
 import './styles/header.scss';

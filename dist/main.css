@@ -455,6 +455,8 @@ button > * {
     .new-trip-container .forecast-row button,
     .new-trip-container .new-items-row button {
       width: 12vw; }
+  .new-trip-container .new-items-row {
+    margin-bottom: 5px; }
   .new-trip-container .forecast-row .forecast-date,
   .new-trip-container .forecast-row .forecast-temp {
     padding: 0 10px;
