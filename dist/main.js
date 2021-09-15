@@ -147,7 +147,6 @@ const appendItems = (itemRow, item, category) => {
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
     toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
-
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
     return function (event) {
@@ -574,7 +573,7 @@ const editItems = (event) => {
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
-        item.style = 'box-sizing: border-box; padding: 20px 0 0 8px; color: black; height: 8vh';
+        item.style = 'box-sizing: border-box; padding: 10px 0 0 5px; color: black; height: 5.7vh';
         saveBtn.style = 'padding: 0; height: 8vh; font-size: 1.25vw; color: black; margin: 0';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
