@@ -851,16 +851,8 @@ button > * {
   font-size: 0.9em;
   box-sizing: border-box; }
 
-.saved-trips .forecast-row .forecast-date {
-  width: 20vw;
-  padding-left: 20px; }
-
 .saved-trips .forecast-row .forecast-icon {
   width: 10vw; }
-
-.saved-trips .forecast-row .forecast-temp {
-  width: 40vw;
-  padding-left: 30px; }
 
 .packed {
   opacity: 0.5; }

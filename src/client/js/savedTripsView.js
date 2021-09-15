@@ -167,6 +167,10 @@ const displayData = (event) => {
                     tripBlock.children[i].style.display = 'flex';
                 } else {
                     tripBlock.children[i].style.display = 'block';
+                    let elements = tripBlock.children[i].children;
+                    for (let i = 0; i < elements.length; i++) {
+                        elements[i].style.display = 'flex';
+                    }
                 }
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;"; }
