@@ -114,10 +114,10 @@ define("./service-worker.js",['./workbox-176fe0b1'], function (workbox) { 'use s
     "revision": null
   }, {
     "url": "main.css",
-    "revision": "d34c242dc95d7616b179e9d029442b52"
+    "revision": "ff5808a772c4c5d6381b54055d9f8a99"
   }, {
     "url": "main.js",
-    "revision": "c2c2ea54feb74760775eb7bafb78a1f8"
+    "revision": "2e4cc2b728d06aa43b5c7c6270ef1254"
   }], {});
 
 });

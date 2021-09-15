@@ -45,8 +45,14 @@ const createForm = (tripCity, tripDates, packingListContainer, todoListContainer
 };
 
 const discardSTVItems = (event) => {
+    console.log(event.target)
     let allItemsContainer = event.target.parentElement.parentElement;
-    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
+
+    console.log(allItemsContainer)
+
+    if (allItemsContainer.style.display === 'block') {
+        allItemsContainer.style.display = 'none';
+    }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;

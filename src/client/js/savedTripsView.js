@@ -165,7 +165,9 @@ const displayData = (event) => {
             if (tripBlock.children[i].style.display === 'none') {
                 if (tripBlock.children[i].classList[0] === 'weather') {
                     tripBlock.children[i].style.display = 'flex';
-                } else { tripBlock.children[i].style.display = 'block'; }
+                } else {
+                    tripBlock.children[i].style.display = 'block';
+                }
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;"; }
                 }

@@ -462,14 +462,8 @@ button > * {
     padding: 0 10px;
     font-size: 0.9em;
     box-sizing: border-box; }
-  .new-trip-container .forecast-row .forecast-date {
-    width: 20vw;
-    padding-left: 20px; }
   .new-trip-container .forecast-row .forecast-icon {
     width: 10vw; }
-  .new-trip-container .forecast-row .forecast-temp {
-    width: 40vw;
-    padding-left: 30px; }
   .new-trip-container .packing-list-container,
   .new-trip-container .todo-list-container {
     background-color: #43878A;

@@ -317,8 +317,14 @@ const createForm = (tripCity, tripDates, packingListContainer, todoListContainer
 };
 
 const discardSTVItems = (event) => {
+    console.log(event.target)
     let allItemsContainer = event.target.parentElement.parentElement;
-    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
+
+    console.log(allItemsContainer)
+
+    if (allItemsContainer.style.display === 'block') {
+        allItemsContainer.style.display = 'none';
+    }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;
@@ -828,7 +834,9 @@ const displayData = (event) => {
             if (tripBlock.children[i].style.display === 'none') {
                 if (tripBlock.children[i].classList[0] === 'weather') {
                     tripBlock.children[i].style.display = 'flex';
-                } else { tripBlock.children[i].style.display = 'block'; }
+                } else {
+                    tripBlock.children[i].style.display = 'block';
+                }
                 for (let i = 0; i < trips.length; i++) {
                     if (event.target.parentElement.parentElement.parentElement.id !== trips[i].id) { trips[i].style = "display: none;"; }
                 }
