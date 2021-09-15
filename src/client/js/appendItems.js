@@ -11,6 +11,7 @@ const appendItems = (itemRow, item, category) => {
 
     editBtn.addEventListener('click', editItems);
     deleteBtn.addEventListener('click', removeItems);
+    toggle.addEventListener('click', toggleItems);
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 

@@ -145,6 +145,8 @@ const appendItems = (itemRow, item, category) => {
 
     editBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["editItems"]);
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
+    toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
+
 
     if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
 
@@ -643,6 +645,7 @@ const removeItems = (event) => {
 };
 
 const toggleItems = (event) => {
+    console.log(event.target)
     event.target.parentElement.classList.add('modified');
     event.target.parentElement.classList.toggle('packed');
 };
