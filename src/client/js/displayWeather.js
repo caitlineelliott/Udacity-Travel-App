@@ -57,7 +57,7 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
 
     weatherContainer.appendChild(longForecast);
 
-    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
+    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 10px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
         console.log(weatherContainer)
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';

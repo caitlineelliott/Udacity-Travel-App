@@ -9,23 +9,23 @@ const editItems = (event) => {
     if (event.target.classList.contains('edit-items-ntv')) {
         let item = event.target.previousSibling;
         item.style = 'color: white;';
+        item.style.backgroundColor = '#c44536';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
-        item.style = 'box-sizing: border-box; padding: 10px 0 0 5px; color: black; height: 5.7vh';
-        saveBtn.style = 'padding: 0; height: 5.7vh; font-size: 4vw; color: black; margin: 0';
+        item.classList.add('editing-trip-dates')
+        saveBtn.classList.add('save-trip-stv');
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];
-        item.style = "box-sizing: border-box; padding: 18px 10px 10px 10px; height: 7vh; color: white;";
-        saveBtn.style = 'height: 7vh';
+        item.classList.add('editing-item-active');
+        saveBtn.classList.add('save-btn-stv');
         modifyEditedItems(item, saveBtn, editBtn);
     }
 };
 
 const modifyEditedItems = (item, saveBtn, editBtn) => {
     item.readOnly = false;
-    item.style.backgroundColor = "#c44536";
     saveBtn.classList.add('save-btn');
     item.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () { saveEditedItem(item, saveBtn, editBtn); });

@@ -733,6 +733,22 @@ button > * {
   font-size: 1em;
   background: transparent; }
 
+.editing-item-active {
+  box-sizing: border-box;
+  height: 5vh;
+  color: white;
+  background-color: #c44536; }
+
+.save-btn-stv {
+  height: 5vh; }
+
+.save-trip-stv {
+  padding: 0;
+  height: 5.7vh;
+  font-size: 4vw;
+  color: black;
+  margin: 0; }
+
 .saved-trips .new-items-row {
   height: 7vh;
   font-size: 0.9em;
@@ -748,12 +764,18 @@ button > * {
     width: 25%;
     padding: 22px 0 0 0;
     margin: 0;
-    background-color: transparent;
     border: none;
     font-family: "montserrat", sans-serif;
     font-size: 1em;
     color: white;
-    text-align: center; }
+    text-align: center;
+    background: transparent; }
+  .saved-trips .new-items-row .editing-trip-dates {
+    padding: 5px;
+    height: 5.7vh;
+    color: black;
+    margin: 0;
+    background-color: #c44536; }
   .saved-trips .new-items-row .trip-city {
     width: 33%;
     text-align: center; }
@@ -780,10 +802,10 @@ button > * {
     width: 30vw;
     border: none;
     font-size: 0.9em;
-    background: transparent;
     font-family: "montserrat", sans-serif;
-    padding-top: 32px;
-    margin: 0; }
+    margin: 0;
+    height: 5vh;
+    padding: 10px; }
   .saved-trips .packing-list .saved-trip-packing-list button,
   .saved-trips .todo-list .saved-trip-packing-list button {
     margin: 0;
@@ -875,6 +897,8 @@ button > * {
     font-size: 2.5vw; }
   .saved-trips {
     font-size: 2.5vw; }
+    .saved-trips .new-items-row .editing-trip-dates {
+      padding: 20px 0 0 0; }
     .saved-trips .packing-list,
     .saved-trips .todo-list {
       font-size: 3vw; }
@@ -889,9 +913,16 @@ button > * {
       .saved-trips .packing-list .saved-trip-packing-list,
       .saved-trips .todo-list .saved-trip-packing-list {
         height: 7vh; }
-        .saved-trips .packing-list .saved-trip-packing-list textarea,
-        .saved-trips .todo-list .saved-trip-packing-list textarea {
-          padding-top: 36px; }
+        .saved-trips .packing-list .saved-trip-packing-list .editing-item-active,
+        .saved-trips .todo-list .saved-trip-packing-list .editing-item-active {
+          box-sizing: border-box;
+          height: 7vh;
+          color: white;
+          background-color: #c44536;
+          padding: 22px 0 0 0; }
+        .saved-trips .packing-list .saved-trip-packing-list .save-btn-stv,
+        .saved-trips .todo-list .saved-trip-packing-list .save-btn-stv {
+          height: 7vh; }
     .saved-trips .weather {
       display: flex;
       flex-direction: row;
@@ -929,11 +960,16 @@ button > * {
       width: 50vw;
       height: 8vh;
       font-size: 1vw; }
-      .saved-trips .new-items-row textarea {
-        height: 8vh;
-        padding-top: 15px; }
       .saved-trips .new-items-row .trip-actions > * {
         font-size: 1.25vw; }
+      .saved-trips .new-items-row .save-trip-stv {
+        padding: 0;
+        height: 8vh;
+        font-size: 1.25vw;
+        color: black;
+        margin: 0; }
+      .saved-trips .new-items-row .editing-trip-dates {
+        height: 8vh; }
     .saved-trips .packing-list,
     .saved-trips .todo-list {
       font-size: 1.5vw; }
@@ -977,6 +1013,15 @@ button > * {
         .saved-trips .todo-list .saved-trip-packing-list textarea {
           height: 7vh;
           padding-top: 14px; }
+        .saved-trips .packing-list .saved-trip-packing-list .editing-item-active,
+        .saved-trips .todo-list .saved-trip-packing-list .editing-item-active {
+          box-sizing: border-box;
+          height: 7vh;
+          padding: 15px; }
+        .saved-trips .packing-list .saved-trip-packing-list .save-btn-stv,
+        .saved-trips .todo-list .saved-trip-packing-list .save-btn-stv {
+          font-size: 1.25vw;
+          height: 7vh; }
     .saved-trips .weather {
       width: 50vw;
       padding-top: 10px; }

@@ -337,17 +337,7 @@ const discardSTVItems = (event) => {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
-        classes.forEach(
-            function (value) {
-                if (value.includes('modified')) {
-                    console.log('yes');
-                    children[i].classList.toggle('packed');
-                }
-            }
-        )
-
-        // for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
-        // we remove 'modified' on save so if a toggle is chagned + discarded after save it can't be targeted
+        classes.forEach(function (value) { if (value.includes('modified')) { children[i].classList.toggle('packed'); } })
     }
 };
 
@@ -358,9 +348,7 @@ const saveSTVItems = (tripCity, tripDates) => {
 
         // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') {
-                allItemsContainer.children[i].remove();
-            }
+            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
         }
 
         if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
@@ -407,7 +395,6 @@ const saveSTVItems = (tripCity, tripDates) => {
 
                     if (flag === 'todo') { newItem.listType = 'todo'; }
                     else if (flag === 'packing') { newItem.listType = 'packing'; }
-
                     itemsArr.push(newItem);
                 }
             }
@@ -490,7 +477,7 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
 
     weatherContainer.appendChild(longForecast);
 
-    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 20px;"; }
+    if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 10px;"; }
     if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
         console.log(weatherContainer)
         weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
@@ -585,23 +572,23 @@ const editItems = (event) => {
     if (event.target.classList.contains('edit-items-ntv')) {
         let item = event.target.previousSibling;
         item.style = 'color: white;';
+        item.style.backgroundColor = '#c44536';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
-        item.style = 'box-sizing: border-box; padding: 10px 0 0 5px; color: black; height: 5.7vh';
-        saveBtn.style = 'padding: 0; height: 5.7vh; font-size: 4vw; color: black; margin: 0';
+        item.classList.add('editing-trip-dates')
+        saveBtn.classList.add('save-trip-stv');
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];
-        item.style = "box-sizing: border-box; padding: 18px 10px 10px 10px; height: 7vh; color: white;";
-        saveBtn.style = 'height: 7vh';
+        item.classList.add('editing-item-active');
+        saveBtn.classList.add('save-btn-stv');
         modifyEditedItems(item, saveBtn, editBtn);
     }
 };
 
 const modifyEditedItems = (item, saveBtn, editBtn) => {
     item.readOnly = false;
-    item.style.backgroundColor = "#c44536";
     saveBtn.classList.add('save-btn');
     item.insertAdjacentElement('afterend', saveBtn);
     saveBtn.addEventListener('click', function () { saveEditedItem(item, saveBtn, editBtn); });

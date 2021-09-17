@@ -58,11 +58,7 @@ const discardSTVItems = (event) => {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
-        classes.forEach(
-            function (value) {
-                if (value.includes('modified')) { children[i].classList.toggle('packed'); }
-            }
-        )
+        classes.forEach(function (value) { if (value.includes('modified')) { children[i].classList.toggle('packed'); } })
     }
 };
 
@@ -73,9 +69,7 @@ const saveSTVItems = (tripCity, tripDates) => {
 
         // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') {
-                allItemsContainer.children[i].remove();
-            }
+            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
         }
 
         if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
@@ -122,7 +116,6 @@ const saveSTVItems = (tripCity, tripDates) => {
 
                     if (flag === 'todo') { newItem.listType = 'todo'; }
                     else if (flag === 'packing') { newItem.listType = 'packing'; }
-
                     itemsArr.push(newItem);
                 }
             }
