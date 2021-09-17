@@ -90,7 +90,8 @@ const appendNewItems = (event, toggle, editBtn, deleteBtn) => {
     event.target.parentElement.children[0].value = '';
 
     // Toggles each item category open/closed
-    categoryLabel.addEventListener('click', function (event) {
+    let toggleItemsLabel = categoryLabel.firstChild;
+    toggleItemsLabel.addEventListener('click', function (event) {
         Array.from(event.target.parentElement.children).forEach(function (item) {
             if (item.classList[0] === 'new-items-row') {
                 if (item.style.display === 'none') { item.style.display = 'flex'; }
