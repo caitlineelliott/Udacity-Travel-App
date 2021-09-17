@@ -30,10 +30,7 @@ const port = 3000;
 
 // Spin up the server & Callback to debug
 app.listen(port, serverRunning)
-
-function serverRunning() {
-    console.log('app is listening')
-};
+function serverRunning() { console.log('app is listening') };
 
 // Initialize all route with a callback function
 // Callback function to complete GET '/all'
@@ -52,7 +49,6 @@ app.get('/api/unsaved', getUnsavedTrip);
 // Post Route
 const addTripData = (req, res) => {
     const newData = req.body;
-
     let projectData = {};
 
     projectData.city = newData.city;
@@ -65,7 +61,7 @@ const addTripData = (req, res) => {
     projectData.weather = newData.weather;
 
     userTripData.push(projectData);
-    //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+    //Lines 65-73 adapted from: https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
     const compareData = (a, b) => {
         const tripA = a.departure;
         const tripB = b.departure;
@@ -113,6 +109,7 @@ const changeTripDates = async (req, res) => {
     let newData = req.body;
 
     // need to sort when changing dates
+    // Lines 113-120 adapted from: https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
     const compareData = (a, b) => {
         const tripA = a.departure;
         const tripB = b.departure;
@@ -142,9 +139,7 @@ const changeTripDates = async (req, res) => {
             for (let i = 0; i < forecast.length; i++) {
                 if (forecast[i].datetime.length > 10) {
                     dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)}T04:00:00.000Z`)
-                } else {
-                    dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`);
-                }
+                } else { dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`); }
             }
 
             let newWeather = [];
@@ -152,13 +147,15 @@ const changeTripDates = async (req, res) => {
             today.setHours(0, 0, 0, 0)
 
             for (let i = 0; i < dates.length; i++) {
+                // if using forecast api
                 if (dates[i] >= newDepart && dates[i] <= newReturn) {
                     let tripDayData = {};
                     tripDayData.date = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
                     tripDayData.weatherIcon = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
                     tripDayData.weather = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
                     newWeather.push(tripDayData);
-                } else if (forecast[i].app_temp) {
+                } // if using current weather api
+                else if (forecast[i].app_temp) {
                     let currentWeather = {};
                     currentWeather.date = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
                     currentWeather.weatherIcon = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
@@ -172,8 +169,7 @@ const changeTripDates = async (req, res) => {
     }
 };
 
-// GET ROUTE
-
+// GET ROUTES
 // Jest Test
 app.get('/jest', async (req, res) => {
     res.json({ msg: 'passed' })
@@ -225,7 +221,7 @@ const getAPIData = async (req, res) => {
     apiData.tripNightsCount = tripNightsCount;
     apiData.tripDaysUntil = tripDaysUntil;
 
-    unsavedTripData.push(apiData)
+    unsavedTripData.push(apiData);
     res.send(unsavedTripData);
 }
 
@@ -277,10 +273,10 @@ const getWeatherBit = async (lat, lng, departDate, today) => {
         let depart = new Date(departDate)
 
         if (depart > currentDate) { // forecast
-            let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=${process.env.WEATHERBIT_KEY}&lat=${lat}&lon=${lng}&units=I`);
             return await request.json();
         } else { // current weather
-            let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
+            let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=${process.env.WEATHERBIT_KEY}&lat=${lat}&lon=${lng}&units=I`);
             return await request.json();
         }
     }
@@ -289,7 +285,7 @@ const getWeatherBit = async (lat, lng, departDate, today) => {
 
 async function getHeaderPhoto(userCity) {
     try {
-        const request = await fetch(`https://pixabay.com/api/?key=16153283-467e1a7d2957b8817b31c679d&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
+        const request = await fetch(`https://pixabay.com/api/?key=${process.env.PIXABAY_KEY}&q=${userCity}&image_type=photo&pretty=true&category=places&orientation=horizontal`);
         return await request.json();
     }
     catch (e) { console.log('FAILED TO FETCH GEONAMES API DATA:', e); }

@@ -638,7 +638,6 @@ const removeItems = (event) => {
 };
 
 const toggleItems = (event) => {
-    console.log(event.target)
     event.target.parentElement.classList.add('modified');
     event.target.parentElement.classList.toggle('packed');
 };
@@ -973,8 +972,8 @@ const viewNewTrip = async (newTrip) => {
     let tripDaysCount = [];
     let tripWeatherArr = [];
     let weatherContainer = document.querySelector('.weather');
-    let departDate = new Date(newTrip[0].departDate)
-    let returnDate = new Date(newTrip[0].returnDate)
+    let departDate = new Date(newTrip[0].departDate);
+    let returnDate = new Date(newTrip[0].returnDate);
 
     for (let i = 0; i < dates.length; i++) {
         if (newTrip[0].whichWeather !== null) {

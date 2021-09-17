@@ -83,7 +83,6 @@ const removeItems = (event) => {
 };
 
 const toggleItems = (event) => {
-    console.log(event.target)
     event.target.parentElement.classList.add('modified');
     event.target.parentElement.classList.toggle('packed');
 };
