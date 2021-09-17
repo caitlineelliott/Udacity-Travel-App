@@ -55,6 +55,7 @@ const updateTripDates = async (item) => {
 
     setTimeout(displayNewTrips, 1000);
     await postData('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
+    console.log('finished') // doesn't reach here
 };
 
 // display new trips

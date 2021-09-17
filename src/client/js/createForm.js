@@ -45,26 +45,23 @@ const createForm = (tripCity, tripDates, packingListContainer, todoListContainer
 };
 
 const discardSTVItems = (event) => {
-    console.log(event.target)
     let allItemsContainer = event.target.parentElement.parentElement;
-
-    console.log(allItemsContainer)
-
-    if (allItemsContainer.style.display === 'block') {
-        allItemsContainer.style.display = 'none';
-    }
+    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;
     for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
     let children = allItemsContainer.children;
+
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
         let iterator = classes.entries();
-        for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
+        console.log(classes)
+        for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
+        // we remove 'modified' on save so if a toggle is chagned + discarded after save it can't be targeted
     }
 };
 
@@ -75,7 +72,9 @@ const saveSTVItems = (tripCity, tripDates) => {
 
         // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
+            while (allItemsContainer.children[i].style.display === 'none') {
+                allItemsContainer.children[i].remove();
+            }
         }
 
         if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
@@ -89,10 +88,11 @@ const saveSTVItems = (tripCity, tripDates) => {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
             let iterator = classes.entries();
-            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
+            for (let value of iterator) { if (value[i] === 'modified') { allItems[i].classList.remove('modified'); } }
 
             // if no list items
-            if (allItems.length < 3) {
+            console.log(allItems.length)
+            if (allItems.length < 4) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.classList[0];
                 newItem.item = null;
@@ -109,15 +109,15 @@ const saveSTVItems = (tripCity, tripDates) => {
                     newItem.item = allItems[i].children[1].value;
                     newItem.category = allItems[i].children[2].innerText;
 
-                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
-                    // iterates through classes to find packed flag and toggle
                     let classes = allItems[i].classList;
-                    let iterator = classes.entries();
-
-                    for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem.toggle = true; }
-                        else { newItem.toggle = false; }
-                    }
+                    classes.forEach(
+                        function (value) {
+                            if (value.includes('packed')) {
+                                console.log('yes');
+                                newItem.toggle = true;
+                            } else { newItem.toggle = false; }
+                        }
+                    )
 
                     if (flag === 'todo') { newItem.listType = 'todo'; }
                     else if (flag === 'packing') { newItem.listType = 'packing'; }

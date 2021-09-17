@@ -605,10 +605,6 @@ button > * {
       .new-trip-container .weather .forecast-row .forecast-date,
       .new-trip-container .weather .forecast-row .forecast-temp {
         font-size: 1.25vw; }
-      .new-trip-container .weather .forecast-row .forecast-date {
-        width: 8vw; }
-      .new-trip-container .weather .forecast-row .forecast-temp {
-        width: 15vw; }
       .new-trip-container .weather .forecast-row .forecast-icon {
         width: 3vw; }
       .new-trip-container .weather .more-days,

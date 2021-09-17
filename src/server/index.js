@@ -135,24 +135,37 @@ const changeTripDates = async (req, res) => {
 
             let tripCity = newData.city;
             const geonamesInfo = await getGeonames(tripCity, process.env.API_ID);
-            let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng);
+            let weatherInfo = await getWeatherBit(geonamesInfo.geonames[0].lat, geonamesInfo.geonames[0].lng, newDepart, undefined);
 
             let forecast = weatherInfo.data;
             let dates = [];
-            for (let i = 0; i < forecast.length; i++) { dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`); }
+            for (let i = 0; i < forecast.length; i++) {
+                if (forecast[i].datetime.length > 10) {
+                    dates[i] = new Date(`${forecast[i].datetime.substring(0, 10)}T04:00:00.000Z`)
+                } else {
+                    dates[i] = new Date(`${forecast[i].datetime}T04:00:00.000Z`);
+                }
+            }
 
             let newWeather = [];
+            let today = new Date();
+            today.setHours(0, 0, 0, 0)
+
             for (let i = 0; i < dates.length; i++) {
                 if (dates[i] >= newDepart && dates[i] <= newReturn) {
                     let tripDayData = {};
                     tripDayData.date = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
                     tripDayData.weatherIcon = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
                     tripDayData.weather = `${forecast[i].high_temp}°F / ${forecast[i].low_temp}°F`;
-
                     newWeather.push(tripDayData);
+                } else if (forecast[i].app_temp) {
+                    let currentWeather = {};
+                    currentWeather.date = `${dates[i].getMonth() + 1}/${dates[i].toString().slice(8, 10)}`;
+                    currentWeather.weatherIcon = `https://www.weatherbit.io/static/img/icons/${forecast[i].weather.icon}.png`;
+                    currentWeather.weather = `${forecast[i].app_temp}°F`;
+                    newWeather.push(currentWeather);
                 }
             }
-
             userTripData[i].weather = newWeather;
             userTripData.sort(compareData);
         }
@@ -194,8 +207,8 @@ const getAPIData = async (req, res) => {
 
     let textDepart = `${monthNames[departDate.getMonth()]} ${departDate.getDate()}, ${departDate.getFullYear()}`;
     let textReturn = `${monthNames[returnDate.getMonth()]} ${returnDate.getDate()}, ${returnDate.getFullYear()}`;
-    let tripDaysCount = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1} days`;
-    let tripNightsCount = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24} days`;
+    let tripDaysCount = (((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) + 1) === 1) ? `1 day` : `${Math.round((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)) + 1} days`;
+    let tripNightsCount = ((((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24) === 1) ? `1 night` : `${Math.round(((((returnDate.getTime() - departDate.getTime()) / 1000) / 60) / 60) / 24)} days`;
     let tripDaysUntil = (parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1) === 1) ? `1 day` : `${parseInt(((departDate - currentDate) / 1000 / 60 / 60 / 24) + 1)} days`;
 
     apiData.userCity = userCity;
@@ -252,14 +265,21 @@ const getGeonames = async (placename, username) => {
 
 const getWeatherBit = async (lat, lng, departDate, today) => {
     try {
-        let currentDate = new Date(today.setDate(today.getDate() + 7));
-        let depart = new Date(departDate)
-        currentDate.setHours(0, 0, 0, 0)
+        let currentDate = new Date();
 
-        if (depart > currentDate) {
+        if (today === undefined) {
+            let newDate = new Date();
+            currentDate = new Date(newDate.setDate(newDate.getDate() + 7));
+        } else {
+            currentDate = new Date(today.setDate(today.getDate() + 7));
+        }
+        currentDate.setHours(0, 0, 0, 0)
+        let depart = new Date(departDate)
+
+        if (depart > currentDate) { // forecast
             let request = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
             return await request.json();
-        } else {
+        } else { // current weather
             let request = await fetch(`http://api.weatherbit.io/v2.0/current/daily?&key=9723bbea9d1b4001877f42ad8068f478&lat=${lat}&lon=${lng}&units=I`);
             return await request.json();
         }

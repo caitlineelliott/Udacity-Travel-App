@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 const displayTrip = (tripData) => {
+    console.log(tripData)
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
     else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -134,6 +135,7 @@ const displayTrip = (tripData) => {
             // WEATHER
             let weatherData = tripData[i].weather;
             let tripEnd = new Date(tripData[i].arrival);
+            console.log(weatherData, tripEnd) // empty array
 
             // remove old weather before trip date change
             if (weatherContainer.children.length > 0) { weatherContainer.children.remove(); }

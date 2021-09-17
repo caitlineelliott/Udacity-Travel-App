@@ -95,16 +95,22 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
-/* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
-/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
-/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
-/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
-/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
-/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
-/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+/* harmony import */ var _js_appendItems__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/appendItems */ "./src/client/js/appendItems.js");
+/* harmony import */ var _js_createForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/createForm */ "./src/client/js/createForm.js");
+/* harmony import */ var _js_displayWeather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/displayWeather */ "./src/client/js/displayWeather.js");
+/* harmony import */ var _js_handleSubmit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/handleSubmit */ "./src/client/js/handleSubmit.js");
+/* harmony import */ var _js_modifyItems__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/modifyItems */ "./src/client/js/modifyItems.js");
+/* harmony import */ var _js_savedTripsView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/savedTripsView */ "./src/client/js/savedTripsView.js");
+/* harmony import */ var _js_serverRequests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/serverRequests */ "./src/client/js/serverRequests.js");
+/* harmony import */ var _js_viewNewTrip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/viewNewTrip */ "./src/client/js/viewNewTrip.js");
+/* harmony import */ var _styles_base_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./styles/base.scss */ "./src/client/styles/base.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/header.scss */ "./src/client/styles/header.scss");
+/* harmony import */ var _styles_trip_form_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/trip-form.scss */ "./src/client/styles/trip-form.scss");
+/* harmony import */ var _styles_new_trip_view_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./styles/new-trip-view.scss */ "./src/client/styles/new-trip-view.scss");
+/* harmony import */ var _styles_saved_trips_view_scss__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./styles/saved-trips-view.scss */ "./src/client/styles/saved-trips-view.scss");
+
+
+
 
 
 
@@ -318,26 +324,23 @@ const createForm = (tripCity, tripDates, packingListContainer, todoListContainer
 };
 
 const discardSTVItems = (event) => {
-    console.log(event.target)
     let allItemsContainer = event.target.parentElement.parentElement;
-
-    console.log(allItemsContainer)
-
-    if (allItemsContainer.style.display === 'block') {
-        allItemsContainer.style.display = 'none';
-    }
+    if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
 
     // return hidden trips
     let trips = document.querySelector('.saved-trips').children;
     for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
     let children = allItemsContainer.children;
+
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
         let iterator = classes.entries();
-        for (let value of iterator) { if (value[1] === 'modified') { children[i].classList.toggle('packed'); } }
+        console.log(classes)
+        for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
+        // we remove 'modified' on save so if a toggle is chagned + discarded after save it can't be targeted
     }
 };
 
@@ -348,7 +351,9 @@ const saveSTVItems = (tripCity, tripDates) => {
 
         // delete items staged for removal
         for (let i = 0; i < allItems.length; i++) {
-            while (allItemsContainer.children[i].style.display === 'none') { allItemsContainer.children[i].remove(); }
+            while (allItemsContainer.children[i].style.display === 'none') {
+                allItemsContainer.children[i].remove();
+            }
         }
 
         if (allItemsContainer.style.display === 'block') { allItemsContainer.style.display = 'none'; }
@@ -362,10 +367,11 @@ const saveSTVItems = (tripCity, tripDates) => {
             // removed modified designation from STV view
             let classes = allItems[i].classList;
             let iterator = classes.entries();
-            for (let value of iterator) { if (value[1] === 'modified') { allItems[i].classList.remove('modified'); } }
+            for (let value of iterator) { if (value[i] === 'modified') { allItems[i].classList.remove('modified'); } }
 
             // if no list items
-            if (allItems.length < 3) {
+            console.log(allItems.length)
+            if (allItems.length < 4) {
                 let newItem = {};
                 let flag = event.target.parentElement.parentElement.classList[0];
                 newItem.item = null;
@@ -385,18 +391,23 @@ const saveSTVItems = (tripCity, tripDates) => {
                     // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
                     // iterates through classes to find packed flag and toggle
                     let classes = allItems[i].classList;
-                    let iterator = classes.entries();
+                    let iterator = classes.values();
 
-                    for (let value of iterator) {
-                        if (value[1] === 'packed') { newItem.toggle = true; }
-                        else { newItem.toggle = false; }
-                    }
+                    classes.forEach(
+                        function (value) {
+                            if (value.includes('packed')) {
+                                console.log('yes');
+                                newItem.toggle = true;
+                            } else { newItem.toggle = false; }
+                        }
+                    )
 
                     if (flag === 'todo') { newItem.listType = 'todo'; }
                     else if (flag === 'packing') { newItem.listType = 'packing'; }
 
                     itemsArr.push(newItem);
                 }
+                console.log(itemsArr)
             }
         }
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });
@@ -530,6 +541,8 @@ document.addEventListener('DOMContentLoaded', function () {
 const generate = async (event) => {
     event.preventDefault();
 
+    console.log('TESTING')
+
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
@@ -574,7 +587,7 @@ const editItems = (event) => {
     } else if (event.target.classList.contains('edit-trip')) {
         let item = event.target.parentElement.parentElement.firstChild;
         item.style = 'box-sizing: border-box; padding: 10px 0 0 5px; color: black; height: 5.7vh';
-        saveBtn.style = 'padding: 0; height: 8vh; font-size: 1.25vw; color: black; margin: 0';
+        saveBtn.style = 'padding: 0; height: 5.7vh; font-size: 4vw; color: black; margin: 0';
         modifyEditedItems(item, saveBtn, editBtn);
     } else if (event.target.classList.contains('edit-items-stv')) {
         let item = event.target.parentElement.children[1];
@@ -616,6 +629,7 @@ const updateTripDates = async (item) => {
 
     setTimeout(displayNewTrips, 1000);
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
+    console.log('finished') // doesn't reach here
 };
 
 // display new trips
@@ -696,6 +710,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 const displayTrip = (tripData) => {
+    console.log(tripData)
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
     else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -805,6 +820,7 @@ const displayTrip = (tripData) => {
             // WEATHER
             let weatherData = tripData[i].weather;
             let tripEnd = new Date(tripData[i].arrival);
+            console.log(weatherData, tripEnd) // empty array
 
             // remove old weather before trip date change
             if (weatherContainer.children.length > 0) { weatherContainer.children.remove(); }

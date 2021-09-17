@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
 const generate = async (event) => {
     event.preventDefault();
 
+    console.log('TESTING')
+
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
