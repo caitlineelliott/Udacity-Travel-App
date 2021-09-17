@@ -112,8 +112,6 @@ const addListData = (req, res) => {
 const changeTripDates = async (req, res) => {
     let newData = req.body;
 
-    console.log(newData)
-
     // need to sort when changing dates
     const compareData = (a, b) => {
         const tripA = a.departure;
@@ -124,9 +122,8 @@ const changeTripDates = async (req, res) => {
         return comparison;
     };
 
+    // finds correct trip and changes dates
     for (let i = 0; i < userTripData.length; i++) {
-        console.log(newData.weatherTest)
-        // change trip dates - on initial request
         if (newData.weatherTest === undefined || newData.weatherTest == userTripData[i].weather[0].weather) {
             userTripData[i].displayDepart = newData.depart;
             userTripData[i].displayReturn = newData.return;

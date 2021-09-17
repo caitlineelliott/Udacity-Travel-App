@@ -1,8 +1,6 @@
-import { viewNewTrip } from './viewNewTrip';
-import { getUserData, postData, getUnsavedTrip } from './serverRequests';
-import { displayLongForecast } from './displayWeather';
+import { postData, getUnsavedTrip } from './serverRequests';
 
-// Lines 5-12 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
+// Lines 6-13 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1;
@@ -26,8 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
 // Generate trip data
 const generate = async (event) => {
     event.preventDefault();
-
-    console.log('TESTING')
 
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;

@@ -13,7 +13,8 @@ const appendItems = (itemRow, item, category) => {
     deleteBtn.addEventListener('click', removeItems);
     toggle.addEventListener('click', toggleItems);
 
-    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
+    // in savedTripsView
+    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); }
 
     return function (event) {
         event.preventDefault();
@@ -30,7 +31,8 @@ const appendItems = (itemRow, item, category) => {
         deleteBtn.addEventListener('click', removeItems);
         toggle.addEventListener('click', toggleItems);
 
-        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
+        // in newTripView
+        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); }
     };
 };
 

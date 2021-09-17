@@ -52,8 +52,8 @@ const discardSTVItems = (event) => {
     let trips = document.querySelector('.saved-trips').children;
     for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
+    // discard modifications to items
     let children = allItemsContainer.children;
-
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
@@ -85,7 +85,7 @@ const saveSTVItems = (tripCity, tripDates) => {
             let iterator = classes.entries();
             for (let value of iterator) { if (value[i] === 'modified') { allItems[i].classList.remove('modified'); } }
 
-            // if no list items
+            // if no items in list
             console.log(allItems.length)
             if (allItems.length < 4) {
                 let newItem = {};
@@ -96,7 +96,7 @@ const saveSTVItems = (tripCity, tripDates) => {
                 else if (flag === 'packing-list') { newItem.listType = 'packing'; }
                 itemsArr.push(newItem);
             }
-            // if yes list items
+            // if items in list
             else {
                 if (allItems[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {};
@@ -108,7 +108,6 @@ const saveSTVItems = (tripCity, tripDates) => {
                     classes.forEach(
                         function (value) {
                             if (value.includes('packed')) {
-                                console.log('yes');
                                 newItem.toggle = true;
                             } else { newItem.toggle = false; }
                         }

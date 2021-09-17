@@ -45,7 +45,6 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
 const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
-    console.log(typeof returnDate, typeof lastDay)
 
     if (departDate > lastDay) {
         longForecast.classList.add('long-forecast');
@@ -58,10 +57,7 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
     weatherContainer.appendChild(longForecast);
 
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 10px;"; }
-    if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
-        console.log(weatherContainer)
-        weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
-    }
+    if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') { weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto'; }
 };
 
 export { displayWeather, displayLongForecast };
