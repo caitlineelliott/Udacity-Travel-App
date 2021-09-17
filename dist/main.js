@@ -617,9 +617,10 @@ const updateTripDates = async (item) => {
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
 
+    console.log(newTripDates)
+
     setTimeout(displayNewTrips, 1000);
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
-    console.log('finished') // doesn't reach here
 };
 
 // display new trips
