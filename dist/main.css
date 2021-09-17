@@ -405,12 +405,6 @@ button > * {
   button {
     width: 45vw; } }
 
-.select-categories:hover {
-  cursor: pointer; }
-
-.category-group {
-  margin-bottom: 10px; }
-
 .new-trip-container {
   display: none;
   padding-top: 20px;
@@ -492,28 +486,34 @@ button > * {
       .new-trip-container .todo-list-container .add-item-form button {
         opacity: 0.5;
         width: 15vw; }
-    .new-trip-container .packing-list-container .select-categories,
-    .new-trip-container .todo-list-container .select-categories {
-      width: 90vw;
-      margin: 0 auto 20px auto; }
-      .new-trip-container .packing-list-container .select-categories .new-items-row,
-      .new-trip-container .todo-list-container .select-categories .new-items-row {
-        margin: 10px auto; }
-        .new-trip-container .packing-list-container .select-categories .new-items-row textarea,
-        .new-trip-container .todo-list-container .select-categories .new-items-row textarea {
-          width: 70vw;
-          height: 5.7vh;
-          background-color: #83A8A6;
-          color: black;
-          font-family: "montserrat", sans-serif;
-          border: none;
-          box-sizing: border-box;
-          padding: 15px 0 0 10px; }
-        .new-trip-container .packing-list-container .select-categories .new-items-row button,
-        .new-trip-container .todo-list-container .select-categories .new-items-row button {
-          width: 12vw;
-          margin: 0;
-          opacity: 0.8; }
+    .new-trip-container .packing-list-container .category-group,
+    .new-trip-container .todo-list-container .category-group {
+      margin-bottom: 10px; }
+      .new-trip-container .packing-list-container .category-group .select-categories,
+      .new-trip-container .todo-list-container .category-group .select-categories {
+        width: 90vw;
+        margin: 0 auto 20px auto; }
+        .new-trip-container .packing-list-container .category-group .select-categories .new-items-row,
+        .new-trip-container .todo-list-container .category-group .select-categories .new-items-row {
+          margin: 10px auto; }
+          .new-trip-container .packing-list-container .category-group .select-categories .new-items-row textarea,
+          .new-trip-container .todo-list-container .category-group .select-categories .new-items-row textarea {
+            width: 70vw;
+            height: 5.7vh;
+            background-color: #83A8A6;
+            color: black;
+            font-family: "montserrat", sans-serif;
+            border: none;
+            box-sizing: border-box;
+            padding: 15px 0 0 10px; }
+          .new-trip-container .packing-list-container .category-group .select-categories .new-items-row button,
+          .new-trip-container .todo-list-container .category-group .select-categories .new-items-row button {
+            width: 12vw;
+            margin: 0;
+            opacity: 0.8; }
+      .new-trip-container .packing-list-container .category-group .select-categories:hover,
+      .new-trip-container .todo-list-container .category-group .select-categories:hover {
+        cursor: pointer; }
   .new-trip-container .todo-list-container {
     background-color: #197278; }
     .new-trip-container .todo-list-container .todo-list-btn-container .select-categories .new-items-row textarea {
@@ -632,8 +632,8 @@ button > * {
       .new-trip-container .packing-list-container .add-item-form button,
       .new-trip-container .todo-list-container .add-item-form button {
         width: 5vw; }
-      .new-trip-container .packing-list-container .select-categories,
-      .new-trip-container .todo-list-container .select-categories {
+      .new-trip-container .packing-list-container .category-group .select-categories,
+      .new-trip-container .todo-list-container .category-group .select-categories {
         width: 40vw; }
       .new-trip-container .packing-list-container .new-items-row,
       .new-trip-container .todo-list-container .new-items-row {
@@ -721,34 +721,6 @@ button > * {
   button {
     width: 45vw; } }
 
-.stv-item,
-.stv-category {
-  width: 30vw;
-  font-size: 0.9em; }
-
-.edit-items-stv,
-.delete-items-stv,
-.toggle {
-  width: 15vw;
-  font-size: 1em;
-  background: transparent; }
-
-.editing-item-active {
-  box-sizing: border-box;
-  height: 5vh;
-  color: white;
-  background-color: #c44536; }
-
-.save-btn-stv {
-  height: 5vh; }
-
-.save-trip-stv {
-  padding: 0;
-  height: 5.7vh;
-  font-size: 4vw;
-  color: black;
-  margin: 0; }
-
 .saved-trips .new-items-row {
   height: 7vh;
   font-size: 0.9em;
@@ -776,6 +748,12 @@ button > * {
     color: black;
     margin: 0;
     background-color: #c44536; }
+  .saved-trips .new-items-row .save-trip-stv {
+    padding: 0;
+    height: 5.7vh;
+    font-size: 4vw;
+    color: black;
+    margin: 0; }
   .saved-trips .new-items-row .trip-city {
     width: 33%;
     text-align: center; }
@@ -813,6 +791,24 @@ button > * {
   .saved-trips .packing-list .saved-trip-packing-list *,
   .saved-trips .todo-list .saved-trip-packing-list * {
     text-align: center; }
+  .saved-trips .packing-list .saved-trip-packing-list .edit-items-stv,
+  .saved-trips .packing-list .saved-trip-packing-list .delete-items-stv,
+  .saved-trips .packing-list .saved-trip-packing-list .toggle,
+  .saved-trips .todo-list .saved-trip-packing-list .edit-items-stv,
+  .saved-trips .todo-list .saved-trip-packing-list .delete-items-stv,
+  .saved-trips .todo-list .saved-trip-packing-list .toggle {
+    width: 15vw;
+    font-size: 1em;
+    background: transparent; }
+  .saved-trips .packing-list .saved-trip-packing-list .editing-item-active,
+  .saved-trips .todo-list .saved-trip-packing-list .editing-item-active {
+    box-sizing: border-box;
+    height: 5vh;
+    color: white;
+    background-color: #c44536; }
+  .saved-trips .packing-list .saved-trip-packing-list .save-btn-stv,
+  .saved-trips .todo-list .saved-trip-packing-list .save-btn-stv {
+    height: 5vh; }
 
 .saved-trips .packing-list p,
 .saved-trips .todo-list p {
@@ -899,6 +895,8 @@ button > * {
     font-size: 2.5vw; }
     .saved-trips .new-items-row .editing-trip-dates {
       padding: 20px 0 0 0; }
+    .saved-trips .new-items-row .save-trip-stv {
+      font-size: 2.25vw; }
     .saved-trips .packing-list,
     .saved-trips .todo-list {
       font-size: 3vw; }
@@ -932,9 +930,7 @@ button > * {
         width: 45vw;
         margin: 0 auto; }
       .saved-trips .weather .long-forecast {
-        font-size: 2.5vw; }
-  .save-btn {
-    font-size: 2.25vw; } }
+        font-size: 2.5vw; } }
 
 /* DESKTOP */
 @media only screen and (min-width: 1024px) {
@@ -965,7 +961,7 @@ button > * {
       .saved-trips .new-items-row .save-trip-stv {
         padding: 0;
         height: 8vh;
-        font-size: 1.25vw;
+        font-size: 2.25vw;
         color: black;
         margin: 0; }
       .saved-trips .new-items-row .editing-trip-dates {
@@ -1022,6 +1018,21 @@ button > * {
         .saved-trips .todo-list .saved-trip-packing-list .save-btn-stv {
           font-size: 1.25vw;
           height: 7vh; }
+        .saved-trips .packing-list .saved-trip-packing-list .stv-item,
+        .saved-trips .packing-list .saved-trip-packing-list .stv-category,
+        .saved-trips .todo-list .saved-trip-packing-list .stv-item,
+        .saved-trips .todo-list .saved-trip-packing-list .stv-category {
+          width: 13.5vw;
+          font-size: 0.9em; }
+        .saved-trips .packing-list .saved-trip-packing-list .edit-items-stv,
+        .saved-trips .packing-list .saved-trip-packing-list .delete-items-stv,
+        .saved-trips .packing-list .saved-trip-packing-list .toggle,
+        .saved-trips .todo-list .saved-trip-packing-list .edit-items-stv,
+        .saved-trips .todo-list .saved-trip-packing-list .delete-items-stv,
+        .saved-trips .todo-list .saved-trip-packing-list .toggle {
+          width: 6vw;
+          font-size: 1em;
+          background: transparent; }
     .saved-trips .weather {
       width: 50vw;
       padding-top: 10px; }

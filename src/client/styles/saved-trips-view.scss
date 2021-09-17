@@ -1,41 +1,5 @@
 @import 'base.scss';
 
-// move in hierarchy later
-.stv-item,
-.stv-category {
-    width: 30vw;
-    font-size: 0.9em;
-}
-
-.edit-items-stv,
-.delete-items-stv,
-.toggle {
-    width: 15vw;
-    font-size: 1em;
-    background: transparent;
-}
-
-
-.editing-item-active {
-    box-sizing: border-box; 
-    height: 5vh; 
-    color: white;
-    background-color: #c44536;
-}
-
-.save-btn-stv {
-    height: 5vh;
-}
-
-.save-trip-stv {
-    padding: 0; 
-    height: 5.7vh; 
-    font-size: 4vw; 
-    color: black;
-    margin: 0;
-}
-///
-
 .saved-trips {
     .new-items-row {
         height: 7vh;
@@ -62,11 +26,19 @@
         }
 
         .editing-trip-dates {
-            padding: 5px; 
-            height: 5.7vh; 
+            padding: 5px;
+            height: 5.7vh;
             color: black;
             margin: 0;
             background-color: #c44536;
+        }
+
+        .save-trip-stv {
+            padding: 0;
+            height: 5.7vh;
+            font-size: 4vw;
+            color: black;
+            margin: 0;
         }
 
         .trip-city {
@@ -115,6 +87,25 @@
 
             * {
                 text-align: center;
+            }
+
+            .edit-items-stv,
+            .delete-items-stv,
+            .toggle {
+                width: 15vw;
+                font-size: 1em;
+                background: transparent;
+            }
+
+            .editing-item-active {
+                box-sizing: border-box;
+                height: 5vh;
+                color: white;
+                background-color: #c44536;
+            }
+
+            .save-btn-stv {
+                height: 5vh;
             }
         }
 
@@ -231,7 +222,11 @@
 
         .new-items-row {
             .editing-trip-dates {
-                padding: 20px 0 0 0; 
+                padding: 20px 0 0 0;
+            }
+
+            .save-trip-stv {
+                font-size: 2.25vw;
             }
         }
         .packing-list,
@@ -251,8 +246,8 @@
                 height: 7vh;
 
                 .editing-item-active {
-                    box-sizing: border-box; 
-                    height: 7vh; 
+                    box-sizing: border-box;
+                    height: 7vh;
                     color: white;
                     background-color: #c44536;
                     padding: 22px 0 0 0;
@@ -280,11 +275,6 @@
             }
         }
     }
-
-    .save-btn {
-        font-size: 2.25vw;
-    }
-
 }
 
 /* DESKTOP */
@@ -297,7 +287,7 @@
         width: 50vw;
         padding: 0;
 
-        button, 
+        button,
         #view-saved-trips {
             width: 25vw;
             font-size: 1vw;
@@ -319,9 +309,9 @@
             }
 
             .save-trip-stv {
-                padding: 0; 
-                height: 8vh; 
-                font-size: 1.25vw; 
+                padding: 0;
+                height: 8vh;
+                font-size: 2.25vw;
                 color: black;
                 margin: 0;
             }
@@ -340,7 +330,7 @@
             }
 
             .add-item-form {
-                input, 
+                input,
                 select,
                 button {
                     font-size: 1.1vw;
@@ -349,17 +339,17 @@
                 input {
                     width: 25vw;
                 }
-    
+
                 select {
                     width: 20vw;
                 }
-    
+
                 button {
                     width: 5vw;
                 }
             }
 
-            .save-trip-btn, 
+            .save-trip-btn,
             .discard-trip-btn {
                 width: 25vw;
                 font-size: 1.1vw;
@@ -371,7 +361,7 @@
                     width: 5vw
                 }
 
-                textarea, 
+                textarea,
                 .stv-category {
                     width: 15vw;
                 }
@@ -386,10 +376,24 @@
                     height: 7vh;
                     padding: 15px;
                 }
-    
+
                 .save-btn-stv {
                     font-size: 1.25vw;
                     height: 7vh;
+                }
+
+                .stv-item,
+                .stv-category {
+                    width: 13.5vw;
+                    font-size: 0.9em;
+                }
+
+                .edit-items-stv,
+                .delete-items-stv,
+                .toggle {
+                    width: 6vw;
+                    font-size: 1em;
+                    background: transparent;
                 }
             }
         }

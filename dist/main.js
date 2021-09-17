@@ -153,7 +153,8 @@ const appendItems = (itemRow, item, category) => {
     deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
     toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
-    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); } // stv
+    // in savedTripsView
+    if (itemRow !== null) { appendExistingItems(itemRow, item, category, toggle, editBtn, deleteBtn); }
 
     return function (event) {
         event.preventDefault();
@@ -170,7 +171,8 @@ const appendItems = (itemRow, item, category) => {
         deleteBtn.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["removeItems"]);
         toggle.addEventListener('click', _modifyItems__WEBPACK_IMPORTED_MODULE_0__["toggleItems"]);
 
-        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); } // ntv
+        // in newTripView
+        if (itemRow === null) { appendNewItems(event, toggle, editBtn, deleteBtn); }
     };
 };
 
@@ -332,8 +334,8 @@ const discardSTVItems = (event) => {
     let trips = document.querySelector('.saved-trips').children;
     for (let i = 0; i < trips.length; i++) { trips[i].style = 'display: block;'; }
 
+    // discard modifications to items
     let children = allItemsContainer.children;
-
     for (let i = 0; i < children.length; i++) {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
@@ -365,7 +367,7 @@ const saveSTVItems = (tripCity, tripDates) => {
             let iterator = classes.entries();
             for (let value of iterator) { if (value[i] === 'modified') { allItems[i].classList.remove('modified'); } }
 
-            // if no list items
+            // if no items in list
             console.log(allItems.length)
             if (allItems.length < 4) {
                 let newItem = {};
@@ -376,7 +378,7 @@ const saveSTVItems = (tripCity, tripDates) => {
                 else if (flag === 'packing-list') { newItem.listType = 'packing'; }
                 itemsArr.push(newItem);
             }
-            // if yes list items
+            // if items in list
             else {
                 if (allItems[i].classList[0] === 'saved-trip-packing-list') {
                     let newItem = {};
@@ -388,7 +390,6 @@ const saveSTVItems = (tripCity, tripDates) => {
                     classes.forEach(
                         function (value) {
                             if (value.includes('packed')) {
-                                console.log('yes');
                                 newItem.toggle = true;
                             } else { newItem.toggle = false; }
                         }
@@ -466,7 +467,6 @@ const displayWeather = (weatherContainer, newTripContainer, loopDates, loopForec
 
 const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripEnd, weatherContainer, tripDaysCount) => {
     let longForecast = document.createElement('div');
-    console.log(typeof returnDate, typeof lastDay)
 
     if (departDate > lastDay) {
         longForecast.classList.add('long-forecast');
@@ -479,10 +479,7 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
     weatherContainer.appendChild(longForecast);
 
     if (tripDaysCount.length < 6) { weatherContainer.style = "padding-bottom: 10px;"; }
-    if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') {
-        console.log(weatherContainer)
-        weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto';
-    }
+    if (weatherContainer.parentElement.parentElement.classList[0] === 'saved-trips') { weatherContainer.lastChild.style = 'padding: 20px; margin: 0 auto'; }
 };
 
 
@@ -499,14 +496,10 @@ const displayLongForecast = (departDate, returnDate, lastDay, weatherData, tripE
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generate", function() { return generate; });
-/* harmony import */ var _viewNewTrip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewNewTrip */ "./src/client/js/viewNewTrip.js");
-/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
-/* harmony import */ var _displayWeather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./displayWeather */ "./src/client/js/displayWeather.js");
+/* harmony import */ var _serverRequests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serverRequests */ "./src/client/js/serverRequests.js");
 
 
-
-
-// Lines 5-12 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
+// Lines 6-13 from StackOverflow: https://stackoverflow.com/questions/45529028/html-input-type-date-field-constraints
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1;
@@ -531,8 +524,6 @@ document.addEventListener('DOMContentLoaded', function () {
 const generate = async (event) => {
     event.preventDefault();
 
-    console.log('TESTING')
-
     const tripCity = document.querySelector('.user-city').value;
     const formDepart = document.querySelector('.depart-date').value;
     const formReturn = document.querySelector('.return-date').value;
@@ -541,8 +532,8 @@ const generate = async (event) => {
     const displayDepart = `${formDepart.slice(5, 7)}/${formDepart.slice(8, 10)}`;
     const displayReturn = `${formReturn.slice(5, 7)}/${formReturn.slice(8, 10)}`;
 
-    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/api', { city: tripCity, departDate: departDate, returnDate: returnDate, displayDepart: displayDepart, displayReturn: displayReturn });
-    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["getUnsavedTrip"])('/api/unsaved');
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/api', { city: tripCity, departDate: departDate, returnDate: returnDate, displayDepart: displayDepart, displayReturn: displayReturn });
+    await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["getUnsavedTrip"])('/api/unsaved');
 };
 
 
@@ -616,8 +607,6 @@ const updateTripDates = async (item) => {
     let newTripDates = item.value;
     let tripCity = item.parentElement.children[1].innerText;
     let tripWeatherTestData = item.parentElement.parentElement.lastChild.firstChild.lastChild.innerText;
-
-    console.log(newTripDates)
 
     setTimeout(displayNewTrips, 1000);
     await Object(_serverRequests__WEBPACK_IMPORTED_MODULE_0__["postData"])('/tripdates', { city: tripCity, depart: newTripDates.slice(0, 5), return: newTripDates.slice(8, 13), weatherTest: tripWeatherTestData, });
@@ -701,7 +690,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 const displayTrip = (tripData) => {
-    console.log(tripData)
     if (tripData.length === 0) { document.querySelector('.no-trips-container').style.display = 'flex'; }
     else if (tripData.length > 0) {
         let tripContainer = document.querySelector('.saved-trips');
@@ -811,7 +799,6 @@ const displayTrip = (tripData) => {
             // WEATHER
             let weatherData = tripData[i].weather;
             let tripEnd = new Date(tripData[i].arrival);
-            console.log(weatherData, tripEnd) // empty array
 
             // remove old weather before trip date change
             if (weatherContainer.children.length > 0) { weatherContainer.children.remove(); }
@@ -1077,7 +1064,7 @@ const viewNewTrip = async (newTrip) => {
     });
 };
 
-// Lines 113-117 modified from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+// Lines 126-130 modified from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomNum = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);

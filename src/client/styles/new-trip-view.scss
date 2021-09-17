@@ -1,15 +1,5 @@
 @import 'base.scss';
 
-///
-.select-categories:hover {
-    cursor: pointer;
-}
-
-.category-group {
-    margin-bottom: 10px;
-}
-///
-
 .new-trip-container {
     display: none;
     padding-top: 20px;
@@ -126,31 +116,39 @@
             }
         }
 
-        .select-categories {
-            width: 90vw;
-            margin: 0 auto 20px auto;
+        .category-group {
+            margin-bottom: 10px;
 
-            .new-items-row {
-                margin: 10px auto;
+            .select-categories {
+                width: 90vw;
+                margin: 0 auto 20px auto;
 
-                textarea {
-                    width: 70vw;
-                    height: 5.7vh;
-                    background-color: $h2-color-light;
-                    color: black;
-                    font-family: $plain-font;
-                    border: none;
-                    box-sizing: border-box;
-                    padding: 15px 0 0 10px;
-                }
+                .new-items-row {
+                    margin: 10px auto;
 
-                button {
-                    width: 12vw;
-                    margin: 0;
-                    opacity: 0.8;
+                    textarea {
+                        width: 70vw;
+                        height: 5.7vh;
+                        background-color: $h2-color-light;
+                        color: black;
+                        font-family: $plain-font;
+                        border: none;
+                        box-sizing: border-box;
+                        padding: 15px 0 0 10px;
+                    }
+
+                    button {
+                        width: 12vw;
+                        margin: 0;
+                        opacity: 0.8;
+                    }
                 }
             }
+
+            .select-categories:hover {
+                cursor: pointer;
             }
+        }
     }
 
     .todo-list-container {
@@ -340,8 +338,10 @@
                 }
             }
 
-            .select-categories {
-                width: 40vw;
+            .category-group {
+                .select-categories {
+                    width: 40vw;
+                }
             }
 
             .new-items-row {
@@ -362,10 +362,10 @@
             width: 49.4vw;
 
             .discard-trip-btn,
-        .save-trip-btn {
-            font-size: 1.2vw;
-            width: 50%;
-        }
+            .save-trip-btn {
+                font-size: 1.2vw;
+                width: 50%;
+            }
         }
     }
  }
