@@ -337,9 +337,16 @@ const discardSTVItems = (event) => {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
-        let iterator = classes.entries();
-        console.log(classes)
-        for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
+        classes.forEach(
+            function (value) {
+                if (value.includes('modified')) {
+                    console.log('yes');
+                    children[i].classList.toggle('packed');
+                }
+            }
+        )
+
+        // for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
         // we remove 'modified' on save so if a toggle is chagned + discarded after save it can't be targeted
     }
 };
@@ -388,11 +395,7 @@ const saveSTVItems = (tripCity, tripDates) => {
                     newItem.item = allItems[i].children[1].value;
                     newItem.category = allItems[i].children[2].innerText;
 
-                    // cite from MDN https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries
-                    // iterates through classes to find packed flag and toggle
                     let classes = allItems[i].classList;
-                    let iterator = classes.values();
-
                     classes.forEach(
                         function (value) {
                             if (value.includes('packed')) {
@@ -407,7 +410,6 @@ const saveSTVItems = (tripCity, tripDates) => {
 
                     itemsArr.push(newItem);
                 }
-                console.log(itemsArr)
             }
         }
         Object(_serverRequests__WEBPACK_IMPORTED_MODULE_1__["postData"])('/list', { city: tripCity.innerText, depart: tripDates.innerHTML.slice(0, 5), return: tripDates.innerHTML.slice(8, 13), list: itemsArr });

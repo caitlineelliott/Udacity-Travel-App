@@ -58,10 +58,11 @@ const discardSTVItems = (event) => {
         if (children[i].classList[2] == 'new-todo-item' || children[i].classList[2] == 'new-packing-item') { children[i].remove(); }
         if (children[i].style.display = 'none') { children[i].style.display = 'flex;'; }
         let classes = children[i].classList;
-        let iterator = classes.entries();
-        console.log(classes)
-        for (let value of iterator) { if (value[i] === 'modified') { children[i].classList.toggle('packed'); } }
-        // we remove 'modified' on save so if a toggle is chagned + discarded after save it can't be targeted
+        classes.forEach(
+            function (value) {
+                if (value.includes('modified')) { children[i].classList.toggle('packed'); }
+            }
+        )
     }
 };
 
