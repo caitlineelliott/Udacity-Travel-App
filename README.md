@@ -1,5 +1,11 @@
-### NextTrek Travel App
+## NextTrek Travel App
 An app that uses user data and multiple APIs to help users plan trips.
+
+## Deployment Instructions
+* Download the git repository
+* Compile the app with 'npm run prod' in the terminal
+* Start the server with 'npm run start'
+* The app is hosted on localhost:3000
 
 ## Languages
 * HTML
